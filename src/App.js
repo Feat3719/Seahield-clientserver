@@ -3,7 +3,7 @@ import "./App.css";
 import Homepage from "./Homepage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Sidenav from "./sidenav/Sidenav";
-import Board from "./board/Board";
+import BoardList from "./board/BoardList";
 
 function App() {
     const main = <Sidenav />;
@@ -14,7 +14,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Homepage />} />
-                    <Route path="/board" element={<Board />} />
+                    <Route path="/boardlist" element={<BoardList />} />
                 </Routes>
             </BrowserRouter>
         </div>
