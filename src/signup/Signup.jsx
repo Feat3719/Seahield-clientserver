@@ -23,9 +23,14 @@ function Signup() {
     const [isSmsSend, setIsSmsSend] = useState(false); //인증번호 발송
     const [timer, setTimer] = useState(null); // 타이머 상태 추가
 
-    // 각 입력 필드가 한 번이라도 클릭되었는지 여부를 추적하는 상태 변수 추가
+    // 각 입력 필드가 포커스를 잃었는지 여부를 추적하는 상태 변수 추가
     const [useridTouched, setUseridTouched] = useState(false);
     const [usernameTouched, setUsernameTouched] = useState(false);
+    const [passwordTouched, setPasswordTouched] = useState(false);
+    const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
+    const [emailTouched, setEmailTouched] = useState(false);
+    const [phoneTouched, setPhoneTouched] = useState(false);
+    const [detailAddressTouched, setDetailAddressTouched] = useState(false);
 
     //빈칸 검증
     const [isUserIdValid, setIsUserIdValid] = useState(false);
@@ -33,6 +38,7 @@ function Signup() {
     const [isPasswordValid, setIsPasswordValid] = useState(false);
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [isPhoneValid, setIsPhoneValid] = useState(false);
+    const [isConfirmPasswordValid, setisConfirmPasswordValid] = useState(false);
 
     // URL에서 쿼리 파라미터 파싱
     const queryParams = new URLSearchParams(location.search);
@@ -46,6 +52,37 @@ function Signup() {
     const handleUsernameBlur = () => {
         setUsernameTouched(true);
     };
+
+    const handlePasswordBlur = () => {
+        setPasswordTouched(true);
+    };
+
+    const handleConfirmPasswordBlur = () => {
+        setConfirmPasswordTouched(true);
+    };
+
+    const handleEmailBlur = () => {
+        setEmailTouched(true);
+    };
+
+    const handlePhoneBlur = () => {
+        setPhoneTouched(true);
+    };
+
+    const handleDetailAddressBlur = () => {
+        setDetailAddressTouched(true);
+    };
+
+    // 각 입력 필드의 유효성 검증 로직
+    useEffect(() => {
+        setIsUserIdValid(userid.trim() !== '');
+        setIsUsernameValid(username.trim() !== '');
+        setIsPasswordValid(password.trim() !== '');
+        setIsEmailValid(email.trim() !== '');
+        setIsPhoneValid(phone.trim() !== '');
+        // 상세주소는 선택적 필드일 수 있습니다. 필수인 경우 아래 로직 추가
+        // setIsDetailAddressValid(detailAddress.trim() !== '');
+    }, [userid, username, password, email, phone, detailAddress]);
 
     // 인증번호 입력값과 인증 상태를 관리하는 상태 변수 추가
     const [verificationCode, setVerificationCode] = useState('');
@@ -112,7 +149,6 @@ function Signup() {
     };
 
 
-
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
@@ -130,10 +166,6 @@ function Signup() {
         setIsSmsSend(true);
         setTimer(180); // 타이머를 180초(3분)으로 설정
     }
-
-
-
-
 
 
     useEffect(() => {
@@ -170,7 +202,7 @@ function Signup() {
                 transition={{ duration: 0.6, delay: 0.2 }}
             >
                 <h1 className={style.signup_title}>
-                    회원가입
+                    {isBusinessUser ? '사업자 회원가입' : '일반 회원가입'}
                 </h1>
 
                 <form className={style.signup_form} onSubmit={handleSignup}>
@@ -188,10 +220,21 @@ function Signup() {
                         {!isUserIdValid && useridTouched && <div className={style.error_message}>값을 입력해주세요</div>}
                     </div>
 
+
                     <div className={style.input_wrapper}>
                         <label className={style.input_label}>이름</label>
-                        <input type="text" placeholder="이름" value={username} onChange={(e) => setUsername(e.target.value)} className={style.signup_input} />
-                        {!isUsernameValid && <div className={style.error_message}>값을 입력해주세요</div>}
+                        <input
+                            type="text"
+                            placeholder="이름"
+                            value={username}
+                            onChange={(e) => {
+                                setUsername(e.target.value);
+                                setIsUsernameValid(e.target.value.trim() !== '');
+                            }}
+                            onBlur={handleUsernameBlur}
+                            className={style.signup_input}
+                        />
+                        {!isUsernameValid && usernameTouched && <div className={style.error_message}>값을 입력해주세요</div>}
                     </div>
 
                     <div className={style.input_wrapper}>
@@ -201,7 +244,11 @@ function Signup() {
                                 type={passwordVisible ? "text" : "password"}
                                 placeholder="비밀번호"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                    setIsPasswordValid(e.target.value.trim() !== '');
+                                }}
+                                onBlur={handlePasswordBlur}
                                 className={style.signup_input}
                             />
                             <img
@@ -211,6 +258,7 @@ function Signup() {
                                 alt="Toggle password visibility"
                             />
                         </div>
+                        {!isPasswordValid && passwordTouched && <div className={style.error_message}>값을 입력해주세요</div>}
                     </div>
 
                     <div className={style.input_wrapper}>
@@ -221,42 +269,43 @@ function Signup() {
                                 placeholder="비밀번호 확인"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
+                                onBlur={handleConfirmPasswordBlur}
                                 className={style.signup_input}
                             />
-                            <img
-                                src={confirmPasswordVisible ? `${process.env.PUBLIC_URL}/img/eye1.svg` : `${process.env.PUBLIC_URL}/img/eye2.svg`}
-                                className={style.eye_icon}
-                                onClick={toggleConfirmPasswordVisibility}
-                                alt="Toggle confirm password visibility"
-                            />
+                            {!isConfirmPasswordValid && confirmPasswordTouched && <div className={style.error_message}>값을 입력해주세요</div>}
                         </div>
                     </div>
 
-                    <div className={style.email_wrapper}>
-                        <div className={style.email_put}>
-                            <label className={style.input_label}>이메일</label>
-                            <input type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} className={style.signup_input} />
-                        </div>
-                        <p className={style.email_how}>이메일은 아이디, 비밀번호 찾기에 활용됩니다. 실제 사용하는 이메일을 입력해주세요.</p>
+                    <div className={style.input_wrapper}>
+                        <label className={style.input_label}>이메일</label>
+                        <input
+                            type="email"
+                            placeholder="이메일"
+                            value={email}
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                                setIsEmailValid(e.target.value.trim() !== '');
+                            }}
+                            onBlur={handleEmailBlur}
+                            className={style.signup_input}
+                        />
+                        {!isEmailValid && emailTouched && <div className={style.error_message}>값을 입력해주세요</div>}
                     </div>
 
-                    <div className={style.input_with_button_wrapper}>
-                        <div className={style.sms_wrapper}>
-                            <label className={style.input_label}>연락처</label>
-                            <div className={style.sms_button}>
-                                <div className={style.sms_send}>
-                                    <input type="text" placeholder="연락처" value={phone} onChange={(e) => setPhone(e.target.value)} className={style.signup_input} />
-                                    <button type="button" onClick={smsAuthBtn} className={style.send_code_button}>인증번호발송</button>
-                                </div>
-                                {isSmsSend && (
-                                    <div className={style.sms_verification}>
-                                        <input className={style.sms_input} placeholder="인증번호를 입력하세요." value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} />
-                                        <span className={style.timer}>{timer != null ? formatTimer() : ''}</span> {/* 타이머 표시 */}
-                                        <button type="button" onClick={handleVerificationSubmit} className={style.submit_code_button}>제출</button>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                    <div className={style.input_wrapper}>
+                        <label className={style.input_label}>연락처</label>
+                        <input
+                            type="text"
+                            placeholder="연락처"
+                            value={phone}
+                            onChange={(e) => {
+                                setPhone(e.target.value);
+                                setIsPhoneValid(e.target.value.trim() !== '');
+                            }}
+                            onBlur={handlePhoneBlur}
+                            className={style.signup_input}
+                        />
+                        {!isPhoneValid && phoneTouched && <div className={style.error_message}>값을 입력해주세요</div>}
                     </div>
 
 
