@@ -8,11 +8,11 @@ const Posts = ({ posts, loading }) => {
 
             {posts.map((post) => (
                 <tr key={post.id}>
-                    <td className={style.td}>{post.id}</td>
+                    <td className={style.article_no}>{post.id}</td>
                     <td>
                         <a href="">{post.title}</a>
                     </td>
-                    <td>{post.userId}</td>
+                    <td className={style.article_user}>{post.userId}</td>
                 </tr>
             ))}
         </>

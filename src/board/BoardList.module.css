@@ -3,88 +3,70 @@ body {
     background: #ffffff;
 }
 
-.middle_section {
-    background: #000000;
+div {
+    border: 1px solid #222;
+}
+
+#container {
+    border: none;
+    width: 70%;
+    height: auto;
+    margin: 50px auto;
+}
+
+#title_box {
+    width: 100%;
+    height: 40px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+#table_box {
+    width: 100%;
+    height: auto;
+}
+
+#button_box {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+}
+
+#pagination_box {
+    width: 100%;
+    height: auto;
 }
 
 .title {
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    width: 100%;
-    height: 20px;
-    font-size: 1em;
-    color: #fff;
-    background: #454545;
-    padding: 10px;
-}
-
-.table_padding {
-    background: #454545;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 20px;
+    border-color: rgb(255, 0, 0);
 }
 
 .table {
-    border: 1px #000000 solid;
-    font-size: 0.9em;
-    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25); */
     width: 100%;
-    border-collapse: collapse;
-    /* border-radius: 5px; */
-    overflow: hidden;
+    /* margin: 0 20px; */
 }
 
-.th {
-    text-align: left;
+.article_no {
+    width: 10%;
+    text-align: center;
 }
 
-.thead {
-    font-weight: bold;
-    color: #fff;
-    /* background: #73685d; */
+.article_title {
+    width: 75%;
+    text-align: center;
 }
 
-@media all and (max-width: 768px) {
-    table,
-    thead,
-    tbody,
-    th,
-    td,
-    tr {
-        display: block;
-    }
+.article_user {
+    width: 15%;
+    text-align: center;
+}
 
-    th {
-        text-align: right;
-    }
-
-    table {
-        position: relative;
-        padding-bottom: 0;
-        border: none;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    thead {
-        float: left;
-        white-space: nowrap;
-    }
-
-    tbody {
-        overflow-x: auto;
-        overflow-y: hidden;
-        position: relative;
-        white-space: nowrap;
-    }
-
-    tr {
-        display: inline-block;
-        vertical-align: top;
-    }
-
-    th {
-        border-bottom: 1px solid #a39485;
-    }
-
-    td {
-        border-bottom: 1px solid #e5e5e5;
-    }
+.button {
+    height: 30px;
+    line-height: 30px;
+    margin: 0 20px;
 }

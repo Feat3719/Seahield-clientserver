@@ -1,0 +1,65 @@
+#container {
+    border: none;
+    width: 70%;
+    height: auto;
+    margin: 50px auto;
+}
+
+#head {
+    width: 100%;
+}
+
+#content {
+    width: 100%;
+}
+
+#footer {
+    width: 100%;
+}
+
+/* #head_1 {
+    width: 100%;
+}
+
+#head_2 {
+    width: 100%;
+} */
+
+.number {
+    width: 10%;
+    text-align: center;
+}
+
+.title {
+    width: 75%;
+    text-align: center;
+}
+
+.writer {
+    width: 15%;
+    text-align: center;
+}
+
+/* #category {
+    float: left;
+}
+
+#reads {
+    float: right;
+} */
+
+.category {
+    width: 25%;
+}
+
+.category_blank {
+    width: 25%;
+}
+
+.reads {
+    width: 25%;
+}
+
+.reads_blank {
+    width: 25%;
+}

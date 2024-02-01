@@ -4,7 +4,7 @@ import axios from "axios";
 import Posts from "./Posts";
 import Pagination from "./Pagination";
 
-function Board() {
+function BoardList() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
@@ -33,34 +33,39 @@ function Board() {
     };
 
     return (
-        <div className={style.middle_section}>
-            <div className={style.table_padging}>
-                <div className="list">
-                    <div className={style.title}>게시판 목록</div>
-                    <table className={style.table}>
-                        <thead className={style.thead}>
-                            <tr>
-                                <th>No.</th>
-                                <th>제목</th>
-                                <th>업체ID</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <Posts
-                                posts={currentPosts(posts)}
-                                loading={loading}
-                            ></Posts>
-                        </tbody>
-                    </table>
-                    <Pagination
-                        postsPerPage={postsPerPage}
-                        totalPosts={posts.length}
-                        paginate={setCurrentPage}
-                    ></Pagination>
-                </div>
+        <div id={style.container}>
+            <div id={style.title_box}>
+                <div className={style.title}>게시판</div>
+            </div>
+            <div id={style.table_box}>
+                <table className={style.table}>
+                    <thead>
+                        <tr>
+                            <td className={style.article_no}>번호</td>
+                            <td className={style.article_title}>제목</td>
+                            <td className={style.article_user}>작성자</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <Posts
+                            posts={currentPosts(posts)}
+                            loading={loading}
+                        ></Posts>
+                    </tbody>
+                </table>
+            </div>
+            <div id={style.button_box}>
+                <button className={style.button}>글쓰기</button>
+            </div>
+            <div id={style.pagination_box}>
+                <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={posts.length}
+                    paginate={setCurrentPage}
+                ></Pagination>
             </div>
         </div>
     );
 }
 
-export default Board;
+export default BoardList;
