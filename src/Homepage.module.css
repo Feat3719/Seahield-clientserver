@@ -1,6 +1,5 @@
-body {
-    background: #CCC;
-    overflow-x: hidden;
-    width: 100vw;
+.homepage {
+    background-color: #CCC;
+    width: 100%;
     height: 100vh;
 }
