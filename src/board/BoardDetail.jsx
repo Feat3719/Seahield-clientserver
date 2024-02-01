@@ -8,28 +8,36 @@ function BoardDetail() {
                 <table>
                     <thead>
                         <tr>
-                            <td className={style.number}>번호</td>
-                            <td className={style.title}>제목</td>
-                            <td className={style.writer}>작성자</td>
+                            <th className={style.number}>번호</th>
+                            <th className={style.title}>제목</th>
+                            <th colSpan={2} className={style.writer}>
+                                작성자
+                            </th>
+                            <th></th>
                         </tr>
                         <tr>
-                            <td className={style.category}>분류</td>
+                            <th className={style.category}>분류</th>
                             <td className={style.category_blank}></td>
-                            <td className={style.reads}>조회수</td>
+                            <th className={style.reads}>조회수</th>
                             <td className={style.reads_blank}></td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>내용</td>
+                            <td colSpan={4}>내용</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </tbody>
-                    <thead>
+                    <tfoot>
                         <tr>
-                            <td>작성일</td>
-                            <td>수정일</td>
+                            <th>작성일</th>
+                            <td></td>
+                            <th>수정일</th>
+                            <td></td>
                         </tr>
-                    </thead>
+                    </tfoot>
                 </table>
                 {/* <div id={style.head}>
                     <div id={style.head_1}>

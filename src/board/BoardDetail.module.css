@@ -24,6 +24,9 @@
 #head_2 {
     width: 100%;
 } */
+table {
+    border: 1px #000;
+}
 
 .number {
     width: 10%;
