@@ -1,0 +1,34 @@
+#pagination_box {
+}
+
+.page_ul {
+    list-style: none;
+    text-align: center;
+    border: none;
+}
+
+.page_li {
+    display: inline-block;
+    border: none;
+
+    width: 25px;
+    &:hover {
+        cursor: pointer;
+        color: white;
+        background-color: #263a6c;
+    }
+    &:focus::after {
+        color: white;
+        background-color: #263a6c;
+    }
+}
+
+.page_span {
+    border: none;
+    &:hover::after,
+    &:focus::after {
+        border-radius: 100%;
+        color: white;
+        background-color: #263a6c;
+    }
+}

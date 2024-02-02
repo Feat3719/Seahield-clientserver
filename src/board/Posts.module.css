@@ -1,0 +1,28 @@
+td,
+th {
+    padding: 1em 0.5em;
+    vertical-align: middle;
+}
+
+td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: #ffffff;
+}
+
+a {
+    text-decoration-line: none;
+    color: black;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: gray;
+}
+
+.article_no {
+    text-align: center;
+}
+
+.article_user {
+    text-align: center;
+}
