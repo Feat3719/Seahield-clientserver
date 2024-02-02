@@ -52,6 +52,7 @@
     width: 15vw;
     height: 32vh;
     border-radius: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .select_area1:hover,
@@ -74,6 +75,7 @@
 .select_1 {
     font-size: 3vh;
     font-weight: bold;
+    margin: 1vh;
 }
 
 .select_2 {

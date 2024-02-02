@@ -46,6 +46,16 @@ function Sidenav() {
                                 <i className='bx bxs-info-circle'></i>
                             </span>
                             <span className={style.itemTxt}>
+                                해양쓰레기 지도
+                            </span>
+                        </Link>
+                    </li>
+                    <li className={style.sidebarItem}>
+                        <Link to="/" className={style.navLink}>
+                            <span className={style.itemIcon}>
+                                <i className='bx bxs-info-circle'></i>
+                            </span>
+                            <span className={style.itemTxt}>
                                 수거계약신청
                             </span>
                         </Link>
