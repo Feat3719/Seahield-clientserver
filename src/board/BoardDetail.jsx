@@ -36,7 +36,7 @@ function BoardDetail() {
     return (
         <div id={style.container}>
             <div id={style.detail_box}>
-                <table>
+                <table className={style.table}>
                     <thead>
                         <tr>
                             <th className={style.number}>{post.qnaBoardId}</th>

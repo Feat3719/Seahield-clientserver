@@ -11,13 +11,13 @@
     text-align: right;
 }
 
-table {
+.table {
     border: 1px solid #000;
     width: 100%;
     border-collapse: collapse;
 }
 
-td,
+.table td,
 th {
     border: 1px solid #000;
 }
