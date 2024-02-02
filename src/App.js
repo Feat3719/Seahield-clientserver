@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Homepage from './Homepage';
+import Homepage from './home/Homepage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Sidenav from './sidenav/Sidenav';
 
