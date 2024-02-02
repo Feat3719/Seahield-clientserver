@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 function IdFind() {
     const location = useLocation();
     const [activeTab, setActiveTab] = useState('idFind');
-    const [email, setEmail] = useState(''); // 이메일 상태
+    const [email, setEmail] = useState(''); // 이메일 상태 변화
     const [idFoundMessage, setIdFoundMessage] = useState(''); // 아이디 찾기 응답 메시지
     const [userId, setUserId] = useState(''); // 아이디 상태
     const [passwordChangeMessage, setPasswordChangeMessage] = useState(''); // 비밀번호 변경 응답 메시지
