@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import style from "./Posts.module.css";
 
 const Posts = ({ posts, loading }) => {
@@ -7,12 +8,16 @@ const Posts = ({ posts, loading }) => {
             {loading && <div> loading... </div>}
 
             {posts.map((post) => (
-                <tr key={post.id}>
-                    <td className={style.article_no}>{post.id}</td>
+                <tr key={post.qnaBoardId}>
+                    <td className={style.article_no}>{post.qnaBoardId}</td>
                     <td>
-                        <a href="">{post.title}</a>
+                        <Link to={`/boarddetail/${post.qnaBoardId}`}>
+                            {post.qnaBoardTitle}
+                        </Link>
                     </td>
-                    <td className={style.article_user}>{post.userId}</td>
+                    <td className={style.article_user}>
+                        {post.qnaBoardWriter}
+                    </td>
                 </tr>
             ))}
         </>

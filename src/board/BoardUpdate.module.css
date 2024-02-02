@@ -22,12 +22,8 @@ th {
     border: 1px solid #000;
 }
 
-.comment_button {
+.complete_button {
     margin: 0 20px 0 5px;
-}
-
-.update_button {
-    margin: 0 5px 0 0;
 }
 
 .number {

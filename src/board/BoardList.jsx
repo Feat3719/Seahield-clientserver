@@ -3,6 +3,7 @@ import style from "./BoardList.module.css";
 import axios from "axios";
 import Posts from "./Posts";
 import Pagination from "./Pagination";
+import { Link } from "react-router-dom";
 
 function BoardList() {
     const [posts, setPosts] = useState([]);
@@ -14,7 +15,7 @@ function BoardList() {
         const fetchData = async () => {
             setLoading(true);
             const response = await axios.get(
-                "https://jsonplaceholder.typicode.com/posts"
+                `/api/board/articles?page=${currentPage}`
             );
             setPosts(response.data);
             setLoading(false);
@@ -55,7 +56,9 @@ function BoardList() {
                 </table>
             </div>
             <div id={style.button_box}>
-                <button className={style.button}>글쓰기</button>
+                <Link to="/boardwrite">
+                    <button className={style.button}>글쓰기</button>
+                </Link>
             </div>
             <div id={style.pagination_box}>
                 <Pagination
