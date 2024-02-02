@@ -1,13 +1,19 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+    font-family: 'KoPubWorldDotum';
+    font-weight: 500;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.ttf') format("truetype");
+    font-display: swap;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+    font-family: 'KoPubWorldDotum';
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100vw;
 }

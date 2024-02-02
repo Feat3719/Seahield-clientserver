@@ -1,0 +1,191 @@
+.idfind {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: #4b4b4b;
+}
+
+
+.idfind_area {
+    height: 80vh;
+    width: 40vw;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgb(233, 233, 233);
+    margin-top: 15vh;
+    border-radius: 10px;
+}
+
+.signup_title {
+    font-size: 4vh;
+    margin: 3vh 0 5vh 0;
+}
+
+.tabs {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    justify-content: space-evenly;
+    margin: 10vh 0 5vh 0;
+    font-size: 2.5vh;
+}
+
+.tab_content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.tab1,
+.tab2 {
+    width: 60%;
+    color: white;
+    padding: 1vh 2vh;
+    border-radius: 10px;
+    background-color: #aeaeae;
+    transition: all 0.3s ease;
+    font-size: 2.5vh;
+}
+
+.tab1:hover,
+.tab2:hover {
+    background-color: #bfbfbf;
+}
+
+.active {
+    color: white !important;
+    /* Override color for active tab */
+    background-color: #3a3a3a !important;
+    /* Background color for active tab */
+    border-color: #3a3a3a !important;
+    /* Border color for active tab */
+}
+
+.idfind_inputarea {
+    width: 60%;
+}
+
+.idfind_inputarea1 {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 7vh;
+}
+
+.password_change_inputarea {
+    width: 60%;
+
+}
+
+.password_id {
+    width: 20%;
+    font-size: 2.2vh;
+}
+
+
+.password_change_inputarea2 {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2vh;
+    width: 100%;
+    align-items: center;
+}
+
+.password_change_inputarea3 {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 3vh;
+    width: 100%;
+    align-items: center;
+}
+
+.user_input {
+    flex-grow: 1;
+    text-align: left;
+    padding: 1.5vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    /* Space between input and button */
+    width: 95%;
+    font-size: 1.8vh;
+}
+
+.email_input {
+    flex-grow: 1;
+    text-align: left;
+    padding: 1.5vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    /* Space between input and button */
+    width: 95%;
+    font-size: 1.8vh;
+}
+
+.user_input2 {
+    flex-grow: 1;
+    text-align: left;
+    padding: 1.5vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    /* Space between input and button */
+    width: 80%;
+    height: 10%;
+    font-size: 1.8vh;
+}
+
+.email_input2 {
+    flex-grow: 1;
+    text-align: left;
+    padding: 1.5vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    /* Space between input and button */
+    width: 80%;
+    height: 10%;
+    font-size: 1.8vh;
+}
+
+.find_id_button {
+    width: 40%;
+    color: white;
+    padding: 1vh 2vh;
+    border-radius: 3px;
+    background-color: #3a3a3a;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 1.8vh;
+}
+
+.find_id_button:hover {
+    background-color: #bfbfbf;
+}
+
+.change_password_button {
+    width: 35%;
+    height: 6vh;
+    color: white;
+    padding: 1vh 2vh;
+    border-radius: 10px;
+    background-color: #3a3a3a;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 1.8vh;
+    margin: 1.5vh 0 2vh 0;
+}
+
+.change_password_button:hover {
+    background-color: #bfbfbf;
+}
