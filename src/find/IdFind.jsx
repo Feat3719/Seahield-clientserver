@@ -33,6 +33,21 @@ function IdFind() {
                 }
             });
             setIdFoundMessage('이메일로 아이디를 전송하였습니다.' || 'ID Found Done');
+
+            // Swal alert 창 설정
+            Swal.fire({
+                title: '이메일 전송 완료',
+                text: '아이디를 이메일로 전송했습니다.',
+                icon: 'success',
+                confirmButtonText: '로그인하러 가기',
+                confirmButtonColor: '#8ce650b2',
+            }).then((result) => {
+                // '로그인하러 가기' 버튼 클릭 시 /signin으로 리다이렉트
+                if (result.isConfirmed) {
+                    window.location.href = '/signin';
+                }
+            });
+
         } catch (error) {
             console.error('아이디 찾기 실패:', error);
             setIdFoundMessage(error.response?.data?.message || '아이디 찾기를 실패했습니다.');
