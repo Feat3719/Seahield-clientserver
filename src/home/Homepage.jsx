@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Weather from "./Weather";
 import style from './Homepage.module.css';
 import RedDot from "./RedDot";
+import Sidenav from "../sidenav/Sidenav";
 // import GoogleMap from './GoogleMap';
 // import Kakao from './kakao';
 // const {kakao} = window;
@@ -139,6 +140,9 @@ function Homepage() {
 
     return (
         <div className={style.home_box}>
+                        <div className={style.login_nav}>
+                <Sidenav />
+            </div>
             <div className={style.home_box_2}>
                 <div className={style.sub_1}>
 

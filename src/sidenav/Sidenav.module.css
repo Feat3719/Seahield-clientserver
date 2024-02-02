@@ -10,6 +10,7 @@
     /* padding에도 transition 적용 */
     position: fixed;
     right: -2.5rem;
+    z-index: 1000;
 }
 
 .sidebarList {

@@ -1,20 +1,22 @@
 import './App.css';
-import Homepage from './Homepage';
+import Homepage from './home/Homepage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignupVer from './signupVer/SignupVer';
 import Signup from './signup/Signup';
 import Signin from './signin/Signin';
 import axios from 'axios';
 import IdFind from './find/IdFind';
+// import Sidenav from './sidenav/Sidenav';
+
 
 axios.defaults.baseURL = "http://devfeat.com"
 
 function App() {
 
-  const main = <Sidenav/>;
+  // const main = <Sidenav/>;
   return (
-    <div>
-      <Sidenav/>
+    <>
+      {/* <Sidenav/> */}
 
       <BrowserRouter>
         <Routes>
@@ -29,7 +31,7 @@ function App() {
 
 
 
-    </div>
+    </>
   );
 }
 
