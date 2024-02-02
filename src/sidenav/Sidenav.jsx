@@ -61,12 +61,12 @@ function Sidenav() {
                         </Link>
                     </li>
                     <li className={style.sidebarItem}>
-                        <Link to="/" className={style.navLink}>
+                        <Link to="/boardlist" className={style.navLink}>
                             <span className={style.itemIcon}>
                                 <i className='bx bx-task'></i>
                             </span>
                             <span className={style.itemTxt}>
-                                Q&A
+                                Board
                             </span>
                         </Link>
                     </li>
