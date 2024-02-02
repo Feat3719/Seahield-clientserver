@@ -30,9 +30,8 @@ const iconMappings = {
 
 function Homepage() {
     const data = [
-        ['1', '인천시', '을왕리해수욕장'],
-        ['2', '포항시', '구룡포앞바다'],
-        ['3', '부산시', '해운대해수욕장']
+        ['1', '포항시', '구룡포앞바다'],
+        ['2', '울산시', '울주진하해변']
     ]
     const handleClick = (value) => {
         alert(`Clicked: ${value}`);
