@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './DaumPost.module.css';
 import { useDaumPostcodePopup } from 'react-daum-postcode'; // Daum 주소 검색 관련 hook
+//주소 api
 
 const DaumPost = ({ setAddress }) => {
     const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
