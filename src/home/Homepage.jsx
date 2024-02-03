@@ -10,7 +10,7 @@ import Sidenav from "../sidenav/Sidenav";
 // const {kakao} = window;
 
 
-const images = ['cctv-icon-1.png', 'cctv-icon-2.png','cctv-icon-3.png'];
+const images = ['cctv-icon-1.png', 'cctv-icon-2.png', 'cctv-icon-3.png'];
 // const videos = ['video1.mp4', 'video2.mp4'];
 const iconMappings = {
     'cctv-icon-1.png': {
@@ -140,7 +140,7 @@ function Homepage() {
 
     return (
         <div className={style.home_box}>
-                        <div className={style.login_nav}>
+            <div className={style.login_nav}>
                 <Sidenav />
             </div>
             <div className={style.home_box_2}>
@@ -160,53 +160,53 @@ function Homepage() {
                             )} */}
 
                         </div>
-                        <div className={style.modal_video}> 
-                        {isModalOpen && (
-                            <div className={style.modal}>
-                                
-                                {selectedImage === 'cctv-icon-1.png' && (
+                        <div className={style.modal_video}>
+                            {isModalOpen && (
+                                <div className={style.modal}>
 
-                                    // <img src={process.env.PUBLIC_URL + '/images/img2.jpg'} alt="Modal img2.jpg" 
-                                    //     style={{ width: '110%', height: '200%', position: 'relative', top: '-22%'}}
-                                    // />
-                                    <video width="100%" height="250%" controls autoPlay muted>
-                                        <source src={process.env.PUBLIC_URL + '/videos/sea.mp4'} type="video/mp4"
-                                            style={{ width: '110%', height: '200%', position: 'relative' }}
-                                        />
-                                    </video>
+                                    {selectedImage === 'cctv-icon-1.png' && (
 
-                                )}
-
-                                {selectedImage === 'cctv-icon-2.png' && (
-                                    <div>
-                                        <video width="100%" height="100%" controls autoPlay muted>
-                                            <source src={process.env.PUBLIC_URL + '/videos/river.mp4'} type="video/mp4"
-                                                style={{ width: '110%', height: '200%', position: 'relative', top: '-22%' }}
+                                        // <img src={process.env.PUBLIC_URL + '/images/img2.jpg'} alt="Modal img2.jpg" 
+                                        //     style={{ width: '110%', height: '200%', position: 'relative', top: '-22%'}}
+                                        // />
+                                        <video width="100%" height="250%" controls autoPlay muted>
+                                            <source src={process.env.PUBLIC_URL + '/videos/sea.mp4'} type="video/mp4"
+                                                style={{ width: '110%', height: '200%', position: 'relative' }}
                                             />
-                                            Your browser does not support the video tag.
                                         </video>
-                                    </div>
-                                )}
-                                {selectedImage === 'cctv-icon-3.png' && (
-                                    <div>
-                                        <video width="100%" height="100%" controls autoPlay muted>
-                                            <source src={process.env.PUBLIC_URL + '/videos/river.mp4'} type="video/mp4"
-                                                style={{ width: '110%', height: '200%', position: 'relative', top: '-22%' }}
-                                            />
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    </div>
-                                )}
-                                <button onClick={handleCloseModal}>Close Modal</button>
-                            </div>
-                        )}</div>
+
+                                    )}
+
+                                    {selectedImage === 'cctv-icon-2.png' && (
+                                        <div>
+                                            <video width="100%" height="100%" controls autoPlay muted>
+                                                <source src={process.env.PUBLIC_URL + '/videos/river.mp4'} type="video/mp4"
+                                                    style={{ width: '110%', height: '200%', position: 'relative', top: '-22%' }}
+                                                />
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
+                                    )}
+                                    {selectedImage === 'cctv-icon-3.png' && (
+                                        <div>
+                                            <video width="100%" height="100%" controls autoPlay muted>
+                                                <source src={process.env.PUBLIC_URL + '/videos/river.mp4'} type="video/mp4"
+                                                    style={{ width: '110%', height: '200%', position: 'relative', top: '-22%' }}
+                                                />
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
+                                    )}
+                                    <button onClick={handleCloseModal}>Close Modal</button>
+                                </div>
+                            )}</div>
 
 
                     </div>
 
                     <div className={style.sub_1_2}>
                         <div className={style.sub_1_2_title}>메인_서브_1_2</div>
-                        <table border="1" cellspacing="0" className={style.sub_1_table}>
+                        <table border="1" cellSpacing="0" className={style.sub_1_table}>
 
                             <thead>
                                 <tr>
@@ -264,8 +264,8 @@ function Homepage() {
                     </div>
 
                     <div className={style.sub_2_2}>서브 2_2
-                    <RedDot x={60} y={87} id="redDot1"/>
-                    <RedDot x={47} y={83.5} id="redDot2" />
+                        <RedDot x={60} y={87} id="redDot1" />
+                        <RedDot x={47} y={83.5} id="redDot2" />
                         <div id="map" className={style.map}></div>
 
                     </div>
@@ -278,7 +278,7 @@ function Homepage() {
                             <h2>포항 날씨 정보</h2>
                             {/* Weather 컴포넌트에서 받아온 포항 풍속 정보 표시 함수 */}
                             <Weather
-                            
+
                                 onPohangWindSpeedData={(item) => (
                                     <div>
                                         <p>풍속: {item.fcstValue} m/s</p>
@@ -299,8 +299,8 @@ function Homepage() {
 
                                 )}
                                 onUlsanWindSpeedData={() => { }}
-                                onUlsanTMXData={() =>{}}
-                                onUlsanTMNData={() => {}}
+                                onUlsanTMXData={() => { }}
+                                onUlsanTMNData={() => { }}
                             />
                         </div>
                     )}
@@ -310,8 +310,8 @@ function Homepage() {
                             {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
                             <Weather
                                 onPohangWindSpeedData={() => { }}
-                                onPohangTMXData={() => {}}
-                                onPohangTMNData={() => {}}
+                                onPohangTMXData={() => { }}
+                                onPohangTMNData={() => { }}
 
                                 onUlsanWindSpeedData={(item) => (
                                     <div>
@@ -319,7 +319,7 @@ function Homepage() {
                                         {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
                                     </div>
                                 )}
-                                onUlsanTMXData={(item) =>(
+                                onUlsanTMXData={(item) => (
                                     <div>
                                         <p> 최고 기온 : {item.fcstValue} ℃</p>
                                         {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
