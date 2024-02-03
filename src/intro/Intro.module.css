@@ -1,0 +1,101 @@
+.intro {
+    position: relative;
+    /* 상대 위치 설정 */
+    width: 100vw;
+    /* 뷰포트 너비 */
+    height: 100vh;
+    /* 뷰포트 높이 */
+    overflow: hidden;
+    /* 비디오가 컨테이너 밖으로 나가지 않도록 설정 */
+    --x: 50%;
+    /* 기본 X 위치 */
+    --y: 50%;
+    /* 기본 Y 위치 */
+}
+
+.canvasBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    /* 캔버스를 비디오 위에 표시 */
+}
+
+.videoBg {
+    position: absolute;
+    /* 절대 위치 설정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* 부모 요소에 맞춰서 너비 설정 */
+    height: 100%;
+    /* 부모 요소에 맞춰서 높이 설정 */
+    object-fit: cover;
+    /* 비디오가 비율을 유지하면서 컨테이너를 완전히 채우도록 설정 */
+    z-index: -1;
+    /* 비디오가 다른 요소들 뒤에 위치하도록 설정 */
+    mask-image: radial-gradient(circle at var(--x) var(--y), transparent, black 150px);
+    -webkit-mask-image: radial-gradient(circle at var(--x) var(--y), transparent, black 150px);
+    transition: mask-position 0.5s, -webkit-mask-position 0.5s;
+}
+
+.videoBg2 {
+    position: absolute;
+    /* 절대 위치 설정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* 부모 요소에 맞춰서 너비 설정 */
+    height: 100%;
+    /* 부모 요소에 맞춰서 높이 설정 */
+    object-fit: cover;
+    /* 비디오가 비율을 유지하면서 컨테이너를 완전히 채우도록 설정 */
+    z-index: -2;
+    /* 비디오가 다른 요소들 뒤에 위치하도록 설정 */
+    mask-image: radial-gradient(circle at var(--x) var(--y), transparent, black 150px);
+    -webkit-mask-image: radial-gradient(circle at var(--x) var(--y), transparent, black 150px);
+    transition: mask-position 0.5s, -webkit-mask-position 0.5s;
+}
+
+.trashBg {
+    position: absolute;
+    top: 0;
+    /* 위치 조정 필요에 따라 변경 */
+    left: 0;
+    /* 위치 조정 필요에 따라 변경 */
+    width: 100%;
+    /* 필요에 따라 조정 */
+    height: 100%;
+    /* 필요에 따라 조정 */
+    z-index: -2;
+    /* 비디오 위에 오도록 설정, 필요에 따라 조정 */
+    object-fit: cover;
+    /* 이미지가 비율을 유지하면서 컨테이너를 채우도록 설정 */
+}
+
+/* 
+@keyframes disappearAndMove {
+    from {
+        opacity: 1;
+        transform: scale(1) translate(0px, 0px);
+    }
+    to {
+        opacity: 0;
+        transform: scale(1.5) translate(var(--translateX), var(--translateY));
+    }
+}
+
+.eye {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url('../../public/img/eye1.svg');
+    background-size: cover;
+    transition: opacity 0.5s ease-out;
+}
+
+.eye:hover {
+    animation: disappearAndMove 1s ease-out forwards;
+} */

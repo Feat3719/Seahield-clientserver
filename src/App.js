@@ -11,6 +11,7 @@ import BoardList from "./board/BoardList";
 import BoardDetail from "./board/BoardDetail";
 import BoardUpdate from "./board/BoardUpdate";
 import BoardWrite from "./board/BoardWrite";
+import Intro from './intro/Intro';
 
 axios.defaults.baseURL = "http://devfeat.com"
 
@@ -22,15 +23,16 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Homepage />} />
+          <Route path='/' element={<Intro />} />
+          <Route path='/map' element={<Homepage />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/signupver' element={<SignupVer />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/idfind' element={<IdFind />} />
           <Route path="/boardlist" element={<BoardList />} />
-                    <Route path="/boarddetail" element={<BoardDetail />} />
-                    <Route path="/boardupdate" element={<BoardUpdate />} />
-                    <Route path="/boardwrite" element={<BoardWrite />} />
+          <Route path="/boarddetail" element={<BoardDetail />} />
+          <Route path="/boardupdate" element={<BoardUpdate />} />
+          <Route path="/boardwrite" element={<BoardWrite />} />
         </Routes>
 
       </BrowserRouter>
@@ -39,7 +41,7 @@ function App() {
 
     </>
 
-    );
+  );
 }
 
 export default App;

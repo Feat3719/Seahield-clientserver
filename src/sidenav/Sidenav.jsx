@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Sidenav() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [buttonIcon, setButtonIcon] = useState(`${process.env.PUBLIC_URL}/img/menu1.svg`);
-    const sidebarWidth = isSidebarOpen ? '18rem' : '0px'; // Sidebar 너비 동적 조정
+    const sidebarWidth = isSidebarOpen ? '35vh' : '0px'; // Sidebar 너비 동적 조정
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -32,19 +32,13 @@ function Sidenav() {
                 <ul className={style.sidebarList}> {/* Sidebar가 닫혔을 때 내부 내용 숨김 */}
                     <li className={style.sidebarItem}>
                         <Link to="/" className={style.navLink}>
-                            <span className={style.itemIcon}>
-                                <i className='bx bxs-home'></i>
-                            </span>
                             <span className={style.itemTxt}>
                                 메인페이지
                             </span>
                         </Link>
                     </li>
                     <li className={style.sidebarItem}>
-                        <Link to="/" className={style.navLink}>
-                            <span className={style.itemIcon}>
-                                <i className='bx bxs-info-circle'></i>
-                            </span>
+                        <Link to="/map" className={style.navLink}>
                             <span className={style.itemTxt}>
                                 해양쓰레기 지도
                             </span>
@@ -52,9 +46,6 @@ function Sidenav() {
                     </li>
                     <li className={style.sidebarItem}>
                         <Link to="/" className={style.navLink}>
-                            <span className={style.itemIcon}>
-                                <i className='bx bxs-info-circle'></i>
-                            </span>
                             <span className={style.itemTxt}>
                                 수거계약신청
                             </span>
@@ -62,9 +53,6 @@ function Sidenav() {
                     </li>
                     <li className={style.sidebarItem}>
                         <Link to="/boardlist" className={style.navLink}>
-                            <span className={style.itemIcon}>
-                                <i className='bx bx-task'></i>
-                            </span>
                             <span className={style.itemTxt}>
                                 Board
                             </span>
@@ -72,9 +60,6 @@ function Sidenav() {
                     </li>
                     <li className={`${style.sidebarItem} ${style.sidebarContact}`}>
                         <Link to="/" className={style.navLink}>
-                            <span className={style.itemIcon}>
-                                <i className='bx bxs-contact'></i>
-                            </span>
                             <span className={style.itemTxt}>
                                 사용방법
                             </span>
@@ -82,9 +67,6 @@ function Sidenav() {
                     </li>
                     <li className={style.sidebarItem}>
                         <Link to="/signin" className={style.navLink}>
-                            <span className={style.itemIcon}>
-                                <i className='bx bxs-login'></i>
-                            </span>
                             <span className={style.itemTxt}>
                                 로그인
                             </span>
@@ -92,9 +74,6 @@ function Sidenav() {
                     </li>
                     <li className={style.sidebarItem}>
                         <Link to="/signupver" className={style.navLink}>
-                            <span className={style.itemIcon}>
-                                <i className='bx bxs-signin'></i>
-                            </span>
                             <span className={style.itemTxt}>
                                 회원가입
                             </span>
