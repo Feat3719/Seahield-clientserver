@@ -1,0 +1,10 @@
+.RedDot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 87.5%;
+    left: 35%;
+    background-color: red;
+    border-radius: 50%;
+    z-index: 5;
+  }
