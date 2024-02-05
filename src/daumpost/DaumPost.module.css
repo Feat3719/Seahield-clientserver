@@ -4,13 +4,13 @@
     background-color: #333;
     /* 버튼의 배경 색상 */
     border: none;
-    border-radius: 10px;
+    border-radius: 0.5vh;
     cursor: pointer;
     margin-left: 0.5vw;
     /* 입력 필드와 버튼 사이의 간격 */
     transition: background-color 0.3s;
     width: 5vw;
-    height: 5.5vh;
+    height: 4.2vh;
     font-size: 1.5vh;
 }
 

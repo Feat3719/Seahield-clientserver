@@ -1,0 +1,39 @@
+.businesswrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.signup_input {
+    flex-grow: 1;
+    width: 70%;
+    height: 1vh;
+    text-align: left;
+    padding: 1.5vh;
+    border: 0.3vh solid #ccc;
+    border-radius: 0.7vh;
+    outline: none;
+    transition: border-color 0.3s;
+    font-size: 1.5vh;
+}
+
+.check_id_button {
+    font-size: 1.2vh;
+    color: white;
+    background-color: #333;
+    /* 버튼의 배경 색상 */
+    border: none;
+    border-radius: 0.5vh;
+    cursor: pointer;
+    margin-left: 0.5vw;
+    /* 입력 필드와 버튼 사이의 간격 */
+    transition: background-color 0.3s;
+    width: 5vw;
+    height: 4.5vh;
+    font-size: 1.4vh;
+}
+
+.check_id_button:hover {
+    background-color: #5593ff;
+    /* 버튼 호버 색상 변경 */
+}

@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    background-color: #4b4b4b;
+    background-color: #000000e0;
 }
 
 
@@ -116,7 +116,7 @@
     }
 }
 
-@media all and (min-width:200px) and (max-width:479px) {
+@media all and (max-width:479px) {
     .signup_area {
         width: 80vw;
     }
@@ -127,6 +127,21 @@
 
     .select_area1,
     .select_area2 {
-        width: 30vw
+        width: 30vw;
+    }
+
+    .select_1 {
+        font-size: 3vh;
+    }
+
+    .select_2 {
+        font-size: 2vh;
+        margin: 0;
+    }
+
+
+    .user1,
+    .user2 {
+        margin-top: 1vh;
     }
 }

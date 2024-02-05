@@ -1,6 +1,6 @@
 .sidebar {
     height: 100%;
-    background-color: #000000a9;
+    background-color: #000000;
     padding: 1vw;
     box-sizing: border-box;
     color: #fff;
@@ -9,8 +9,9 @@
     transition: width .75s ease, padding .75s ease;
     /* padding에도 transition 적용 */
     position: fixed;
-    right: -2.5rem;
+    right: -5vh;
     z-index: 1000;
+    box-shadow: 0 0 2vh #727272;
 }
 
 .sidebarList {
@@ -19,19 +20,20 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    row-gap: 1rem;
 }
 
 .sidebarContact {
-    margin-bottom: 6rem;
+    margin-bottom: 10vh;
 }
 
 .sidebarItem {
-    padding: 10px 10px;
-    border-bottom: 1px solid #ffffff46;
+    border-bottom: 0.3vh solid #ffffff46;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 1rem;
+    margin-top: 1.5vh;
+    height: 7vh;
+    display: flex;
+    align-items: center;
 }
 
 .sidebarItem:hover {
@@ -42,8 +44,6 @@
     display: inline-flex;
     align-items: center;
     /* Align items vertically */
-    column-gap: 1rem;
-    /* Space between icon and text */
     text-decoration: none;
     color: rgb(255, 255, 255);
     white-space: nowrap;
@@ -52,22 +52,20 @@
     /* Prevent overflow */
     text-overflow: ellipsis;
     /* Add ellipsis to overflowing text */
-    min-width: 150px;
+    min-width: 15vw;
     /* Set a minimum width */
+    height: 100%;
+    padding: 2vh 0 2vh 0;
+    margin: 0 0 0 2vh;
 }
 
 .itemTxt {
-    font-size: 1.2rem;
+    font-size: 2.2vh;
 }
 
 .navLink:hover {
     color: #49a8f7;
     /* Hover 시 글자 색상을 빨간색으로 변경 */
-}
-
-.attribute {
-    position: absolute;
-    bottom: 10px;
 }
 
 .toggleButton {
@@ -77,10 +75,10 @@
     /* 상단에서의 위치 */
     border: none;
     /* 테두리 없음 */
-    border-radius: 5px;
+    border-radius: 2vh;
     /* 둥근 모서리 */
-    background-color: #4b4b4b;
-    padding: 10px;
+    background-color: #000000;
+    padding: 0 0.5vh 0 0.5vh;
     /* 내부 여백 */
     cursor: pointer;
     /* 마우스 커서 스타일 */
@@ -90,8 +88,14 @@
 }
 
 .sea1 {
-    width: 3rem;
-    height: 3rem;
+    width: 7vh;
+    height: 7vh;
+}
+
+.logo {
+    width: 10vh;
+    height: 8vh;
+    margin: 5vh 0 0 0;
 }
 
 @media all and (min-width:1024px) and (max-width:1279px) {}
