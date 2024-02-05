@@ -11,7 +11,7 @@ import IdFind from './find/IdFind';
 import BoardDetail from "./board/BoardDetail";
 import BoardUpdate from "./board/BoardUpdate";
 import BoardWrite from "./board/BoardWrite";
-import Mypage from './mypage/Mypage.jsx';
+// import Mypage from './mypage/Mypage.jsx';
 import Intro from './intro/Intro';
 import { AnimatePresence } from 'framer-motion';
 
@@ -47,7 +47,7 @@ function AppContent() {
         <Route path="/boarddetail/:id" element={<BoardDetail />} />
         <Route path="/boardupdate/:id" element={<BoardUpdate />} />
         <Route path="/boardwrite" element={<BoardWrite />} />
-        <Route path="/mypage" element={<Mypage />} />
+        {/* <Route path="/mypage" element={<Mypage />} /> */}
       </Routes>
     </AnimatePresence>
   );
