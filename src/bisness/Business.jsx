@@ -64,7 +64,7 @@ function Business({ setCompanyRegistrationNum, setIsCompanyRegistrationNumVerifi
                 onChange={handleBusinessNumberChange}
                 className={style.signup_input}
             />
-            <button type="button" onClick={handleBusinessNumberVerification} className={style.check_id_button}>사업자인증</button>
+            <div onClick={handleBusinessNumberVerification} className={style.check_id_button}>사업자인증</div>
         </div>
     );
 }

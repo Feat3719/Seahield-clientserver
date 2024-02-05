@@ -14,6 +14,7 @@ function Signin() {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [rememberUsername, setRememberUsername] = useState(false);
     const navigate = useNavigate(); // useNavigate hook을 사용하여 navigation 인스턴스에 접근
+    const dispatch = useDispatch();
 
     useEffect(() => {
         // 컴포넌트가 마운트될 때 localStorage에서 저장된 userid을 가져옵니다.
@@ -23,17 +24,14 @@ function Signin() {
             setRememberUsername(true);
         }
     }, []);
-    const dispatch = useDispatch();
+
     const loginBtn = async () => {
-
         try {
-
             const response = await axios.post("/api/auth/signin", {
                 userId: userid,
                 userPwd: password,
             });
             if (response.status === 201) {
-
                 const userIdInClient = userid;
                 dispatch({
                     type: "LOGIN_SUCCESS",
@@ -49,6 +47,13 @@ function Signin() {
                     title: '로그인 성공',
                     text: '환영합니다!',
                 }).then((result) => {
+                    // 로그인 성공 시 아이디 저장
+                    if (rememberUsername) {
+                        localStorage.setItem('rememberedUserId', userid);
+                    } else {
+                        localStorage.removeItem('rememberedUserId'); // 체크되어 있지 않다면, 저장된 userid을 제거합니다.
+                    }
+
                     if (result.isConfirmed || result.isDismissed) {
                         navigate('/map');
                     }
@@ -82,13 +87,6 @@ function Signin() {
             });
         }
     };
-
-    // 로그인 성공 시 아이디 저장
-    if (rememberUsername) {
-        localStorage.setItem('rememberedUserId', userid);
-    } else {
-        localStorage.removeItem('rememberedUserId'); // 체크되어 있지 않다면, 저장된 userid을 제거합니다.
-    }
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
@@ -149,11 +147,11 @@ function Signin() {
                         <div className={style.links}>
                             <Link to="/idfind?type=idFind" className={style.link}>아이디 찾기</Link>
                             <p className={style.bar}>|</p>
-                            <Link to="/idfind?type=passwordChange" className={style.link}>비밀번호 변경</Link>
+                            <Link to="/idfind?type=passwordChange" className={style.link}>비밀번호 찾기</Link>
 
                         </div>
 
-                        <button onClick={loginBtn} className={style.signin_button}>로그인</button>
+                        <div onClick={loginBtn} className={style.signin_button}>로그인</div>
                         <Link to="/signupver" className={style.signup_button}>회원가입</Link>
                     </div>
                 </motion.div>

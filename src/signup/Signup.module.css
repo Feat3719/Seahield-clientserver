@@ -15,7 +15,7 @@
     flex-direction: column;
     text-align: center;
     background-color: rgb(241, 241, 241);
-    margin-top: 1rem;
+    margin-top: 5vh;
     border-radius: 0.5vh;
 }
 
@@ -38,7 +38,7 @@
     height: 40%;
     text-align: left;
     padding: 1.5vh;
-    border: 0.3vh solid #ccc;
+    border: 0.1vh solid #ccc;
     border-radius: 0.7vh;
     outline: none;
     transition: border-color 0.3s;
@@ -51,7 +51,7 @@
     height: 1vh;
     text-align: left;
     padding: 1.5vh;
-    border: 0.3vh solid #ccc;
+    border: 0.1vh solid #ccc;
     border-radius: 0.7vh;
     outline: none;
     transition: border-color 0.3s;
@@ -64,7 +64,7 @@
     height: 1vh;
     text-align: left;
     padding: 1.5vh;
-    border: 0.3vh solid #ccc;
+    border: 0.1vh solid #ccc;
     border-radius: 0.7vh;
     outline: none;
     transition: border-color 0.3s;
@@ -80,7 +80,7 @@
 .input_label {
     font-size: 2vh;
     color: #333;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1vh;
     width: 25%;
     text-align: left;
     height: 100%;
@@ -198,6 +198,9 @@
     width: 5vw;
     height: 4vh;
     font-size: 1.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .submit_code_button:hover {
@@ -234,7 +237,7 @@
     flex-grow: 1;
     text-align: left;
     padding: 1.5vh;
-    border: 0.3vh solid #ccc;
+    border: 0.1vh solid #ccc;
     border-radius: 0.7vh;
     outline: none;
     transition: border-color 0.3s;
@@ -266,9 +269,11 @@
 }
 
 .address_input_button {
-    display: flex;
     width: 100%;
     margin-bottom: 1vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -292,14 +297,14 @@
     flex-grow: 1;
     text-align: left;
     padding: 1.5vh;
-    border: 0.3vh solid #ccc;
+    border: 0.1vh solid #ccc;
     border-radius: 0.7vh;
     outline: none;
     transition: border-color 0.3s;
     /* Space between input and button */
     width: 95%;
     height: 1vh;
-    font-size: 2vh;
+    font-size: 1.5vh;
 }
 
 .signup_input1:focus,
@@ -339,6 +344,9 @@ signup_input_detail {
     outline: none;
     transition: background-color 0.3s;
     margin: 2vh 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .signup_button:hover {
@@ -388,6 +396,9 @@ signup_input_detail {
     width: 5vw;
     height: 4.5vh;
     font-size: 1.4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .send_code_button:hover,
@@ -410,9 +421,98 @@ signup_input_detail {
     width: 10vh;
     height: 4.5vh;
     font-size: 1.4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .check_id_button:hover {
     background-color: #5593ff;
     /* 버튼 호버 색상 변경 */
+}
+
+
+@media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {
+    .signup_title {
+        font-size: 4vh;
+    }
+
+    .signup_area {
+        width: 80vw;
+    }
+
+    .signup_form {
+        width: 90%;
+    }
+
+    .input_label {
+        font-size: 1.5vh;
+    }
+
+    .send_code_button {
+        width: 50%;
+    }
+
+    .signup_button {
+        margin: 0;
+    }
+}
+
+@media all and (min-width:480px) and (max-width:767px) {
+    .signup_title {
+        font-size: 4vh;
+    }
+
+    .signup_area {
+        width: 80vw;
+    }
+
+    .signup_form {
+        width: 90%;
+    }
+
+    .input_label {
+        font-size: 1.5vh;
+    }
+
+    .send_code_button {
+        width: 50%;
+    }
+
+    .signup_button {
+        margin: 0;
+    }
+}
+
+@media all and (min-width:200px) and (max-width:479px) {
+    .signup_title {
+        font-size: 4vh;
+    }
+
+    .signup_area {
+        width: 80vw;
+    }
+
+    .signup_form {
+        width: 90%;
+    }
+
+    .input_label {
+        font-size: 1.4vh;
+        width: 33%;
+    }
+
+    .send_code_button {
+        width: 50%;
+    }
+
+    .signup_button {
+        margin: 0;
+    }
+
+    .email_how {
+        font-size: 0.7vh;
+    }
 }

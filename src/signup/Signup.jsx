@@ -55,14 +55,6 @@ function Signup() {
         setUsernameTouched(true);
     };
 
-    // const handlePhoneBlur = () => {
-    //     setPhoneTouched(true);
-    // };
-
-    // const handleDetailAddressBlur = () => {
-    //     setDetailAddressTouched(true);
-    // };
-
     // 각 입력 필드의 유효성 검증 로직
     useEffect(() => {
         setIsUserIdValid(userid.trim() !== '');
@@ -186,10 +178,6 @@ function Signup() {
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
-
-    // const toggleConfirmPasswordVisibility = () => {
-    //     setConfirmPasswordVisible(!confirmPasswordVisible);
-    // };
 
     // 주소와 상세 주소를 합쳐서 하나의 문자열로 만드는 함수
     const getFullAddress = () => {
@@ -377,7 +365,7 @@ function Signup() {
                                         onBlur={handleUseridBlur}
                                         className={style.signup_input}
                                     />
-                                    <button type="button" onClick={checkUserId} className={style.check_id_button}>아이디검사</button>
+                                    <div onClick={checkUserId} className={style.check_id_button}>아이디검사</div>
                                 </div>
                             </div>
                             <div className={style.error_message_area}>
@@ -483,13 +471,13 @@ function Signup() {
                                 <div className={style.sms_button}>
                                     <div className={style.sms_send}>
                                         <input type="text" placeholder="연락처" value={phone} onChange={(e) => setPhone(e.target.value)} className={style.sms_input1} />
-                                        <button type="button" onClick={smsAuthBtn} className={style.send_code_button}>인증번호발송</button>
+                                        <div onClick={smsAuthBtn} className={style.send_code_button}>인증번호발송</div>
                                     </div>
                                     {isSmsSend && (
                                         <div className={style.sms_verification}>
                                             <input className={style.sms_input} placeholder="인증번호를 입력하세요." value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} />
                                             <span className={style.timer}>{timer != null ? formatTimer() : ''}</span> {/* 타이머 표시 */}
-                                            <button type="button" onClick={handleVerificationSubmit} className={style.submit_code_button}>제출</button>
+                                            <div onClick={handleVerificationSubmit} className={style.submit_code_button}>제출</div>
                                         </div>
                                     )}
                                 </div>
@@ -530,7 +518,7 @@ function Signup() {
                             </div>
                         )}
 
-                        <button
+                        <div
                             type="submit"
                             disabled={!isUserIdValid || !isUsernameValid || !isPasswordValid || !isEmailValid || !isPhoneValid || !isVerified}
                             className={style.signup_button}
@@ -546,7 +534,7 @@ function Signup() {
                             }}
                         >
                             회원가입
-                        </button>
+                        </div>
                     </form>
 
 

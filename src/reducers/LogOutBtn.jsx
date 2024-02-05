@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import style from "./LogOutBtn.module.css";
 
 function LogOutBtn() {
     const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function LogOutBtn() {
     };
 
     return (
-        <p onClick={handleLogout}>
+        <p className={style.logout} onClick={handleLogout}>
             로그아웃
         </p>
     );

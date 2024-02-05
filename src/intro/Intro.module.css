@@ -119,6 +119,7 @@
     width: 50vh;
     height: 10vh;
     justify-content: center;
+    font-size: 2vh;
 }
 
 .mapButton:hover {
@@ -128,4 +129,21 @@
     cursor: pointer;
     /* 마우스 커서 변경 */
     color: #1d116e;
+}
+
+@media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {}
+
+@media all and (min-width:480px) and (max-width:767px) {}
+
+@media all and (min-width:200px) and (max-width:479px) {
+    .intro_slogan {
+        font-size: 4vh;
+    }
+
+    .mapButton {
+        width: 40vh;
+        height: 10vh;
+    }
 }

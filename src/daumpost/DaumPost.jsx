@@ -30,7 +30,7 @@ const DaumPost = ({ setAddress }) => {
         open({ onComplete: handleComplete });
     };
 
-    return <button className={style.find_address_button} type="button" onClick={handleClick}>주소검색</button>;
+    return <div className={style.find_address_button} type="button" onClick={handleClick}>주소검색</div>;
 };
 
 export default DaumPost;
