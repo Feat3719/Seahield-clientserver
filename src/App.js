@@ -12,7 +12,7 @@ import BoardDetail from "./board/BoardDetail";
 import BoardUpdate from "./board/BoardUpdate";
 import BoardWrite from "./board/BoardWrite";
 
-axios.defaults.baseURL = "http://devfeat.com";
+axios.defaults.baseURL = "https://devfeat.com";
 
 function App() {
     return (

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import style from "./BoardUpdate.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import FormatDatetime from "./FormatDatetime";
 
 function BoardUpdate() {
     const { id } = useParams();
@@ -103,10 +104,12 @@ function BoardUpdate() {
                             <tr>
                                 <th>작성일</th>
                                 <td colSpan={3}>
-                                    {post.qnaArticleCreatedDate}
+                                    {FormatDatetime(post.qnaArticleCreatedDate)}
                                 </td>
                                 <th colSpan={2}>수정일</th>
-                                <td>{post.qnaArticleUpdateDate}</td>
+                                <td>
+                                    {FormatDatetime(post.qnaArticleUpdateDate)}
+                                </td>
                             </tr>
                         </tfoot>
                     </table>

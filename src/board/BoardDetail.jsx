@@ -2,16 +2,13 @@ import React, { useEffect, useState } from "react";
 import style from "./BoardDetail.module.css";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-// import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import FormatDatetime from "./FormatDatetime";
 
 function BoardDetail() {
     const { id } = useParams();
     const [post, setPost] = useState(null);
-    // const location = useLocation();
-    // const initialPost = location.state ? location.state.post : {};
-    // const [post, setPost] = useState(initialPost);
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -78,10 +75,12 @@ function BoardDetail() {
                             <tr>
                                 <th>작성일</th>
                                 <td colSpan={3}>
-                                    {post.qnaArticleCreatedDate}
+                                    {FormatDatetime(post.qnaArticleCreatedDate)}
                                 </td>
                                 <th colSpan={2}>수정일</th>
-                                <td>{post.qnaArticleUpdateDate}</td>
+                                <td>
+                                    {FormatDatetime(post.qnaArticleUpdateDate)}
+                                </td>
                             </tr>
                         </tfoot>
                     </table>
