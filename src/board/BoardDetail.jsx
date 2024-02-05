@@ -46,7 +46,9 @@ function BoardDetail() {
                                 <th colSpan={5} className={style.title}>
                                     {post.articleTitle}
                                 </th>
-                                <th className={style.writer}>{post.userId}</th>
+                                <th className={style.writer}>
+                                    {post.articleWriter}
+                                </th>
                             </tr>
                             <tr>
                                 <th className={style.category}>분류</th>
@@ -99,8 +101,6 @@ function BoardDetail() {
                     >
                         삭제
                     </button>
-
-                    {/* <button className={style.comment_button}>댓글달기</button> */}
                 </div>
                 <div id={style.comment_box}>댓글</div>
             </div>

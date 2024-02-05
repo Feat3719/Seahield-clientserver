@@ -17,7 +17,7 @@ const Posts = ({ posts, loading }) => {
                             {post.articleTitle}
                         </Link>
                     </td>
-                    <td className={style.article_user}>{post.userId}</td>
+                    <td className={style.article_user}>{post.articleWriter}</td>
                 </tr>
             ))}
         </>
