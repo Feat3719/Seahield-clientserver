@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,onUlsanWindSpeedData,onUlsanTMXData, onUlsanTMNData }) => {
+const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
+                onUlsanWindSpeedData,onUlsanTMXData, onUlsanTMNData,
+                onGoheungWindSpeedData, onGoheungTMXData, onGoheungTMNData,onYeosuWindSpeedData,onYeosuTMXData, onYeosuTMNData}) => {
     const [pohangWeather, setPohangWeather] = useState(null);
     const [ulsanWeather, setUlsanWeather] = useState(null);
+    const [goheungWeather, setGoheungWeather] = useState(null);
+    const [yeosuWeather, setYeosuWeather] = useState(null);
   
     const fetchWeatherData = async (nx, ny, setWeatherData) => {
       try {
@@ -13,9 +17,18 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,onUlsa
           return;
         }
   
-        const currentDate = '20240202';
+        const getCurrentDate = () => {
+          const today = new Date();
+          const year = today.getFullYear();
+          const month = String(today.getMonth() + 1).padStart(2, '0');  // 월은 0부터 시작하므로 +1
+          const day = String(today.getDate()).padStart(2, '0');
+          return `${year}${month}${day}`;
+        };
+        
+        // const currentDate = '20240202';
+        const currentDate = getCurrentDate();
         const baseTime = '0630';
-        const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=20240202&base_time=0500&nx=${nx}&ny=${ny}`;
+        const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${currentDate}&base_time=0500&nx=${nx}&ny=${ny}`;
   
         const response = await axios.get(apiUrl);
   
@@ -32,8 +45,19 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,onUlsa
     };
   
     useEffect(() => {
-      fetchWeatherData(105, 94, setPohangWeather);
-      fetchWeatherData(104, 83, setUlsanWeather);
+      const fetchWeatherDataByImage = async () => {
+        try {
+          // 각 이미지에 따라 선택적으로 fetchWeatherData 호출
+          await fetchWeatherData(105, 94, setPohangWeather);
+          await fetchWeatherData(104, 83, setUlsanWeather);
+          await fetchWeatherData(59, 69, setGoheungWeather);
+          await fetchWeatherData(74, 63, setYeosuWeather);
+        } catch (error) {
+          console.error('날씨 정보를 가져오는 중 오류 발생:', error);
+        }
+      };
+    
+      fetchWeatherDataByImage();
     }, []);
   
     return (
@@ -74,7 +98,7 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,onUlsa
 
         {ulsanWeather && (
           <div>
-            {/* <h2>부산 날씨 정보</h2> */}
+            {/* <h2>울산 날씨 정보</h2> */}
             {ulsanWeather.response.body.items.item
               .filter((item) => item.category === 'WSD')
               .slice(0, 1)
@@ -107,6 +131,81 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,onUlsa
               ))}
           </div>
         )}
+
+        {goheungWeather &&(
+          <div>
+            {goheungWeather.response.body.items.item
+            .filter((item) => item.category==='WSD' )
+            .slice(0, 1)
+            .map( (item, index) =>(
+              <div key={index}>
+
+                  {onGoheungWindSpeedData(item)}
+                </div>
+            ))
+            }
+            {/* ______________수정 필요할지도___________________ */}
+            {goheungWeather.response.body.items.item
+              .filter((item) => item.category === 'TMX')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onGoheungTMXData(item)}
+                </div>
+              ))}
+              {goheungWeather.response.body.items.item
+              .filter((item) => item.category === 'TMN')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onGoheungTMNData(item)}
+                </div>
+              ))}
+          </div>
+        )}
+        
+
+        {yeosuWeather &&(
+          <div>
+            {yeosuWeather.response.body.items.item
+            .filter((item) => item.category==='WSD' )
+            .slice(0, 1)
+            .map( (item, index) =>(
+              <div key={index}>
+                {/* <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onYeosuWindSpeedData(item)}
+                </div>
+            ))}
+            {yeosuWeather.response.body.items.item
+              .filter((item) => item.category === 'TMX')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onYeosuTMXData(item)}
+                </div>
+              ))}
+              {yeosuWeather.response.body.items.item
+              .filter((item) => item.category === 'TMN')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onYeosuTMNData(item)}
+                </div>
+              ))}
+            
+          </div>
+        )}
+
+
+
       </div>
     );
   };
