@@ -27,7 +27,7 @@ function IdFind() {
     const handleFindId = async () => {
         setIsFindingId(true); // 요청 시작
         try {
-            const response = await axios.get('/api/email/userid', {
+            await axios.get('/api/email/userid', {
                 params: {
                     userEmail: email
                 }
@@ -59,7 +59,7 @@ function IdFind() {
     const handlePasswordChange = async () => {
         setIsPasswordChanging(true); // 요청 시작
         try {
-            const response = await axios.get('/api/email/userpwd', {
+            await axios.get('/api/email/userpwd', {
                 params: {
                     userId: userId,
                     userEmail: email

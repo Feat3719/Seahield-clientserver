@@ -1,5 +1,5 @@
 // import React from 'react';
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // import Modal from './Modal';
 import Weather from "./Weather";
 import style from './Homepage.module.css';
@@ -30,7 +30,7 @@ const iconMappings = {
 };
 
 
-function Homepage({  }) {
+function Homepage() {
     // const data = [
     //     ['1', '포항시', '구룡포앞바다'],
     //     ['2', '울산시', '울주진하해변']
@@ -136,20 +136,20 @@ function Homepage({  }) {
         }
     };
 
-    const handleCloseModal = () => {
-        setSelectedImage(null);
-        setModalOpen(false);
-    };
+    // const handleCloseModal = () => {
+    //     setSelectedImage(null);
+    //     setModalOpen(false);
+    // };
 
-    const handleIconClick = (icon) => {
-        console.log('Icon Clicked:', icon);
-        console.log('Mapped Image:', iconMappings[icon]);
-        const image = iconMappings[icon];
-        if (image) {
-            setSelectedImage(image);
-            setModalOpen(true);
-        }
-    };
+    // const handleIconClick = (icon) => {
+    //     console.log('Icon Clicked:', icon);
+    //     console.log('Mapped Image:', iconMappings[icon]);
+    //     const image = iconMappings[icon];
+    //     if (image) {
+    //         setSelectedImage(image);
+    //         setModalOpen(true);
+    //     }
+    // };
 
 
 

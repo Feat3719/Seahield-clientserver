@@ -27,7 +27,7 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
         
         // const currentDate = '20240202';
         const currentDate = getCurrentDate();
-        const baseTime = '0630';
+        // const baseTime = '0630';
         const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${currentDate}&base_time=0500&nx=${nx}&ny=${ny}`;
   
         const response = await axios.get(apiUrl);

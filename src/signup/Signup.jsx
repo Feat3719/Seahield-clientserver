@@ -20,9 +20,9 @@ function Signup() {
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
     const [detailAddress, setDetailAddress] = useState('');
-    const [userType, setUserType] = useState('');
+    // const [userType, setUserType] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false); // 비밀번호 가시성 상태
-    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); // 비밀번호 확인 가시성 상태
+    // const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); // 비밀번호 확인 가시성 상태
     const [isSmsSend, setIsSmsSend] = useState(false); //인증번호 발송
     const [timer, setTimer] = useState(null); // 타이머 상태 추가
 
@@ -32,8 +32,8 @@ function Signup() {
     const [passwordTouched, setPasswordTouched] = useState(false);
     const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
     const [emailTouched, setEmailTouched] = useState(false);
-    const [phoneTouched, setPhoneTouched] = useState(false);
-    const [detailAddressTouched, setDetailAddressTouched] = useState(false);
+    // const [phoneTouched, setPhoneTouched] = useState(false);
+    // const [detailAddressTouched, setDetailAddressTouched] = useState(false);
 
     //빈칸 검증
     const [isUserIdValid, setIsUserIdValid] = useState(false);
@@ -55,13 +55,13 @@ function Signup() {
         setUsernameTouched(true);
     };
 
-    const handlePhoneBlur = () => {
-        setPhoneTouched(true);
-    };
+    // const handlePhoneBlur = () => {
+    //     setPhoneTouched(true);
+    // };
 
-    const handleDetailAddressBlur = () => {
-        setDetailAddressTouched(true);
-    };
+    // const handleDetailAddressBlur = () => {
+    //     setDetailAddressTouched(true);
+    // };
 
     // 각 입력 필드의 유효성 검증 로직
     useEffect(() => {
@@ -72,7 +72,7 @@ function Signup() {
         setIsPhoneValid(phone.trim() !== '');
         // 상세주소는 선택적 필드일 수 있습니다. 필수인 경우 아래 로직 추가
         // setIsDetailAddressValid(detailAddress.trim() !== '');
-    }, [userid, username, password, email, phone, detailAddress, userType]);
+    }, [userid, username, password, email, phone, detailAddress]);
 
     // 인증번호 입력값과 인증 상태를 관리하는 상태 변수 추가
     const [verificationCode, setVerificationCode] = useState('');
@@ -187,9 +187,9 @@ function Signup() {
         setPasswordVisible(!passwordVisible);
     };
 
-    const toggleConfirmPasswordVisibility = () => {
-        setConfirmPasswordVisible(!confirmPasswordVisible);
-    };
+    // const toggleConfirmPasswordVisibility = () => {
+    //     setConfirmPasswordVisible(!confirmPasswordVisible);
+    // };
 
     // 주소와 상세 주소를 합쳐서 하나의 문자열로 만드는 함수
     const getFullAddress = () => {
@@ -442,7 +442,7 @@ function Signup() {
                             <div className={style.title_input}>
                                 <label className={style.input_label}>비밀번호 확인</label>
                                 <input
-                                    type={confirmPasswordVisible ? "text" : "password"}
+                                    type={"password"}
                                     placeholder="비밀번호 확인"
                                     value={confirmPassword}
                                     onChange={handleConfirmPasswordChange}

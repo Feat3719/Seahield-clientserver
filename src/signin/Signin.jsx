@@ -32,7 +32,7 @@ function Signin() {
                 userId: userid,
                 userPwd: password,
             });
-            if (response.status == 201) {
+            if (response.status === 201) {
 
                 const userIdInClient = userid;
                 dispatch({
@@ -53,7 +53,7 @@ function Signin() {
                         navigate('/map');
                     }
                 });
-            } else if (response.status == 404) {
+            } else if (response.status === 404) {
                 if (response.data.message === "사용자를 찾을 수 없음" || response.data.message === "비밀번호가 일치하지 않습니다.") {
                     Swal.fire({
                         icon: 'error',

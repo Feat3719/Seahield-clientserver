@@ -1,5 +1,5 @@
 //사업자번호 인증
-import React, { useState, useCallback } from 'react'; // useCallback import
+import React, { useState } from 'react'; // useCallback import
 import style from './Business.module.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
