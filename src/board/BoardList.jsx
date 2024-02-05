@@ -12,7 +12,7 @@ function BoardList() {
     const [postsPerPage, setPostsPerPage] = useState(10);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchPost = async () => {
             setLoading(true);
             const response = await axios.get(
                 `/api/board/articles?page=${currentPage}`
@@ -20,7 +20,7 @@ function BoardList() {
             setPosts(response.data);
             setLoading(false);
         };
-        fetchData();
+        fetchPost();
     }, []);
 
     console.log(posts);
