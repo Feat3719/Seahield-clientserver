@@ -11,6 +11,7 @@
     position: fixed;
     right: -5vh;
     z-index: 1000;
+    box-shadow: 0 0 2vh #727272;
 }
 
 .sidebarList {

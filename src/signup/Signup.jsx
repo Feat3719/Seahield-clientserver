@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Swal from "sweetalert2";
 import Wrapper from '../pagechange/Wrapper';
+import Business from '../bisness/Business';
 
 
 function Signup() {
@@ -19,6 +20,7 @@ function Signup() {
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
     const [detailAddress, setDetailAddress] = useState('');
+    const [userType, setUserType] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false); // 비밀번호 가시성 상태
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); // 비밀번호 확인 가시성 상태
     const [isSmsSend, setIsSmsSend] = useState(false); //인증번호 발송
@@ -70,7 +72,7 @@ function Signup() {
         setIsPhoneValid(phone.trim() !== '');
         // 상세주소는 선택적 필드일 수 있습니다. 필수인 경우 아래 로직 추가
         // setIsDetailAddressValid(detailAddress.trim() !== '');
-    }, [userid, username, password, email, phone, detailAddress]);
+    }, [userid, username, password, email, phone, detailAddress, userType]);
 
     // 인증번호 입력값과 인증 상태를 관리하는 상태 변수 추가
     const [verificationCode, setVerificationCode] = useState('');
@@ -103,12 +105,25 @@ function Signup() {
 
 
     // handleSignup을 조정하여 필드 유효성을 확인
+    // handleSignup 함수
     const handleSignup = async (e) => {
         e.preventDefault();
+        const userTypeValue = isBusinessUser && isCompanyRegistrationNumVerified ? '사업자' : '일반';
         if (!isUserIdValid || !isUsernameValid || !isPasswordValid || !isEmailValid || !isPhoneValid || !isVerified) {
             Swal.fire({
                 title: '필수 항목 누락',
                 text: '모든 필수 항목을 채워주세요.',
+                icon: 'warning',
+                confirmButtonText: '확인'
+            });
+            return;
+        }
+
+        // 사업자 사용자이고, 사업자번호 인증이 완료되지 않았다면 경고 표시
+        if (isBusinessUser && !isCompanyRegistrationNumVerified) {
+            Swal.fire({
+                title: '사업자번호 인증 필요',
+                text: '사업자번호 인증을 완료해주세요.',
                 icon: 'warning',
                 confirmButtonText: '확인'
             });
@@ -126,7 +141,8 @@ function Signup() {
             userEmail: email,
             userContact: phone,
             userAddress: fullAddress,
-            userType: "일반",
+            userType: userTypeValue,
+            company_registration_num: isBusinessUser ? companyRegistrationNum : null, // 사업자 사용자의 경우만 값을 전달
         };
 
         try {
@@ -149,26 +165,20 @@ function Signup() {
                         window.location.href = "/";
                     }
                 });
-
-                // 회원가입 실패 로직
-                Swal.fire({
-                    title: '오류 발생',
-                    text: '회원가입에 실패했습니다.',
-                    icon: 'error',
-                    confirmButtonText: '확인'
-                });
-                console.log('회원가입 실패');
-                // 실패 시, 사용자에게 실패 메시지 표시
+                return; // 회원가입 성공 후 함수 종료
             }
         } catch (error) {
             console.error('회원가입 에러:', error);
+            let message = '오류가 발생했습니다. 다시 시도해주세요.';
+            if (error.response && error.response.data && error.response.data.message) {
+                message = error.response.data.message;
+            }
             Swal.fire({
                 title: '서버 오류',
-                text: '오류가 발생했습니다. 다시 시도해주세요.',
+                text: message,
                 icon: 'error',
                 confirmButtonText: '확인'
             });
-            // window.location.href = "/"; // 사용자를 홈페이지로 리다이렉트
         }
     };
 
@@ -328,6 +338,11 @@ function Signup() {
     };
 
 
+    // 사업자번호 및 인증 상태 추가
+    const [companyRegistrationNum, setCompanyRegistrationNum] = useState('');
+    const [isCompanyRegistrationNumVerified, setIsCompanyRegistrationNumVerified] = useState(false);
+
+
     return (
         <Wrapper>
             <div className={style.signup}>
@@ -451,7 +466,7 @@ function Signup() {
                                         value={email}
                                         onChange={handleEmailChange}
                                         onBlur={handleEmailBlur}
-                                        className={style.signup_input}
+                                        className={style.email_input}
                                     />
                                 </div>
                             </div>
@@ -467,7 +482,7 @@ function Signup() {
                                 <label className={style.input_label}>연락처</label>
                                 <div className={style.sms_button}>
                                     <div className={style.sms_send}>
-                                        <input type="text" placeholder="연락처" value={phone} onChange={(e) => setPhone(e.target.value)} className={style.signup_input} />
+                                        <input type="text" placeholder="연락처" value={phone} onChange={(e) => setPhone(e.target.value)} className={style.sms_input1} />
                                         <button type="button" onClick={smsAuthBtn} className={style.send_code_button}>인증번호발송</button>
                                     </div>
                                     {isSmsSend && (
@@ -505,8 +520,12 @@ function Signup() {
                             <div className={style.bisnum_wrapper}>
                                 <div className={style.title_input}>
                                     <label className={style.input_label}>사업자번호</label>
-                                    <input type="text" placeholder="사업자번호" className={style.signup_input} />
-                                    {/* 추가적인 사업자번호 인증 로직이 필요하다면 여기에 구현 */}
+                                    <div className={style.bis_button}>
+                                        <Business
+                                            setCompanyRegistrationNum={setCompanyRegistrationNum}
+                                            setIsCompanyRegistrationNumVerified={setIsCompanyRegistrationNumVerified}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         )}

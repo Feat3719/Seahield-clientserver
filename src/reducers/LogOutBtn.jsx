@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function LogOutBtn() {
     const dispatch = useDispatch();
     // Redux 상태에서 userId 가져오기
     const userId = useSelector((state) => state.auth.user);
+    const navigate = useNavigate();
 
     const handleLogout = async () => {
         if (userId) {
@@ -21,7 +23,7 @@ function LogOutBtn() {
 
         // Redux 상태 업데이트
         dispatch({ type: "LOGOUT" });
-
+        navigate('/');
         // 홈페이지로 리디렉션
         // window.location.href = "/";
     };

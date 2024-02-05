@@ -139,7 +139,7 @@ function IdFind() {
                         className={`${style.tab2} ${activeTab === 'passwordChange' ? style.active : ''}`}
                         onClick={() => setActiveTab('passwordChange')}
                     >
-                        임시비밀번호 발급
+                        비밀번호 찾기
                     </div>
                 </div>
                 <h1 className={style.signup_title}>

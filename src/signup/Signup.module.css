@@ -1,26 +1,26 @@
 .signup {
-    height: 130vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #4b4b4b;
+    background-color: #000000e0;
 }
 
 
 .signup_area {
-    height: 150vh;
+    height: 97vh;
     width: 50vw;
     align-items: center;
     display: flex;
     flex-direction: column;
     text-align: center;
-    background-color: rgb(233, 233, 233);
-    margin-top: 3rem;
-    border-radius: 10px;
+    background-color: rgb(241, 241, 241);
+    margin-top: 1rem;
+    border-radius: 0.5vh;
 }
 
 .signup_title {
-    margin: 8vh 0 8vh 0;
+    margin: 3vh 0 3vh 0;
     font-size: 4vh;
 }
 
@@ -38,11 +38,39 @@
     height: 40%;
     text-align: left;
     padding: 1.5vh;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 0.3vh solid #ccc;
+    border-radius: 0.7vh;
     outline: none;
     transition: border-color 0.3s;
+    font-size: 1.5vh;
 }
+
+.email_input {
+    flex-grow: 1;
+    width: 70%;
+    height: 1vh;
+    text-align: left;
+    padding: 1.5vh;
+    border: 0.3vh solid #ccc;
+    border-radius: 0.7vh;
+    outline: none;
+    transition: border-color 0.3s;
+    font-size: 1.5vh;
+}
+
+.sms_input1 {
+    flex-grow: 1;
+    width: 70%;
+    height: 1vh;
+    text-align: left;
+    padding: 1.5vh;
+    border: 0.3vh solid #ccc;
+    border-radius: 0.7vh;
+    outline: none;
+    transition: border-color 0.3s;
+    font-size: 1.5vh;
+}
+
 
 .signup_input:focus {
     border-color: #2e7eef;
@@ -50,14 +78,13 @@
 }
 
 .input_label {
-    font-size: 2.3vh;
+    font-size: 2vh;
     color: #333;
     margin-bottom: 0.5rem;
-    width: 30%;
+    width: 25%;
     text-align: left;
     height: 100%;
     display: flex;
-    align-items: center;
 }
 
 .input_wrapper {
@@ -65,6 +92,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: 10%;
     flex-direction: column;
 }
 
@@ -72,6 +100,7 @@
     display: flex;
     flex-direction: row;
     width: 85%;
+    height: 30%;
 }
 
 .id_button {
@@ -111,7 +140,7 @@
 
 .error_message_area {
     min-height: 2vh;
-    margin: 1vh 0 1vh 0;
+    margin: 0 0 1vh 0;
     height: 2vh;
     display: flex;
     width: 100%;
@@ -120,7 +149,7 @@
 
 .error_email_area {
     min-height: 2vh;
-    margin: 1vh 0 1vh 0;
+    margin: 0 0 1vh 0;
     height: 2vh;
     display: flex;
     width: 80%;
@@ -152,7 +181,7 @@
     display: flex;
     justify-content: space-between;
     width: 85%;
-    min-height: 15vh;
+    height: 12vh;
 }
 
 .submit_code_button {
@@ -161,13 +190,13 @@
     background-color: #333;
     /* 버튼의 배경 색상 */
     border: none;
-    border-radius: 10px;
+    border-radius: 0.5vh;
     cursor: pointer;
     margin-left: 0.5vw;
     /* 입력 필드와 버튼 사이의 간격 */
     transition: background-color 0.3s;
     width: 5vw;
-    height: 5.5vh;
+    height: 4vh;
     font-size: 1.5vh;
 }
 
@@ -200,14 +229,17 @@
     /* 타이머의 위치를 정확하게 조정하기 위해 relative 설정 */
 }
 
+
 .sms_input {
     flex-grow: 1;
     text-align: left;
     padding: 1.5vh;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 0.3vh solid #ccc;
+    border-radius: 0.7vh;
     outline: none;
     transition: border-color 0.3s;
+    height: 1vh;
+    font-size: 1.5vh;
 }
 
 .timer {
@@ -223,6 +255,7 @@
     /* 배경색 */
     padding: 0 5px;
     /* 내부 여백 */
+    font-size: 1.5vh;
 }
 
 
@@ -248,17 +281,25 @@
     margin: 2vh 0 2vh 0;
 }
 
+.bis_button {
+    display: flex;
+    width: 75%;
+    flex-direction: row;
+}
+
 .signup_input1,
 .signup_input_detail {
     flex-grow: 1;
     text-align: left;
     padding: 1.5vh;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 0.3vh solid #ccc;
+    border-radius: 0.7vh;
     outline: none;
     transition: border-color 0.3s;
     /* Space between input and button */
     width: 95%;
+    height: 1vh;
+    font-size: 2vh;
 }
 
 .signup_input1:focus,
@@ -274,7 +315,7 @@ signup_input_detail {
     text-align: left;
     padding: 1.5vh;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 0.7vh;
     outline: none;
     transition: border-color 0.3s;
 }
@@ -287,16 +328,17 @@ signup_input_detail {
 
 
 .signup_button {
-    padding: 2vh 3vw;
+    height: 6vh;
+    width: 13vh;
     font-size: 2vh;
     color: white;
     background-color: #333;
     border: none;
-    border-radius: 13px;
+    border-radius: 0.5vh;
     cursor: pointer;
     outline: none;
     transition: background-color 0.3s;
-    margin: 1vh 0 1vh 0;
+    margin: 2vh 0 0 0;
 }
 
 .signup_button:hover {
@@ -318,7 +360,7 @@ signup_input_detail {
     /* 또는 원하는 크기 */
     cursor: pointer;
     position: absolute;
-    right: 10px;
+    right: 2vh;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -338,13 +380,13 @@ signup_input_detail {
     background-color: #333;
     /* 버튼의 배경 색상 */
     border: none;
-    border-radius: 10px;
+    border-radius: 0.5vh;
     cursor: pointer;
     margin-left: 0.5vw;
     /* 입력 필드와 버튼 사이의 간격 */
     transition: background-color 0.3s;
     width: 5vw;
-    height: 5.5vh;
+    height: 4.5vh;
     font-size: 1.4vh;
 }
 
@@ -360,13 +402,13 @@ signup_input_detail {
     background-color: #333;
     /* 버튼의 배경 색상 */
     border: none;
-    border-radius: 10px;
+    border-radius: 0.5vh;
     cursor: pointer;
     margin-left: 0.5vw;
     /* 입력 필드와 버튼 사이의 간격 */
     transition: background-color 0.3s;
-    width: 5vw;
-    height: 5.5vh;
+    width: 10vh;
+    height: 4.5vh;
     font-size: 1.4vh;
 }
 

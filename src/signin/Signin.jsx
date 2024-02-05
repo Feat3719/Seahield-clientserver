@@ -7,8 +7,6 @@ import { motion } from 'framer-motion';
 import Swal from "sweetalert2";
 import Wrapper from '../pagechange/Wrapper';
 import { useDispatch } from 'react-redux';
-import LogOutBtn from '../reducers/LogOutBtn';
-
 
 function Signin() {
     const [userid, setUserId] = useState('');
@@ -34,7 +32,6 @@ function Signin() {
                 userId: userid,
                 userPwd: password,
             });
-            alert("asdf")
             if (response.status == 201) {
 
                 const userIdInClient = userid;
@@ -47,31 +44,51 @@ function Signin() {
                     },
                 });
 
-                alert("환영합니다.");
+                Swal.fire({
+                    icon: 'success',
+                    title: '로그인 성공',
+                    text: '환영합니다!',
+                }).then((result) => {
+                    if (result.isConfirmed || result.isDismissed) {
+                        navigate('/map');
+                    }
+                });
             } else if (response.status == 404) {
-                if (response.data.message == "사용자를 찾을 수 없음") {
-                    alert(response.data.message);
-                } else if (response.data.message == "비밀번호가 일치하지 않습니다.") {
-                    alert(response.data.message);
-                } else alert("오류");
+                if (response.data.message === "사용자를 찾을 수 없음" || response.data.message === "비밀번호가 일치하지 않습니다.") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '로그인 실패',
+                        text: response.data.message,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '오류 발생',
+                        text: '오류가 발생했습니다. 다시 시도해주세요.',
+                    });
+                }
             } else {
-                alert("다시 로그인 해주세요.");
+                Swal.fire({
+                    icon: 'error',
+                    title: '로그인 실패',
+                    text: '다시 로그인 해주세요.',
+                });
             }
         } catch (error) {
-            alert("아이디를 확인해주세요");
+            Swal.fire({
+                icon: 'error',
+                title: '로그인 실패',
+                text: '아이디를 확인해주세요',
+            });
         }
     };
 
-
-    // TODO: accessToken과 refreshToken을 적절히 처리 (예: 저장, 상태 업데이트 등)
-    // 아이디 저장하기가 체크되어 있다면, userid을 localStorage에 저장합니다.
-    // if (rememberUsername) {
-    //     localStorage.setItem('rememberedUsername', userid);
-    // } else {
-    //     localStorage.removeItem('rememberedUsername'); // 체크되어 있지 않다면, 저장된 userid을 제거합니다.
-    // }
-
-
+    // 로그인 성공 시 아이디 저장
+    if (rememberUsername) {
+        localStorage.setItem('rememberedUserId', userid);
+    } else {
+        localStorage.removeItem('rememberedUserId'); // 체크되어 있지 않다면, 저장된 userid을 제거합니다.
+    }
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
@@ -139,7 +156,6 @@ function Signin() {
                         <button onClick={loginBtn} className={style.signin_button}>로그인</button>
                         <Link to="/signupver" className={style.signup_button}>회원가입</Link>
                     </div>
-                    <LogOutBtn />
                 </motion.div>
             </div>
         </Wrapper>
