@@ -150,12 +150,12 @@
 }
 
 .remember_checkbox:checked {
-    background-image: url('../../public/img/checkbox2.svg');
+    background-image: url('../../public/images/checkbox2.svg');
     /* 체크된 상태의 이미지 */
 }
 
 .remember_checkbox:not(:checked) {
-    background-image: url('../../public/img/checkbox1.svg');
+    background-image: url('../../public/images/checkbox1.svg');
     /* 체크되지 않은 상태의 이미지 */
 }
 

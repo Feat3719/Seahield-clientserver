@@ -26,13 +26,13 @@
 }
 
 .sidebarItem {
-    padding: 2.5vh 2.5vh;
     border-bottom: 0.3vh solid #ffffff46;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 1.5vh;
-    max-height: 3vh;
+    height: 7vh;
     display: flex;
+    align-items: center;
 }
 
 .sidebarItem:hover {
@@ -53,6 +53,8 @@
     /* Add ellipsis to overflowing text */
     min-width: 15vw;
     /* Set a minimum width */
+    height: 100%;
+    padding: 2vh 0 2vh 0;
 }
 
 .itemTxt {
@@ -86,6 +88,12 @@
 .sea1 {
     width: 7vh;
     height: 7vh;
+}
+
+.logo {
+    width: 10vh;
+    height: 8vh;
+    margin: 5vh 0 0 0;
 }
 
 @media all and (min-width:1024px) and (max-width:1279px) {}
