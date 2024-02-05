@@ -1,10 +1,11 @@
 .RedDot {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    top: 87.5%;
-    left: 35%;
+    width: 1.5vh;
+    height: 1.5vh;
+    top: 82.5vh;
+    left: 13.5vw;
     background-color: red;
     border-radius: 50%;
     z-index: 5;
+    font-size: 1vh;
   }

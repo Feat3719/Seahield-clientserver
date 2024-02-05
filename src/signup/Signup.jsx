@@ -6,6 +6,8 @@ import DaumPost from '../daumpost/DaumPost';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Swal from "sweetalert2";
+import Wrapper from '../pagechange/Wrapper';
+import Business from '../bisness/Business';
 
 
 function Signup() {
@@ -18,8 +20,9 @@ function Signup() {
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
     const [detailAddress, setDetailAddress] = useState('');
+    // const [userType, setUserType] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false); // 비밀번호 가시성 상태
-    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); // 비밀번호 확인 가시성 상태
+    // const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); // 비밀번호 확인 가시성 상태
     const [isSmsSend, setIsSmsSend] = useState(false); //인증번호 발송
     const [timer, setTimer] = useState(null); // 타이머 상태 추가
 
@@ -29,8 +32,8 @@ function Signup() {
     const [passwordTouched, setPasswordTouched] = useState(false);
     const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
     const [emailTouched, setEmailTouched] = useState(false);
-    const [phoneTouched, setPhoneTouched] = useState(false);
-    const [detailAddressTouched, setDetailAddressTouched] = useState(false);
+    // const [phoneTouched, setPhoneTouched] = useState(false);
+    // const [detailAddressTouched, setDetailAddressTouched] = useState(false);
 
     //빈칸 검증
     const [isUserIdValid, setIsUserIdValid] = useState(false);
@@ -52,13 +55,13 @@ function Signup() {
         setUsernameTouched(true);
     };
 
-    const handlePhoneBlur = () => {
-        setPhoneTouched(true);
-    };
+    // const handlePhoneBlur = () => {
+    //     setPhoneTouched(true);
+    // };
 
-    const handleDetailAddressBlur = () => {
-        setDetailAddressTouched(true);
-    };
+    // const handleDetailAddressBlur = () => {
+    //     setDetailAddressTouched(true);
+    // };
 
     // 각 입력 필드의 유효성 검증 로직
     useEffect(() => {
@@ -102,12 +105,25 @@ function Signup() {
 
 
     // handleSignup을 조정하여 필드 유효성을 확인
+    // handleSignup 함수
     const handleSignup = async (e) => {
         e.preventDefault();
+        const userTypeValue = isBusinessUser && isCompanyRegistrationNumVerified ? '사업자' : '일반';
         if (!isUserIdValid || !isUsernameValid || !isPasswordValid || !isEmailValid || !isPhoneValid || !isVerified) {
             Swal.fire({
                 title: '필수 항목 누락',
                 text: '모든 필수 항목을 채워주세요.',
+                icon: 'warning',
+                confirmButtonText: '확인'
+            });
+            return;
+        }
+
+        // 사업자 사용자이고, 사업자번호 인증이 완료되지 않았다면 경고 표시
+        if (isBusinessUser && !isCompanyRegistrationNumVerified) {
+            Swal.fire({
+                title: '사업자번호 인증 필요',
+                text: '사업자번호 인증을 완료해주세요.',
                 icon: 'warning',
                 confirmButtonText: '확인'
             });
@@ -125,7 +141,8 @@ function Signup() {
             userEmail: email,
             userContact: phone,
             userAddress: fullAddress,
-            userType: "일반",
+            userType: userTypeValue,
+            company_registration_num: isBusinessUser ? companyRegistrationNum : null, // 사업자 사용자의 경우만 값을 전달
         };
 
         try {
@@ -148,26 +165,20 @@ function Signup() {
                         window.location.href = "/";
                     }
                 });
-
-                // 회원가입 실패 로직
-                Swal.fire({
-                    title: '오류 발생',
-                    text: '회원가입에 실패했습니다.',
-                    icon: 'error',
-                    confirmButtonText: '확인'
-                });
-                console.log('회원가입 실패');
-                // 실패 시, 사용자에게 실패 메시지 표시
+                return; // 회원가입 성공 후 함수 종료
             }
         } catch (error) {
             console.error('회원가입 에러:', error);
+            let message = '오류가 발생했습니다. 다시 시도해주세요.';
+            if (error.response && error.response.data && error.response.data.message) {
+                message = error.response.data.message;
+            }
             Swal.fire({
                 title: '서버 오류',
-                text: '오류가 발생했습니다. 다시 시도해주세요.',
+                text: message,
                 icon: 'error',
                 confirmButtonText: '확인'
             });
-            // window.location.href = "/"; // 사용자를 홈페이지로 리다이렉트
         }
     };
 
@@ -176,9 +187,9 @@ function Signup() {
         setPasswordVisible(!passwordVisible);
     };
 
-    const toggleConfirmPasswordVisibility = () => {
-        setConfirmPasswordVisible(!confirmPasswordVisible);
-    };
+    // const toggleConfirmPasswordVisibility = () => {
+    //     setConfirmPasswordVisible(!confirmPasswordVisible);
+    // };
 
     // 주소와 상세 주소를 합쳐서 하나의 문자열로 만드는 함수
     const getFullAddress = () => {
@@ -327,210 +338,221 @@ function Signup() {
     };
 
 
+    // 사업자번호 및 인증 상태 추가
+    const [companyRegistrationNum, setCompanyRegistrationNum] = useState('');
+    const [isCompanyRegistrationNumVerified, setIsCompanyRegistrationNumVerified] = useState(false);
+
+
     return (
-        <div className={style.signup}>
-            <div className={style.login_nav}>
-                <Sidenav />
-            </div>
+        <Wrapper>
+            <div className={style.signup}>
+                <div className={style.login_nav}>
+                    <Sidenav />
+                </div>
 
-            <motion.div
-                className={style.signup_area}
-                initial={{ y: -250, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-            >
-                <h1 className={style.signup_title}>
-                    {isBusinessUser ? '사업자 회원가입' : '일반 회원가입'}
-                </h1>
+                <motion.div
+                    className={style.signup_area}
+                    initial={{ y: -250, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                    <h1 className={style.signup_title}>
+                        {isBusinessUser ? '사업자 회원가입' : '일반 회원가입'}
+                    </h1>
 
-                <form className={style.signup_form} onSubmit={handleSignup}>
+                    <form className={style.signup_form} onSubmit={handleSignup}>
 
-                    <div className={style.input_wrapper}>
-                        <div className={style.title_input}>
-                            <label className={style.input_label}>아이디</label>
-                            <div className={style.id_button}>
+                        <div className={style.input_wrapper}>
+                            <div className={style.title_input}>
+                                <label className={style.input_label}>아이디</label>
+                                <div className={style.id_button}>
+                                    <input
+                                        type="text"
+                                        placeholder="아이디"
+                                        value={userid}
+                                        onChange={(e) => {
+                                            setUserid(e.target.value);
+                                            setIsUserIdUnique(null); // 아이디 값이 변경될 때 중복 검사 상태 초기화
+                                        }}
+                                        onBlur={handleUseridBlur}
+                                        className={style.signup_input}
+                                    />
+                                    <button type="button" onClick={checkUserId} className={style.check_id_button}>아이디검사</button>
+                                </div>
+                            </div>
+                            <div className={style.error_message_area}>
+                                {useridTouched && !isUserIdValid && <div className={style.error_message}>아이디를 영문, 숫자를 조합하여 3자리 이상으로 설정해 주세요.</div>}
+                                {/* {isCheckingUserId && <div className={style.checking_message}>중복 검사 중...</div>} */}
+                                {useridTouched && !isCheckingUserId && isUserIdValid && isUserIdUnique === null && <div className={style.prompt_message}>아이디 검사를 수행하세요.</div>}
+                                {useridTouched && !isCheckingUserId && isUserIdUnique === false && <div className={style.error_message}>이미 존재하는 아이디입니다.</div>}
+                                {useridTouched && !isCheckingUserId && isUserIdValid && isUserIdUnique && <div className={style.success_message}>사용 가능한 아이디입니다.</div>}
+                            </div>
+                        </div>
+
+
+                        <div className={style.input_wrapper}>
+                            <div className={style.title_input}>
+                                <label className={style.input_label}>이름</label>
                                 <input
                                     type="text"
-                                    placeholder="아이디"
-                                    value={userid}
+                                    placeholder="이름"
+                                    value={username}
                                     onChange={(e) => {
-                                        setUserid(e.target.value);
-                                        setIsUserIdUnique(null); // 아이디 값이 변경될 때 중복 검사 상태 초기화
+                                        setUsername(e.target.value);
+                                        setIsUsernameValid(e.target.value.trim() !== '');
                                     }}
-                                    onBlur={handleUseridBlur}
-                                    className={style.signup_input}
-                                />
-                                <button type="button" onClick={checkUserId} className={style.check_id_button}>아이디검사</button>
-                            </div>
-                        </div>
-                        <div className={style.error_message_area}>
-                            {useridTouched && !isUserIdValid && <div className={style.error_message}>아이디를 영문, 숫자를 조합하여 3자리 이상으로 설정해 주세요.</div>}
-                            {/* {isCheckingUserId && <div className={style.checking_message}>중복 검사 중...</div>} */}
-                            {useridTouched && !isCheckingUserId && isUserIdValid && isUserIdUnique === null && <div className={style.prompt_message}>아이디 검사를 수행하세요.</div>}
-                            {useridTouched && !isCheckingUserId && isUserIdUnique === false && <div className={style.error_message}>이미 존재하는 아이디입니다.</div>}
-                            {useridTouched && !isCheckingUserId && isUserIdValid && isUserIdUnique && <div className={style.success_message}>사용 가능한 아이디입니다.</div>}
-                        </div>
-                    </div>
-
-
-                    <div className={style.input_wrapper}>
-                        <div className={style.title_input}>
-                            <label className={style.input_label}>이름</label>
-                            <input
-                                type="text"
-                                placeholder="이름"
-                                value={username}
-                                onChange={(e) => {
-                                    setUsername(e.target.value);
-                                    setIsUsernameValid(e.target.value.trim() !== '');
-                                }}
-                                onBlur={handleUsernameBlur}
-                                className={style.signup_input}
-                            />
-                        </div>
-                        <div className={style.error_message_area}>
-                            {!isUsernameValid && usernameTouched && <div className={style.error_message}>이름을 입력해주세요</div>}
-                        </div>
-                    </div>
-
-                    <div className={style.input_wrapper}>
-                        <div className={style.title_input}>
-                            <label className={style.input_label}>비밀번호</label>
-                            <div className={style.password_container}>
-
-                                <input
-                                    type={passwordVisible ? "text" : "password"}
-                                    placeholder="비밀번호"
-                                    value={password}
-                                    onChange={handlePasswordChange}
-                                    onBlur={handlePasswordBlur}
-                                    className={style.signup_input}
-                                />
-                                <img
-                                    src={passwordVisible ? `${process.env.PUBLIC_URL}/img/eye1.svg` : `${process.env.PUBLIC_URL}/img/eye2.svg`}
-                                    className={style.eye_icon}
-                                    onClick={togglePasswordVisibility}
-                                    alt="Toggle password visibility"
-                                />
-                            </div>
-                        </div>
-                        <div className={style.error_message_area}>
-                            {!isPasswordValid && passwordTouched && <div className={style.error_message}>비밀번호를 입력해주세요</div>}
-                            {isPasswordValid && passwordTouched && !isPasswordComplex && <div className={style.error_message}>비밀번호는 숫자, 영문, 특수문자를 혼합하여 8자리 이상으로 설정해주세요.</div>}
-                            {passwordTouched && isPasswordComplex && <div className={style.success_message}>사용 가능한 비밀번호입니다.</div>}
-                        </div>
-                    </div>
-
-                    <div className={style.input_wrapper}>
-                        <div className={style.title_input}>
-                            <label className={style.input_label}>비밀번호 확인</label>
-                            <input
-                                type={confirmPasswordVisible ? "text" : "password"}
-                                placeholder="비밀번호 확인"
-                                value={confirmPassword}
-                                onChange={handleConfirmPasswordChange}
-                                onBlur={handleConfirmPasswordBlur}
-                                className={style.signup_input}
-                            />
-                        </div>
-                        <div className={style.error_message_area}>
-                            {confirmPasswordTouched && !isPasswordMatch && <div className={style.error_message}>비밀번호가 다릅니다.</div>}
-                            {confirmPasswordTouched && isPasswordMatch && <div className={style.success_message}>비밀번호가 동일합니다.</div>}
-                        </div>
-                    </div>
-
-                    <div className={style.email_wrapper}>
-                        <div className={style.email_put}>
-                            <div className={style.title_input}>
-                                <label className={style.input_label}>이메일</label>
-                                <input
-                                    type="email"
-                                    placeholder="이메일"
-                                    value={email}
-                                    onChange={handleEmailChange}
-                                    onBlur={handleEmailBlur}
+                                    onBlur={handleUsernameBlur}
                                     className={style.signup_input}
                                 />
                             </div>
-                        </div>
-                        <p className={style.email_how}>이메일은 아이디, 비밀번호 찾기에 활용됩니다. 실제 사용하는 이메일을 입력해주세요.</p>
-                        <div className={style.error_message_area}>
-                            {!isEmailValid && emailTouched && <div className={style.error_message}>올바른 이메일을 입력해주세요.</div>}
-                        </div>
-                    </div>
-
-
-                    <div className={style.input_with_button_wrapper}>
-                        <div className={style.sms_wrapper}>
-                            <label className={style.input_label}>연락처</label>
-                            <div className={style.sms_button}>
-                                <div className={style.sms_send}>
-                                    <input type="text" placeholder="연락처" value={phone} onChange={(e) => setPhone(e.target.value)} className={style.signup_input} />
-                                    <button type="button" onClick={smsAuthBtn} className={style.send_code_button}>인증번호발송</button>
-                                </div>
-                                {isSmsSend && (
-                                    <div className={style.sms_verification}>
-                                        <input className={style.sms_input} placeholder="인증번호를 입력하세요." value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} />
-                                        <span className={style.timer}>{timer != null ? formatTimer() : ''}</span> {/* 타이머 표시 */}
-                                        <button type="button" onClick={handleVerificationSubmit} className={style.submit_code_button}>제출</button>
-                                    </div>
-                                )}
+                            <div className={style.error_message_area}>
+                                {!isUsernameValid && usernameTouched && <div className={style.error_message}>이름을 입력해주세요</div>}
                             </div>
                         </div>
-                    </div>
 
-                    <div className={style.input_with_button_wrapper}>
                         <div className={style.input_wrapper}>
                             <div className={style.title_input}>
-                                <label className={style.input_label}>주소</label>
-                                <div className={style.address_area}>
-                                    <div className={style.address_input_button}>
-                                        <input
-                                            type="text"
-                                            value={address}
-                                            className={style.signup_input1}
-                                            readOnly
+                                <label className={style.input_label}>비밀번호</label>
+                                <div className={style.password_container}>
+
+                                    <input
+                                        type={passwordVisible ? "text" : "password"}
+                                        placeholder="비밀번호"
+                                        value={password}
+                                        onChange={handlePasswordChange}
+                                        onBlur={handlePasswordBlur}
+                                        className={style.signup_input}
+                                    />
+                                    <img
+                                        src={passwordVisible ? `${process.env.PUBLIC_URL}/images/eye1.svg` : `${process.env.PUBLIC_URL}/images/eye2.svg`}
+                                        className={style.eye_icon}
+                                        onClick={togglePasswordVisibility}
+                                        alt="Toggle password visibility"
+                                    />
+                                </div>
+                            </div>
+                            <div className={style.error_message_area}>
+                                {!isPasswordValid && passwordTouched && <div className={style.error_message}>비밀번호를 입력해주세요</div>}
+                                {isPasswordValid && passwordTouched && !isPasswordComplex && <div className={style.error_message}>비밀번호는 숫자, 영문, 특수문자를 혼합하여 8자리 이상으로 설정해주세요.</div>}
+                                {passwordTouched && isPasswordComplex && <div className={style.success_message}>사용 가능한 비밀번호입니다.</div>}
+                            </div>
+                        </div>
+
+                        <div className={style.input_wrapper}>
+                            <div className={style.title_input}>
+                                <label className={style.input_label}>비밀번호 확인</label>
+                                <input
+                                    type={"password"}
+                                    placeholder="비밀번호 확인"
+                                    value={confirmPassword}
+                                    onChange={handleConfirmPasswordChange}
+                                    onBlur={handleConfirmPasswordBlur}
+                                    className={style.signup_input}
+                                />
+                            </div>
+                            <div className={style.error_message_area}>
+                                {confirmPasswordTouched && !isPasswordMatch && <div className={style.error_message}>비밀번호가 다릅니다.</div>}
+                                {confirmPasswordTouched && isPasswordMatch && <div className={style.success_message}>비밀번호가 동일합니다.</div>}
+                            </div>
+                        </div>
+
+                        <div className={style.email_wrapper}>
+                            <div className={style.email_put}>
+                                <div className={style.title_input}>
+                                    <label className={style.input_label}>이메일</label>
+                                    <input
+                                        type="email"
+                                        placeholder="이메일"
+                                        value={email}
+                                        onChange={handleEmailChange}
+                                        onBlur={handleEmailBlur}
+                                        className={style.email_input}
+                                    />
+                                </div>
+                            </div>
+                            <p className={style.email_how}>이메일은 아이디, 비밀번호 찾기에 활용됩니다. 실제 사용하는 이메일을 입력해주세요.</p>
+                            <div className={style.error_message_area}>
+                                {!isEmailValid && emailTouched && <div className={style.error_message}>올바른 이메일을 입력해주세요.</div>}
+                            </div>
+                        </div>
+
+
+                        <div className={style.input_with_button_wrapper}>
+                            <div className={style.sms_wrapper}>
+                                <label className={style.input_label}>연락처</label>
+                                <div className={style.sms_button}>
+                                    <div className={style.sms_send}>
+                                        <input type="text" placeholder="연락처" value={phone} onChange={(e) => setPhone(e.target.value)} className={style.sms_input1} />
+                                        <button type="button" onClick={smsAuthBtn} className={style.send_code_button}>인증번호발송</button>
+                                    </div>
+                                    {isSmsSend && (
+                                        <div className={style.sms_verification}>
+                                            <input className={style.sms_input} placeholder="인증번호를 입력하세요." value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} />
+                                            <span className={style.timer}>{timer != null ? formatTimer() : ''}</span> {/* 타이머 표시 */}
+                                            <button type="button" onClick={handleVerificationSubmit} className={style.submit_code_button}>제출</button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={style.input_with_button_wrapper}>
+                            <div className={style.input_wrapper}>
+                                <div className={style.title_input}>
+                                    <label className={style.input_label}>주소</label>
+                                    <div className={style.address_area}>
+                                        <div className={style.address_input_button}>
+                                            <input
+                                                type="text"
+                                                value={address}
+                                                className={style.signup_input1}
+                                                readOnly
+                                            />
+                                            <DaumPost setAddress={setAddress} />
+                                        </div>
+                                        <input type="text" placeholder="상세주소를 입력하세요." value={detailAddress} onChange={(e) => setDetailAddress(e.target.value)} className={style.signup_input_detail} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {isBusinessUser && (
+                            <div className={style.bisnum_wrapper}>
+                                <div className={style.title_input}>
+                                    <label className={style.input_label}>사업자번호</label>
+                                    <div className={style.bis_button}>
+                                        <Business
+                                            setCompanyRegistrationNum={setCompanyRegistrationNum}
+                                            setIsCompanyRegistrationNumVerified={setIsCompanyRegistrationNumVerified}
                                         />
-                                        <DaumPost setAddress={setAddress} />
                                     </div>
-                                    <input type="text" placeholder="상세주소를 입력하세요." value={detailAddress} onChange={(e) => setDetailAddress(e.target.value)} className={style.signup_input_detail} />
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        )}
 
-                    {isBusinessUser && (
-                        <div className={style.input_wrapper}>
-                            <div className={style.title_input}>
-                                <label className={style.input_label}>사업자번호</label>
-                                <input type="text" placeholder="사업자번호" className={style.signup_input} />
-                                {/* 추가적인 사업자번호 인증 로직이 필요하다면 여기에 구현 */}
-                            </div>
-                        </div>
-                    )}
-
-                    <button
-                        type="submit"
-                        disabled={!isUserIdValid || !isUsernameValid || !isPasswordValid || !isEmailValid || !isPhoneValid || !isVerified}
-                        className={style.signup_button}
-                        onClick={() => {
-                            if (!isUserIdValid || !isUsernameValid || !isPasswordValid || !isEmailValid || !isPhoneValid || !isVerified) {
-                                Swal.fire({
-                                    title: '필수 항목 누락',
-                                    text: '모든 필수 항목을 채워주세요.',
-                                    icon: 'warning',
-                                    confirmButtonText: '확인'
-                                });
-                            }
-                        }}
-                    >
-                        회원가입
-                    </button>
-                </form>
+                        <button
+                            type="submit"
+                            disabled={!isUserIdValid || !isUsernameValid || !isPasswordValid || !isEmailValid || !isPhoneValid || !isVerified}
+                            className={style.signup_button}
+                            onClick={() => {
+                                if (!isUserIdValid || !isUsernameValid || !isPasswordValid || !isEmailValid || !isPhoneValid || !isVerified) {
+                                    Swal.fire({
+                                        title: '필수 항목 누락',
+                                        text: '모든 필수 항목을 채워주세요.',
+                                        icon: 'warning',
+                                        confirmButtonText: '확인'
+                                    });
+                                }
+                            }}
+                        >
+                            회원가입
+                        </button>
+                    </form>
 
 
-            </motion.div>
-        </div>
+                </motion.div>
+            </div>
+        </Wrapper>
     )
 }
 

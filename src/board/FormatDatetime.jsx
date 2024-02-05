@@ -1,4 +1,3 @@
-import React from "react";
 
 function FormatDatetime(datetimeList) {
     const [year, month, day, hour, minute] = datetimeList;
