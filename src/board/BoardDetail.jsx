@@ -41,10 +41,10 @@ function BoardDetail() {
                         <thead>
                             <tr>
                                 <th className={style.number}>
-                                    {post.qnaArticleId}
+                                    {post.articleId}
                                 </th>
                                 <th colSpan={5} className={style.title}>
-                                    {post.qnaArticleTitle}
+                                    {post.articleTitle}
                                 </th>
                                 <th className={style.writer}>{post.userId}</th>
                             </tr>
@@ -54,20 +54,20 @@ function BoardDetail() {
                                     colSpan={3}
                                     className={style.category_blank}
                                 >
-                                    {post.qnaArticleCtgr}
+                                    {post.articleCtgr}
                                 </td>
                                 <th colSpan={2} className={style.reads}>
                                     조회수
                                 </th>
                                 <td className={style.reads_blank}>
-                                    {post.qnaArticleViewCounts}
+                                    {post.articleViewCounts}
                                 </td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td className={style.content} colSpan={7}>
-                                    {post.qnaArticleContents}
+                                    {post.articleContents}
                                 </td>
                             </tr>
                         </tbody>
@@ -75,11 +75,11 @@ function BoardDetail() {
                             <tr>
                                 <th>작성일</th>
                                 <td colSpan={3}>
-                                    {FormatDatetime(post.qnaArticleCreatedDate)}
+                                    {FormatDatetime(post.articleCreatedDate)}
                                 </td>
                                 <th colSpan={2}>수정일</th>
                                 <td>
-                                    {FormatDatetime(post.qnaArticleUpdateDate)}
+                                    {FormatDatetime(post.articleUpdateDate)}
                                 </td>
                             </tr>
                         </tfoot>

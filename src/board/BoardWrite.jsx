@@ -12,9 +12,9 @@ function BoardWrite() {
     const handleWrite = async () => {
         try {
             await axios.post("/api/board/article", {
-                qnaArticleTitle: title,
-                qnaArticleCtgr: category,
-                qnaArticleContents: content,
+                articleTitle: title,
+                articleCtgr: category,
+                articleContents: content,
             });
             navigate("/boardlist");
         } catch (error) {

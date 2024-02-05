@@ -6,7 +6,6 @@ import Signup from "./signup/Signup";
 import Signin from "./signin/Signin";
 import axios from "axios";
 import IdFind from "./find/IdFind";
-// import Sidenav from './sidenav/Sidenav';
 import BoardList from "./board/BoardList";
 import BoardDetail from "./board/BoardDetail";
 import BoardUpdate from "./board/BoardUpdate";
@@ -17,8 +16,6 @@ axios.defaults.baseURL = "https://devfeat.com";
 function App() {
     return (
         <>
-            {/* <Sidenav/> */}
-
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Homepage />} />
