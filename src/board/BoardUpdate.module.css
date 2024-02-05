@@ -22,6 +22,11 @@ th {
     border: 1px solid #000;
 }
 
+input,
+textarea {
+    border: none;
+}
+
 .complete_button {
     margin: 0 20px 0 5px;
 }
