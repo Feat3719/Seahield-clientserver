@@ -11,7 +11,7 @@ import IdFind from './find/IdFind';
 import BoardDetail from "./board/BoardDetail";
 import BoardUpdate from "./board/BoardUpdate";
 import BoardWrite from "./board/BoardWrite";
-import Mypage from './mypage/Mypage';
+import Mypage from './mypage/Mypage.jsx';
 import Intro from './intro/Intro';
 import { AnimatePresence } from 'framer-motion';
 
