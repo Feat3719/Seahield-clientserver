@@ -46,9 +46,7 @@ function BoardDetail() {
                                 <th colSpan={5} className={style.title}>
                                     {post.articleTitle}
                                 </th>
-                                <th className={style.writer}>
-                                    {post.articleWriter}
-                                </th>
+                                <th className={style.writer}>{post.userId}</th>
                             </tr>
                             <tr>
                                 <th className={style.category}>분류</th>

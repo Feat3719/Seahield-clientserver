@@ -59,9 +59,7 @@ function BoardUpdate() {
                                         }
                                     ></input>
                                 </th>
-                                <th className={style.writer}>
-                                    {post.articleWriter}
-                                </th>
+                                <th className={style.writer}>{post.userId}</th>
                             </tr>
                             <tr>
                                 <th className={style.category}>분류</th>

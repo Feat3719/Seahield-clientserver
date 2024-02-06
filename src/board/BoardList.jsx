@@ -9,7 +9,7 @@ function BoardList() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(10);
+    const [postsPerPage, setPostsPerPage] = useState(2);
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -21,7 +21,7 @@ function BoardList() {
             setLoading(false);
         };
         fetchPost();
-    }, []);
+    }, [currentPage]);
 
     const indexOfLast = currentPage * postsPerPage;
     const indexOfFirst = indexOfLast - postsPerPage;
@@ -34,18 +34,20 @@ function BoardList() {
     return (
         <div id={style.container}>
             <div id={style.title_box}>
-                <div className={style.title}>게시판</div>
+                <div className={style.title}>게시판 목록</div>
             </div>
             <div id={style.table_box}>
                 <table className={style.table}>
-                    <thead>
+                    <thead className={style.thead}>
                         <tr>
                             <td className={style.article_no}>번호</td>
                             <td className={style.article_title}>제목</td>
                             <td className={style.article_user}>작성자</td>
+                            <td className={style.article_reads}>조회수</td>
+                            <td className={style.article_like}>좋아요</td>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className={style.tbody}>
                         <Posts
                             posts={currentPosts(posts)}
                             loading={loading}
@@ -64,14 +66,6 @@ function BoardList() {
                     totalPosts={posts.length}
                     paginate={setCurrentPage}
                 ></Pagination>
-                {/* <Pagination
-                    totalItems={totalBooks}
-                    currentPage={
-                        page && parseInt(currentPage) > 0 ? parseInt(currentPage) : 1
-                    }
-                    pageCount={5}
-                    itemCountPerPage={10}
-                /> */}
             </div>
         </div>
     );
