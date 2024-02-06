@@ -15,7 +15,8 @@ function BoardList() {
         const fetchData = async () => {
             setLoading(true);
             const response = await axios.get(
-                `/api/board/articles?page=${currentPage}`
+                // `/api/board/articles?page=${currentPage}`
+                ""
             );
             setPosts(response.data);
             setLoading(false);
