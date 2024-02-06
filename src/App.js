@@ -6,10 +6,6 @@ import Signup from "./signup/Signup";
 import Signin from "./signin/Signin";
 import axios from "axios";
 import IdFind from "./find/IdFind";
-import BoardList from "./board/BoardList";
-import BoardDetail from "./board/BoardDetail";
-import BoardUpdate from "./board/BoardUpdate";
-import BoardWrite from "./board/BoardWrite";
 import Mypage from "./mypage/Mypage.jsx";
 import Intro from "./intro/Intro";
 import { AnimatePresence } from "framer-motion";
@@ -41,11 +37,8 @@ function AppContent() {
                 <Route path="/signupver" element={<SignupVer />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/idfind" element={<IdFind />} />
-                <Route path="/boardlist" element={<BoardList />} />
-                <Route path="/boarddetail/:id" element={<BoardDetail />} />
-                <Route path="/boardupdate/:id" element={<BoardUpdate />} />
-                <Route path="/boardwrite" element={<BoardWrite />} />
                 <Route path="/mypage" element={<Mypage />} />
+                <Route path="/board" element={<Board />} />
             </Routes>
         </AnimatePresence>
     );
