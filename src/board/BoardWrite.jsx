@@ -4,7 +4,7 @@ import style from "./BoardWrite.module.css";
 import axios from "axios";
 
 function BoardWrite() {
-    const navigete = useNavigate();
+    const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
     const [content, setContent] = useState("");
@@ -12,11 +12,11 @@ function BoardWrite() {
     const handleWrite = async () => {
         try {
             await axios.post("/api/board/article", {
-                qnaBoardTitle: title,
-                qnaBoardCtgr: category,
-                qnaBoardContents: content,
+                articleTitle: title,
+                articleCtgr: category,
+                articleContents: content,
             });
-            navigete("/boardlist");
+            navigate("/boardlist");
         } catch (error) {
             console.error("Error", error);
         }
@@ -25,25 +25,36 @@ function BoardWrite() {
     return (
         <div id={style.container}>
             <div id={style.write_box}>
-                <input
-                    name="title"
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                ></input>
-                <input
-                    name="category"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                ></input>
-                <textarea
-                    name="content"
-                    id=""
-                    cols="30"
-                    rows="10"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                ></textarea>
+                <div>
+                    <label htmlFor="title">제목</label>
+                    <input
+                        name="title"
+                        type="text"
+                        value={title}
+                        id="title"
+                        onChange={(e) => setTitle(e.target.value)}
+                    ></input>
+                </div>
+                <div>
+                    <label htmlFor="category">분류</label>
+                    <input
+                        name="category"
+                        value={category}
+                        id="category"
+                        onChange={(e) => setCategory(e.target.value)}
+                    ></input>
+                </div>
+                <div>
+                    <label htmlFor="content">내용</label>
+                    <textarea
+                        name="content"
+                        id="content"
+                        cols="30"
+                        rows="10"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                    ></textarea>
+                </div>
             </div>
             <div id={style.button_box}>
                 <button className={style.complete_button} onClick={handleWrite}>

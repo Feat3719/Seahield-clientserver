@@ -33,6 +33,7 @@ jobs:
           port: ${{ secrets.EC2_PORT }}
           source: "build/*"
           target: "/var/www/html"
+          overwrite: true
 
       - name: SSH commands
         uses: appleboy/ssh-action@master

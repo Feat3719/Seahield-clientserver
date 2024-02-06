@@ -10,16 +10,17 @@
 .page_li {
     display: inline-block;
     border: none;
+    color: white;
 
     width: 25px;
     &:hover {
         cursor: pointer;
-        color: white;
-        background-color: #263a6c;
+        color: gray;
+        /* background-color: #263a6c; */
     }
     &:focus::after {
         color: white;
-        background-color: #263a6c;
+        /* background-color: #263a6c; */
     }
 }
 
@@ -29,6 +30,6 @@
     &:focus::after {
         border-radius: 100%;
         color: white;
-        background-color: #263a6c;
+        /* background-color: #263a6c; */
     }
 }

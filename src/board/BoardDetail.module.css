@@ -22,11 +22,12 @@ th {
     border: 1px solid #000;
 }
 
-.comment_button {
+.delete_button {
     margin: 0 20px 0 5px;
 }
 
-.update_button {
+.update_button,
+.list_button {
     margin: 0 5px 0 0;
 }
 

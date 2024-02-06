@@ -1,0 +1,9 @@
+#container {
+    border: none;
+    border-radius: 10px;
+    width: 70%;
+    height: auto;
+    margin: 50px auto;
+    padding-bottom: 10px;
+    background-color: #343a43;
+}
