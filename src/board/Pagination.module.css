@@ -10,12 +10,12 @@
 .page_li {
     display: inline-block;
     border: none;
-    color: white;
+    color: gray;
 
     width: 25px;
     &:hover {
         cursor: pointer;
-        color: gray;
+        color: white;
         /* background-color: #263a6c; */
     }
     &:focus::after {
