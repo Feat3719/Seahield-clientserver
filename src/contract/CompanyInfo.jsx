@@ -63,6 +63,13 @@ function CompanyInfo() {
                         <div className={style.form_date}>
                             <label className={style.form_label}>주민등록번호</label>
                             <input className={style.form_input} placeholder="123456-1234567" />
+
+                        </div>
+
+                        <div className={style.signature_display}>
+                            <div className={style.contract_btn} onClick={() => alert("hi")}>
+                                등록하기
+                            </div>
                         </div>
                     </div>
                 </motion.div>

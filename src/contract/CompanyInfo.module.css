@@ -106,6 +106,24 @@
     border-color: #2e7eef;
 }
 
+.contract_btn {
+    cursor: pointer;
+    background-color: #333;
+    width: 14vh;
+    height: 5vh;
+    color: white;
+    font-size: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1vh;
+}
+
+.contract_btn:hover {
+    cursor: pointer;
+    background-color: #5593ff;
+}
+
 
 @media all and (min-width:1024px) and (max-width:1279px) {}
 
