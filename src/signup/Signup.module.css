@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'KoPubWorldDotum';
+    font-weight: 500;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.ttf') format("truetype");
+    font-display: swap;
+}
+
 .signup {
     height: 100vh;
     display: flex;
@@ -113,7 +125,7 @@
 .error_message {
     color: red;
     font-size: 1.5vh;
-    margin-left: 12vw;
+    margin-left: 11vw;
 }
 
 .error_message_email {
@@ -124,18 +136,18 @@
 .success_message {
     color: rgb(0, 85, 255);
     font-size: 1.5vh;
-    margin-left: 12vw;
+    margin-left: 11vw;
 }
 
 .checking_message {
     color: rgb(172, 171, 171);
     font-size: 1.5vh;
-    margin-left: 12vw;
+    margin-left: 11vw;
 }
 
 .prompt_message {
     font-size: 1.5vh;
-    margin-left: 12vw;
+    margin-left: 11vw;
 }
 
 .error_message_area {
@@ -201,6 +213,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s;
 }
 
 .submit_code_button:hover {
@@ -347,6 +360,8 @@ signup_input_detail {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'KoPubWorldDotum';
+    transition: background-color 0.3s;
 }
 
 .signup_button:hover {
@@ -399,6 +414,7 @@ signup_input_detail {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s;
 }
 
 .send_code_button:hover,
@@ -424,6 +440,7 @@ signup_input_detail {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s;
 }
 
 .check_id_button:hover {

@@ -14,6 +14,10 @@ import BoardWrite from "./board/BoardWrite";
 import Mypage from './mypage/Mypage';
 import Intro from './intro/Intro';
 import { AnimatePresence } from 'framer-motion';
+import Contract from './contract/Contract';
+import AdminPage from './adminpage/AdminPage';
+import ContractVer from './contract/ContractVer';
+import CompanyInfo from './contract/CompanyInfo';
 
 axios.defaults.baseURL = "https://devfeat.com"
 
@@ -48,6 +52,10 @@ function AppContent() {
         <Route path="/boardupdate/:id" element={<BoardUpdate />} />
         <Route path="/boardwrite" element={<BoardWrite />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/contract" element={<Contract />} />
+        <Route path="/contractver" element={<ContractVer />} />
+        <Route path="/companyinfo" element={<CompanyInfo />} />
       </Routes>
     </AnimatePresence>
   );

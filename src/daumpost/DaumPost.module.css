@@ -9,7 +9,7 @@
     margin-left: 0.5vw;
     /* 입력 필드와 버튼 사이의 간격 */
     transition: background-color 0.3s;
-    width: 5vw;
+    width: 10vh;
     height: 4.2vh;
     font-size: 1.5vh;
     display: flex;
@@ -24,22 +24,8 @@
 
 @media all and (min-width:1024px) and (max-width:1279px) {}
 
-@media all and (min-width:768px) and (max-width:1023px) {
-    .find_address_button {
-        width: 50%;
-    }
-}
+@media all and (min-width:768px) and (max-width:1023px) {}
 
-@media all and (min-width:480px) and (max-width:767px) {
-    .find_address_button {
-        width: 50%;
-    }
-}
+@media all and (min-width:480px) and (max-width:767px) {}
 
-@media all and (min-width:200px) and (max-width:479px) {
-
-    .find_address_button {
-        width: 50%;
-    }
-
-}
+@media all and (min-width:200px) and (max-width:479px) {}

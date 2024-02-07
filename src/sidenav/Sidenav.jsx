@@ -3,12 +3,15 @@ import style from './Sidenav.module.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import LogOutBtn from '../reducers/LogOutBtn';
+import { useLocation } from 'react-router';
 
 function Sidenav() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const location = useLocation();
     const [buttonIcon, setButtonIcon] = useState(`${process.env.PUBLIC_URL}/images/menu1.svg`);
     const sidebarWidth = isSidebarOpen ? '35vh' : '0px'; // Sidebar 너비 동적 조정
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn); // isLoggedIn 상태 가져오기
+    const userType = useSelector(state => state.auth.userType); // userType 상태 가져오기
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -33,64 +36,73 @@ function Sidenav() {
             </button>
             <div className={style.sidebar} style={{ width: isSidebarOpen ? '35vh' : '0px' }}>
                 <ul className={style.sidebarList}> {/* Sidebar가 닫혔을 때 내부 내용 숨김 */}
-                    <li className={style.sidebarItem}>
+                    <li className={`${style.sidebarItem} ${location.pathname === "/" ? style.active : ""}`}>
                         <Link to="/" className={style.navLink}>
                             <span className={style.itemTxt}>
                                 메인페이지
                             </span>
                         </Link>
                     </li>
-                    <li className={style.sidebarItem}>
+                    <li className={`${style.sidebarItem} ${location.pathname === "/map" ? style.active : ""}`}>
                         <Link to="/map" className={style.navLink}>
                             <span className={style.itemTxt}>
                                 해양쓰레기 지도
                             </span>
                         </Link>
                     </li>
-                    <li className={style.sidebarItem}>
-                        <Link to="/" className={style.navLink}>
+                    <li className={`${style.sidebarItem} ${location.pathname === "/contractver" ? style.active : ""}`}>
+                        <Link to="/contractver" className={style.navLink}>
                             <span className={style.itemTxt}>
                                 수거계약신청
                             </span>
                         </Link>
                     </li>
-                    <li className={style.sidebarItem}>
-                        <Link to="/boardlist" className={style.navLink}>
+                    <li className={`${style.sidebarItem} ${location.pathname === "/boardtab" ? style.active : ""}`}>
+                        <Link to="/boardtab" className={style.navLink}>
                             <span className={style.itemTxt}>
                                 Q@A
                             </span>
                         </Link>
                     </li>
-                    <li className={`${style.sidebarItem} ${style.sidebarContact}`}>
+                    <li className={`${style.sidebarItem} ${location.pathname === "/" ? style.active : ""}`}>
                         <Link to="/" className={style.navLink}>
                             <span className={style.itemTxt}>
                                 사용방법
                             </span>
                         </Link>
                     </li>
+                    <div className={style.margin}></div>
                     {isLoggedIn ? (
                         <>
                             <li className={style.sidebarItem}>
-                                <LogOutBtn /> {/* LogOutBtn 컴포넌트를 사용합니다 */}
+                                <LogOutBtn />
                             </li>
-                            <li className={style.sidebarItem}>
-                                <Link to="/mypage" className={style.navLink}>
-                                    <span className={style.itemTxt}>
-                                        마이페이지
-                                    </span>
-                                </Link>
+                            <li className={`${style.sidebarItem} ${location.pathname === "/admin" ? style.active : location.pathname === "/mypage" ? style.active : ""}`}>
+                                {userType === "ADMIN" ? (
+                                    <Link to="/admin" className={style.navLink}>
+                                        <span className={style.itemTxt}>
+                                            관리자 페이지
+                                        </span>
+                                    </Link>
+                                ) : (
+                                    <Link to="/mypage" className={style.navLink}>
+                                        <span className={style.itemTxt}>
+                                            마이페이지
+                                        </span>
+                                    </Link>
+                                )}
                             </li>
                         </>
                     ) : (
                         <>
-                            <li className={style.sidebarItem}>
+                            <li className={`${style.sidebarItem} ${location.pathname === "/signin" ? style.active : ""}`}>
                                 <Link to="/signin" className={style.navLink}>
                                     <span className={style.itemTxt}>
                                         로그인
                                     </span>
                                 </Link>
                             </li>
-                            <li className={style.sidebarItem}>
+                            <li className={`${style.sidebarItem} ${location.pathname === "/signupver" ? style.active : ""}`}>
                                 <Link to="/signupver" className={style.navLink}>
                                     <span className={style.itemTxt}>
                                         회원가입
