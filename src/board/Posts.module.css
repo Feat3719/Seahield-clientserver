@@ -5,24 +5,27 @@ th {
 }
 
 td {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: #ffffff;
+    border-color: aqua;
+    border-radius: 5px;
+    background-color: #343a43;
 }
 
-a {
+.link {
     text-decoration-line: none;
-    color: black;
+    color: white;
     transition: color 0.3s ease;
 }
 
-a:hover {
+.link:hover {
     color: gray;
 }
 
 .article_no {
     text-align: center;
+    border: none;
 }
 
 .article_user {
     text-align: center;
+    border: none;
 }

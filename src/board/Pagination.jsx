@@ -1,5 +1,4 @@
 import React from "react";
-// import styled from "styled-components";
 import style from "./Pagination.module.css";
 
 const Pagination = ({ postsPerPage, totalPosts, paginate }) => {

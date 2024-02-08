@@ -5,27 +5,34 @@ import style from "./Posts.module.css";
 const Posts = ({ posts, loading }) => {
     console.log(posts);
 
+    if (loading) {
+        return (
+            <tr>
+                <td colSpan="3">loading...</td>
+            </tr>
+        );
+    }
+
     return (
         <>
-            {loading && <div> loading... </div>}
-
             {posts.map((post) => (
-                <tr key={post.qnaArticleId}>
-                    <td className={style.article_no}>{post.qnaArticleId}</td>
+                <tr key={post.articleId}>
+                    <td className={style.article_no}>{post.articleId}</td>
                     <td>
-                        <Link to={`/boarddetail/${post.qnaArticleId}`}>
-                            {post.qnaArticleTitle}
-                        </Link>
-                        {/* <Link
-                            to={{
-                                pathname: "/boarddetail",
-                                state: { post: post },
-                            }}
+                        <Link
+                            to={`/boarddetail/${post.articleId}`}
+                            className={style.link}
                         >
-                            {post.qnaArticleTitle}
-                        </Link> */}
+                            {post.articleTitle}
+                        </Link>
                     </td>
                     <td className={style.article_user}>{post.userId}</td>
+                    <td className={style.article_reads}>
+                        {post.articleViewCounts}
+                    </td>
+                    <td className={style.article_like}>
+                        {post.articleLikeCounts}
+                    </td>
                 </tr>
             ))}
         </>
