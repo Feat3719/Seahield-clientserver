@@ -12,6 +12,9 @@ function BoardWrite() {
 
     const handleWrite = async () => {
         try {
+            console.log(title);
+            console.log(category);
+            console.log(content);
             await axios.post("/api/board/article", {
                 articleTitle: title,
                 articleCtgr: category,

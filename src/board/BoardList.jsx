@@ -34,37 +34,47 @@ function BoardList({ category, tabName }) {
 
     return (
         <>
-            <div id={style.container}>
-                <div id={style.table_box}>
-                    <table className={style.table}>
-                        <thead className={style.thead}>
-                            <tr>
-                                <td className={style.article_no}>번호</td>
-                                <td className={style.article_title}>제목</td>
-                                <td className={style.article_user}>작성자</td>
-                                <td className={style.article_reads}>조회수</td>
-                                <td className={style.article_like}>좋아요</td>
-                            </tr>
-                        </thead>
-                        <tbody className={style.tbody}>
-                            <Posts
-                                posts={currentPosts(posts)}
-                                loading={loading}
-                            ></Posts>
-                        </tbody>
-                    </table>
-                </div>
-                <div id={style.button_box}>
-                    <Link to="/boardwrite">
-                        <button className={style.button}>글쓰기</button>
-                    </Link>
-                </div>
-                <div id={style.pagination_box}>
-                    <Pagination
-                        postsPerPage={postsPerPage}
-                        totalPosts={posts.length}
-                        paginate={setCurrentPage}
-                    ></Pagination>
+            <div id={style.background}>
+                <div id={style.container}>
+                    <div id={style.table_box}>
+                        <table className={style.table}>
+                            <thead className={style.thead}>
+                                <tr>
+                                    <td className={style.article_no}>번호</td>
+                                    <td className={style.article_title}>
+                                        제목
+                                    </td>
+                                    <td className={style.article_user}>
+                                        작성자
+                                    </td>
+                                    <td className={style.article_reads}>
+                                        조회수
+                                    </td>
+                                    <td className={style.article_like}>
+                                        좋아요
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody className={style.tbody}>
+                                <Posts
+                                    posts={currentPosts(posts)}
+                                    loading={loading}
+                                ></Posts>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id={style.button_box}>
+                        <Link to="/boardwrite">
+                            <button className={style.button}>글쓰기</button>
+                        </Link>
+                    </div>
+                    <div id={style.pagination_box}>
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={posts.length}
+                            paginate={setCurrentPage}
+                        ></Pagination>
+                    </div>
                 </div>
             </div>
         </>

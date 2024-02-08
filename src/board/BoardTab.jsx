@@ -17,8 +17,8 @@ function BoardTab() {
     };
 
     return (
-        <div id={style.container}>
-            <div id={style.tab_box}>
+        <div id={style.boardTabContainer}>
+            <div id={style.tabBox}>
                 <ul id={style.tab}>
                     {tabData.map((tab) => {
                         // const tabClass = `tab ${
@@ -41,7 +41,7 @@ function BoardTab() {
                 </ul>
             </div>
 
-            <div id={style.list_box}>
+            <div id={style.listBox}>
                 {activeTab === 1 && (
                     <BoardList category={"FREE"} tabName={tabData[0].content} />
                 )}
