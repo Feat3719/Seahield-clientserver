@@ -28,9 +28,9 @@ function BoardUpdate() {
     const handleUpdate = async () => {
         try {
             await axios.patch(`/api/board/article/${id}`, {
-                qnaArticleTitle: title,
-                qnaArticleCtgr: category,
-                qnaArticleContents: content,
+                articleTitle: title,
+                articleCtgr: category,
+                articleContents: content,
             });
             navigate(`/boarddetail/${id}`);
         } catch (error) {
@@ -46,13 +46,13 @@ function BoardUpdate() {
                         <thead>
                             <tr>
                                 <th className={style.number}>
-                                    {post.qnaArticleId}
+                                    {post.articleId}
                                 </th>
                                 <th colSpan={5} className={style.title}>
                                     <input
                                         name="title"
                                         type="text"
-                                        defaultValue={post.qnaArticleTitle}
+                                        defaultValue={post.articleTitle}
                                         id="title"
                                         onChange={(e) =>
                                             setTitle(e.target.value)
@@ -69,7 +69,7 @@ function BoardUpdate() {
                                 >
                                     <input
                                         name="category"
-                                        defaultValue={post.qnaArticleCtgr}
+                                        defaultValue={post.articleCtgr}
                                         id="category"
                                         onChange={(e) =>
                                             setCategory(e.target.value)
@@ -80,7 +80,7 @@ function BoardUpdate() {
                                     조회수
                                 </th>
                                 <td className={style.reads_blank}>
-                                    {post.qnaArticleViewCounts}
+                                    {post.articleViewCounts}
                                 </td>
                             </tr>
                         </thead>
@@ -92,7 +92,7 @@ function BoardUpdate() {
                                         id="content"
                                         cols="30"
                                         rows="10"
-                                        defaultValue={post.qnaArticleContents}
+                                        defaultValue={post.articleContents}
                                         onChange={(e) =>
                                             setContent(e.target.value)
                                         }
@@ -104,11 +104,11 @@ function BoardUpdate() {
                             <tr>
                                 <th>작성일</th>
                                 <td colSpan={3}>
-                                    {FormatDatetime(post.qnaArticleCreatedDate)}
+                                    {FormatDatetime(post.articleCreatedDate)}
                                 </td>
                                 <th colSpan={2}>수정일</th>
                                 <td>
-                                    {FormatDatetime(post.qnaArticleUpdateDate)}
+                                    {FormatDatetime(post.articleUpdateDate)}
                                 </td>
                             </tr>
                         </tfoot>

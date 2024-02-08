@@ -73,7 +73,7 @@ function Homepage() {
     // const closeModal = () => {
     //     setSelectedVideo('');
     //   };
-    
+
 
     // const [selectedMarker, setSelectedMarker] = useState(null);
 
@@ -170,17 +170,17 @@ function Homepage() {
 
     return (
         <Wrapper>
-        <div className={style.home_box}>
-            <div className={style.login_nav}>
-                <Sidenav />
-            </div>
-            <div className={style.home_box_2}>
-                <div className={style.sub_1}>
+            <div className={style.home_box}>
+                <div className={style.login_nav}>
+                    <Sidenav />
+                </div>
+                <div className={style.home_box_2}>
+                    <div className={style.sub_1}>
 
-                    <div className={style.sub_1_1}>
-                        <div className={style.sub_1_1_title}>메인_서브_1_1
-                            {/* 모달 */}
-                            {/* {selectedMarker && (
+                        <div className={style.sub_1_1}>
+                            <div className={style.sub_1_1_title}>메인_서브_1_1
+                                {/* 모달 */}
+                                {/* {selectedMarker && (
                                 <Modal closeModal={closeModal}>
                                 <div>
                                     <h2>{selectedMarker[2]}</h2>
@@ -190,23 +190,23 @@ function Homepage() {
                                 </Modal>
                             )} */}
 
-                        </div>
-                        <div className={style.modal_video}>
-                            {isModalOpen && (
-                                <div className={style.modal}>
+                            </div>
+                            <div className={style.modal_video}>
+                                {isModalOpen && (
+                                    <div className={style.modal}>
 
-                                    {selectedImage === 'cctv-icon-1.png' && (
+                                        {selectedImage === 'cctv-icon-1.png' && (
 
-                                        // <img src={process.env.PUBLIC_URL + '/images/img2.jpg'} alt="Modal img2.jpg" 
-                                        //     style={{ width: '110%', height: '200%', position: 'relative', top: '-22%'}}
-                                        // />
-                                        <video width="620vw" height="420vh" controls autoPlay muted>
-                                            <source src={process.env.PUBLIC_URL + '/videos/sea.mp4'} type="video/mp4"
-                                                // style={{ width: '110vw', height: '200vh', position: 'relative' }}
-                                                className={style.video}
-                                            />
-                                        </video>
-                                    )}
+                                            // <img src={process.env.PUBLIC_URL + '/images/img2.jpg'} alt="Modal img2.jpg" 
+                                            //     style={{ width: '110%', height: '200%', position: 'relative', top: '-22%'}}
+                                            // />
+                                            <video width="620vw" height="420vh" controls autoPlay muted>
+                                                <source src={process.env.PUBLIC_URL + '/videos/sea.mp4'} type="video/mp4"
+                                                    // style={{ width: '110vw', height: '200vh', position: 'relative' }}
+                                                    className={style.video}
+                                                />
+                                            </video>
+                                        )}
 
                                         {/* {selectedVideo && (
                                                 <div className="modal">
@@ -218,37 +218,37 @@ function Homepage() {
                                             )} */}
 
 
-                                    {selectedImage === 'cctv-icon-2.png' && (
-                                        // <div>
-                                        <video width="620vw" height="420vh" controls autoPlay muted>
-                                            <source src={process.env.PUBLIC_URL + '/videos/river.mp4'} type="video/mp4"
-                                                style={{ width: '110%', height: '200%', position: 'relative', top: '-22%' }}
-                                            />
-                                            Your browser does not support the video tag.
-                                        </video>
-                                        //</div>
-                                    )}
-                                    {selectedImage === 'cctv-icon-3.png' && (
-                                        // <div>
-                                        <video width="620vw" height="420vh" controls autoPlay muted>
-                                            <source src={process.env.PUBLIC_URL + '/videos/river.mp4'} type="video/mp4"
-                                                style={{ width: '110%', height: '200%', position: 'relative', top: '-22%' }}
-                                            />
-                                            Your browser does not support the video tag.
-                                        </video>
-                                        // </div>
-                                    )}
-                                    {/* <button onClick={handleCloseModal}>Close Modal</button> */}
-                                </div>
-                            )}
+                                        {selectedImage === 'cctv-icon-2.png' && (
+                                            // <div>
+                                            <video width="620vw" height="420vh" controls autoPlay muted>
+                                                <source src={process.env.PUBLIC_URL + '/videos/river.mp4'} type="video/mp4"
+                                                    style={{ width: '110%', height: '200%', position: 'relative', top: '-22%' }}
+                                                />
+                                                Your browser does not support the video tag.
+                                            </video>
+                                            //</div>
+                                        )}
+                                        {selectedImage === 'cctv-icon-3.png' && (
+                                            // <div>
+                                            <video width="620vw" height="420vh" controls autoPlay muted>
+                                                <source src={process.env.PUBLIC_URL + '/videos/river.mp4'} type="video/mp4"
+                                                    style={{ width: '110%', height: '200%', position: 'relative', top: '-22%' }}
+                                                />
+                                                Your browser does not support the video tag.
+                                            </video>
+                                            // </div>
+                                        )}
+                                        {/* <button onClick={handleCloseModal}>Close Modal</button> */}
+                                    </div>
+                                )}
+                            </div>
+
+
                         </div>
 
-
-                    </div>
-
-                    <div className={style.sub_1_2}>
-                        {/* <div className={style.sub_1_2_title}>메인_서브_1_2</div> */}
-                        {/* <table border="1" cellspacing="0" className={style.sub_1_table}>
+                        <div className={style.sub_1_2}>
+                            {/* <div className={style.sub_1_2_title}>메인_서브_1_2</div> */}
+                            {/* <table border="1" cellspacing="0" className={style.sub_1_table}>
 
                             <thead>
                                 <tr>
@@ -274,123 +274,123 @@ function Homepage() {
                                 )}
                             </tbody>
                         </table> */}
-                        <table border="1" cellspacing="0" className={style.sub_1_table}
-                            style={{ width: '25vw' }}
-                        >
-                            {selectedImage === 'cctv-icon-1.png' && (
-                                <div className={style.sub_1_2_title}>포항지사</div>
-                            )}
+                            <table border="1" cellSpacing="0" className={style.sub_1_table}
+                                style={{ width: '25vw' }}
+                            >
+                                {selectedImage === 'cctv-icon-1.png' && (
+                                    <div className={style.sub_1_2_title}>포항지사</div>
+                                )}
 
-                            {selectedImage === 'cctv-icon-1.png' && (
-                                <thead className={style.thead}>
-                                    <tr>
-                                        <th>인덱스번호</th>
-                                        <th>지역</th>
-                                        <th>위치</th>
-                                    </tr>
-                                </thead>
-                            )}
-
-                            {selectedImage === 'cctv-icon-1.png' && (
-
-                                <tbody>
-                                    {pohangData.map((row, rowIndex) => (
-                                        <tr key={rowIndex}>
-                                            {row.map((cell, colIndex) => (
-                                                <td key={colIndex}
-                                                    className={`${style.cell} ${colIndex > 0 ? style.clickable : ''}`}
-                                                    onClick={() => {
-                                                        handleClick(cell);
-                                                        }} 
-                                                        style={{ height: '1vh', width: '10vw' }}>
-                                                    {cell}
-                                                </td>
-                                            )
-                                            )}
+                                {selectedImage === 'cctv-icon-1.png' && (
+                                    <thead className={style.thead}>
+                                        <tr>
+                                            <th>인덱스번호</th>
+                                            <th>지역</th>
+                                            <th>위치</th>
                                         </tr>
-                                    )
-                                    )}
-                                </tbody>
-                            )}
+                                    </thead>
+                                )}
 
-                            {selectedImage === 'cctv-icon-2.png' && (
-                                <div className={style.sub_1_2_title}>울산지사</div>
-                            )}
+                                {selectedImage === 'cctv-icon-1.png' && (
 
-                            {selectedImage === 'cctv-icon-2.png' && (
-                                <thead className={style.thead}>
-                                    <tr>
-                                        <th>인덱스번호</th>
-                                        <th>지역</th>
-                                        <th>위치</th>
-                                    </tr>
-                                </thead>
-                            )}
+                                    <tbody>
+                                        {pohangData.map((row, rowIndex) => (
+                                            <tr key={rowIndex}>
+                                                {row.map((cell, colIndex) => (
+                                                    <td key={colIndex}
+                                                        className={`${style.cell} ${colIndex > 0 ? style.clickable : ''}`}
+                                                        onClick={() => {
+                                                            handleClick(cell);
+                                                        }}
+                                                        style={{ height: '1vh', width: '8vw' }}>
+                                                        {cell}
+                                                    </td>
+                                                )
+                                                )}
+                                            </tr>
+                                        )
+                                        )}
+                                    </tbody>
+                                )}
 
-                            {selectedImage === 'cctv-icon-2.png' && (
+                                {selectedImage === 'cctv-icon-2.png' && (
+                                    <div className={style.sub_1_2_title}>울산지사</div>
+                                )}
 
-                                <tbody>
-                                    {ulsanData.map((row, rowIndex) => (
-                                        <tr key={rowIndex}>
-                                            {row.map((cell, colIndex) => (
-                                                <td key={colIndex}
-                                                    className={`${style.cell} ${colIndex > 0 ? style.clickable : ''}`}
-                                                    onClick={() => handleClick(cell)} style={{ height: '1vh', width: '10vw' }}>
-                                                    {cell}
-                                                </td>
-                                            )
-                                            )}
+                                {selectedImage === 'cctv-icon-2.png' && (
+                                    <thead className={style.thead}>
+                                        <tr>
+                                            <th>인덱스번호</th>
+                                            <th>지역</th>
+                                            <th>위치</th>
                                         </tr>
-                                    )
-                                    )}
-                                </tbody>
-                            )}
+                                    </thead>
+                                )}
 
-                            {selectedImage === 'cctv-icon-3.png' && (
-                                <div className={style.sub_1_2_title}>목포지사</div>
-                            )}
+                                {selectedImage === 'cctv-icon-2.png' && (
 
-                            {selectedImage === 'cctv-icon-3.png' && (
-                                <thead className={style.thead}>
-                                    <tr>
-                                        <th>인덱스번호</th>
-                                        <th>지역</th>
-                                        <th>위치</th>
-                                    </tr>
-                                </thead>
-                            )}
+                                    <tbody>
+                                        {ulsanData.map((row, rowIndex) => (
+                                            <tr key={rowIndex}>
+                                                {row.map((cell, colIndex) => (
+                                                    <td key={colIndex}
+                                                        className={`${style.cell} ${colIndex > 0 ? style.clickable : ''}`}
+                                                        onClick={() => handleClick(cell)} style={{ height: '1vh', width: '8vw' }}>
+                                                        {cell}
+                                                    </td>
+                                                )
+                                                )}
+                                            </tr>
+                                        )
+                                        )}
+                                    </tbody>
+                                )}
 
-                            {selectedImage === 'cctv-icon-3.png' && (
-                                <tbody>
-                                    {mokpoData.map((row, rowIndex) => (
-                                        <tr key={rowIndex}>
-                                            {row.map((cell, colIndex) => (
-                                                <td key={colIndex}
-                                                    className={`${style.cell} ${colIndex > 0 ? style.clickable : ''}`}
-                                                    onClick={() => handleClick(cell)} 
-                                                                style={{ height: '1vh', width: '10vw', position: 'static' }}>
-                                                    {cell}
-                                                </td>
-                                            )
-                                            )}
+                                {selectedImage === 'cctv-icon-3.png' && (
+                                    <div className={style.sub_1_2_title}>목포지사</div>
+                                )}
+
+                                {selectedImage === 'cctv-icon-3.png' && (
+                                    <thead className={style.thead}>
+                                        <tr>
+                                            <th>인덱스번호</th>
+                                            <th>지역</th>
+                                            <th>위치</th>
                                         </tr>
-                                    )
-                                    )}
-                                </tbody>
-                            )}
+                                    </thead>
+                                )}
+
+                                {selectedImage === 'cctv-icon-3.png' && (
+                                    <tbody>
+                                        {mokpoData.map((row, rowIndex) => (
+                                            <tr key={rowIndex}>
+                                                {row.map((cell, colIndex) => (
+                                                    <td key={colIndex}
+                                                        className={`${style.cell} ${colIndex > 0 ? style.clickable : ''}`}
+                                                        onClick={() => handleClick(cell)}
+                                                        style={{ height: '1vh', width: '10vw', position: 'static' }}>
+                                                        {cell}
+                                                    </td>
+                                                )
+                                                )}
+                                            </tr>
+                                        )
+                                        )}
+                                    </tbody>
+                                )}
 
 
 
-                        </table>
+                            </table>
 
+
+                        </div>
 
                     </div>
-
-                </div>
-                <div className={style.sub_2}>
-                    <div className={style.sub_2_1}>
-                        <div className={style.sub_2_1_title}>메인_서브_2_1</div>
-                        {/* <img
+                    <div className={style.sub_2}>
+                        <div className={style.sub_2_1}>
+                            <div className={style.sub_2_1_title}>메인_서브_2_1</div>
+                            {/* <img
                             src={process.env.PUBLIC_URL + '/images/cctv-icon-2.png'}
                             alt="cctv-icon-2.png"
                             onClick={() => handleIconClick('cctv-icon-2.png')}
@@ -403,185 +403,185 @@ function Homepage() {
                             className={`${style.icon} ${style.icon3}`}
                             style={{ top: '30px', left: '40px' }}
                         /> */}
-                        {images.map((image, index) => (
-                            <img
-                                key={image}
-                                src={process.env.PUBLIC_URL + `/images/${image}`}
-                                alt={`Thumbnail ${image}`}
-                                className={`${style.thumbnail} ${selectedImage === image ? style.selected : ''}`}
-                                style={{ zIndex: index + 1, position: selectedImage === image ? 'relative' : 'absolute', ...iconMappings[image]?.style }}
-                                onClick={() => handleImageClick(image)}
-                            />
-                        ))}
+                            {images.map((image, index) => (
+                                <img
+                                    key={image}
+                                    src={process.env.PUBLIC_URL + `/images/${image}`}
+                                    alt={`Thumbnail ${image}`}
+                                    className={`${style.thumbnail} ${selectedImage === image ? style.selected : ''}`}
+                                    style={{ zIndex: index + 1, position: selectedImage === image ? 'relative' : 'absolute', ...iconMappings[image]?.style }}
+                                    onClick={() => handleImageClick(image)}
+                                />
+                            ))}
+                        </div>
+
+                        <div className={style.sub_2_2}>서브 2_2
+                            <RedDot x={16.8} y={80} id="redDot1" />
+                            {/* <RedDot w={1} h={1} id="redDot1" /> */}
+                            <RedDot x={16.8} y={80} id="redDot2" />
+                            {/* <RedDot w={1} h={1} id="redDot2" /> */}
+                            <div id="map" className={style.map}></div>
+
+                        </div>
                     </div>
 
-                    <div className={style.sub_2_2}>서브 2_2
-                        <RedDot x={16.8} y={80} id="redDot1" />
-                        {/* <RedDot w={1} h={1} id="redDot1" /> */}
-                        <RedDot x={16.8} y={80} id="redDot2" />
-                        {/* <RedDot w={1} h={1} id="redDot2" /> */}
-                        <div id="map" className={style.map}></div>
+                    <div className={style.sub_3}>sub_3
+
+                        {selectedImage === 'cctv-icon-1.png' && (
+                            <div className={style.weather}>
+                                <h2>포항 날씨 정보</h2>
+                                {/* Weather 컴포넌트에서 받아온 포항 풍속 정보 표시 함수 */}
+                                <Weather
+
+                                    onPohangWindSpeedData={(item) => (
+                                        <div>
+                                            <p>풍속: {item.fcstValue} m/s</p>
+                                            {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                                        </div>
+                                    )}
+                                    onPohangTMXData={(item) => (
+                                        <div>
+                                            <p>최고 기온: {item.fcstValue} ℃</p>
+                                            {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                                        </div>
+                                    )}
+                                    onPohangTMNData={(item) => (
+                                        <div>
+                                            <p>최저 기온 : {item.fcstValue} ℃</p>
+                                            <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                                        </div>
+
+                                    )}
+                                    onUlsanWindSpeedData={() => { }}
+                                    onUlsanTMXData={() => { }}
+                                    onUlsanTMNData={() => { }}
+                                    onGoheungWindSpeedData={() => { }}
+                                    onGoheungTMXData={() => { }}
+                                    onGoheungTMNData={() => { }}
+                                    onYeosuWindSpeedData={() => { }}
+                                    onYeosuTMXData={() => { }}
+                                    onYeosuTMNData={() => { }}
+                                />
+                            </div>
+                        )}
+                        {selectedImage === 'cctv-icon-2.png' && (
+                            <div className={style.weather}>
+                                <h2>울산 날씨 정보</h2>
+                                {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+                                <Weather
+                                    onPohangWindSpeedData={() => { }}
+                                    onPohangTMXData={() => { }}
+                                    onPohangTMNData={() => { }}
+                                    onGoheungWindSpeedData={() => { }}
+                                    onGoheungTMXData={() => { }}
+                                    onGoheungTMNData={() => { }}
+                                    onYeosuWindSpeedData={() => { }}
+                                    onYeosuTMXData={() => { }}
+                                    onYeosuTMNData={() => { }}
+
+                                    onUlsanWindSpeedData={(item) => (
+                                        <div>
+                                            <p>풍속: {item.fcstValue} m/s</p>
+                                            {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                                        </div>
+                                    )}
+                                    onUlsanTMXData={(item) => (
+                                        <div>
+                                            <p> 최고 기온 : {item.fcstValue} ℃</p>
+                                            {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                                        </div>
+                                    )}
+                                    onUlsanTMNData={(item) => (
+                                        <div>
+                                            <p> 최저 기온 : {item.fcstValue} ℃</p>
+                                            <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                                        </div>
+                                    )}
+                                />
+                            </div>
+                        )}
+
+                        {selectedImage === 'cctv-icon-3.png' && (
+                            <div className={style.weather}>
+                                <h2>고흥 날씨 정보</h2>
+                                {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+                                <Weather
+                                    onPohangWindSpeedData={() => { }}
+                                    onPohangTMXData={() => { }}
+                                    onPohangTMNData={() => { }}
+                                    onUlsanWindSpeedData={() => { }}
+                                    onUlsanTMXData={() => { }}
+                                    onUlsanTMNData={() => { }}
+                                    onYeosuWindSpeedData={() => { }}
+                                    onYeosuTMXData={() => { }}
+                                    onYeosuTMNData={() => { }}
+
+                                    onGoheungWindSpeedData={(item) => (
+                                        <div>
+                                            <p>풍속: {item.fcstValue} m/s</p>
+                                            {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                                        </div>
+
+                                    )}
+                                    onGoheungTMXData={(item) => (
+                                        <div>
+                                            <p> 최고 기온 : {item.fcstValue} ℃</p>
+                                            {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                                        </div>
+                                    )}
+                                    onGoheungTMNData={(item) => (
+                                        <div>
+                                            <p> 최저 기온 : {item.fcstValue} ℃</p>
+                                            <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                                        </div>
+                                    )}
+                                />
+
+                                <h2>여수 날씨 정보</h2>
+                                {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+                                <Weather
+                                    onPohangWindSpeedData={() => { }}
+                                    onPohangTMXData={() => { }}
+                                    onPohangTMNData={() => { }}
+                                    onUlsanWindSpeedData={() => { }}
+                                    onUlsanTMXData={() => { }}
+                                    onUlsanTMNData={() => { }}
+                                    onGoheungWindSpeedData={() => { }}
+                                    onGoheungTMXData={() => { }}
+                                    onGoheungTMNData={() => { }}
+
+                                    onYeosuWindSpeedData={(item) => (
+                                        <div>
+                                            <p>풍속: {item.fcstValue} m/s</p>
+                                            {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                                        </div>
+
+                                    )}
+                                    onYeosuTMXData={(item) => (
+                                        <div>
+                                            <p> 최고 기온 : {item.fcstValue} ℃</p>
+                                            {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                                        </div>
+                                    )}
+                                    onYeosuTMNData={(item) => (
+                                        <div>
+                                            <p> 최저 기온 : {item.fcstValue} ℃</p>
+                                            <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                                        </div>
+                                    )}
+                                />
+
+                                {/* <Weather onYeosuWindSpeedData={(item)=>(<div> <p>풍속: {item.fcstValue} m/s </p></div>   )} /> */}
+
+                            </div>
+
+
+                        )}
+
 
                     </div>
-                </div>
-
-                <div className={style.sub_3}>sub_3
-
-                    {selectedImage === 'cctv-icon-1.png' && (
-                        <div className={style.weather}>
-                            <h2>포항 날씨 정보</h2>
-                            {/* Weather 컴포넌트에서 받아온 포항 풍속 정보 표시 함수 */}
-                            <Weather
-
-                                onPohangWindSpeedData={(item) => (
-                                    <div>
-                                        <p>풍속: {item.fcstValue} m/s</p>
-                                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                                    </div>
-                                )}
-                                onPohangTMXData={(item) => (
-                                    <div>
-                                        <p>최고 기온: {item.fcstValue} ℃</p>
-                                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                                    </div>
-                                )}
-                                onPohangTMNData={(item) => (
-                                    <div>
-                                        <p>최저 기온 : {item.fcstValue} ℃</p>
-                                        <p>기준 시간: {item.baseDate} {item.baseTime}</p>
-                                    </div>
-
-                                )}
-                                onUlsanWindSpeedData={() => { }}
-                                onUlsanTMXData={() => { }}
-                                onUlsanTMNData={() => { }}
-                                onGoheungWindSpeedData={() => { }}
-                                onGoheungTMXData={() => { }}
-                                onGoheungTMNData={() => { }}
-                                onYeosuWindSpeedData={() => { }}
-                                onYeosuTMXData={() => { }}
-                                onYeosuTMNData={() => { }}
-                            />
-                        </div>
-                    )}
-                    {selectedImage === 'cctv-icon-2.png' && (
-                        <div className={style.weather}>
-                            <h2>울산 날씨 정보</h2>
-                            {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
-                            <Weather
-                                onPohangWindSpeedData={() => { }}
-                                onPohangTMXData={() => { }}
-                                onPohangTMNData={() => { }}
-                                onGoheungWindSpeedData={() => { }}
-                                onGoheungTMXData={() => { }}
-                                onGoheungTMNData={() => { }}
-                                onYeosuWindSpeedData={() => { }}
-                                onYeosuTMXData={() => { }}
-                                onYeosuTMNData={() => { }}
-
-                                onUlsanWindSpeedData={(item) => (
-                                    <div>
-                                        <p>풍속: {item.fcstValue} m/s</p>
-                                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                                    </div>
-                                )}
-                                onUlsanTMXData={(item) => (
-                                    <div>
-                                        <p> 최고 기온 : {item.fcstValue} ℃</p>
-                                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                                    </div>
-                                )}
-                                onUlsanTMNData={(item) => (
-                                    <div>
-                                        <p> 최저 기온 : {item.fcstValue} ℃</p>
-                                        <p>기준 시간: {item.baseDate} {item.baseTime}</p>
-                                    </div>
-                                )}
-                            />
-                        </div>
-                    )}
-
-                    {selectedImage === 'cctv-icon-3.png' && (
-                        <div className={style.weather}>
-                            <h2>고흥 날씨 정보</h2>
-                            {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
-                            <Weather
-                                onPohangWindSpeedData={() => { }}
-                                onPohangTMXData={() => { }}
-                                onPohangTMNData={() => { }}
-                                onUlsanWindSpeedData={() => { }}
-                                onUlsanTMXData={() => { }}
-                                onUlsanTMNData={() => { }}
-                                onYeosuWindSpeedData={() => { }}
-                                onYeosuTMXData={() => { }}
-                                onYeosuTMNData={() => { }}
-
-                                onGoheungWindSpeedData={(item) => (
-                                    <div>
-                                        <p>풍속: {item.fcstValue} m/s</p>
-                                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                                    </div>
-                                    
-                                )}
-                                onGoheungTMXData={(item) => (
-                                    <div>
-                                        <p> 최고 기온 : {item.fcstValue} ℃</p>
-                                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                                    </div>
-                                )}
-                                onGoheungTMNData={(item) => (
-                                    <div>
-                                        <p> 최저 기온 : {item.fcstValue} ℃</p>
-                                        <p>기준 시간: {item.baseDate} {item.baseTime}</p>
-                                    </div>
-                                )}
-                            />
-
-                    <h2>여수 날씨 정보</h2>
-                            {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
-                            <Weather
-                                onPohangWindSpeedData={() => { }}
-                                onPohangTMXData={() => { }}
-                                onPohangTMNData={() => { }}
-                                onUlsanWindSpeedData={() => { }}
-                                onUlsanTMXData={() => { }}
-                                onUlsanTMNData={() => { }}
-                                onGoheungWindSpeedData={() => { }}
-                                onGoheungTMXData={() => { }}
-                                onGoheungTMNData={() => { }}
-
-                                onYeosuWindSpeedData={(item) => (
-                                    <div>
-                                        <p>풍속: {item.fcstValue} m/s</p>
-                                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                                    </div>
-                                    
-                                )}
-                                onYeosuTMXData={(item) => (
-                                    <div>
-                                        <p> 최고 기온 : {item.fcstValue} ℃</p>
-                                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                                    </div>
-                                )}
-                                onYeosuTMNData={(item) => (
-                                    <div>
-                                        <p> 최저 기온 : {item.fcstValue} ℃</p>
-                                        <p>기준 시간: {item.baseDate} {item.baseTime}</p>
-                                    </div>
-                                )}
-                            />
-
-                            {/* <Weather onYeosuWindSpeedData={(item)=>(<div> <p>풍속: {item.fcstValue} m/s </p></div>   )} /> */}
-
-                        </div>
-                        
-                        
-                    )}
-
-
                 </div>
             </div>
-        </div>
         </Wrapper>
     )
 }

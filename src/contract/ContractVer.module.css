@@ -1,4 +1,4 @@
-.signup {
+.contractver {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,7 +7,7 @@
 }
 
 
-.signup_area {
+.contractver_area {
     height: 65vh;
     width: 40vw;
     justify-content: center;
@@ -20,9 +20,9 @@
     border-radius: 3vh;
 }
 
-.signup_title {
+.contractver_title {
     margin-bottom: 2vh;
-    font-size: 5vh;
+    font-size: 4vh;
 }
 
 
@@ -60,11 +60,10 @@
     background-color: #9dbef8;
 }
 
-.user1,
-.user2 {
+.contract_img,
+.info_img {
     width: 12vw;
-    height: 12vh;
-    margin-top: 3vh;
+    height: 10vh;
 }
 
 .select_1,
@@ -75,7 +74,7 @@
 .select_1 {
     font-size: 3vh;
     font-weight: bold;
-    margin: 1vh;
+    margin-top: 5vh;
 }
 
 .select_2 {
@@ -86,7 +85,7 @@
 @media all and (min-width:1024px) and (max-width:1279px) {}
 
 @media all and (min-width:768px) and (max-width:1023px) {
-    .signup_area {
+    .contractver_area {
         width: 60vw;
     }
 
@@ -102,7 +101,7 @@
 }
 
 @media all and (min-width:480px) and (max-width:767px) {
-    .signup_area {
+    .contractver_area {
         width: 80vw;
     }
 
@@ -114,10 +113,14 @@
     .select_area2 {
         width: 30vw
     }
+
+    .select_1 {
+        font-size: 2.5vh;
+    }
 }
 
 @media all and (max-width:479px) {
-    .signup_area {
+    .contractver_area {
         width: 80vw;
     }
 
@@ -125,23 +128,22 @@
         width: 80vw;
     }
 
-    .select_area1,
-    .select_area2 {
-        width: 30vw;
-    }
-
-    .select_1 {
+    .contractver_title {
         font-size: 3vh;
     }
 
-    .select_2 {
+    .select_area1,
+    .select_area2 {
+        width: 35vw;
+    }
+
+    .select_1 {
         font-size: 2vh;
+    }
+
+    .select_2 {
+        font-size: 1.5vh;
         margin: 0;
     }
 
-
-    .user1,
-    .user2 {
-        margin-top: 1vh;
-    }
 }
