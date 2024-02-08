@@ -17,10 +17,10 @@
     border-collapse: collapse;
 }
 
-.table td,
+/* .table td,
 th {
     border: 1px solid #000;
-}
+} */
 
 .delete_button {
     margin: 0 20px 0 5px;

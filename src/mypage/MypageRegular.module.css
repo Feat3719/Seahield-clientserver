@@ -78,8 +78,9 @@
 
 .my_table{
     position: absolute;
-    width: 60vw;
+    width: 65vw;
     background-color: #bdbbbb;
+    border: 2px black solid;
 }
 .my_board{
     overflow: auto;
@@ -95,7 +96,7 @@
     display: flex;
 }
 .contract_table{
-    border: #ffffff 1px solid;
+    border: #a55757 2px solid;
 }
 
 .edit_1{

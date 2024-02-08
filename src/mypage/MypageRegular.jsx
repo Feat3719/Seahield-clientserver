@@ -10,7 +10,7 @@
     const [userInfo, setUserInfo] = useState(null);
     // const [boardInfo, setBoardInfo] = useState(null);
     const [userId, setUserId] = useState("");
-    const [userNickname, setUserNickname] = useState("");
+    const [userNickName, setUserNickname] = useState("");
     const [userType, setUserType] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userAddress, setUserAddress] = useState("");
@@ -81,7 +81,7 @@
         if (response.status === 200) {
             setUserId(response.data.userId);
             setUserPwd(response.data.userPwd);
-            setUserNickname(response.data.userNickname);
+            setUserNickname(response.data.userNickName);
             setUserType(response.data.userType);
             setUserEmail(response.data.userEmail);
             setUserAddress(response.data.userAddress);
@@ -122,7 +122,7 @@
             {
             userId,
             userPwd,
-            userNickname,
+            userNickName,
             userType,
             userEmail,
             userAddress,
@@ -187,13 +187,13 @@
                     {userInfo &&
                         userInfo.map((item) => (
                         <tr key={item.userId_1} className={style.contract_input}>
-                            <td style={{ border: "black 1px solid" }}>
+                            <td style={{borderBottom: '1px black solid'}}>
                             {item.userType}
                             </td>
-                            <td style={{ border: "black 1px solid" }}>
+                            <td>
                             {item.userName}
                             </td>
-                            <td style={{ border: "black 1px solid" }}>
+                            <td >
                             {item.boardTitle}
                             </td>
                         </tr>
@@ -212,7 +212,7 @@
                     이름:{" "}
                     <input
                     type="text"
-                    value={userNickname}
+                    value={userNickName}
                     onChange={(e) => setUserNickname(e.target.value)}
                     placeholder="새로운 이름"
                     className={style.name_input}
@@ -226,14 +226,14 @@
                     onChange={(e) => setUserPwd(e.target.value)}
                     />
                 </p>
-                <p>
+                {/* <p>
                     이메일 :
                     <input
                     type="email"
                     value={userEmail}
                     onChange={(e) => setUserEmail(e.target.value)}
                     />
-                </p>
+                </p> */}
                 <p>
                     주소 :
                     <input
@@ -277,7 +277,7 @@
                         <p>아이디 : {userId}</p>
                     </div>
                     <div>
-                        <p>이름 : {userNickname}</p>
+                        <p>이름 : {userNickName}</p>
                     </div>
                     <div>
                         <p>유형 : {userType}</p>
@@ -396,7 +396,7 @@
 
                 <div className={style.my_info}>
                 <div>
-                    <h2 className={style.my_info_name}>{userNickname}님 정보</h2>
+                    <h2 className={style.my_info_name}>{userNickName}님 정보</h2>
                 </div>
 
                 <div className={style.my_input_wrapper_1}>
@@ -406,7 +406,7 @@
                         <p>아이디 : {userId}</p>
                         </div>
                         <div>
-                        <p>이름 : {userNickname}</p>
+                        <p>이름 : {userNickName}</p>
                         </div>
                         <div>
                         <p>유형 : {userType}</p>

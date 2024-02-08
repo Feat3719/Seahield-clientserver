@@ -11,21 +11,21 @@
     text-align: right;
 }
 
-table {
+/* table {
     border: 1px solid #000;
     width: 100%;
     border-collapse: collapse;
-}
+} */
 
-td,
+/* td,
 th {
     border: none;
-}
+} */
 
-input,
+/* input,
 textarea {
     border: none;
-}
+} */
 
 .complete_button {
     margin: 0 20px 0 5px;
