@@ -27,9 +27,9 @@ function BoardWrite() {
     };
 
     return (
-        <div id={style.container}>
-            <div id={style.pagetitle_box}>
-                <div className={style.pagetitle}>게시글 작성</div>
+        <div id={style.boardWriteContainer}>
+            <div id={style.pageTitleBox}>
+                <div className={style.pageTitle}>게시글 작성</div>
             </div>
             <div id={style.write_box}>
                 <div id={style.flex_box}>
