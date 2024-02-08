@@ -1,21 +1,16 @@
-//사업자번호 인증
-import React, { useState } from 'react'; // useCallback import
+import React, { useState } from 'react';
 import style from './Business.module.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 function Business({ setCompanyRegistrationNum, setIsCompanyRegistrationNumVerified }) {
-    const [displayValue, setDisplayValue] = useState(''); // 사용자에게 보여주는 값 (포맷팅 적용)
-    const [businessNumber, setBusinessNumber] = useState(''); // 실제 값 (숫자만)
+    const [displayValue, setDisplayValue] = useState('');
+    const [businessNumber, setBusinessNumber] = useState('');
 
-
-
-    // 길이에 따른 포맷팅
     const formatBusinessNumber = (value) => {
-        const num = value.replace(/[^\d]/g, ''); // 숫자만 추출
-        setBusinessNumber(num); // 숫자만 저장
+        const num = value.replace(/[^\d]/g, '');
+        setBusinessNumber(num);
 
-        // 길이에 따른 포맷팅 적용하여 반환
         if (num.length <= 3) {
             return num;
         } else if (num.length <= 5) {
@@ -27,25 +22,47 @@ function Business({ setCompanyRegistrationNum, setIsCompanyRegistrationNumVerifi
 
     const handleBusinessNumberChange = (e) => {
         const formattedNumber = formatBusinessNumber(e.target.value);
-        setDisplayValue(formattedNumber); // 포맷팅 적용 값 저장
+        setDisplayValue(formattedNumber);
+    };
+
+    const checkBusinessNumberDuplication = async () => {
+        try {
+            const response = await axios.post('/api/auth/validate-crnumber', {
+                crn: businessNumber // 'crn' 필드에 사업자번호를 할당
+            });
+
+            if (response.data.isDuplicate) {
+                setDisplayValue(''); // 입력 필드 초기화
+                setBusinessNumber('');
+                Swal.fire('실패', '이미 가입한 사업자번호입니다.', 'error');
+                return false; // 중복인 경우 false 반환
+            }
+            return true; // 중복이 아닌 경우 true 반환
+        } catch (error) {
+            console.error('사업자번호 중복 검사 에러:', error);
+            Swal.fire('오류', '사업자번호 중복 검사 중 오류가 발생했습니다.', 'error');
+            return false; // 오류 발생 시 false 반환
+        }
     };
 
     const handleBusinessNumberVerification = async () => {
+        const isUnique = await checkBusinessNumberDuplication();
+        if (!isUnique) return; // 중복이거나 오류인 경우 검증 절차 중단
+
         try {
             const url = `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=${process.env.REACT_APP_BUSINESS_API_KEY}`;
             const response = await axios.post(url, {
                 b_no: [businessNumber],
             });
 
-            // 사업자 상태 코드 (01: 계속사업자, 02: 휴업자, 03: 폐업자)
             const businessStatusCode = response.data.data[0].b_stt_cd;
-
             if (businessStatusCode === "01") {
-                setIsCompanyRegistrationNumVerified(true); // 상태 끌어올리기
-                setCompanyRegistrationNum(businessNumber); // 상태 끌어올리기
+                setIsCompanyRegistrationNumVerified(true);
+                setCompanyRegistrationNum(businessNumber);
+                console.log("사업자 번호 인증 완료:", businessNumber); // 로그로 확인
                 Swal.fire('성공', '사업자번호 인증을 성공하였습니다.', 'success');
             } else {
-                setIsCompanyRegistrationNumVerified(false); // 상태 끌어올리기
+                setIsCompanyRegistrationNumVerified(false);
                 Swal.fire('실패', '사업자번호 인증이 실패하였습니다.', 'error');
             }
         } catch (error) {
@@ -60,11 +77,11 @@ function Business({ setCompanyRegistrationNum, setIsCompanyRegistrationNumVerifi
                 type="text"
                 maxLength="12"
                 placeholder="사업자번호"
-                value={displayValue} // 포맷팅 적용 값 사용
+                value={displayValue}
                 onChange={handleBusinessNumberChange}
                 className={style.signup_input}
             />
-            <button type="button" onClick={handleBusinessNumberVerification} className={style.check_id_button}>사업자인증</button>
+            <div onClick={handleBusinessNumberVerification} className={style.check_id_button}>사업자인증</div>
         </div>
     );
 }

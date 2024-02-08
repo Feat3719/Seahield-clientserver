@@ -6,6 +6,10 @@ const Mypage = ()=> {
     const [username, setUsername_1] = useState('')
     const [email, setEmail_1] = useState('')
     const [usertype, setUserType_1] = useState('')
+
+    const [data] = useState([
+        {id : 1, aria:'포항',name:'구룡포대보해변'}
+    ])
     // const isBusinessUser = queryParams.get('isBusinessUser') === 'true';
     // const [userRole, setUserRole] = useState('');
 
@@ -36,7 +40,7 @@ const Mypage = ()=> {
 
 
         <div className={style.mypage}>
-            <div className={style.mypage_form}> 
+            <div className={style.my_info}> 
 
             <h1>마이 페이지</h1>
             {/* {userRole === 'ADMIN' && (
@@ -79,9 +83,61 @@ const Mypage = ()=> {
                     </div>
 
                     <div className={style.contract}> 
+                        <label>예약 내역</label>
+                        
+                        <div className={style.contract_title}>
+                            <table>
+                                <thead className={style.contract_title}>
+                                    <tr>
+                                        <td style={{width : '20vw', border:"red 1px solid"}}> hi </td>
+                                        <td style={{width : '20vw', border:"red 1px solid"}}> hello </td>
+                                    </tr>
+                                </thead>
+                                <tbody className={style.contract_table}>
+                                    {data.map( (item) => (
+                                        <tr key={item.id}
+                                        className={style.contract_input}>
+                                            <td> 
+                                                {/* <input className={style.contract_input}
+                                                type="text" 
+                                                placeholder="담당 지역 명"
+                                                disabled="True"
+                                                />  */}
+                                                {item.aria}
+                                            </td>
+                                            <td>
+                                                {item.name}
+                                                {/* <input className={style.contract_input}
+                                                    type="text" 
+                                                    value={username} // 구역이름으로 수정해야함
+                                                    placeholder="담당 구역"
+                                                    disabled="True"
+                                                /> */}
+                                            </td>
+                                        </tr>
+                                    )
+                                    )}
+                                        
+                                </tbody>
+
+                            </table>
 
 
+                            {/* <input className={style.contract_input}
+                                    type="text" 
+                                    placeholder="담당 지역 명"
+                                    disabled="True"
+                                    />
+                            <input className={style.contract_input}
+                                    type="text" 
+                                    placeholder="담당 구역"
+                                    disabled="True"
+                                    /> */}
+                        </div>
                     </div>
+
+
+
             
             
             </div>

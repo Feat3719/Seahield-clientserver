@@ -1,6 +1,7 @@
 const initialState = {
     isLoggedIn: false,
     user: null,
+    userType: null, // 초기 상태에 userType 추가
 };
 
 function authReducer(state = initialState, action) {
@@ -11,7 +12,7 @@ function authReducer(state = initialState, action) {
                 isLoggedIn: true,
                 user: action.payload.user,
                 accessToken: action.payload.accessToken,
-                userType: "default"
+                userType: action.payload.userType // userType 값을 액션에서 받아와 업데이트
             };
         case "LOGOUT":
             return {

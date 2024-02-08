@@ -1,13 +1,13 @@
 .mypage{
-    height: 100vh;
+    height: 140vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #4b4b4b;
 }
 
-.mypage_form{
-    height: 100vh;
+.my_info{
+    height: 140vh;
     width: 95vw;
     align-items: center;
     display: flex;
@@ -25,7 +25,7 @@
     display: block;
     justify-content: space-between;
     align-items: center;
-    top: 12vh;
+    top: 19.5vh;
     left: 5vw;
     margin-bottom: 4vh;
     width: 40vw;
@@ -56,6 +56,8 @@
     align-items: center;
     position: static;
 }
+
+
 .mypage_input{
     position: relative;
     flex-grow: 1;
@@ -75,8 +77,41 @@
 
 .contract{
     border: 1px blue dotted;
-    left: 20vw;
+    left: 25vw;
     position: relative;
     width: 40vw;
-    height: 60vh;
+    height: 100vh;
 }
+/* 화면 너비가 375px 이하일 때의 스타일 */
+@media (max-width: 375px) {
+    .contract {
+        position: absolute;
+        justify-content: center;
+        margin: 15vh 5vw 0 0;
+        width: 60vw;
+        height: 75vh;
+    }
+
+    .my_input_wrapper{
+        display: none;
+    }
+    }
+
+    .contract_title{
+        position: relative;
+        justify-content: left;
+        color: blueviolet;
+    }
+    .contract_table{
+        position: relative;
+        width: 100vw;
+        height: 50vh;
+    }
+
+    .contract_input{
+        /* display: block; */
+        /* padding: 0 0 0 0; */
+        /* justify-content: space-around; */
+        width: 17vw;
+        height: 10vh;
+    }

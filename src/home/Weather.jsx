@@ -11,11 +11,11 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
   
     const fetchWeatherData = async (nx, ny, setWeatherData) => {
       try {
-        const apiKey = 'JrDIvJyY%2F5nC4cM4h%2B%2BRTTFwta8XrWrlVQnatKlbqOz8FTo7eG8cdA0VrbJU5PldoMfabRTX2h1jjM4apPBXNQ%3D%3D';
-        if (!apiKey) {
-          console.error('API 키가 정의되지 않았습니다.');
-          return;
-        }
+        // const apiKey = '${process.env.REACT_APP_BUSINESS_API_KEY}';
+        // if (!apiKey) {
+        //   console.error('API 키가 정의되지 않았습니다.');
+        //   return;
+        // }
   
         const getCurrentDate = () => {
           const today = new Date();
@@ -28,7 +28,7 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
         // const currentDate = '20240202';
         const currentDate = getCurrentDate();
         // const baseTime = '0630';
-        const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${currentDate}&base_time=0500&nx=${nx}&ny=${ny}`;
+        const apiUrl = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${process.env.REACT_APP_WEATHER_API_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${currentDate}&base_time=0500&nx=${nx}&ny=${ny}`;
   
         const response = await axios.get(apiUrl);
   

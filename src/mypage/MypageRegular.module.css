@@ -1,0 +1,218 @@
+.mypage{
+    height: 180vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #4b4b4b;
+}
+
+.my_form{
+    /* border: 1px royalblue dotted; */
+    height: 160vh;
+    width: 95vw;
+    align-items: baseline;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgb(233, 233, 233);
+    margin-top: 2vh;
+    margin-bottom: 0vh;
+    border-radius: 10px;
+    font-size: 3vh;
+}
+.my_title{
+    position: absolute;    
+    margin: 0 auto;
+    left: 46vw;
+    padding: 2vh 0 2vh 0;
+    justify-content: center;
+    display: flex;
+}
+.my_info{
+    /* border: 1px solid bisque; */
+    padding-top: 7.5vh;
+    background-color: rgba(255, 255, 255, 0.952);
+    height: 150vh;
+    font-size: 1vw;
+}
+.my_info_name{
+    font-size: 2vh;
+}
+
+.my_input_wrapper_1{
+        /* position: relative; */
+        /* border: 5px rgb(25, 29, 36) dotted; */
+        border-collapse: collapse;
+        width: 15vw;
+        height: 50vh;
+        left: 2vh;
+        font-size: 1vw;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        text-align: end;
+}
+.my_input_wrapper_1 input {
+    width: 8vw;
+    height : 5vh;
+    font-size: 1.5vh;
+    top: 0vh;
+}
+
+.my_input_wrapper_2{
+    /* position: relative; */
+    border: 5px rgb(25, 29, 36) dotted;
+    border-collapse: collapse;
+    width: 15vw;
+    height: 50vh;
+    left: 2vh;
+    font-size: 2vw;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.contract_title thead{
+    height: 10vh;
+}
+
+.my_table{
+    position: absolute;
+    width: 60vw;
+    background-color: #bdbbbb;
+}
+.my_board{
+    overflow: auto;
+    font-size: 3vh;
+    width: 72vw;
+    height: 80vh;
+    border: 2px dotted blue;
+    background-color: #4b4b4b;
+    color: white;
+    top: 16vh;
+    right: 10vh;
+    position: absolute;
+    display: flex;
+}
+.contract_table{
+    border: #ffffff 1px solid;
+}
+
+.edit_1{
+    display: flex;
+    /* border: #ca8181 2px dotted; */
+    left: 42vw;
+    top: 15vh;
+    position: absolute;
+    width: 25vw;
+    height: 70vh;
+    justify-content: center;
+}
+
+.slide{
+    display: contents;
+    justify-content: space-between;
+    width: 80vw;
+}
+.myslide_form{
+    position: absolute;
+    background-color: #ffffff;
+    width: 70vw;
+    height: 35vh;
+    top: 110vh;
+    left: 23vw;
+    border: 2px #ca8181 solid;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+@media (max-width: 1107px) {
+    .my_title{
+        position: absolute;    
+        font-size: 8vw;
+        margin: 0 auto;
+        left: 30vw;
+        padding: 2vh 0 2vh 0;
+        justify-content: center;
+        display: flex;
+    }
+    .my_table{
+        position: absolute;
+        align-items: center;
+        width: 60vw;
+        margin-right: 20vw;
+    }
+    .my_input_wrapper_1{
+        /* position: relative; */
+        /* border: 5px rgb(25, 29, 36) dotted; */
+        border-collapse: collapse;
+        width: 20vw;
+        height: 50vh;
+        left: 2vh;
+        font-size: 1vw;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+}
+.my_input_wrapper_1 input{
+    width: 20vw;
+    height: 3vh;
+}
+.my_input_wrapper_1 button{
+    display: flex;
+    width: 10vw;
+    height: 5vh;
+    font-size: 1vw;
+}
+
+.my_input_wrapper_2{
+    /* position: relative; */
+    /* border: 5px rgb(25, 29, 36) dotted; */
+    border-collapse: collapse;
+    width: 15vw;
+    height: 50vh;
+    left: 2vh;
+    font-size: 3vw;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+    .my_board {
+        overflow: auto;
+        font-size: 3vh;
+        width: 65vw;
+        height: 70vh;
+        /* border: 5px dotted blue; */
+        top: 12vh;
+        right: 4vw;
+        position: absolute;
+        margin-left: 10vw;
+        display: flex;
+    }
+    .contract_title{
+        font-size: 4vw;
+        width: 20vw;
+    }
+    .myslide_form{
+        position: absolute;
+        width: 80vw;
+        height: 40vh;
+        top: 100vh;
+        /* bottom: 20vh; */
+        left: 9vw;
+        border: 2px #ca8181 solid;
+        align-items: center;
+    }
+    .slide{
+        position: relative;
+        display: contents;
+        justify-content: space-between;
+        width: 80vw;
+    }
+    .my_table{
+        position: absolute;
+        width: 60vw;
+    }
+    }

@@ -7,7 +7,6 @@ const wrapperStyle = {
     width: '100vw',
     height: '100vh',
     overflowX: 'hidden', // 넘치는 부분은 숨김
-    position: 'absolute', // 절대 위치
     top: 0,
     left: 0,
     transform: 'translateZ(0)'
