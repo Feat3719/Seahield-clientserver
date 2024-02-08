@@ -30,14 +30,8 @@ const Mypage = ()=> {
     // },[] )
 
 
-
-
-
     return (
         
-
-
-
 
         <div className={style.mypage}>
             <div className={style.my_info}> 
@@ -138,12 +132,8 @@ const Mypage = ()=> {
 
 
 
-            
-            
             </div>
         
-
-
 
         </div>
 
