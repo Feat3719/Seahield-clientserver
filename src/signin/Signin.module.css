@@ -4,6 +4,7 @@
     align-items: center;
     height: 100vh;
     background-color: #000000e0;
+    overflow-y: hidden;
 }
 
 .signin_area {
@@ -16,7 +17,7 @@
     text-align: center;
     background-color: rgb(233, 233, 233);
     margin-top: 20vh;
-    border-radius: 10px;
+    border-radius: 3vh;
 }
 
 .signin_title {
@@ -34,12 +35,14 @@
 .signin_input {
     flex-grow: 1;
     margin-bottom: 1.5vh;
-    padding: 1.5vh;
+    /* padding: 1.5vh; */
     font-size: 2vh;
-    border: 0.3vh solid #ccc;
+    border: 0.1vh solid #ccc;
     border-radius: 0.4vh;
     outline: none;
     transition: border-color 0.3s;
+    height: 5vh;
+    padding-left: 1vh;
 }
 
 .signin_input:focus {
@@ -62,14 +65,9 @@
     /* 또는 원하는 크기 */
     cursor: pointer;
     position: absolute;
-    right: 10px;
+    right: 5%;
     top: 40%;
     transform: translateY(-50%);
-}
-
-.remember_container {
-    font-size: 1vh;
-    margin: 0.5rem 0 1rem 0;
 }
 
 .links {
@@ -128,10 +126,11 @@
 }
 
 .remember_container {
-    font-size: 1rem;
+    font-size: 0.7vh;
     margin: 0 0 0 0;
     display: flex;
     align-items: center;
+    height: 3vh;
 }
 
 .remember_checkbox {
@@ -163,4 +162,39 @@
 .remember_label {
     cursor: pointer;
     font-size: 1.8vh;
+}
+
+
+@media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {
+    .signin_title {
+        font-size: 4.5vh;
+    }
+
+    .signin_area {
+        width: 70vw;
+    }
+}
+
+
+@media all and (min-width:480px) and (max-width:767px) {
+    .signin_title {
+        font-size: 5vh;
+    }
+
+    .signin_area {
+        width: 70vw;
+    }
+}
+
+
+@media all and (max-width:479px) {
+    .signin_title {
+        font-size: 5vh;
+    }
+
+    .signin_area {
+        width: 70vw;
+    }
 }

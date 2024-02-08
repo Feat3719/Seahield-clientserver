@@ -10,7 +10,7 @@ function ProtectedRoute({ children }) {
     useEffect(() => {
         if (!isLoggedIn) {
             alert("로그인이 필요한 서비스입니다.");
-            navigate("/login");
+            navigate("/signin");
         } else {
             setIsAllowed(true);
         }
