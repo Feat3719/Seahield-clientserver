@@ -14,7 +14,7 @@ const AuthManager = () => {
                 const originalRequest = error.config;
 
                 // AccessToken 만료 에러 처리
-                if (error.response.status === 401 && !originalRequest._retry) {
+                if (error.response.status === 500 && !originalRequest._retry) {
                     originalRequest._retry = true;
                     try {
                         const refreshTokenResponse = await axios.post(
@@ -23,7 +23,7 @@ const AuthManager = () => {
                             { withCredentials: true }
                         );
                         const newAccessToken = refreshTokenResponse.data.accessToken;
-
+                                alert(newAccessToken)
                         // 모든 Axios 요청에 새로 갱신된 AccessToken이 포함되어 서버에 전송
                         axios.defaults.headers.common[
                             "Authorization"

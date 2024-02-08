@@ -26,7 +26,7 @@
     /* margin-right: 2%; */
     overflow: hidden;
     justify-content: center;
-    
+    left: 0vw;
 }
 
 .sub_1{
@@ -44,7 +44,7 @@
     height: 96.7vh;
     justify-content: space-between;
     flex-direction: column;
-    margin-left: 3%;
+    margin-left: 0%;
 }
 
 .sub_1_1{
@@ -230,20 +230,20 @@
   
 
 .sub_2{
-    display: flex;
+    /* display: flex;
     position: relative;
-    /* justify-content: center; */
-    /* border: 3px brown solid; */
+    justify-content: center;
+    border: 3px brown solid;
     background-color: #343A43;
     border-radius: 10px;
     width: 35%;
     height: 95%;
     top: 0px;
     justify-content: center;
-    /* align-items: center; */
+    align-items: center;
 
     margin-top: 1%;
-    margin-left: 2vw ;
+    margin-left: 2vw ; */
 }
 
 /* 클릭 가능한 셀 hover 시 스타일 추가 */
@@ -267,7 +267,8 @@
   /* align-items: center; */
 
   margin-top: 1%;
-  margin-left: 5%;
+  margin-left: 2%;
+  left: 0vw;
 }
 
 .sub_2_1 {

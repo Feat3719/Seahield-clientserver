@@ -137,12 +137,12 @@ function Signup() {
         const signupData = {
             userId: userid,
             userPwd: password,
-            userName: username,
+            userNickName: username,
             userEmail: email,
             userContact: phone,
             userAddress: fullAddress,
             userType: userTypeValue,
-            company_registration_num: isBusinessUser ? companyRegistrationNum : null, // 사업자 사용자의 경우만 값을 전달
+            companyRegistNum: isBusinessUser ? companyRegistrationNum : null, // 사업자 사용자의 경우만 값을 전달
         };
 
         try {

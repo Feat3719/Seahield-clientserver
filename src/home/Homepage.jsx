@@ -302,7 +302,7 @@ function Homepage() {
                                                     onClick={() => {
                                                         handleClick(cell);
                                                         }} 
-                                                        style={{ height: '1vh', width: '8vw' }}>
+                                                        style={{ height: '1vh', width: '10vw' }}>
                                                     {cell}
                                                 </td>
                                             )
@@ -335,7 +335,7 @@ function Homepage() {
                                             {row.map((cell, colIndex) => (
                                                 <td key={colIndex}
                                                     className={`${style.cell} ${colIndex > 0 ? style.clickable : ''}`}
-                                                    onClick={() => handleClick(cell)} style={{ height: '1vh', width: '8vw' }}>
+                                                    onClick={() => handleClick(cell)} style={{ height: '1vh', width: '10vw' }}>
                                                     {cell}
                                                 </td>
                                             )
