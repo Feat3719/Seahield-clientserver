@@ -5,7 +5,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 function Editor() {
-    const [editorData, setEditorData] = useState("");
+    const [setEditorData] = useState("");
 
     return (
         <div className="Editor">

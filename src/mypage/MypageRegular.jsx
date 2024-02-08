@@ -3,26 +3,26 @@
     import style from "./MypageRegular.module.css";
     import Myslide from "./Myslide";
     import { useSelector } from "react-redux";
-    import { type } from "@testing-library/user-event/dist/type";
+    // import { type } from "@testing-library/user-event/dist/type";
 
     const MypageRegular = () => {
     const accessToken = useSelector((state) => state.auth.accessToken);
     const [userInfo, setUserInfo] = useState(null);
-    const [boardInfo, setBoardInfo] = useState(null);
+    // const [boardInfo, setBoardInfo] = useState(null);
     const [userId, setUserId] = useState("");
     const [userNickname, setUserNickname] = useState("");
     const [userType, setUserType] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userAddress, setUserAddress] = useState("");
     const [userPwd, setUserPwd] = useState("");
-    const [showDetail, setShowDetail] = useState("");
+    // const [showDetail, setShowDetail] = useState("");
     const [scene, setScene] = useState(1);
 
-    const [data] = useState([
-        { id: 1, aria: "포항", name: "구룡포대보해변", ctgr: "공지" },
-        { id: 1, aria: "포항", name: "호미곶", ctgr: "자유" },
-        { id: 2, aria: "울산", name: "울주진하해변", ctgr: "공고" },
-    ]);
+    // const [data] = useState([
+    //     { id: 1, aria: "포항", name: "구룡포대보해변", ctgr: "공지" },
+    //     { id: 1, aria: "포항", name: "호미곶", ctgr: "자유" },
+    //     { id: 2, aria: "울산", name: "울주진하해변", ctgr: "공고" },
+    // ]);
     // 예시로 했던 부분
     useEffect(() => {
         // 컴포넌트가 마운트될 때 실행되는 코드
@@ -91,7 +91,7 @@
         }
         };
         fetchData();
-    }, []);
+    }, [accessToken]);
 
     // const updateUser = async () => {
     //     try {

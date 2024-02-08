@@ -9,7 +9,7 @@ function BoardList({ category, tabName }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(2);
+    const [postsPerPage, ] = useState(2);
 
     useEffect(() => {
         const fetchPost = async () => {

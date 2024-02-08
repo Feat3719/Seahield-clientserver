@@ -7,7 +7,7 @@ import style from './MypageRegular.module.css';
 // import { baseUrl } from "./config";
 
 function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
+    const { className ,onClick } = props;
     return (
       <div
         className={className}

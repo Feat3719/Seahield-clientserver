@@ -11,11 +11,11 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
   
     const fetchWeatherData = async (nx, ny, setWeatherData) => {
       try {
-        const apiKey = '${process.env.REACT_APP_BUSINESS_API_KEY}';
-        if (!apiKey) {
-          console.error('API 키가 정의되지 않았습니다.');
-          return;
-        }
+        // const apiKey = '${process.env.REACT_APP_BUSINESS_API_KEY}';
+        // if (!apiKey) {
+        //   console.error('API 키가 정의되지 않았습니다.');
+        //   return;
+        // }
   
         const getCurrentDate = () => {
           const today = new Date();
