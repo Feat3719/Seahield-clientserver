@@ -1,13 +1,4 @@
-input {
-    width: 90%;
-    height: 30px;
-    border-radius: 5px;
-}
 
-select {
-    height: 30px;
-    border-radius: 5px;
-}
 
 #boardWriteContainer {
     height: 100vh;
@@ -48,9 +39,10 @@ select {
 }
 
 #flex_box {
+    width:  90%;
     display: flex;
     justify-content: space-between;
-    margin: 20px auto;
+    margin: 30px auto;
 }
 
 .title {
@@ -58,7 +50,13 @@ select {
     color: white;
     border-color: gray;
     background-color: #343a43;
-    margin: 10px auto 10px 40px;
+    /* margin: 10px auto 10px 40px; */
+}
+
+.input {
+    width: 90%;
+    height: 30px;
+    border-radius: 5px;
 }
 
 .category {
@@ -66,8 +64,13 @@ select {
     color: white;
     border-color: gray;
     background-color: #343a43;
-    margin: 10px 40px 10px auto;
+    /* margin: 10px 40px 10px auto; */
     text-align: right;
+}
+
+.select {
+    height: 30px;
+    border-radius: 5px;
 }
 
 .editor {
@@ -88,7 +91,11 @@ select {
 }
 
 .complete_button {
-    height: 30px;
-    margin: 20px 40px;
+    width: 90%;
+    margin: 20px auto;
+}
+
+.button {
+    height: 35px;
     border-radius: 5px;
 }

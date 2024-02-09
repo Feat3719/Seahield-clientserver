@@ -9,7 +9,7 @@ function BoardList({ category, tabName }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(2);
+    const [postsPerPage] = useState(10);
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -34,7 +34,7 @@ function BoardList({ category, tabName }) {
 
     return (
         <>
-            <div id={style.table_box}>
+            <div id={style.tableBox}>
                 <table className={style.table}>
                     <thead className={style.thead}>
                         <tr>
@@ -53,12 +53,12 @@ function BoardList({ category, tabName }) {
                     </tbody>
                 </table>
             </div>
-            <div id={style.button_box}>
+            <div id={style.buttonBox}>
                 <Link to="/boardwrite">
                     <button className={style.button}>글쓰기</button>
                 </Link>
             </div>
-            <div id={style.pagination_box}>
+            <div id={style.paginationBox}>
                 <Pagination
                     postsPerPage={postsPerPage}
                     totalPosts={posts.length}

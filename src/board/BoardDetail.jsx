@@ -27,7 +27,7 @@ function BoardDetail() {
     const handleDelete = async () => {
         try {
             await axios.delete(`/api/board/article/${id}`);
-            navigate("/boardlist");
+            navigate("/boardtab");
         } catch (error) {
             console.error("Error", error);
         }
@@ -35,8 +35,11 @@ function BoardDetail() {
 
     return (
         post && (
-            <div id={style.container}>
-                <div id={style.detail_box}>
+            <div id={style.boardDetailContainer}>
+                <div id={style.pageTitleBox}>
+                    <div className={style.pageTitle}>게시글 수정</div>
+                </div>
+                <div id={style.detailBox}>
                     <table className={style.table}>
                         <thead>
                             <tr>
@@ -63,15 +66,6 @@ function BoardDetail() {
                                     {post.articleViewCounts}
                                 </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td className={style.content} colSpan={7}>
-                                    {post.articleContents}
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
                             <tr>
                                 <th>작성일</th>
                                 <td colSpan={3}>
@@ -82,23 +76,36 @@ function BoardDetail() {
                                     {FormatDatetime(post.articleUpdateDate)}
                                 </td>
                             </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className={style.content} colSpan={7}>
+                                    {post.articleContents}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+
                         </tfoot>
                     </table>
                 </div>
                 <div id={style.button_box}>
-                    <Link to="/boardlist">
-                        <button className={style.list_button}>목록</button>
-                    </Link>
-                    <Link to={`/boardupdate/${id}`}>
-                        <button className={style.update_button}>수정</button>
-                    </Link>
+                    <div id={style.buttons}>
+                        <Link to="/boardlist">
+                            <button className={style.list_button}>목록</button>
+                        </Link>
+                        <Link to={`/boardupdate/${id}`}>
+                            <button className={style.update_button}>수정</button>
+                        </Link>
 
-                    <button
-                        className={style.delete_button}
-                        onClick={handleDelete}
-                    >
-                        삭제
-                    </button>
+                        <button
+                            className={style.delete_button}
+                            onClick={handleDelete}
+                        >
+                            삭제
+                        </button>
+                    </div>
+
                 </div>
                 <div id={style.comment_box}>댓글</div>
             </div>
