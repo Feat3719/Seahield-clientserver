@@ -1,20 +1,27 @@
 @font-face {
-    font-family: 'KoPubWorldDotum';
+    font-family: "KoPubWorldDotum";
     font-weight: 500;
     font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.ttf') format("truetype");
+    src: url("https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot");
+    src: url("https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot?#iefix")
+            format("embedded-opentype"),
+        url("https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff2")
+            format("woff2"),
+        url("https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff")
+            format("woff"),
+        url("https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.ttf")
+            format("truetype");
     font-display: swap;
 }
 
 body {
-
-    font-family: 'KoPubWorldDotum';
+    font-family: "KoPubWorldDotum";
     overflow-x: hidden;
     width: 100vw;
     margin: 0;
     padding: 0;
+}
+
+.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+    min-height: 300px;
 }

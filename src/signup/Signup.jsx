@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import Sidenav from '../sidenav/Sidenav';
-import style from './Signup.module.css';
-import { motion } from 'framer-motion';
-import DaumPost from '../daumpost/DaumPost';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import Sidenav from "../sidenav/Sidenav";
+import style from "./Signup.module.css";
+import { motion } from "framer-motion";
+import DaumPost from "../daumpost/DaumPost";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 import Swal from "sweetalert2";
 import Wrapper from '../pagechange/Wrapper';
 import Business from '../bisness/Business';
@@ -13,14 +13,14 @@ import Loading from '../loading/Loading';
 
 function Signup() {
     const location = useLocation(); // location 객체를 사용합니다.
-    const [userid, setUserid] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState(''); // 비밀번호 확인 상태 추가
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [address, setAddress] = useState('');
-    const [detailAddress, setDetailAddress] = useState('');
+    const [userid, setUserid] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState(""); // 비밀번호 확인 상태 추가
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
+    const [detailAddress, setDetailAddress] = useState("");
     // const [userType, setUserType] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false); // 비밀번호 가시성 상태
     // const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); // 비밀번호 확인 가시성 상태
@@ -46,7 +46,7 @@ function Signup() {
 
     // URL에서 쿼리 파라미터 파싱
     const queryParams = new URLSearchParams(location.search);
-    const isBusinessUser = queryParams.get('isBusinessUser') === 'true';
+    const isBusinessUser = queryParams.get("isBusinessUser") === "true";
 
     //사업자번호
     const [companyRegistNum, setCompanyRegistNum] = useState('');
@@ -63,44 +63,43 @@ function Signup() {
 
     // 각 입력 필드의 유효성 검증 로직
     useEffect(() => {
-        setIsUserIdValid(userid.trim() !== '');
-        setIsUsernameValid(username.trim() !== '');
-        setIsPasswordValid(password.trim() !== '');
-        setIsEmailValid(email.trim() !== '');
-        setIsPhoneValid(phone.trim() !== '');
+        setIsUserIdValid(userid.trim() !== "");
+        setIsUsernameValid(username.trim() !== "");
+        setIsPasswordValid(password.trim() !== "");
+        setIsEmailValid(email.trim() !== "");
+        setIsPhoneValid(phone.trim() !== "");
         // 상세주소는 선택적 필드일 수 있습니다. 필수인 경우 아래 로직 추가
         // setIsDetailAddressValid(detailAddress.trim() !== '');
     }, [userid, username, password, email, phone, detailAddress]);
 
     // 인증번호 입력값과 인증 상태를 관리하는 상태 변수 추가
-    const [verificationCode, setVerificationCode] = useState('');
+    const [verificationCode, setVerificationCode] = useState("");
     const [isVerified, setIsVerified] = useState(false);
 
     const handleVerificationSubmit = () => {
         // 인증번호 검증 로직
         // 예: 서버로 인증번호 검증 요청을 보내거나, 프론트엔드에서 간단한 검증 수행
         // 여기서는 예시로 입력된 인증번호가 '1234'일 경우를 인증 성공으로 가정
-        if (verificationCode === '1234') {
+        if (verificationCode === "1234") {
             setIsVerified(true);
             Swal.fire({
-                title: '인증 성공',
-                text: '인증이 완료되었습니다.',
-                icon: 'success',
-                confirmButtonText: '확인',
-                confirmButtonColor: '#8ce650b2',
+                title: "인증 성공",
+                text: "인증이 완료되었습니다.",
+                icon: "success",
+                confirmButtonText: "확인",
+                confirmButtonColor: "#8ce650b2",
             });
         } else {
             // 인증번호가 일치하지 않을 때s
             Swal.fire({
-                title: '인증 실패',
-                text: '인증번호가 일치하지 않습니다.',
-                icon: 'error',
-                confirmButtonText: '확인',
-                confirmButtonColor: '#e65a50b2',
+                title: "인증 실패",
+                text: "인증번호가 일치하지 않습니다.",
+                icon: "error",
+                confirmButtonText: "확인",
+                confirmButtonColor: "#e65a50b2",
             });
         }
     };
-
 
     // handleSignup을 조정하여 필드 유효성을 확인
     // handleSignup 함수
@@ -110,10 +109,10 @@ function Signup() {
         const userTypeValue = isBusinessUser && isCompanyRegistrationNumVerified ? '사업자' : '일반';
         if (!isUserIdValid || !isUsernameValid || !isPasswordValid || !isEmailValid || !isPhoneValid || !isVerified) {
             Swal.fire({
-                title: '필수 항목 누락',
-                text: '모든 필수 항목을 채워주세요.',
-                icon: 'warning',
-                confirmButtonText: '확인'
+                title: "필수 항목 누락",
+                text: "모든 필수 항목을 채워주세요.",
+                icon: "warning",
+                confirmButtonText: "확인",
             });
             setIsLoading(false);
             return;
@@ -122,10 +121,10 @@ function Signup() {
         // 사업자 사용자이고, 사업자번호 인증이 완료되지 않았다면 경고 표시
         if (isBusinessUser && !isCompanyRegistrationNumVerified) {
             Swal.fire({
-                title: '사업자번호 인증 필요',
-                text: '사업자번호 인증을 완료해주세요.',
-                icon: 'warning',
-                confirmButtonText: '확인'
+                title: "사업자번호 인증 필요",
+                text: "사업자번호 인증을 완료해주세요.",
+                icon: "warning",
+                confirmButtonText: "확인",
             });
             setIsLoading(false);
             return;
@@ -155,12 +154,12 @@ function Signup() {
             if (response.status === 201) {
                 // 회원가입 성공 로직
                 Swal.fire({
-                    title: '회원가입 성공!',
-                    text: '회원가입을 성공했습니다. 로그인 화면으로 이동하시겠습니까?',
-                    icon: 'success',
+                    title: "회원가입 성공!",
+                    text: "회원가입을 성공했습니다. 로그인 화면으로 이동하시겠습니까?",
+                    icon: "success",
                     showCancelButton: true,
-                    confirmButtonText: '네, 이동합니다',
-                    cancelButtonText: '아니오'
+                    confirmButtonText: "네, 이동합니다",
+                    cancelButtonText: "아니오",
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = "/signin";
@@ -205,14 +204,14 @@ function Signup() {
 
     // 주소와 상세 주소를 합쳐서 하나의 문자열로 만드는 함수
     const getFullAddress = () => {
-        return address + (detailAddress ? `, ${detailAddress}` : '');
+        return address + (detailAddress ? `, ${detailAddress}` : "");
     };
 
-    //타이머 시간 설정 
+    //타이머 시간 설정
     const smsAuthBtn = async () => {
         setIsSmsSend(true);
         setTimer(180); // 타이머를 180초(3분)으로 설정
-    }
+    };
 
     //타이머
     useEffect(() => {
@@ -231,9 +230,8 @@ function Signup() {
     const formatTimer = () => {
         const minutes = Math.floor(timer / 60);
         const seconds = timer % 60;
-        return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-    }
-
+        return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+    };
 
     // 아이디 중복 상태와 검사 진행 상태
     const [isUserIdUnique, setIsUserIdUnique] = useState(null);
@@ -247,10 +245,10 @@ function Signup() {
         if (!userid) {
             // 아이디 입력 확인
             Swal.fire({
-                title: '입력 필요',
-                text: '아이디를 입력해주세요.',
-                icon: 'warning',
-                confirmButtonText: '확인'
+                title: "입력 필요",
+                text: "아이디를 입력해주세요.",
+                icon: "warning",
+                confirmButtonText: "확인",
             });
             return;
         }
@@ -266,7 +264,9 @@ function Signup() {
 
         try {
             // 서버에 중복 검사 요청
-            const response = await axios.get(`/api/auth/check-avilability-userid?userId=${userid}`);
+            const response = await axios.get(
+                `/api/auth/check-avilability-userid?userId=${userid}`
+            );
 
             // 서버 응답에 따라 상태 업데이트
             if (response.status === 200) {
@@ -274,16 +274,15 @@ function Signup() {
                 setIsUserIdUnique(response.data); // true는 사용 가능, false는 사용 불가능을 의미
             } else {
                 // 예상치 못한 상태 코드 처리
-                console.error('예상치 못한 응답 상태:', response.status);
+                console.error("예상치 못한 응답 상태:", response.status);
             }
         } catch (error) {
-            console.error('아이디 중복 검사 중 에러 발생:', error);
+            console.error("아이디 중복 검사 중 에러 발생:", error);
             // 에러 발생 시 사용자에게 알리는 UI 로직을 추가할 수 있음
         }
 
         setIsCheckingUserId(false); // 검사 종료 상태 설정
     };
-
 
     //아이디 중복 검사
     const validateUserId = (userid) => {
@@ -298,7 +297,8 @@ function Signup() {
     // 비밀번호 유효성 검사 함수
     const validatePassword = (password) => {
         // 숫자, 영문, 특수문자를 혼합하여 8자리 이상인지 확인하는 정규식
-        const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        const regex =
+            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
         return regex.test(password);
     };
 
@@ -306,7 +306,7 @@ function Signup() {
     const handlePasswordChange = (e) => {
         const newPassword = e.target.value;
         setPassword(newPassword);
-        setIsPasswordValid(newPassword.trim() !== '');
+        setIsPasswordValid(newPassword.trim() !== "");
         setIsPasswordComplex(validatePassword(newPassword)); // 유효성 검사 수행
     };
 
@@ -334,7 +334,7 @@ function Signup() {
 
     // 이메일 유효성 검사 함수
     const validateEmail = (email) => {
-        return email.includes('@');
+        return email.includes("@");
     };
 
     // 이메일 입력 필드의 onChange 및 onBlur 이벤트 핸들러
@@ -348,7 +348,6 @@ function Signup() {
         setEmailTouched(true);
         setIsEmailValid(validateEmail(email)); // onBlur 이벤트에서 유효성 검사 수행
     };
-
 
 
     return (
