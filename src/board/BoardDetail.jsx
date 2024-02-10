@@ -91,7 +91,7 @@ function BoardDetail() {
                 </div>
                 <div id={style.button_box}>
                     <div id={style.buttons}>
-                        <Link to="/boardlist">
+                        <Link to="/boardtab">
                             <button className={style.list_button}>목록</button>
                         </Link>
                         <Link to={`/boardupdate/${id}`}>

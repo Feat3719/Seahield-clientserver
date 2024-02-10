@@ -29,6 +29,7 @@
 .article_no {
     width: 15%;
     text-align: center;
+    border-bottom: 1px solid gray;
 }
 
 .article_title {
