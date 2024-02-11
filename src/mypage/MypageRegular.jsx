@@ -20,7 +20,8 @@ import { Link } from 'react-router-dom';
     // const [showDetail, setShowDetail] = useState("");
     const [scene, setScene] = useState(1);
     const [posts, setPosts] = useState([]);
-    const [ctgr, setCtgr] = useState("");
+    // const [articleCtgr, setArticleCtgr] = useState("");
+    // const [articleTitle, setArticleTitle] = useState("");
 
     const [contractStatus, setContractStatus] = useState("");
 
@@ -100,26 +101,28 @@ import { Link } from 'react-router-dom';
         fetchData();
     }, [accessToken]);
 
-     // 게시글 데이터를 불러오는 useEffect
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get('/api/user/articles');
-        if (response.status === 200) {
-          // writer가 userNickName과 같은 게시글만 필터링
-        //   const myPosts = response.data.filter(post => post.articleWriter === userNickname);
-          setPosts(response.data);
-          setCtgr(response.data.articleCtgr)
-        }
-      } catch (error) {
-        console.error("게시글을 불러오는 데 실패했습니다.", error);
-      }
-    };
 
-    if (userNickname) { // 사용자 닉네임이 설정되어 있을 때만 게시글 데이터를 불러옴
-      fetchPosts();
-    }
-  }, [userNickname]); // userNickName이 변경될 때만 다시 호출
+     // 게시글 데이터를 불러오는 useEffect
+     useEffect(() => {
+        const fetchPosts = async () => {
+          try {
+            const response = await axios.get('/api/user/articles', {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            });
+            if (response.status === 200) {
+              setPosts(response.data); // 받아온 데이터를 posts 상태에 저장
+            }
+          } catch (error) {
+            console.error("게시글을 불러오는 데 실패했습니다.", error);
+          }
+        };
+    
+        if (userNickname) { // 사용자 닉네임이 설정되어 있을 때만 게시글 데이터를 불러옴
+          fetchPosts();
+        }
+      }, [userNickname, accessToken]);// userNickName이 변경될 때만 다시 호출
     // const updateUser = async () => {
     //     try {
     //         await fetch(`http://example.com/api/user/${userId}`, {
@@ -196,7 +199,7 @@ import { Link } from 'react-router-dom';
         
     }
     
-    },[ctgr]);
+    },[]);
 
 
     
@@ -219,11 +222,13 @@ import { Link } from 'react-router-dom';
                             {/* {posts.map(post => (
                             <li key={post.articleTitle}>{post.articleTitle}</li>
                             ))} */}
-                            <tr>
+                            {posts.map((post, index) => (
+                                <tr key={index}>
                                 <td>{userType}</td>
-                                <td>{ctgr}</td>                         
-                                <td>{userId}</td>
-                            </tr>
+                                <td>{post.articleTitle}</td>
+                                <td>{post.articleCtgr}</td>
+                                </tr>
+                            ))}
                             </tbody>
                         </table>
                     </div>
@@ -543,8 +548,9 @@ import { Link } from 'react-router-dom';
                     {/* 장면에 따라 다른 JSX를 렌더링합니다. */}
                     {/* {renderScene()} */}
                     {/* 장면 변경 버튼을 추가합니다. */}
-                    <button onClick={() => changeScene(3)}>3번 장면으로</button>
-                <button onClick={() => changeScene(4)}>4번 장면으로</button>
+                    <button onClick={() => changeScene(1)}>1번 장면으로(내가 쓴글)</button>
+                    <button onClick={() => changeScene(3)}>3번 장면으로(계약관련)</button>
+                    <button onClick={() => changeScene(4)}>4번 장면으로</button>
                     </div>
                 </div>
                 </div>
