@@ -137,7 +137,7 @@ function Signup() {
         const signupData = {
             userId: userid,
             userPwd: password,
-            userNickName: username,
+            userNickname: username,
             userEmail: email,
             userContact: phone,
             userAddress: fullAddress,

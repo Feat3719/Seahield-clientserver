@@ -37,7 +37,7 @@ const AuthManager = () => {
             } catch (error) {
                 console.error("토큰 갱신 실패:", error);
                 dispatch({ type: "LOGOUT" });
-                window.location.href = "/login";
+                window.location.href = "/signin";
             }
         };
 
@@ -74,7 +74,7 @@ const AuthManager = () => {
                     } catch (refreshError) {
                         // Refresh Token이 유효하지 않을 경우 로그인 페이지로 리디렉션
                         dispatch({ type: "LOGOUT" });
-                        window.location.href = "/login";
+                        window.location.href = "/signin";
                         return Promise.reject(refreshError);
                     }
                 }
