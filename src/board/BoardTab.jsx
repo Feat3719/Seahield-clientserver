@@ -1,6 +1,7 @@
 import { useState } from "react";
 import style from "./BoardTab.module.css";
 import BoardList from "./BoardList";
+import Sidenav from "../sidenav/Sidenav";
 
 function BoardTab() {
     const tabData = [
@@ -18,6 +19,9 @@ function BoardTab() {
 
     return (
         <div id={style.boardTabContainer}>
+            <div className={style.login_nav}>
+                <Sidenav />
+            </div>
             <div id={style.tabBox}>
                 <ul id={style.tab}>
                     {tabData.map((tab) => {

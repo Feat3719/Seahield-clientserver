@@ -17,14 +17,12 @@ function AdminPageBoard() {
 
   useEffect(() => {
     fetchArticles(activeTab);
-  }, [activeTab, currentPage]); // activeTab 또는 currentPage가 변경될 때마다 데이터 재요청
+  }, [activeTab, currentPage]);
 
   const fetchArticles = async (articleCtgr) => {
-    setIsLoading(true); // 데이터 로딩 시작
+    setIsLoading(true);
     try {
-      const response = await axios.get(
-        `/api/board/articles?articleCtgr=${articleCtgr}`
-      );
+      const response = await axios.get(`/api/board/articles?articleCtgr=${articleCtgr}`);
       if (response.status === 200) {
         setArticles(response.data);
       }
@@ -32,18 +30,17 @@ function AdminPageBoard() {
       console.error("Error fetching articles:", error);
       setArticles([]);
     } finally {
-      setIsLoading(false); // 데이터 로딩 완료
+      setIsLoading(false);
     }
   };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    setCurrentPage(1); // 탭을 변경할 때 페이지를 1로 리셋
+    setCurrentPage(1);
   };
 
-  // 게시글 제목 클릭 핸들러
   const handleArticleClick = async (articleId) => {
-    setIsLoadingArticle(true); // 개별 게시글 로딩 시작
+    setIsLoadingArticle(true);
     try {
       const response = await axios.get(`/api/board/article/${articleId}`);
       if (response.status === 200) {
@@ -53,17 +50,9 @@ function AdminPageBoard() {
       console.error("Error fetching article details:", error);
       setSelectedArticle(null);
     } finally {
-      setIsLoadingArticle(false); // 개별 게시글 로딩 완료
+      setIsLoadingArticle(false);
     }
   };
-
-  // 페이지네이션 로직
-  const indexOfLastArticle = currentPage * articlesPerPage;
-  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-  const currentArticles = articles.slice(
-    indexOfFirstArticle,
-    indexOfLastArticle
-  );
 
   const totalPages = Math.ceil(articles.length / articlesPerPage);
   const pageNumbers = [];
@@ -72,6 +61,7 @@ function AdminPageBoard() {
   }
 
   const skeletonCount = 3;
+
 
   return (
     <div>
