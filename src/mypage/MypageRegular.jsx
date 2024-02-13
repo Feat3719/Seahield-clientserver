@@ -3,11 +3,14 @@
     import style from "./MypageRegular.module.css";
     import Myslide from "./Myslide";
     import { useSelector } from "react-redux";
+    import Sidenav from "../sidenav/Sidenav";
+    import { Link } from 'react-router-dom';
+    import MyEditPrev from "./MyEditPrev";
     // import { type } from "@testing-library/user-event/dist/type";
 
     const MypageRegular = () => {
     const accessToken = useSelector((state) => state.auth.accessToken);
-    const [userInfo, setUserInfo] = useState(null);
+    // const [userInfo, setUserInfo] = useState(null);
     // const [boardInfo, setBoardInfo] = useState(null);
     const [userId, setUserId] = useState("");
     const [userNickname, setUserNickname] = useState("");
@@ -15,8 +18,16 @@
     const [userEmail, setUserEmail] = useState("");
     const [userAddress, setUserAddress] = useState("");
     const [userPwd, setUserPwd] = useState("");
+    const [isPwdValid, setIsPwdValid] = useState(false); // 비밀번호 유효성 상태
+    const [userContact, setUserContact] = useState("");
     // const [showDetail, setShowDetail] = useState("");
     const [scene, setScene] = useState(1);
+    const [posts, setPosts] = useState([]);
+    // const [articleCtgr, setArticleCtgr] = useState("");
+    // const [articleTitle, setArticleTitle] = useState("");
+
+    const [contractStatus, setContractStatus] = useState("");
+    const [announceName, setAnnounceName] = useState("");
 
     // const [data] = useState([
     //     { id: 1, aria: "포항", name: "구룡포대보해변", ctgr: "공지" },
@@ -24,36 +35,36 @@
     //     { id: 2, aria: "울산", name: "울주진하해변", ctgr: "공고" },
     // ]);
     // 예시로 했던 부분
-    useEffect(() => {
+    // useEffect(() => {
         // 컴포넌트가 마운트될 때 실행되는 코드
-        const fetchData = async () => {
+        // const fetchData = async () => {
         // 데이터 가져오기
-        const data1 = [
-            {
-            userId_1: 1,
-            userName: "John",
-            userType: "일반",
-            boardTitle: "여긴어디",
-            },
-            {
-            userId_1: 1,
-            userName: "John",
-            userType: "일반",
-            boardTitle: "난 누구?",
-            },
-            { userId_1: 2, userName: "Jane", userType: "사업자" },
-            { userId_1: 3, userName: "Doe", userType: "일반" },
-        ];
+        // const data1 = [
+        //     {
+        //     userId_1: 1,
+        //     userName: "John",
+        //     userType: "일반",
+        //     boardTitle: "여긴어디",
+        //     },
+        //     {
+        //     userId_1: 1,
+        //     userName: "John",
+        //     userType: "일반",
+        //     boardTitle: "난 누구?",
+        //     },
+        //     { userId_1: 2, userName: "Jane", userType: "사업자" },
+        //     { userId_1: 3, userName: "Doe", userType: "일반" },
+        // ];
 
-        // 데이터 필터링
-        const filteredData = data1.filter((item) => item.userId_1 === 1);
+        // // 데이터 필터링
+        // const filteredData = data1.filter((item) => item.userId_1 === 1);
 
-        // 필터링된 데이터를 상태로 설정
-        setUserInfo(filteredData);
-        };
+        // // 필터링된 데이터를 상태로 설정
+        // setUserInfo(filteredData);
+        // };
 
-        fetchData(); // fetchData 함수 호출
-    }, []); // useEffect를 한 번만 실행하기 위해 빈 배열 전달
+    //     fetchData(); // fetchData 함수 호출
+    // }, []); // useEffect를 한 번만 실행하기 위해 빈 배열 전달
 
     // 필터링된 데이터를 렌더링하는 함수
     // const renderFilteredData = () => {
@@ -84,6 +95,7 @@
             setUserNickname(response.data.userNickname);
             setUserType(response.data.userType);
             setUserEmail(response.data.userEmail);
+            setUserContact(response.data.userContact);
             setUserAddress(response.data.userAddress);
         } else {
             alert("다시 시도해 주세요");
@@ -93,6 +105,28 @@
         fetchData();
     }, [accessToken]);
 
+
+     // 게시글 데이터를 불러오는 useEffect
+        useEffect(() => {
+            const fetchPosts = async () => {
+            try {
+                const response = await axios.get('/api/user/articles', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                });
+                if (response.status === 200) {
+                setPosts(response.data); // 받아온 데이터를 posts 상태에 저장
+                }
+            } catch (error) {
+                console.error("게시글을 불러오는 데 실패했습니다.", error);
+            }
+            };
+        
+            if (userNickname) { // 사용자 닉네임이 설정되어 있을 때만 게시글 데이터를 불러옴
+            fetchPosts();
+            }
+        }, [userNickname, accessToken]);// userNickName이 변경될 때만 다시 호출
     // const updateUser = async () => {
     //     try {
     //         await fetch(`http://example.com/api/user/${userId}`, {
@@ -126,6 +160,7 @@
             userType,
             userEmail,
             userAddress,
+            userContact
             },
             {
             headers: {
@@ -145,119 +180,196 @@
         }
     };
 
-    // useEffect(() => {
-    //     fetchData1();
-    // }, []);
+
+    //계약 항목 조회
+    useEffect(() => {
+    const contractDetail = async() => {
+        try {
+            const response = await axios.get('/api/contract/details/102',
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    }
+            }
+            )
+            console.log("트롸이!");
+
+                if (response.status === 200) {
+                    setContractStatus(response.data.contractStatus)
+                    setAnnounceName(response.data.announceName)
+                }
+            console.log("트롸잇트!");
+
+        } catch(error) {
+            console.error("삐용삐용 에러! 에러!", error)
+        }
+        
+    }
+    contractDetail();
+    
+    },[]);
+
+
+// 비밀번호 변경 핸들러
+const handlePasswordChange = (e) => {
+    const password = e.target.value;
+    setUserPwd(password);
+    // 비밀번호 유효성 검사
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    setIsPwdValid(regex.test(password));
+};
+
+
+
+    
 
     const renderScene = () => {
         switch (scene) {
         case 1:
             return (
-            <div>
-                {/* <label >My Board List</label> */}
-
-                <div className={style.contract_title}>
-                <table className={style.my_table} style={{ left: "-18vw" }}>
-                    <thead className={style.contract_title}>
-                    <tr>
-                        <td
-                        style={{ width: "45vw", borderBottom: "black 1px solid" }}
-                        className={style.my_td}
-                        >
-                        {" "}
-                        사용자_종류{" "}
-                        </td>
-                        <td
-                        style={{ width: "45vw", borderBottom: "black 1px solid" }}
-                        className={style.my_td}
-                        >
-                        {" "}
-                        작성자{" "}
-                        </td>
-                        <td
-                        style={{ width: "45vw", borderBottom: "black 1px solid" }}
-                        className={style.my_td}
-                        >
-                        {" "}
-                        글 제목{" "}
-                        </td>
-                    </tr>
-                    </thead>
-                    <tbody className={style.contract_table}>
-                    {userInfo &&
-                        userInfo.map((item) => (
-                        <tr key={item.userId_1} className={style.contract_input}>
-                            <td style={{ border: "black 1px solid" }}>
-                            {item.userType}
-                            </td>
-                            <td style={{ border: "black 1px solid" }}>
-                            {item.userName}
-                            </td>
-                            <td style={{ border: "black 1px solid" }}>
-                            {item.boardTitle}
-                            </td>
-                        </tr>
-                        ))}
-                    </tbody>
-                </table>
-                </div>
-            </div>
+                    <div className={style.contract_title}>
+                        <table className={style.my_table} style={{ left: "-18vw" }}>
+                            <thead className={style.contract_title}>
+                                <tr>
+                                    <td style={{ width: "45vw"}} className={style.my_td}> 사용자_종류 </td>
+                                    <td style={{ width: "45vw", borderBottom: "black 1px solid" }} className={style.my_td}> 글 유형 </td>
+                                    <td style={{ width: "45vw", borderBottom: "black 1px solid" }} className={style.my_td}> 글 제목 </td>
+                                </tr>
+                            </thead>
+                            <tbody className={style.contract_table}>
+                            {/* {posts.map(post => (
+                            <li key={post.articleTitle}>{post.articleTitle}</li>
+                            ))} */}
+                            {posts.map((post, index) => (
+                                <tr key={index}>
+                                <td>{userType}</td>
+                                <td>{post.articleCtgr}</td>
+                                <td>{post.articleTitle}</td>
+                                </tr>
+                            ))}
+                            
+                            </tbody>
+                        </table>
+                    </div>
             );
         case 2:
             return (
             <div>
                 두 번째 장면입니다.
-                <div style={{ justifyContent: "flex-end", position: "relative" }}>
-                <p style={{ justifyContent: "end", position: "relative" }}>
-                    이름:{" "}
+                <div style={{position: "relative" }} 
+                    className={style.my_info_input_edit}
+                >
+                <p style={{ justifyContent: "space-between", position: "relative",display:"flex" }}>
+                    <div>이름:</div>
                     <input
                     type="text"
                     value={userNickname}
                     onChange={(e) => setUserNickname(e.target.value)}
                     placeholder="새로운 이름"
-                    className={style.name_input}
+                    className={style.edit_input}
                     />
                 </p>
-                <p>
-                    패스워드 :
-                    <input
+                <p style={{ justifyContent: "space-between", position: "relative",display:"flex" }}>
+                <>패스워드 :</>
+                <input
                     type="password"
                     value={userPwd}
-                    onChange={(e) => setUserPwd(e.target.value)}
-                    />
+                    onChange={handlePasswordChange}
+                />
+                    
                 </p>
-                <p>
+                {/* <p>
                     이메일 :
                     <input
                     type="email"
                     value={userEmail}
                     onChange={(e) => setUserEmail(e.target.value)}
                     />
-                </p>
-                <p>
-                    주소 :
+                </p> */}
+                <p style={{ justifyContent: "space-between", position: "relative",display:"flex" }}>
+                    <div>주소 :</div>
                     <input
                     type="text"
                     value={userAddress}
                     onChange={(e) => setUserAddress(e.target.value)}
                     />
                 </p>
+                        
                 </div>
-                <button onClick={updateUserInfo}>수정 완료</button>
+                <button onClick={updateUserInfo} disabled={!isPwdValid}>수정 완료</button>
+                    {!isPwdValid && userPwd && (
+                        <p style={{ color: 'red' }}>비밀번호는 8자 이상이며, 최소 하나의 문자, 숫자 및 특수 문자를 포함해야 합니다.</p>
+                    )}
             </div>
             );
 
-        default:
-            return null;
+            case 3:
+                return (
+                <div>
+                    {/* <label >My Board List</label> */}
+    
+                    <div className={style.contract_title}>
+                    <table className={style.my_table} style={{ left: "-18vw" }}>
+                        <thead className={style.contract_title}>
+                        <tr>
+                            <td
+                            style={{ width: "45vw"}}
+                            className={style.my_td}
+                            >
+                            
+                            관할 지차제{" "}
+                            </td>
+                            <td
+                            style={{ width: "45vw", borderBottom: "black 1px solid" }}
+                            className={style.my_td}
+                            >
+                            {" "}
+                            공고명
+                            </td>
+                            <td
+                            style={{ width: "45vw", borderBottom: "black 1px solid" }}
+                            className={style.my_td}
+                            >
+                            {" "}
+                            승인여부
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody className={style.contract_table}>
+                            {announceName}
+                            <tr className={style.contract_input}>
+                                <td className={style.contract_td}>{userType}</td>
+                                {/* <td>{userNickname}</td> */}
+                                <td>{announceName}</td>
+                                <td>{contractStatus.contractStatus}</td> {/* 수정된 부분 */}
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                );
+                
+
+        // default:
+        //     return null;
+        case 4 :
+            return (
+                <div>
+                    {/* <Link to="/myeditprev"> </Link> */}
+                    <MyEditPrev />
+                </div>
+            )
         }
     };
-
+// -------------------------
     const changeScene = (newScene) => {
         setScene(newScene);
     };
 
     return (
         <div className={style.mypage}>
+                    <Sidenav />
         {/* 일반인 마이페이지로 쓸부분 */}
         {userType === "일반" && (
             <div className={style.my_form}>
@@ -269,7 +381,7 @@
                 </div>
                 {/* {userId ? ( */}
                 <div className={style.my_input_wrapper_1}>
-                <div className={style.edit_1}>{renderScene()}</div>
+                {scene !== 0 && <div className={style.edit_1}>{renderScene()}</div>}
 
                 <form onSubmit={updateUserInfo}>
                     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -324,8 +436,9 @@
                     </div>
                 </form>
                 {/* <button onClick={updateUserInfo}>정보 수정</button> */}
-                <button onClick={() => changeScene(1)}>1번 장면으로</button>
-                <button onClick={() => changeScene(2)}>2번 장면으로</button>
+                <button className={style.transBtn} onClick={() => changeScene(1)}>1번 장면으로</button>
+                <button className={style.transBtn} onClick={() => changeScene(2)}>2번 장면으로</button>
+
                 {/* <button onClick={handleShowDetail}>정보 상세</button> */}
                 </div>
                 {/* // ) : (
@@ -390,7 +503,7 @@
 
         <div className={style.mypage}>
             {/* 사업자페이지로 쓸부분 */}
-            {userType !== "일반" && (
+            {userType === "사업자" && (
             <div className={style.my_form}>
                 <h1 className={style.my_title}>마이 페이지_사업자</h1>
 
@@ -400,6 +513,7 @@
                 </div>
 
                 <div className={style.my_input_wrapper_1}>
+                {scene !== 0 && <div className={style.edit_1}>{renderScene()}</div>}
                     <form onSubmit={updateUserInfo}>
                     <div style={{ display: "flex", flexDirection: "column" }}>
                         <div>
@@ -457,16 +571,21 @@
                     {/* 장면에 따라 다른 JSX를 렌더링합니다. */}
                     {/* {renderScene()} */}
                     {/* 장면 변경 버튼을 추가합니다. */}
-                    <button onClick={() => changeScene(1)}>1번 장면으로</button>
-                    <button onClick={() => changeScene(2)}>2번 장면으로</button>
+                    <button className={style.transBtn} style={{fontSize:"1vw"}} onClick={() => changeScene(1)}>1번 장면으로(내가 쓴글)</button>
+                    <button className={style.transBtn} onClick={() => changeScene(2)}>2번 장면으로(수정)</button>
+                    <button className={style.transBtn} style={{fontSize:"1vw"}} onClick={() => changeScene(3)}>3번 장면으로(계약관련)</button>
+                    <button className={style.transBtn} style={{fontSize:"1vw"}} onClick={() => changeScene(4)}>4번 장면으로</button>
                     </div>
                 </div>
                 </div>
-                <div className={style.edit_1}>{renderScene()}</div>
+                {/* <div className={style.edit_1}>{renderScene()}</div> */}
             </div>
             )}
             {/* 일반 조건 마감부분 --> 이 부분 사업자 페이지로 이용할거임 */}
         </div>
+        <div className={style.myslide_form}>
+                <Myslide />
+            </div>
         </div>
     );
     };

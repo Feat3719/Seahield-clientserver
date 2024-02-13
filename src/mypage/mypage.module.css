@@ -94,6 +94,7 @@
 
     .my_input_wrapper{
         display: none;
+        font-size: 5vh;
     }
     }
 
@@ -104,8 +105,10 @@
     }
     .contract_table{
         position: relative;
+        display: flex;
         width: 100vw;
         height: 50vh;
+        border: #850000 1px dotted;
     }
 
     .contract_input{

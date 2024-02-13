@@ -14,6 +14,7 @@ import BoardWrite from "./board/BoardWrite";
 // import Mypage from './mypage/Mypage';
 import BoardTab from "./board/BoardTab";
 import MypageRegular from "./mypage/MypageRegular";
+import MyEditPrev from "./mypage/MyEditPrev";
 import Intro from "./intro/Intro";
 import { AnimatePresence } from "framer-motion";
 import Contract from "./contract/Contract";
@@ -55,6 +56,7 @@ function AppContent() {
         <Route path="/boardwrite" element={<BoardWrite />} />
         {/* <Route path="/mypage" element={<Mypage />} /> */}
         <Route path="/mypageregular" element={<MypageRegular />} />
+        <Route path="/myeditprev" element={<MyEditPrev />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/contract" element={<Contract />} />
         <Route path="/contractver" element={<ContractVer />} />

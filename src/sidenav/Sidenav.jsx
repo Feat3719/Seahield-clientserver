@@ -50,6 +50,13 @@ function Sidenav() {
                             </span>
                         </Link>
                     </li>
+                    <li className={`${style.sidebarItem} ${location.pathname === "/" ? style.active : ""}`}>
+                        <Link to="/" className={style.navLink}>
+                            <span className={style.itemTxt}>
+                                수거계약공고
+                            </span>
+                        </Link>
+                    </li>
                     <li className={`${style.sidebarItem} ${location.pathname === "/contractver" ? style.active : ""}`}>
                         <Link to="/contractver" className={style.navLink}>
                             <span className={style.itemTxt}>
@@ -60,14 +67,7 @@ function Sidenav() {
                     <li className={`${style.sidebarItem} ${location.pathname === "/boardtab" ? style.active : ""}`}>
                         <Link to="/boardtab" className={style.navLink}>
                             <span className={style.itemTxt}>
-                                Q@A
-                            </span>
-                        </Link>
-                    </li>
-                    <li className={`${style.sidebarItem} ${location.pathname === "/" ? style.active : ""}`}>
-                        <Link to="/" className={style.navLink}>
-                            <span className={style.itemTxt}>
-                                사용방법
+                                게시판
                             </span>
                         </Link>
                     </li>
@@ -85,7 +85,7 @@ function Sidenav() {
                                         </span>
                                     </Link>
                                 ) : (
-                                    <Link to="/mypage" className={style.navLink}>
+                                    <Link to="/mypageregular" className={style.navLink}>
                                         <span className={style.itemTxt}>
                                             마이페이지
                                         </span>
