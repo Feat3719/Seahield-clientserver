@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import FormatDatetime from "./FormatDatetime";
 import { useSelector } from "react-redux";
+import Comment from "./Comment";
 
 function BoardDetail() {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -162,7 +163,9 @@ function BoardDetail() {
                         </button>
                     </div>
                 </div>
-                <div id={style.comment_box}>댓글</div>
+                <div id={style.comment_box}>
+                    <Comment></Comment>
+                </div>
             </div>
         )
     );

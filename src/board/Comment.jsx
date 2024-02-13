@@ -1,4 +1,4 @@
-function Commnet() {
+function Comment() {
     return (
         <>
             <div>
@@ -7,3 +7,5 @@ function Commnet() {
         </>
     );
 }
+
+export default Comment;
