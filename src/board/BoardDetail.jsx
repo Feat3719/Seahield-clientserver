@@ -9,8 +9,10 @@ import { useSelector } from "react-redux";
 
 function BoardDetail() {
     const accessToken = useSelector((state) => state.auth.accessToken);
+    // const userId = useSelector((state) => state.auth.user);
     const { id } = useParams();
     const [post, setPost] = useState(null);
+    const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -18,7 +20,6 @@ function BoardDetail() {
                 const response = await axios.get(`/api/board/article/${id}`);
                 const post = response.data;
                 setPost(post);
-
             } catch (error) {
                 console.error("Error", error);
             }
@@ -39,15 +40,19 @@ function BoardDetail() {
 
     const handleLike = async () => {
         try {
-            await axios.post(`/api/board/article/${id}/like`,
+            await axios.post(
+                `/api/board/article/${id}/like`,
                 {},
                 {
-                    headers : {Authorization: `bearer ${accessToken}`}
+                    headers: { Authorization: `Bearer ${accessToken}` },
                 }
             );
+            setIsLiked(!isLiked);
             const response = await axios.get(`/api/board/article/${id}`);
             const updatedPost = response.data;
             setPost(updatedPost);
+            console.log(post.articleLikeCounts);
+            console.log("update");
         } catch (error) {
             console.error("Error", error);
         }
@@ -69,10 +74,14 @@ function BoardDetail() {
                                 <th colSpan={8} className={style.title}>
                                     {post.articleTitle}
                                 </th>
-                                <th colSpan={8} className={style.writer}>{post.userId}</th>
+                                <th colSpan={8} className={style.writer}>
+                                    {post.userId}
+                                </th>
                             </tr>
                             <tr>
-                                <th colSpan={4} className={style.category}>분류</th>
+                                <th colSpan={4} className={style.category}>
+                                    분류
+                                </th>
                                 <td
                                     colSpan={4}
                                     className={style.category_blank}
@@ -91,20 +100,34 @@ function BoardDetail() {
                                         onClick={handleLike}
                                     >
                                         좋아요
+                                        {/* <img
+                                            className={style.imgHeart}
+                                            src={
+                                                isLiked
+                                                    ? `${process.env.PUBLIC_URL}/images/filledHeart.svg`
+                                                    : `${process.env.PUBLIC_URL}/images/emptyHeart.svg`
+                                            }
+                                        /> */}
                                     </button>
-                                    
                                 </th>
                                 <td colSpan={4} className={style.like_blank}>
                                     {post.articleLikeCounts}
                                 </td>
                             </tr>
                             <tr>
-                                <th colSpan={4} className={style.creDate}>작성일</th>
+                                <th colSpan={4} className={style.creDate}>
+                                    작성일
+                                </th>
                                 <td colSpan={8} className={style.creDate_blank}>
                                     {FormatDatetime(post.articleCreatedDate)}
                                 </td>
-                                <th colSpan={4} className={style.updateDate}>수정일</th>
-                                <td colSpan={8} className={style.updateDate_blank}>
+                                <th colSpan={4} className={style.updateDate}>
+                                    수정일
+                                </th>
+                                <td
+                                    colSpan={8}
+                                    className={style.updateDate_blank}
+                                >
                                     {FormatDatetime(post.articleUpdateDate)}
                                 </td>
                             </tr>
@@ -116,9 +139,7 @@ function BoardDetail() {
                                 </td>
                             </tr>
                         </tbody>
-                        <tfoot>
-
-                        </tfoot>
+                        <tfoot></tfoot>
                     </table>
                 </div>
                 <div id={style.button_box}>
@@ -126,8 +147,11 @@ function BoardDetail() {
                         <Link to="/boardtab">
                             <button className={style.list_button}>목록</button>
                         </Link>
+
                         <Link to={`/boardupdate/${id}`}>
-                            <button className={style.update_button}>수정</button>
+                            <button className={style.update_button}>
+                                수정
+                            </button>
                         </Link>
 
                         <button
@@ -137,7 +161,6 @@ function BoardDetail() {
                             삭제
                         </button>
                     </div>
-
                 </div>
                 <div id={style.comment_box}>댓글</div>
             </div>
