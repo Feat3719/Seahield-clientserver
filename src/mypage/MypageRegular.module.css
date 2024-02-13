@@ -134,6 +134,9 @@
     justify-content: center;
 }
 
+
+/* _______myslide내용 관련__________ */
+
 .slide{
     display: contents;
     justify-content: space-between;
@@ -150,11 +153,39 @@
     align-items: center;
     /* justify-content: space-between; */
 }
+.slideBoard{
+    display: 'flex';
+    background-color: 'lightgrey';
+    text-align: center;
+    border: 1px solid black;
+    height: 35vh;
+    width: 25vw;
+}
 
-@media (max-width: 1107px) {
+
+
+/* _______myslide내용 관련__________ */
+
+
+.transBtn{
+    background-image: linear-gradient(to right, #e96d4e, #feb47b);
+    color: white;
+    display: flex;
+    width: 15vw;
+    height: 5vh;
+    /* font-size: bold; */
+    font-weight: bold ;
+    transition: background-image 0.5s ease;
+    cursor: pointer;
+}
+.transBtn:hover {
+    background-image: linear-gradient(to right, #feb47b, #ff7e5f);
+    }
+
+@media (max-width: 320px) {
     .my_title{
         position: absolute;    
-        font-size: 8vw;
+        font-size: 7vw;
         margin: 0 auto;
         left: 30vw;
         padding: 2vh 0 2vh 0;
@@ -162,23 +193,26 @@
         display: flex;
     }
     .my_table{
-        position: absolute;
+        position: relative;
         align-items: center;
-        width: 60vw;
+        width: 100vw;
+        height: 10vh;
         margin-left: 7vw;
+        top: 0vh;
     }
+    
     .my_input_wrapper_1{
-        /* position: relative; */
+        position: absolute;
         /* border: 5px rgb(25, 29, 36) dotted; */
         border-collapse: collapse;
         width: 20vw;
         height: 50vh;
-        left: 2vh;
-        font-size: 3vw;
+        left: 3vh;
+        font-size: 1vw;
         align-items: center;
         display: flex;
         flex-direction: column;
-        text-align: center;
+        text-align: end;
 }
 .my_input_wrapper_1 input{
     width: 20vw;
@@ -186,10 +220,11 @@
 }
 .my_input_wrapper_1 button{
     display: block;
-    width: 20vw;
+    width: 18vw;
     left: 3vw;
     height: 2vh;
     font-size: 2vw;
+    align-items: center;
 }
 
 .my_input_wrapper_2{
@@ -236,6 +271,9 @@
         display: contents;
         justify-content: space-between;
         width: 80vw;
+    }
+    .contract_table{
+        font-size: 4vw;
     }
 
     }

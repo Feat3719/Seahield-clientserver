@@ -11,7 +11,8 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
   
     const fetchWeatherData = async (nx, ny, setWeatherData) => {
       try {
-        const apiKey = 'JrDIvJyY%2F5nC4cM4h%2B%2BRTTFwta8XrWrlVQnatKlbqOz8FTo7eG8cdA0VrbJU5PldoMfabRTX2h1jjM4apPBXNQ%3D%3D';
+        // const apiKey = 'JrDIvJyY%2F5nC4cM4h%2B%2BRTTFwta8XrWrlVQnatKlbqOz8FTo7eG8cdA0VrbJU5PldoMfabRTX2h1jjM4apPBXNQ%3D%3D';
+        const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
         // if (!apiKey) {
         //   console.error('API 키가 정의되지 않았습니다.');
         //   return;
