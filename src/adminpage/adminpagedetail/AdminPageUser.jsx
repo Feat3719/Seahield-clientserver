@@ -78,12 +78,12 @@ function AdminPageUser() {
             ))
             : currentItems.map((user, index) => (
               <tr key={index}>
-                <td>{indexOfFirstItem + index + 1}</td> {/* 번호 계산하여 표시 */}
-                <td>{user.userId}</td>
-                <td>{user.userNickname}</td>
-                <td>{user.userEmail}</td>
-                <td>{user.userContact || "N/A"}</td>
-                <td>{user.userType}</td>
+                <td data-label="번호">{indexOfFirstItem + index + 1}</td>
+                <td data-label="사용자 ID">{user.userId}</td>
+                <td data-label="닉네임">{user.userNickname}</td>
+                <td data-label="이메일">{user.userEmail}</td>
+                <td data-label="연락처">{user.userContact || "N/A"}</td>
+                <td data-label="유형">{user.userType}</td>
               </tr>
             ))}
         </tbody>

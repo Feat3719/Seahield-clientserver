@@ -64,24 +64,24 @@ function AdminPageBoard() {
 
 
   return (
-    <div>
+    <div className={style.adminboardpage}>
       <h2 className={style.adminboard_title}>게시글 목록</h2>
-      <div className="tabs">
+      <div className={style.tabs}>
         <button
           onClick={() => handleTabClick("FREE")}
-          className={activeTab === "FREE" ? "active" : ""}
+          className={`${activeTab === "FREE" ? style.activeTab : ""} ${style.admin_tabbutton}`}
         >
           자유게시판
         </button>
         <button
           onClick={() => handleTabClick("QNA")}
-          className={activeTab === "QNA" ? "active" : ""}
+          className={`${activeTab === "QNA" ? style.activeTab : ""} ${style.admin_tabbutton}`}
         >
           질문게시판
         </button>
         <button
           onClick={() => handleTabClick("NOTICE")}
-          className={activeTab === "NOTICE" ? "active" : ""}
+          className={`${activeTab === "NOTICE" ? style.activeTab : ""} ${style.admin_tabbutton}`}
         >
           공지사항
         </button>
@@ -128,14 +128,7 @@ function AdminPageBoard() {
               articles.map((article) => (
                 <tr key={article.articleId}>
                   <td>{article.articleId}</td>
-                  <td
-                    onClick={() => handleArticleClick(article.articleId)}
-                    style={{
-                      cursor: "pointer",
-                      color: "blue",
-                      textDecoration: "underline",
-                    }}
-                  >
+                  <td onClick={() => handleArticleClick(article.articleId)} className={style.articleTitle}>
                     {article.articleTitle}
                   </td>
                   <td>
