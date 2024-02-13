@@ -15,7 +15,6 @@ function ContractVer() {
   const [isCompanyInfoRegistered, setIsCompanyInfoRegistered] = useState(null);
 
   useEffect(() => {
-    // 사업자(BUSINESS) 또는 관리자(ADMIN)만 접근 가능하도록 변경
     if (userType !== "BUSINESS" && userType !== "ADMIN") {
       Swal.fire({
         icon: 'error',
@@ -29,33 +28,33 @@ function ContractVer() {
       return;
     }
 
+    const checkCompanyInfo = async () => {
+      if (!accessToken) {
+        Swal.fire({
+          icon: 'warning',
+          title: '로그인 필요',
+          text: '로그인이 필요합니다.',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/signin");
+          }
+        });
+        return;
+      }
+
+      try {
+        const response = await axios.get("/api/company/validate-info", {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        setIsCompanyInfoRegistered(response.data);
+      } catch (error) {
+        console.error("회사 정보 검증 오류", error);
+        Swal.fire('회사 정보 검증 중 오류가 발생했습니다.', '', 'error');
+      }
+    };
+
     checkCompanyInfo();
-  }, [accessToken, userType, navigate]); // 의존성 배열에 userType 추가
-
-  const checkCompanyInfo = async () => {
-    if (!accessToken) {
-      Swal.fire({
-        icon: 'warning',
-        title: '로그인 필요',
-        text: '로그인이 필요합니다.',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate("/signin");
-        }
-      });
-      return;
-    }
-
-    try {
-      const response = await axios.get("/api/company/validate-info", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      setIsCompanyInfoRegistered(response.data); // 예상되는 응답: true 또는 false
-    } catch (error) {
-      console.error("회사 정보 검증 오류", error);
-      alert("회사 정보 검증 중 오류가 발생했습니다.");
-    }
-  };
+  }, [accessToken, userType, navigate]);
 
   const handleCompanyInfoClick = () => {
     if (isCompanyInfoRegistered === true) {
