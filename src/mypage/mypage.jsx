@@ -21,32 +21,24 @@
 //             setUserType_1(response.data.userType)
 //         })
 //         .catch(error => {
-//             console.error('API 요청 실패:', error)    
+//             console.error('API 요청 실패:', error)
 //     })
 // } , [])
 
 //     // useEffect( () => {
-    
+
 //     // },[] )
 
-
-
-
-
 //     return (
-        
-
-
-
 
 //         <div className={style.mypage}>
-//             <div className={style.my_info}> 
+//             <div className={style.my_info}>
 
 //             <h1>마이 페이지</h1>
 //             {/* {userRole === 'ADMIN' && (
 //             <p>관리자 페이지</p>
 //             )} */}
-//             {/* <p>사용자 이름: 
+//             {/* <p>사용자 이름:
 //                 {username}
 //                 </p> */}
 //                     <div className={style.my_input_wrapper}>
@@ -82,9 +74,9 @@
 //                         </div>
 //                     </div>
 
-//                     <div className={style.contract}> 
+//                     <div className={style.contract}>
 //                         <label>예약 내역</label>
-                        
+
 //                         <div className={style.contract_title}>
 //                             <table>
 //                                 <thead className={style.contract_title}>
@@ -97,9 +89,9 @@
 //                                     {data.map( (item) => (
 //                                         <tr key={item.id}
 //                                         className={style.contract_input}>
-//                                             <td> 
+//                                             <td>
 //                                                 {/* <input className={style.contract_input}
-//                                                 type="text" 
+//                                                 type="text"
 //                                                 placeholder="담당 지역 명"
 //                                                 disabled="True"
 //                                                 />  */}
@@ -108,7 +100,7 @@
 //                                             <td>
 //                                                 {item.name}
 //                                                 {/* <input className={style.contract_input}
-//                                                     type="text" 
+//                                                     type="text"
 //                                                     value={username} // 구역이름으로 수정해야함
 //                                                     placeholder="담당 구역"
 //                                                     disabled="True"
@@ -117,36 +109,27 @@
 //                                         </tr>
 //                                     )
 //                                     )}
-                                        
+
 //                                 </tbody>
 
 //                             </table>
 
-
 //                             {/* <input className={style.contract_input}
-//                                     type="text" 
+//                                     type="text"
 //                                     placeholder="담당 지역 명"
 //                                     disabled="True"
 //                                     />
 //                             <input className={style.contract_input}
-//                                     type="text" 
+//                                     type="text"
 //                                     placeholder="담당 구역"
 //                                     disabled="True"
 //                                     /> */}
 //                         </div>
 //                     </div>
 
-
-
-            
-            
 //             </div>
-        
-
-
 
 //         </div>
-
 
 //     )
 
