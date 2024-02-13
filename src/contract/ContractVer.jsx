@@ -5,41 +5,44 @@ import Wrapper from "../pagechange/Wrapper";
 import Sidenav from "../sidenav/Sidenav";
 import style from "./ContractVer.module.css";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 function ContractVer() {
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const userType = useSelector((state) => state.auth.userType); // userType을 Redux Store에서 가져옴
   const navigate = useNavigate();
   const [isCompanyInfoRegistered, setIsCompanyInfoRegistered] = useState(null);
 
   useEffect(() => {
-    const persistRoot = localStorage.getItem("persist:root")
-      ? JSON.parse(localStorage.getItem("persist:root"))
-      : null;
-    const userType =
-      persistRoot && persistRoot.auth
-        ? JSON.parse(persistRoot.auth).userType
-        : "";
-
-    if (userType !== "BUSINESS") {
-      alert("사업자 회원만 사용하실 수 있는 메뉴입니다.");
-      navigate("/map"); // 또는 사용자를 로그인 페이지로 리디렉션
+    // 사업자(BUSINESS) 또는 관리자(ADMIN)만 접근 가능하도록 변경
+    if (userType !== "BUSINESS" && userType !== "ADMIN") {
+      Swal.fire({
+        icon: 'error',
+        title: '접근 제한',
+        text: '사업자 또는 관리자 회원만 사용하실 수 있는 메뉴입니다.',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/map");
+        }
+      });
       return;
     }
 
     checkCompanyInfo();
-  }, []);
+  }, [accessToken, userType, navigate]); // 의존성 배열에 userType 추가
 
   const checkCompanyInfo = async () => {
-    const persistRoot = localStorage.getItem("persist:root")
-      ? JSON.parse(localStorage.getItem("persist:root"))
-      : null;
-    const accessToken =
-      persistRoot && persistRoot.auth
-        ? JSON.parse(persistRoot.auth).accessToken
-        : "";
-
     if (!accessToken) {
-      alert("로그인이 필요합니다.");
-      navigate("/login");
+      Swal.fire({
+        icon: 'warning',
+        title: '로그인 필요',
+        text: '로그인이 필요합니다.',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/signin");
+        }
+      });
       return;
     }
 
@@ -47,8 +50,7 @@ function ContractVer() {
       const response = await axios.get("/api/company/validate-info", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
-      // 응답 바디에서 true 또는 false 값을 읽어와서 상태를 설정합니다.
-      setIsCompanyInfoRegistered(response.data); // response.data는 true 또는 false를 가정
+      setIsCompanyInfoRegistered(response.data); // 예상되는 응답: true 또는 false
     } catch (error) {
       console.error("회사 정보 검증 오류", error);
       alert("회사 정보 검증 중 오류가 발생했습니다.");
@@ -60,8 +62,7 @@ function ContractVer() {
       // 회사 정보가 등록되지 않은 경우
       navigate("/companyinfo");
     } else {
-      // 회사 정보가 이미 등록된 경우
-      alert("회사정보를 이미 입력하셨습니다. 수거계약 신청을 해 주세요.");
+      Swal.fire('회사정보를 이미 입력하셨습니다.', '수거계약 신청을 해 주세요.', 'info');
     }
   };
 
@@ -70,8 +71,7 @@ function ContractVer() {
       // 회사 정보가 이미 등록된 경우
       navigate("/contract");
     } else {
-      // 회사 정보가 등록되지 않은 경우
-      alert("회사정보를 작성해 주세요.");
+      Swal.fire('회사정보를 작성해 주세요.', '', 'warning');
     }
   };
 

@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import style from "./AdminPageUser.module.css";
+import style from "./AdminPageContract.module.css";
+import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 function AdminPageContract() {
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const [contracts, setContracts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,8 +41,6 @@ function AdminPageContract() {
   const handleApprove = async (contractId) => {
     if (!window.confirm("정말 승인하시겠습니까?")) return;
 
-    const accessToken = JSON.parse(localStorage.getItem("persist:root") || "{}")
-      .auth?.accessToken;
     try {
       await axios.patch(
         `/api/contract/status/${contractId}/approved`,
@@ -57,6 +58,7 @@ function AdminPageContract() {
       setIsLoading(false); // 데이터 로딩 완료
     }
   };
+
   const handleReject = async (contractId) => {
     if (!window.confirm("정말 비승인 하시겠습니까?")) return;
 
@@ -98,8 +100,8 @@ function AdminPageContract() {
 
   return (
     <div>
-      <h2>계약신청 목록</h2>
-      <table>
+      <h2 className={style.admincontract_title}>계약 신청 목록</h2>
+      <table className={style.admincontract_table}>
         <thead>
           <tr>
             <th>계약 ID</th>
@@ -113,44 +115,44 @@ function AdminPageContract() {
         <tbody>
           {isLoading
             ? [...Array(skeletonCount)].map((_, index) => (
-                <tr key={index}>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                </tr>
-              ))
+              <tr key={index}>
+                <td>
+                  <Skeleton className={style.skeleton_shimmer} />
+                </td>
+                <td>
+                  <Skeleton className={style.skeleton_shimmer} />
+                </td>
+                <td>
+                  <Skeleton className={style.skeleton_shimmer} />
+                </td>
+                <td>
+                  <Skeleton className={style.skeleton_shimmer} />
+                </td>
+                <td>
+                  <Skeleton className={style.skeleton_shimmer} />
+                </td>
+                <td>
+                  <Skeleton className={style.skeleton_shimmer} />
+                </td>
+              </tr>
+            ))
             : currentContracts.map((contract) => (
-                <tr key={contract.contractId}>
-                  <td>{contract.contractId}</td>
-                  <td>{contract.contractAplDate}</td>
-                  <td>{contract.contractStatus}</td>
-                  <td>{contract.announceId}</td>
-                  <td>{contract.companyName}</td>
-                  <td>
-                    <button onClick={() => handleApprove(contract.contractId)}>
-                      승인
-                    </button>
-                    <button onClick={() => handleReject(contract.contractId)}>
-                      비승인
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              <tr key={contract.contractId}>
+                <td>{contract.contractId}</td>
+                <td>{contract.contractAplDate}</td>
+                <td>{contract.contractStatus}</td>
+                <td>{contract.announceId}</td>
+                <td>{contract.companyName}</td>
+                <td>
+                  <button onClick={() => handleApprove(contract.contractId)} className={style.admin_approvebtn}>
+                    승인
+                  </button>
+                  <button onClick={() => handleReject(contract.contractId)} className={style.admin_rejectbtn}>
+                    비승인
+                  </button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <div className={style.pagination1}>

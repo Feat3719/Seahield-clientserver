@@ -35,33 +35,29 @@ function AdminPage() {
             <div className={style.tabs}>
               <div
                 onClick={() => handleTabClick("members")}
-                className={`${style.tab} ${
-                  selectedTab === "members" ? style.activeTab : ""
-                }`}
+                className={`${style.tab} ${selectedTab === "members" ? style.activeTab : ""
+                  }`}
               >
                 회원목록
               </div>
               <div
                 onClick={() => handleTabClick("applications")}
-                className={`${style.tab} ${
-                  selectedTab === "applications" ? style.activeTab : ""
-                }`}
+                className={`${style.tab} ${selectedTab === "applications" ? style.activeTab : ""
+                  }`}
               >
                 계약신청
               </div>
               <div
                 onClick={() => handleTabClick("posts")}
-                className={`${style.tab} ${
-                  selectedTab === "posts" ? style.activeTab : ""
-                }`}
+                className={`${style.tab} ${selectedTab === "posts" ? style.activeTab : ""
+                  }`}
               >
                 게시글
               </div>
               <div
                 onClick={() => handleTabClick("cameras")}
-                className={`${style.tab} ${
-                  selectedTab === "cameras" ? style.activeTab : ""
-                }`}
+                className={`${style.tab} ${selectedTab === "cameras" ? style.activeTab : ""
+                  }`}
               >
                 카메라
               </div>

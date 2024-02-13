@@ -3,12 +3,14 @@ import axios from "axios";
 import ArticleModal from "./ArticleModal";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import style from "./AdminPageUser.module.css";
+import style from "./AdminPageBoard.module.css";
+import Loading from "../../loading/Loading";
 
 function AdminPageBoard() {
   const [activeTab, setActiveTab] = useState("FREE");
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingArticle, setIsLoadingArticle] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [articlesPerPage] = useState(10);
@@ -41,14 +43,17 @@ function AdminPageBoard() {
 
   // 게시글 제목 클릭 핸들러
   const handleArticleClick = async (articleId) => {
+    setIsLoadingArticle(true); // 개별 게시글 로딩 시작
     try {
       const response = await axios.get(`/api/board/article/${articleId}`);
       if (response.status === 200) {
-        setSelectedArticle(response.data); // 선택된 게시글의 상세 정보 저장
+        setSelectedArticle(response.data);
       }
     } catch (error) {
       console.error("Error fetching article details:", error);
       setSelectedArticle(null);
+    } finally {
+      setIsLoadingArticle(false); // 개별 게시글 로딩 완료
     }
   };
 
@@ -70,7 +75,7 @@ function AdminPageBoard() {
 
   return (
     <div>
-      <h2>게시글 목록</h2>
+      <h2 className={style.adminboard_title}>게시글 목록</h2>
       <div className="tabs">
         <button
           onClick={() => handleTabClick("FREE")}
@@ -90,16 +95,10 @@ function AdminPageBoard() {
         >
           공지사항
         </button>
-        <button
-          onClick={() => handleTabClick("ANNOUNCE")}
-          className={activeTab === "ANNOUNCE" ? "active" : ""}
-        >
-          공고
-        </button>
       </div>
 
       <div className="tabContent">
-        <table>
+        <table className={style.adminboard_table}>
           <thead>
             <tr>
               <th>게시글 ID</th>
@@ -113,53 +112,55 @@ function AdminPageBoard() {
           <tbody>
             {isLoading
               ? // 로딩 중 스켈레톤 표시
-                Array.from({ length: skeletonCount }, (_, index) => (
-                  <tr key={index}>
-                    <td>
-                      <Skeleton className={style.skeleton_shimmer} />
-                    </td>
-                    <td>
-                      <Skeleton className={style.skeleton_shimmer} />
-                    </td>
-                    <td>
-                      <Skeleton className={style.skeleton_shimmer} />
-                    </td>
-                    <td>
-                      <Skeleton className={style.skeleton_shimmer} />
-                    </td>
-                    <td>
-                      <Skeleton className={style.skeleton_shimmer} />
-                    </td>
-                    <td>
-                      <Skeleton className={style.skeleton_shimmer} />
-                    </td>
-                  </tr>
-                ))
+              Array.from({ length: skeletonCount }, (_, index) => (
+                <tr key={index}>
+                  <td>
+                    <Skeleton className={style.skeleton_shimmer} />
+                  </td>
+                  <td>
+                    <Skeleton className={style.skeleton_shimmer} />
+                  </td>
+                  <td>
+                    <Skeleton className={style.skeleton_shimmer} />
+                  </td>
+                  <td>
+                    <Skeleton className={style.skeleton_shimmer} />
+                  </td>
+                  <td>
+                    <Skeleton className={style.skeleton_shimmer} />
+                  </td>
+                  <td>
+                    <Skeleton className={style.skeleton_shimmer} />
+                  </td>
+                </tr>
+              ))
               : // Ensure this opening parenthesis for the map function is removed
-                articles.map((article) => (
-                  <tr key={article.articleId}>
-                    <td>{article.articleId}</td>
-                    <td
-                      onClick={() => handleArticleClick(article.articleId)}
-                      style={{
-                        cursor: "pointer",
-                        color: "blue",
-                        textDecoration: "underline",
-                      }}
-                    >
-                      {article.articleTitle}
-                    </td>
-                    <td>
-                      {new Date(article.articleCreatedDate).toLocaleString()}
-                    </td>
-                    <td>{article.userId}</td>
-                    <td>{article.articleViewCounts ?? "0"}</td>
-                    <td>{article.articleLikes}</td>
-                  </tr>
-                ))}
+              articles.map((article) => (
+                <tr key={article.articleId}>
+                  <td>{article.articleId}</td>
+                  <td
+                    onClick={() => handleArticleClick(article.articleId)}
+                    style={{
+                      cursor: "pointer",
+                      color: "blue",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    {article.articleTitle}
+                  </td>
+                  <td>
+                    {new Date(article.articleCreatedDate).toLocaleString()}
+                  </td>
+                  <td>{article.userId}</td>
+                  <td>{article.articleViewCounts ?? "0"}</td>
+                  <td>{article.articleLikes}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
+
+      {isLoadingArticle && <Loading />}
 
       {/* 페이지네이션 버튼 */}
       <div className={style.pagination1}>

@@ -1,0 +1,114 @@
+@keyframes shimmer {
+    0% {
+        background-position: -20rem 0;
+    }
+
+    100% {
+        background-position: 20rem 0;
+    }
+}
+
+.adminboard_title {
+    font-size: 4vh;
+    color: white;
+}
+
+.skeleton_shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(to right, #eff1f3 8%, #828282 18%, #bdbdbd 33%);
+    background-size: 40rem 100%;
+}
+
+.adminboard_table {
+    width: 100%;
+    /* 필요에 따라 조정 */
+    border-collapse: collapse;
+}
+
+.adminboard_table th,
+.adminboard_table td {
+    padding: 1vh;
+    border-bottom: 0.1vh solid rgb(66, 66, 66);
+    font-size: 2.3vh;
+    min-width: 15vh;
+}
+
+.adminboard_table th {
+    background-color: #000000;
+    color: white;
+}
+
+.adminboard_table th:hover {
+    background-color: #b13232;
+}
+
+.adminboard_table td {
+    background-color: #373737;
+    color: white;
+}
+
+
+
+
+/* 기존 스타일 */
+.pagination1 {
+    display: flex;
+    justify-content: center;
+    padding: 2vh;
+    font-size: 2vh;
+}
+
+/* 페이지네이션 버튼 스타일 */
+.pagination1 button {
+    background-color: #ffffff00;
+    /* 버튼 배경색 */
+    color: #ffffff;
+    /* 대비되는 어두운 텍스트 색상 */
+    border: 0.2vh solid #5164f5;
+    /* 버튼 가장자리를 정의하는 경계선 */
+    padding: 0.5vh 1vh;
+    /* 버튼 내부 여백 */
+    margin: 0 1vh;
+    /* 버튼 간 간격 */
+    cursor: pointer;
+    /* 클릭 가능한 항목을 나타내는 커서 */
+    transition: background-color 0.3s, transform 0.2s;
+    /* 상호작용에 대한 부드러운 전환 */
+    color: #5164f5;
+}
+
+.pagination1 button:hover,
+.pagination1 button:focus {
+    background-color: #1122a8;
+    color: rgb(255, 255, 255);
+}
+
+/* 활성 페이지 버튼 스타일 */
+.pagination1 button.active {
+    background-color: #007bff;
+    /* 활성 버튼 배경색 */
+    background-color: #ffffff00;
+    /* 대비되는 밝은 텍스트 색상 */
+    border-color: #007bff;
+    /* 경계선 색상이 배경색과 일치 */
+    font-weight: bold;
+    /* 활성 페이지 번호를 더 돋보이게 함 */
+}
+
+/* "<"와 ">" 버튼을 약간 다르게 만들기 */
+.pagination1 button:first-child,
+.pagination1 button:last-child {
+    background-color: #ffffff00;
+    /* 탐색 버튼들에 대한 다른 배경색 */
+    color: #ffffff;
+    /* 이 버튼들에 대한 약간 더 어두운 텍스트 색상 */
+}
+
+.pagination1 button:disabled {
+    background-color: #ffffff00;
+    /* 비활성 상태의 배경색 */
+    color: #ffffff;
+    /* 비활성 상태의 텍스트 색상 */
+    cursor: not-allowed;
+    /* 비활성 버튼의 커서 변경 */
+}

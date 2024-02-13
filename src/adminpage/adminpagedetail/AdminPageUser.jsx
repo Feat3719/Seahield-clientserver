@@ -3,8 +3,10 @@ import axios from "axios";
 import Skeleton from "react-loading-skeleton"; // 스켈레톤 컴포넌트를 임포트합니다.
 import "react-loading-skeleton/dist/skeleton.css";
 import style from "./AdminPageUser.module.css";
+import { useSelector } from "react-redux";
 
 function AdminPageUser() {
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,14 +15,6 @@ function AdminPageUser() {
   useEffect(() => {
     const fetchUsers = async () => {
       setIsLoading(true); // 데이터 로딩 시작
-      const persistRoot = localStorage.getItem("persist:root")
-        ? JSON.parse(localStorage.getItem("persist:root"))
-        : null;
-      const accessToken =
-        persistRoot && persistRoot.auth
-          ? JSON.parse(persistRoot.auth).accessToken
-          : "";
-
       try {
         const response = await axios.get("/api/user/users-info", {
           headers: {
@@ -28,22 +22,19 @@ function AdminPageUser() {
           },
         });
         if (response.status === 200) {
-          setUsers(
-            Array.isArray(response.data) ? response.data : [response.data]
-          ); // 데이터가 배열 형태인지 확인하고 상태를 설정
+          setUsers(Array.isArray(response.data) ? response.data : [response.data]);
         } else {
           throw new Error("Failed to fetch users");
         }
       } catch (error) {
         console.error("Error fetching users:", error);
-        // 에러 처리 로직
       } finally {
         setIsLoading(false); // 데이터 로딩 완료
       }
     };
 
     fetchUsers();
-  }, []);
+  }, [accessToken]); // useEffect의 의존성 배열에 accessToken 추가
 
   // 현재 페이지의 항목들만 표시하기 위한 계산
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -61,54 +52,40 @@ function AdminPageUser() {
 
   return (
     <div>
-      <h2>회원 목록</h2>
-      <table>
+      <h2 className={style.adminuser_title}>회원 목록</h2>
+      <table className={style.adminuser_table}>
         <thead>
           <tr>
+            <th className={style.th}>번호</th>
             <th className={style.th}>사용자 ID</th>
             <th className={style.th}>닉네임</th>
             <th className={style.th}>이메일</th>
             <th className={style.th}>연락처</th>
             <th className={style.th}>유형</th>
-            <th className={style.th}>가입일</th>
           </tr>
         </thead>
         <tbody>
           {isLoading
             ? [...Array(skeletonCount)].map((_, index) => (
-                <tr key={index}>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                  <td>
-                    <Skeleton className={style.skeleton_shimmer} />
-                  </td>
-                </tr>
-              ))
+              <tr key={index}>
+                <td><Skeleton /></td>
+                <td><Skeleton className={style.skeleton_shimmer} /></td>
+                <td><Skeleton className={style.skeleton_shimmer} /></td>
+                <td><Skeleton className={style.skeleton_shimmer} /></td>
+                <td><Skeleton className={style.skeleton_shimmer} /></td>
+                <td><Skeleton className={style.skeleton_shimmer} /></td>
+              </tr>
+            ))
             : currentItems.map((user, index) => (
-                <tr key={index}>
-                  <td>{user.userId}</td>
-                  <td>{user.userNickname}</td>
-                  <td>{user.userEmail}</td>
-                  <td>{user.userContact || "N/A"}</td>
-                  <td>{user.userType}</td>
-                  <td>
-                    {user.userJoinedYmd ? user.userJoinedYmd.join("-") : "N/A"}
-                  </td>
-                </tr>
-              ))}
+              <tr key={index}>
+                <td>{indexOfFirstItem + index + 1}</td> {/* 번호 계산하여 표시 */}
+                <td>{user.userId}</td>
+                <td>{user.userNickname}</td>
+                <td>{user.userEmail}</td>
+                <td>{user.userContact || "N/A"}</td>
+                <td>{user.userType}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <div className={style.pagination1}>
