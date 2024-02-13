@@ -17,9 +17,9 @@ function ContractVer() {
   useEffect(() => {
     if (userType !== "BUSINESS" && userType !== "ADMIN") {
       Swal.fire({
-        icon: 'error',
-        title: '접근 제한',
-        text: '사업자 또는 관리자 회원만 사용하실 수 있는 메뉴입니다.',
+        icon: "error",
+        title: "접근 제한",
+        text: "사업자 또는 관리자 회원만 사용하실 수 있는 메뉴입니다.",
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/map");
@@ -31,9 +31,9 @@ function ContractVer() {
     const checkCompanyInfo = async () => {
       if (!accessToken) {
         Swal.fire({
-          icon: 'warning',
-          title: '로그인 필요',
-          text: '로그인이 필요합니다.',
+          icon: "warning",
+          title: "로그인 필요",
+          text: "로그인이 필요합니다.",
         }).then((result) => {
           if (result.isConfirmed) {
             navigate("/signin");
@@ -49,7 +49,7 @@ function ContractVer() {
         setIsCompanyInfoRegistered(response.data);
       } catch (error) {
         console.error("회사 정보 검증 오류", error);
-        Swal.fire('회사 정보 검증 중 오류가 발생했습니다.', '', 'error');
+        Swal.fire("회사 정보 검증 중 오류가 발생했습니다.", "", "error");
       }
     };
 
@@ -61,7 +61,11 @@ function ContractVer() {
       // 회사 정보가 등록되지 않은 경우
       navigate("/companyinfo");
     } else {
-      Swal.fire('회사정보를 이미 입력하셨습니다.', '수거계약 신청을 해 주세요.', 'info');
+      Swal.fire(
+        "회사정보를 이미 입력하셨습니다.",
+        "수거계약 신청을 해 주세요.",
+        "info"
+      );
     }
   };
 
@@ -70,7 +74,7 @@ function ContractVer() {
       // 회사 정보가 이미 등록된 경우
       navigate("/contract");
     } else {
-      Swal.fire('회사정보를 작성해 주세요.', '', 'warning');
+      Swal.fire("회사정보를 작성해 주세요.", "", "warning");
     }
   };
 

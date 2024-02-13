@@ -4,7 +4,6 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import style from "./AdminPageContract.module.css";
 import { useSelector } from "react-redux";
-import { motion } from "framer-motion";
 
 function AdminPageContract() {
   const accessToken = useSelector((state) => state.auth.accessToken);

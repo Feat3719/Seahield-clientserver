@@ -1,11 +1,11 @@
-body {
-    /* padding: 1.5em; */
+/* body {
+    padding: 1.5em;
     background: rgb(39, 38, 38);
 }
 
 div {
     border: none;
-}
+} */
 
 #container {
     border: none;
@@ -19,11 +19,11 @@ div {
     padding-bottom: 10px;
     background-color: #343a43;
 }
-
+/* 
 #table_box {
     width: 100%;
     height: auto;
-}
+} */
 
 #button_box {
     width: 100%;

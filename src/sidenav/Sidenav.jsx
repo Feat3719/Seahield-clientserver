@@ -85,7 +85,7 @@ function Sidenav() {
                                         </span>
                                     </Link>
                                 ) : (
-                                    <Link to="/mypage" className={style.navLink}>
+                                    <Link to="/mypageregular" className={style.navLink}>
                                         <span className={style.itemTxt}>
                                             마이페이지
                                         </span>

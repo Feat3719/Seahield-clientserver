@@ -372,6 +372,16 @@
     background-size: cover;
     background-position: center;
 }
+@media (max-width : 425px) {
+  .sub_2_2{
+  width: 100vw;
+  background-size:40vw 100vh ;
+  /* height: 60vh; */
+  }
+  /* .sub_2{
+    height: 40vh;
+  } */
+}
 
 
 .sub_3{
