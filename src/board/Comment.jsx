@@ -1,4 +1,6 @@
 function Comment() {
+    // /api/board/comment
+
     return (
         <>
             <div>
