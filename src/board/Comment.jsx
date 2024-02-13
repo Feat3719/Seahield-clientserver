@@ -1,13 +1,17 @@
-function Comment() {
-    // /api/board/comment
+import React from "react";
 
+const Comment = ({ comments }) => {
     return (
         <>
-            <div>
-                <input type="text" />
-            </div>
+            {comments.map((comment) => (
+                <div key={comment.commentId}>
+                    {comment.commentContents}
+                    <button>수정</button>
+                    <button>삭제</button>
+                </div>
+            ))}
         </>
     );
-}
+};
 
 export default Comment;

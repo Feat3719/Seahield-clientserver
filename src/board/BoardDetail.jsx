@@ -13,6 +13,7 @@ function BoardDetail() {
     // const userId = useSelector((state) => state.auth.user);
     const { id } = useParams();
     const [post, setPost] = useState(null);
+    const [comments, setComments] = useState("");
     const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
@@ -54,6 +55,26 @@ function BoardDetail() {
             setPost(updatedPost);
             console.log(post.articleLikeCounts);
             console.log("update");
+        } catch (error) {
+            console.error("Error", error);
+        }
+    };
+
+    const handleComment = async () => {
+        try {
+            await axios.post(
+                "/api/board/comment",
+                {
+                    commentContents: comments,
+                    articleId: id,
+                },
+                {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                }
+            );
+            const response = await axios.get(`/api/board/article/${id}`);
+            const updatedPost = response.data;
+            setPost(updatedPost);
         } catch (error) {
             console.error("Error", error);
         }
@@ -164,7 +185,15 @@ function BoardDetail() {
                     </div>
                 </div>
                 <div id={style.comment_box}>
-                    <Comment></Comment>
+                    <div>
+                        <input
+                            type="text"
+                            value={comments}
+                            onChange={(e) => setComments(e.target.value)}
+                        />
+                        <button onClick={handleComment}>댓글 작성</button>
+                    </div>
+                    <Comment comments={post.comments}></Comment>
                 </div>
             </div>
         )
