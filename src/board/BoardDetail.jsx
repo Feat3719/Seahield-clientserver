@@ -75,6 +75,7 @@ function BoardDetail() {
             const response = await axios.get(`/api/board/article/${id}`);
             const updatedPost = response.data;
             setPost(updatedPost);
+            setComments('');
         } catch (error) {
             console.error("Error", error);
         }
@@ -185,15 +186,28 @@ function BoardDetail() {
                     </div>
                 </div>
                 <div id={style.comment_box}>
-                    <div>
-                        <input
-                            type="text"
-                            value={comments}
-                            onChange={(e) => setComments(e.target.value)}
-                        />
-                        <button onClick={handleComment}>댓글 작성</button>
+                    <div id={style.comment}>
+                        <div className={style.inputBox}>
+                            <input
+                                className={style.input}
+                                type="text"
+                                value={comments}
+                                onChange={(e) => setComments(e.target.value)}
+                            />
+                            <button
+                                className={style.inputButton}
+                                onClick={handleComment}>
+                                댓글 작성
+                            </button>
+                        </div>
+                        <div className={style.commentListBox}>
+                            <Comment
+                                comments={post.comments} />
+                        </div>
+
+
                     </div>
-                    <Comment comments={post.comments}></Comment>
+
                 </div>
             </div>
         )
