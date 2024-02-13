@@ -27,20 +27,14 @@
 
 //     // useEffect( () => {
     
-//     // },[] )
+    // },[] )
 
 
-
-
-
-//     return (
+    return (
         
 
-
-
-
-//         <div className={style.mypage}>
-//             <div className={style.my_info}> 
+        <div className={style.mypage}>
+            <div className={style.my_info}> 
 
 //             <h1>마이 페이지</h1>
 //             {/* {userRole === 'ADMIN' && (
@@ -138,14 +132,10 @@
 
 
 
-            
-            
-//             </div>
+            </div>
         
 
-
-
-//         </div>
+        </div>
 
 
 //     )
