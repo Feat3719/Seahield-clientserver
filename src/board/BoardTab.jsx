@@ -21,9 +21,6 @@ function BoardTab() {
             <div id={style.tabBox}>
                 <ul id={style.tab}>
                     {tabData.map((tab) => {
-                        // const tabClass = `tab ${
-                        //     tab.id === activeTab ? "active" : ""
-                        // }`;
                         const tabClass =
                             tab.id === activeTab ? style.active : "";
                         return (

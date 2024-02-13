@@ -17,7 +17,12 @@ function BoardUpdate() {
         const fetchPost = async () => {
             try {
                 const response = await axios.get(`/api/board/article/${id}`);
-                setPost(response.data);
+                const post = response.data;
+                setPost(post);
+
+                setTitle(post.articleTitle);
+                setCategory(post.articleCtgr);
+                setContent(post.articleContents);
             } catch (error) {
                 console.error("Error", error);
             }
@@ -40,59 +45,93 @@ function BoardUpdate() {
 
     return (
         post && (
-            <div id={style.container}>
-                <div id={style.detail_box}>
-                    <table>
+            <div id={style.boardUpdateContainer}>
+                <div id={style.pageTitleBox}>
+                    <div className={style.pageTitle}>게시글 수정</div>
+                </div>
+                <div id={style.updateBox}>
+                    <table className={style.table}>
                         <thead>
                             <tr>
-                                <th className={style.number}>
+                                <th colSpan={8} className={style.number}>
                                     {post.articleId}
                                 </th>
-                                <th colSpan={5} className={style.title}>
+                                <th colSpan={8} className={style.title}>
                                     <input
                                         name="title"
                                         type="text"
-                                        defaultValue={post.articleTitle}
+                                        value={title}
                                         id="title"
                                         onChange={(e) =>
                                             setTitle(e.target.value)
                                         }
                                     ></input>
                                 </th>
-                                <th className={style.writer}>{post.userId}</th>
+                                <th colSpan={8} className={style.writer}>{post.userId}</th>
                             </tr>
                             <tr>
-                                <th className={style.category}>분류</th>
+                                <th colSpan={4} className={style.category}>분류</th>
                                 <td
-                                    colSpan={3}
+                                    colSpan={4}
                                     className={style.category_blank}
                                 >
-                                    <input
+                                    {/* <input
                                         name="category"
-                                        defaultValue={post.articleCtgr}
+                                        value={category}
                                         id="category"
                                         onChange={(e) =>
                                             setCategory(e.target.value)
                                         }
-                                    ></input>
+                                    ></input> */}
+                                    <select
+                                        className={style.select}
+                                        name="category"
+                                        id="category"
+                                        value={category}
+                                        onChange={(e) => setCategory(e.target.value)}
+                                    >
+                                        {/* <option value="" disabled>
+                                            분류
+                                        </option> */}
+                                        <option value="FREE">자유게시판</option>
+                                        <option value="QNA">질문게시판</option>
+                                        <option value="NOTICE">공지사항</option>
+                                        <option value="ANNOUNCE">공고</option>
+                                    </select>
                                 </td>
-                                <th colSpan={2} className={style.reads}>
+                                <th colSpan={4} className={style.reads}>
                                     조회수
                                 </th>
-                                <td className={style.reads_blank}>
+                                <td colSpan={4} className={style.reads_blank}>
                                     {post.articleViewCounts}
+                                </td>
+                                <th colSpan={4} className={style.like}>
+                                    좋아요
+                                </th>
+                                <td colSpan={4} className={style.like_blank}>
+                                    {post.articleLikeCounts}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colSpan={4} >작성일</th>
+                                <td colSpan={8}>
+                                    {FormatDatetime(post.articleCreatedDate)}
+                                </td>
+                                <th colSpan={4}>수정일</th>
+                                <td colSpan={8} >
+                                    {FormatDatetime(post.articleUpdateDate)}
                                 </td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td className={style.content} colSpan={7}>
+                                <td colSpan={24} className={style.content}>
                                     <textarea
                                         name="content"
                                         id="content"
                                         cols="30"
                                         rows="10"
-                                        defaultValue={post.articleContents}
+                                        value={content}
                                         onChange={(e) =>
                                             setContent(e.target.value)
                                         }
@@ -101,26 +140,20 @@ function BoardUpdate() {
                             </tr>
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <th>작성일</th>
-                                <td colSpan={3}>
-                                    {FormatDatetime(post.articleCreatedDate)}
-                                </td>
-                                <th colSpan={2}>수정일</th>
-                                <td>
-                                    {FormatDatetime(post.articleUpdateDate)}
-                                </td>
-                            </tr>
+
                         </tfoot>
                     </table>
                 </div>
-                <div id={style.button_box}>
+                <div id={style.buttonBox}>
+                    <div id={style.updateButton}>
                     <button
-                        className={style.complete_button}
+                        className={style.button}
                         onClick={handleUpdate}
                     >
                         수정완료
                     </button>
+                    </div>
+
                 </div>
             </div>
         )

@@ -4,18 +4,29 @@ import axios from "axios";
 import Posts from "./Posts";
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function BoardList({ category, tabName }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(10);
+    const usertype = useSelector((state) => state.auth.usertype);
+
+    let showWriteButton = false;
+    if (tabName === "자유게시판" || tabName === "질문게시판") {
+        showWriteButton = true;
+    } else if (
+        (tabName === "공지사항" || tabName === "공고") &&
+        usertype === "admin"
+    ) {
+        showWriteButton = true;
+    }
 
     useEffect(() => {
         const fetchPost = async () => {
             setLoading(true);
             const response = await axios.get(
-                // `/api/board/articles?page=${currentPage}`
                 `/api/board/articles?articleCtgr=${category}`
             );
             setPosts(response.data);
@@ -53,11 +64,14 @@ function BoardList({ category, tabName }) {
                     </tbody>
                 </table>
             </div>
-            <div id={style.buttonBox}>
-                <Link to="/boardwrite">
-                    <button className={style.button}>글쓰기</button>
-                </Link>
-            </div>
+            {showWriteButton && (
+                <div id={style.buttonBox}>
+                    <Link to="/boardwrite">
+                        <button className={style.button}>글쓰기</button>
+                    </Link>
+                </div>
+            )}
+
             <div id={style.paginationBox}>
                 <Pagination
                     postsPerPage={postsPerPage}

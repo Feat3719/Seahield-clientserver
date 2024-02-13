@@ -5,16 +5,22 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import FormatDatetime from "./FormatDatetime";
+import { useSelector } from "react-redux";
+import Comment from "./Comment";
 
 function BoardDetail() {
+    const accessToken = useSelector((state) => state.auth.accessToken);
+    // const userId = useSelector((state) => state.auth.user);
     const { id } = useParams();
     const [post, setPost] = useState(null);
+    const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
         const fetchPost = async () => {
             try {
                 const response = await axios.get(`/api/board/article/${id}`);
-                setPost(response.data);
+                const post = response.data;
+                setPost(post);
             } catch (error) {
                 console.error("Error", error);
             }
@@ -33,60 +39,108 @@ function BoardDetail() {
         }
     };
 
+    const handleLike = async () => {
+        try {
+            await axios.post(
+                `/api/board/article/${id}/like`,
+                {},
+                {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                }
+            );
+            setIsLiked(!isLiked);
+            const response = await axios.get(`/api/board/article/${id}`);
+            const updatedPost = response.data;
+            setPost(updatedPost);
+            console.log(post.articleLikeCounts);
+            console.log("update");
+        } catch (error) {
+            console.error("Error", error);
+        }
+    };
+
     return (
         post && (
             <div id={style.boardDetailContainer}>
                 <div id={style.pageTitleBox}>
-                    <div className={style.pageTitle}>게시글 수정</div>
+                    <div className={style.pageTitle}>게시글 상세</div>
                 </div>
                 <div id={style.detailBox}>
                     <table className={style.table}>
                         <thead>
                             <tr>
-                                <th className={style.number}>
+                                <th colSpan={8} className={style.number}>
                                     {post.articleId}
                                 </th>
-                                <th colSpan={5} className={style.title}>
+                                <th colSpan={8} className={style.title}>
                                     {post.articleTitle}
                                 </th>
-                                <th className={style.writer}>{post.userId}</th>
+                                <th colSpan={8} className={style.writer}>
+                                    {post.userId}
+                                </th>
                             </tr>
                             <tr>
-                                <th className={style.category}>분류</th>
+                                <th colSpan={4} className={style.category}>
+                                    분류
+                                </th>
                                 <td
-                                    colSpan={3}
+                                    colSpan={4}
                                     className={style.category_blank}
                                 >
                                     {post.articleCtgr}
                                 </td>
-                                <th colSpan={2} className={style.reads}>
+                                <th colSpan={4} className={style.reads}>
                                     조회수
                                 </th>
-                                <td className={style.reads_blank}>
+                                <td colSpan={4} className={style.reads_blank}>
                                     {post.articleViewCounts}
+                                </td>
+                                <th colSpan={4} className={style.like}>
+                                    <button
+                                        className={style.likeButton}
+                                        onClick={handleLike}
+                                    >
+                                        좋아요
+                                        {/* <img
+                                            className={style.imgHeart}
+                                            src={
+                                                isLiked
+                                                    ? `${process.env.PUBLIC_URL}/images/filledHeart.svg`
+                                                    : `${process.env.PUBLIC_URL}/images/emptyHeart.svg`
+                                            }
+                                        /> */}
+                                    </button>
+                                </th>
+                                <td colSpan={4} className={style.like_blank}>
+                                    {post.articleLikeCounts}
                                 </td>
                             </tr>
                             <tr>
-                                <th>작성일</th>
-                                <td colSpan={3}>
+                                <th colSpan={4} className={style.creDate}>
+                                    작성일
+                                </th>
+                                <td colSpan={8} className={style.creDate_blank}>
                                     {FormatDatetime(post.articleCreatedDate)}
                                 </td>
-                                <th colSpan={2}>수정일</th>
-                                <td>
+                                <th colSpan={4} className={style.updateDate}>
+                                    수정일
+                                </th>
+                                <td
+                                    colSpan={8}
+                                    className={style.updateDate_blank}
+                                >
                                     {FormatDatetime(post.articleUpdateDate)}
                                 </td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td className={style.content} colSpan={7}>
+                                <td className={style.content} colSpan={24}>
                                     {post.articleContents}
                                 </td>
                             </tr>
                         </tbody>
-                        <tfoot>
-
-                        </tfoot>
+                        <tfoot></tfoot>
                     </table>
                 </div>
                 <div id={style.button_box}>
@@ -94,8 +148,11 @@ function BoardDetail() {
                         <Link to="/boardtab">
                             <button className={style.list_button}>목록</button>
                         </Link>
+
                         <Link to={`/boardupdate/${id}`}>
-                            <button className={style.update_button}>수정</button>
+                            <button className={style.update_button}>
+                                수정
+                            </button>
                         </Link>
 
                         <button
@@ -105,9 +162,10 @@ function BoardDetail() {
                             삭제
                         </button>
                     </div>
-
                 </div>
-                <div id={style.comment_box}>댓글</div>
+                <div id={style.comment_box}>
+                    <Comment></Comment>
+                </div>
             </div>
         )
     );
