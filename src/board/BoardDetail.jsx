@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import style from "./BoardDetail.module.css";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -16,18 +16,19 @@ function BoardDetail() {
     const [comments, setComments] = useState("");
     const [isLiked, setIsLiked] = useState(false);
 
-    useEffect(() => {
-        const fetchPost = async () => {
-            try {
-                const response = await axios.get(`/api/board/article/${id}`);
-                const post = response.data;
-                setPost(post);
-            } catch (error) {
-                console.error("Error", error);
-            }
-        };
-        fetchPost();
+    const fetchPost = useCallback(async () => {
+        try {
+            const response = await axios.get(`/api/board/article/${id}`);
+            const post = response.data;
+            setPost(post);
+        } catch (error) {
+            console.error("Error", error);
+        }
     }, [id]);
+
+    useEffect(() => {
+        fetchPost();
+    }, [fetchPost]);
 
     const navigate = useNavigate();
 
@@ -50,11 +51,7 @@ function BoardDetail() {
                 }
             );
             setIsLiked(!isLiked);
-            const response = await axios.get(`/api/board/article/${id}`);
-            const updatedPost = response.data;
-            setPost(updatedPost);
-            console.log(post.articleLikeCounts);
-            console.log("update");
+            fetchPost();
         } catch (error) {
             console.error("Error", error);
         }
@@ -72,10 +69,8 @@ function BoardDetail() {
                     headers: { Authorization: `Bearer ${accessToken}` },
                 }
             );
-            const response = await axios.get(`/api/board/article/${id}`);
-            const updatedPost = response.data;
-            setPost(updatedPost);
-            setComments('');
+            fetchPost();
+            setComments("");
         } catch (error) {
             console.error("Error", error);
         }
@@ -115,7 +110,7 @@ function BoardDetail() {
                                     조회수
                                 </th>
                                 <td colSpan={4} className={style.reads_blank}>
-                                    {post.articleViewCounts}
+                                    {post.articleViewCount}
                                 </td>
                                 <th colSpan={4} className={style.like}>
                                     <button
@@ -134,7 +129,7 @@ function BoardDetail() {
                                     </button>
                                 </th>
                                 <td colSpan={4} className={style.like_blank}>
-                                    {post.articleLikeCounts}
+                                    {post.articleLikes}
                                 </td>
                             </tr>
                             <tr>
@@ -196,18 +191,18 @@ function BoardDetail() {
                             />
                             <button
                                 className={style.inputButton}
-                                onClick={handleComment}>
+                                onClick={handleComment}
+                            >
                                 댓글 작성
                             </button>
                         </div>
                         <div className={style.commentListBox}>
                             <Comment
-                                comments={post.comments} />
+                                comments={post.comments}
+                                fetchPost={fetchPost}
+                            />
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
         )

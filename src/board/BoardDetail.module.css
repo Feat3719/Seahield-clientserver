@@ -188,6 +188,8 @@
 
 .inputBox {
     display: flex;
+    margin: 20px auto;
+    justify-content: space-evenly;
 }
 
 .input {
@@ -197,6 +199,3 @@
 .commentListBox {
     color: white;
 }
-
-
-

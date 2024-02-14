@@ -18,47 +18,49 @@ import Contract from "./contract/Contract";
 import AdminPage from "./adminpage/AdminPage";
 import ContractVer from "./contract/ContractVer";
 import CompanyInfo from "./contract/CompanyInfo";
+import Announcement from "./announce/Announcement";
 
 axios.defaults.baseURL = "https://devfeat.com";
 
 function App() {
-  return (
-    <>
-      <BrowserRouter>
-        {/* `useLocation`을 사용하기 위한 컴포넌트 분리 */}
-        <AppContent />
-      </BrowserRouter>
-    </>
-  );
+    return (
+        <>
+            <BrowserRouter>
+                {/* `useLocation`을 사용하기 위한 컴포넌트 분리 */}
+                <AppContent />
+            </BrowserRouter>
+        </>
+    );
 }
 
 function AppContent() {
-  const location = useLocation(); // `useLocation`은 이제 `<BrowserRouter>` 내부에서 호출됩니다.
+    const location = useLocation(); // `useLocation`은 이제 `<BrowserRouter>` 내부에서 호출됩니다.
 
-  return (
-    <AnimatePresence mode="current">
-      {" "}
-      {/* exitBeforeEnter를 mode='wait'로 변경 */}
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Intro />} />
-        <Route path="/map" element={<Homepage />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signupver" element={<SignupVer />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/idfind" element={<IdFind />} />
-        <Route path="/boardtab" element={<BoardTab />} />
-        <Route path="/boarddetail/:id" element={<BoardDetail />} />
-        <Route path="/boardupdate/:id" element={<BoardUpdate />} />
-        <Route path="/boardwrite" element={<BoardWrite />} />
-        <Route path="/mypageregular" element={<MypageRegular />} />
-        <Route path="/myeditprev" element={<MyEditPrev />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/contract" element={<Contract />} />
-        <Route path="/contractver" element={<ContractVer />} />
-        <Route path="/companyinfo" element={<CompanyInfo />} />
-      </Routes>
-    </AnimatePresence>
-  );
+    return (
+        <AnimatePresence mode="current">
+            {" "}
+            {/* exitBeforeEnter를 mode='wait'로 변경 */}
+            <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<Intro />} />
+                <Route path="/map" element={<Homepage />} />
+                <Route path="/signin" element={<Signin />} />
+                <Route path="/signupver" element={<SignupVer />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/idfind" element={<IdFind />} />
+                <Route path="/boardtab" element={<BoardTab />} />
+                <Route path="/boarddetail/:id" element={<BoardDetail />} />
+                <Route path="/boardupdate/:id" element={<BoardUpdate />} />
+                <Route path="/boardwrite" element={<BoardWrite />} />
+                <Route path="/mypageregular" element={<MypageRegular />} />
+                <Route path="/myeditprev" element={<MyEditPrev />} />
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/contract" element={<Contract />} />
+                <Route path="/contractver" element={<ContractVer />} />
+                <Route path="/companyinfo" element={<CompanyInfo />} />
+                <Route path="/announce" element={<Announcement />} />
+            </Routes>
+        </AnimatePresence>
+    );
 }
 
 export default App;
