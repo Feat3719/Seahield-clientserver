@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import DaumPost from "../daumpost/DaumPost";
 import Wrapper from "../pagechange/Wrapper";
@@ -53,7 +53,7 @@ function CompanyInfo() {
     };
 
     fetchCompanyInfo();
-  }, []);
+  }, [accessToken]); // accessToken 의존성 추가
 
   const handlePhoneNumberChange = (e) => {
     const { value } = e.target;
@@ -90,7 +90,7 @@ function CompanyInfo() {
   };
 
 
-  const saveData = async () => {
+  const saveData = useCallback(async () => {
     // 모든 필수 입력 확인
     if (!address || !companyRegistNum || !ceoName || !companyName || !phoneNumber || !socialSecurityNumber || !detailAddress) {
       Swal.fire({
@@ -146,7 +146,7 @@ function CompanyInfo() {
       });
       // 에러 처리 로직을 여기에 추가하세요.
     }
-  };
+  }, [accessToken, address, companyRegistNum, ceoName, companyName, phoneNumber, socialSecurityNumber, detailAddress, navigate]);
 
 
   useEffect(() => {
@@ -163,7 +163,7 @@ function CompanyInfo() {
     return () => {
       document.removeEventListener("keydown", handleEnterPress);
     };
-  }, []);
+  }, [saveData]);
 
 
   return (
