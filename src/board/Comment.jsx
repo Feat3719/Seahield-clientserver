@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import style from "./Comment.module.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import FormatDatetime from "./FormatDatetime";
 
 const Comment = ({ comments, fetchPost }) => {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -10,9 +11,14 @@ const Comment = ({ comments, fetchPost }) => {
     );
 
     const [isUpdating, setIsUpdating] = useState({});
-    const [updatedContent, setUpdatedContent] = useState({});
+    const [updatedContent, setUpdatedContent] = useState(
+        comments.reduce((acc, comment) => {
+            acc[comment.commentId] = comment.commentContents;
+            return acc;
+        }, {})
+    );
 
-    // const [checkedComments, setCheckedComments] = useState({});
+    const [checkedComment, setCheckedComment] = useState(null);
 
     const handleDelete = async (commentId) => {
         try {
@@ -52,20 +58,24 @@ const Comment = ({ comments, fetchPost }) => {
 
     return (
         <>
-            <div className={style.comment}>
+            <div className={style.commentBox}>
                 {sortedComments.map((comment) => (
                     <div key={comment.commentId} className={style.content}>
-                        {/* <input // 각 댓글에 체크박스를 추가합니다.
+                        <input
+                            className={style.checkbox}
                             type="checkbox"
                             onChange={(e) => {
-                                setCheckedComments({
-                                    ...checkedComments,
-                                    [comment.commentId]: e.target.checked,
-                                });
+                                if (e.target.checked) {
+                                    setCheckedComment(comment.commentId);
+                                } else {
+                                    setCheckedComment(null);
+                                }
                             }}
-                        /> */}
+                            checked={checkedComment === comment.commentId}
+                        />
                         {isUpdating[comment.commentId] ? (
                             <input
+                                className={comment}
                                 type="text"
                                 value={updatedContent[comment.commentId]}
                                 onChange={(e) =>
@@ -83,76 +93,60 @@ const Comment = ({ comments, fetchPost }) => {
                         ) : (
                             comment.commentContents
                         )}
-                        <div className={style.commentLikesBox}>
-                            <div className={style.commentLikes}>
-                                {comment.commentLikes}
-                            </div>
-                            <button
-                                onClick={() => handleLike(comment.commentId)}
-                            >
-                                좋아요
-                            </button>
-                        </div>
                         <div>
-                            <button
-                                onClick={() => {
-                                    setIsUpdating({
-                                        ...isUpdating,
-                                        [comment.commentId]: true,
-                                    });
-                                    setUpdatedContent({
-                                        ...updatedContent,
-                                        [comment.commentId]:
-                                            comment.commentContents,
-                                    });
-                                }}
-                            >
-                                수정
-                            </button>
-                            <button
-                                onClick={() => handleDelete(comment.commentId)}
-                            >
-                                삭제
-                            </button>
+                            <div className={style.commentCreatedDate}>
+                                {FormatDatetime(comment.commentCreatedDate)}
+                            </div>
+                        </div>
+                        <div className={style.commentUserId}>
+                            <div>{comment.userId}</div>
                         </div>
                     </div>
                 ))}
-                {/* <button // 체크된 댓글에 대해 좋아요 기능을 적용하는 버튼을 추가합니다.
-                    onClick={() => {
-                        Object.keys(checkedComments).forEach((commentId) => {
-                            if (checkedComments[commentId]) {
-                                handleLike(commentId);
+
+                <div className={style.buttons}>
+                    <button
+                        className={style.like_button}
+                        onClick={() => {
+                            if (checkedComment) {
+                                handleLike(checkedComment);
                             }
-                        });
-                    }}
-                >
-                    좋아요
-                </button>
-                <button // 체크된 댓글에 대해 수정 기능을 적용하는 버튼을 추가합니다.
-                    onClick={() => {
-                        Object.keys(checkedComments).forEach((commentId) => {
-                            if (checkedComments[commentId]) {
+                        }}
+                    >
+                        좋아요
+                    </button>
+                    <button
+                        className={style.update_button}
+                        onClick={() => {
+                            if (checkedComment) {
                                 setIsUpdating({
                                     ...isUpdating,
-                                    [commentId]: true,
+                                    [checkedComment]: true,
+                                });
+                                setUpdatedContent({
+                                    ...updatedContent,
+                                    [checkedComment]: comments.find(
+                                        (comment) =>
+                                            comment.commentId === checkedComment
+                                    ).commentContents,
                                 });
                             }
-                        });
-                    }}
-                >
-                    수정
-                </button>
-                <button // 체크된 댓글에 대해 삭제 기능을 적용하는 버튼을 추가합니다.
-                    onClick={() => {
-                        Object.keys(checkedComments).forEach((commentId) => {
-                            if (checkedComments[commentId]) {
-                                handleDelete(commentId);
+                        }}
+                    >
+                        수정
+                    </button>
+
+                    <button
+                        className={style.delete_button}
+                        onClick={() => {
+                            if (checkedComment) {
+                                handleDelete(checkedComment);
                             }
-                        });
-                    }}
-                >
-                    삭제
-                </button> */}
+                        }}
+                    >
+                        삭제
+                    </button>
+                </div>
             </div>
         </>
     );

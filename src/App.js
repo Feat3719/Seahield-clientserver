@@ -19,6 +19,7 @@ import AdminPage from "./adminpage/AdminPage";
 import ContractVer from "./contract/ContractVer";
 import CompanyInfo from "./contract/CompanyInfo";
 import Announcement from "./announce/Announcement";
+import AnnounceDetail from "./announce/AnnounceDetail";
 
 axios.defaults.baseURL = "https://devfeat.com";
 
@@ -58,6 +59,10 @@ function AppContent() {
                 <Route path="/contractver" element={<ContractVer />} />
                 <Route path="/companyinfo" element={<CompanyInfo />} />
                 <Route path="/announce" element={<Announcement />} />
+                <Route
+                    path="/announcedetail/:id"
+                    element={<AnnounceDetail />}
+                />
             </Routes>
         </AnimatePresence>
     );

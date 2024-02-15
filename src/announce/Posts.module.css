@@ -1,0 +1,19 @@
+.link {
+    text-decoration-line: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: gray;
+}
+
+.article_no {
+    text-align: center;
+    border: none;
+}
+
+.article_date {
+    text-align: center;
+    border: none;
+}

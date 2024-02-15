@@ -9,7 +9,6 @@ function BoardTab() {
         { id: 1, content: "자유게시판" },
         { id: 2, content: "질문게시판" },
         { id: 3, content: "공지사항" },
-        // { id: 4, content: "공고" },
     ];
 
     const userType = useSelector((state) => state.auth.userType);
@@ -67,12 +66,6 @@ function BoardTab() {
                         userType={userType}
                     />
                 )}
-                {/* {activeTab === 4 && (
-                    <BoardList
-                        category={"ANNOUNCE"}
-                        tabName={tabData[3].content}
-                    />
-                )} */}
             </div>
         </div>
     );
