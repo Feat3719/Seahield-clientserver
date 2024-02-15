@@ -3,11 +3,13 @@ import axios from 'axios';
 
 const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
                 onUlsanWindSpeedData,onUlsanTMXData, onUlsanTMNData,
-                onGoheungWindSpeedData, onGoheungTMXData, onGoheungTMNData,onYeosuWindSpeedData,onYeosuTMXData, onYeosuTMNData}) => {
+                onGoheungWindSpeedData, onGoheungTMXData, onGoheungTMNData,onYeosuWindSpeedData,onYeosuTMXData, onYeosuTMNData,
+                onGeojeWindSpeedData,onGeojeTMXData, onGeojeTMNData}) => {
     const [pohangWeather, setPohangWeather] = useState(null);
     const [ulsanWeather, setUlsanWeather] = useState(null);
     const [goheungWeather, setGoheungWeather] = useState(null);
     const [yeosuWeather, setYeosuWeather] = useState(null);
+    const [geojeWeather, setGeojeWeather] = useState(null);
   
     const fetchWeatherData = async (nx, ny, setWeatherData) => {
       try {
@@ -53,6 +55,7 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
           await fetchWeatherData(104, 83, setUlsanWeather);
           await fetchWeatherData(59, 69, setGoheungWeather);
           await fetchWeatherData(74, 63, setYeosuWeather);
+          await fetchWeatherData(91,	71, setGeojeWeather);
         } catch (error) {
           console.error('날씨 정보를 가져오는 중 오류 발생:', error);
         }
@@ -199,6 +202,41 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
                   {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
                   <p>풍속: {item.fcstValue} m/s</p> */}
                   {onYeosuTMNData(item)}
+                </div>
+              ))}
+            
+          </div>
+        )}
+
+        {geojeWeather &&(
+          <div>
+            {geojeWeather.response.body.items.item
+            .filter((item) => item.category==='WSD' )
+            .slice(0, 1)
+            .map( (item, index) =>(
+              <div key={index}>
+                {/* <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onGeojeWindSpeedData(item)}
+                </div>
+            ))}
+            {geojeWeather.response.body.items.item
+              .filter((item) => item.category === 'TMX')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onGeojeTMXData(item)}
+                </div>
+              ))}
+              {geojeWeather.response.body.items.item
+              .filter((item) => item.category === 'TMN')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onGeojeTMNData(item)}
                 </div>
               ))}
             

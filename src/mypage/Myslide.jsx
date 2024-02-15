@@ -19,6 +19,16 @@ function SampleNextArrow(props) {
         />
         );
     }
+function SamplePrevArrow(props) {
+    const { className ,onClick } = props;
+    return (
+        <div
+            className={className}
+            // style={{ ...style, display: "block", background:'red' }}
+            onClick={onClick}
+        />
+        );
+    }
 
 
 const Myslide = () => {
@@ -34,7 +44,8 @@ const Myslide = () => {
         initialSlide: 2,
         autoplay: false, // 자동 전환 활성화
         autoplaySpeed: 3000,
-        nextArrow: <SampleNextArrow />
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />
     };
 
     const [likeposts, setLikePosts] = useState([]);
@@ -87,36 +98,29 @@ useEffect(() => {
     return (
         <div className={style.slide} >
             <Slider {...settings}>
-            <div>
-
-                <div className={style.slideBoard} style={{width:'25vw'}}>
-                    <h2>좋아요한 게시글</h2>
-                    {likeposts.length > 0 ? (
-                        likeposts.map((lpost) => (
-                            <div key={lpost.id}>
-                                <h3>{lpost.articleTitle}</h3> {/* 게시글 제목 */}
-                                <p>{lpost.articleCtgr}</p> {/* 게시글 내용 */}
-                                {/* 여기에 더 많은 게시글 정보를 추가할 수 있습니다. */}
-                            </div>
-                            
-                        ))
-                    ) : (
-                        <p>좋아요한 게시글이 없습니다.</p>
-                    )}
-                </div>
-            </div>
-            <div>
+            {likeposts.length > 0 ? (
+                    likeposts.map((lpost) => (
+                        <div key={lpost.id} className={style.slideBoard}>
+                            <h2>{lpost.articleTitle}</h2> {/* 게시글 제목 */}
+                            <p>{lpost.articleCtgr}</p> {/* 게시글 내용 */}
+                            {/* 여기에 더 많은 게시글 정보를 추가할 수 있습니다. */}
+                        </div>
+                    ))
+                ) : (
+                    <div>좋아요한 게시글이 없습니다.</div>
+                )}
+            {/* <div className={style.slideBoard}>
             <img src={process.env.PUBLIC_URL + '/images/img2.jpg'} alt="img2.jpg" style={{ width: '22vw', height: '35vh' }} 
             />
             </div>
-            <div>
+            <div className={style.slideBoard}>
             <img src={process.env.PUBLIC_URL + '/images/img3.jpg'} alt="img3.jpg" style={{ width: '22vw', height: '35vh' }}
             />
             </div>
-            <div>
+            <div className={style.slideBoard}>
             <img src={process.env.PUBLIC_URL + '/images/img2.jpg'} alt="img2.jpg" style={{ width: '22vw', height: '35vh' }}
             />
-            </div>
+            </div> */}
             </Slider>
         </div>
     );

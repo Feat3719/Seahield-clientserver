@@ -32,17 +32,18 @@
 .sub_1{
     /* color: rgb(41, 16, 65); */
     font-weight: bold;
-    /* border: blue solid 3px; */
+    border: blue solid 1px;
     background-color: rgb(39, 38, 38);
     border-radius: 10px;
     /* display: flex; */
-    width: 25vw;
+    width: 25.5vw;
     /* padding: 2%; */
     align-content: center;
     display: flex;
     margin-top : 1%;
     height: 96.7vh;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: flex-end;
     flex-direction: column;
     margin-left: 0%;
 }
@@ -51,41 +52,62 @@
     /* border: yellow solid 3px; */
     border-radius: 10px;
     color: white;
-    background-color: #343A43;
-    background-image: url('../../public/tv.png'); 
+    background-color: #343a4300;
+    /* background-image: url('../../public/tv.png');  */
     background-size: cover;
     background-position: center;
-    position: relative;
+    position: absolute;
     display: flex;
-    width: 100%;
-    height: 35vh;
-    top: 0;
-    left: 0;
+    width: 35.2vw;
+    height: 15vh;
+    top: 2vh;
+    left: 33vw;
     /* margin-top: 25%; */
     justify-content: center;
     padding-top: 1%;
     padding-bottom: 10%;
+    z-index: 5;
     /* margin: 5%; */
     /* padding-inline-start: 2%; */
 }
+.modal_1_form{
+  width: 67vw;
+  height: 78vh;
+  z-index: 6;
+  position: relative;
+  left: -0.1vw;
+  top: -8.2vh;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 2vh;
+}
+.modal_1_form video{
+  width:58vw;
+  height:60vh;
+}
+
 .modal_video{
     position: absolute;
-    display: flex;
+    display: contents;
     top: 7vh;
     width: 25vw;
     height: 20vh;
-    object-fit: fill
+    object-fit: fill;
+    z-index: 5;
     /* border: 10px solid black; */
 }
+
 .video{
   position: relative;
-  width: 25vw;
-  height: 20vh;
+  width: 50vw;
+  height: 40vh;
 }
+
+
 .sub_1_1_title{
     position: absolute;
     display: flex;
-    width: 25vw;
+    width: 35.5vw;
     height: 2vh;
     padding-top: 2.5%;
     padding-bottom: 3%;
@@ -96,25 +118,21 @@
     background-image: linear-gradient(to bottom, rgb(166, 166, 167), rgb(8, 8, 20));
 }
 
-.modal {
-    position: relative;
+
+  .modal {
+    position: fixed;
+    top: 0vh;
+    left: 0;
     width: 100vw;
-    top: 14.1vh;
-    height: 30vh;
-    /* height: fit-content; */
-    left: 12.5vw;
-    transform: translate(-50%, -50%);
-    /* background-color: rgb(194, 183, 183); */
-    padding: 1vw 1vh;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 3;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    overflow: hidden;
-    /* opacity: 0.8; */
-    object-fit: fill
-  }
+    z-index: 10; /* 모달이 다른 요소들 위에 표시되도록 z-index 설정 */
+}
+
+
 
   .modal h2 {
     margin-bottom: 10px;
@@ -122,22 +140,16 @@
   
   .modal button {
     cursor: pointer;
-    padding: 0.5vw 1vh;
-
+    padding: 0.5vw 1vh 0.5vw 1vh;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
+    font-size: 2vh;
+    width: 5vw;
+    height: 5vh;
   }
 
-.modal button {
-  cursor: pointer;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
 
 /* .container{
     display: flex;
@@ -157,8 +169,8 @@
     margin-left: 0vw;
     /* margin-right: 2vw; */
     margin-bottom: 1vh;
-    justify-content: flex-start;
-    bottom: 0;
+    justify-content: flex-end;
+    bottom: 0vh;
     /* height: 60vh; */
     flex-direction: column;
     display: inline-block;
@@ -190,27 +202,17 @@
     border-radius: 8px; /* 테두리를 라운드하게 만들기 */
     overflow: hidden; /* 라운드된 부분이 나오도록 설정 */
     height: 50vh;
-    width: 25.5vw;
+    width: 25vw;
     font-size: 2vh;
 }
 
-.cell {
-    /* border: 1px solid #9a9da5; */
-    /* display: grid; */
-    /* padding: 1vw 10vh; */
-    position: relative;
-    width: 28.6%;
-    /* margin-top: 5%; */
-    height: 0vh;
-    text-align: center;
-    /* left: 1vw; */
-}
+
 /* .tbody{
 
 } */
 
 .cell:nth-child(1) {
-    width: 20%; /* 두 번째 셀의 가로 길이 조정 */
+    width: 10%; /* 두 번째 셀의 가로 길이 조정 */
 }
 
 /* 첫 번째 열 스타일 */
@@ -220,6 +222,8 @@
     right: 10vw ;
     /* width: fit-content; */
     position: static;
+    width: 28.6%;
+    text-align: center;
   }
   
   /* 클릭 가능한 셀 hover 시 스타일 추가 */
@@ -287,10 +291,37 @@
 
   margin-top: 1%;
 }
+.cctv_1{
+  top: 48vh; 
+  position: absolute;
+  right: 3.5vw;
+}
+.cctv-1{
+  top: 48vh; 
+  position: absolute;
+  right: 3.5vw;
+  /* margin: '80%' */
+}
+.cctv-2{
+  top: 60vh;
+  position: absolute;
+  right: 4vw;
+}
+.cctv-3{
+  top: 78vh;
+  position: absolute;
+  right: 27.5vw;
+}
+.cctv-4{
+  top: 76.5vh; 
+  position: absolute; 
+  right: 8.5vw;
+}
+
 
 .thumbnail {
     cursor: pointer;
-    margin: 0vh 10px;
+    /* margin: 0vh 10px; */
     height: 3vh;
     width: 3vh;
     object-fit: cover;
@@ -368,19 +399,216 @@
     justify-content: center;
     /* width: 100%; */
     height: 95vh;
-     background-image: url('../../public/korea2.png'); 
+    background-image: url('../../public/korea2.png'); 
     background-size: cover;
     background-position: center;
 }
 @media (max-width : 425px) {
-  .sub_2_2{
-  width: 100vw;
-  background-size:40vw 100vh ;
-  /* height: 60vh; */
+  .sub_1{
+    width: 20vw;
+    height: 50vh;
+    display: flex;
+    position: relative;
+    top: 45vh;
   }
-  /* .sub_2{
-    height: 40vh;
-  } */
+  .sub_1_1{
+    /* border: yellow solid 3px; */
+    border-radius: 10px;
+    color: white;
+    background-color: #343a4300;
+    /* background-image: url('../../public/tv.png');  */
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    display: flex;
+    width: 85.2vw;
+    height: 30vh;
+    top: -42vh;
+    left: 0vw;
+    justify-content: center;
+    padding-top: 1%;
+    padding-bottom: 10%;
+    z-index:1;
+
+}
+/* .sub_1_1_title{
+
+} */
+  
+.sub_1_2_title{
+  position: relative;
+  display: flex;
+  width: 60vw;
+  height: 3vh;
+  font-size: 2.5vh;
+  /* padding-top: 1vh; */
+  padding-bottom: 1vh;
+  justify-content: center;
+  background-image: linear-gradient(to bottom, rgb(166, 166, 167), rgb(8, 8, 20));
+}
+
+  .sub_1_table{
+    display: block;
+    border-collapse: collapse 1px;
+    /* margin-top: 20px; */
+    /* margin: 2%; */
+    border-radius: 8px; /* 테두리를 라운드하게 만들기 */
+    overflow: hidden; /* 라운드된 부분이 나오도록 설정 */
+    height: 50vh;
+    width: 60vw;
+    font-size: 2vh;
+}
+.cctv_1{
+  top: '28vh';
+  position: 'absolute';
+  right: '3.5vw';
+  margin: '0%'
+}
+
+  .sub_2 {
+    display: flex;
+    position: relative;
+    /* justify-content: center; */
+    border: 3px brown solid;
+    background-color: #343A43;
+    border-radius: 10px;
+    width: 35%;
+    height: 35vh;
+    top: 0px;
+    justify-content: center;
+    /* align-items: center; */
+    margin-top: 1%;
+    margin-left: 2%;
+    left: 0vw;
+  }
+
+  .sub_2_2{
+    position: relative;
+    /* background-color: rgba(127, 180, 180, 0.603); */
+    /* display: flex; */
+    width: 100vh;
+    /* border: 3px solid purple; */
+    top: 0%;
+    bottom: 10px;
+    /* top: auto; */
+    justify-content: center;
+    /* width: 100%; */
+    height: 35vh;
+    background-image: url('../../public/korea2.png'); 
+    /* background-size: cover; */
+    background-size: 100% 100%;
+    background-position: center;
+}
+
+.sub_1_2{
+  /* border: 3px green solid; */
+  color: white;
+  border-radius: 10px;
+  background-color: #343A43;
+  position: relative;
+  display: flex;
+  width: 60vw;
+  margin-left: 0vw;
+  /* margin-right: 2vw; */
+  margin-bottom: 1vh;
+  justify-content: flex-end;
+  bottom: 0;
+  /* height: 60vh; */
+  flex-direction: column;
+  display: inline-block;
+  height: fit-content;
+}
+
+.modal {
+  position: relative;
+  top: -4vh;
+  left: 0vw;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* 모달이 다른 요소들 위에 표시되도록 z-index 설정 */
+}
+
+.modal_1_form{
+  width:120vw;
+  height:10vh;
+  z-index: 6;
+  position: relative;
+  left: 0vw;
+  top: -15.2vh;
+  padding: 30vw;
+  border-radius: 10px;
+  font-size: 2vh;
+}
+.modal_video{
+  position: absolute;
+  display: contents;
+  top: 7vh;
+  width: 25vw;
+  height: 40vh;
+  object-fit: fill;
+  z-index: 5;
+  /* border: 10px solid black; */
+}
+.modal_1_form video{
+  width:68vw;
+  height:24vh;
+}
+.modal button {
+  cursor: pointer;
+  padding: 1vw 1vh 1vw 1vh;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 2vh;
+  width: 15vw;
+  height: 5vh;
+}
+.thumbnail {
+  cursor: pointer;
+  margin: 0vh 10px;
+  height: 3vh;
+  width: 3vh;
+  object-fit: cover;
+  transition: all 0.3s ease; /* 애니메이션 추가 */
+  position: relative;
+  /* top: 83%; */
+}
+  /* 선택되지 않은 이미지의 크기 */
+  .thumbnail:not(.selected) {
+    position: relative;
+    /* width: 40px;
+    height: 40px; */
+    height: 2vh;
+    width: 2vh;
+  }
+  .cctv-1{
+    top: 18vh; 
+    position: absolute;
+    right: 1.5vw;
+    /* margin: '80%' */
+  }
+  .cctv-2{
+    top: 22vh;
+    position: absolute;
+    right: 2vw;
+  }
+  .cctv-3{
+    top: 28vh;
+    position: absolute;
+    right: 24.5vw;
+  }
+  .cctv-4{
+    top: 26.5vh; 
+    position: absolute; 
+    right: 7.5vw;
+  }
+
+
 }
 
 
