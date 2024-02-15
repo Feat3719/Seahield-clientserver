@@ -65,7 +65,7 @@ function BoardList({ category, tabName, userType }) {
             {showWriteButton && (
                 <div id={style.buttonBox}>
                     <Link to="/boardwrite">
-                        <button className={style.button}>글쓰기</button>
+                        <button className={style.boardlist_btn}>글쓰기</button>
                     </Link>
                 </div>
             )}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -37,28 +37,29 @@ function AdminPageContract() {
     }
   };
 
-  const fetchContracts = useCallback(async () => {
+  useEffect(() => {
+    if (accessToken) {
+      fetchContracts(); // accessToken이 있을 때만 계약 목록을 가져옵니다.
+    }
+  }, [accessToken]);
+
+  const fetchContracts = async () => {
     setIsLoading(true);
     try {
       const response = await axios.get("/api/contract/list", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
+      // 계약 ID 기준으로 내림차순 정렬
       const sortedContracts = response.data.sort((a, b) =>
         parseInt(b.contractId) - parseInt(a.contractId)
       );
-      setContracts(sortedContracts);
+      setContracts(sortedContracts); // 정렬된 배열을 상태로 설정
     } catch (error) {
       console.error("계약 목록 불러오기 오류:", error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // 데이터 로딩 완료
     }
-  }, [accessToken]); // 의존성 배열에 accessToken 추가
-
-  useEffect(() => {
-    if (accessToken) {
-      fetchContracts();
-    }
-  }, [fetchContracts, accessToken]);
+  };
 
   const handleApprove = async (contractId) => {
     Swal.fire({
@@ -184,18 +185,12 @@ function AdminPageContract() {
                 <td data-label="회사명">{contract.companyName}</td>
                 <td data-label="승인상태">{contract.contractStatus}</td>
                 <td>
-                  {contract.contractStatus === "승인대기" ? (
-                    <>
-                      <button onClick={(e) => { e.stopPropagation(); handleApprove(contract.contractId); }} className={style.admin_approvebtn}>
-                        승인
-                      </button>
-                      <button onClick={(e) => { e.stopPropagation(); handleReject(contract.contractId); }} className={style.admin_rejectbtn}>
-                        비승인
-                      </button>
-                    </>
-                  ) : (
-                    "처리완료"
-                  )}
+                  <button onClick={() => handleApprove(contract.contractId)} className={style.admin_approvebtn}>
+                    승인
+                  </button>
+                  <button onClick={() => handleReject(contract.contractId)} className={style.admin_rejectbtn}>
+                    비승인
+                  </button>
                 </td>
               </tr>
             ))}
