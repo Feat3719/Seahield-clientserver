@@ -1,21 +1,24 @@
 @keyframes shimmer {
   0% {
-    background-position: -20rem 0;
+    background-position: -40rem -20rem;
+    /* 시작 위치 변경 */
   }
 
   100% {
-    background-position: 20rem 0;
+    background-position: 40rem 20rem;
+    /* 종료 위치 변경 */
   }
 }
 
 .adminuser_title {
   font-size: 4vh;
   color: white;
+  margin: 3vh 0 3vh 0;
 }
 
 .skeleton_shimmer {
   animation: shimmer 2s infinite linear;
-  background: linear-gradient(to right, #eff1f3 8%, #828282 18%, #bdbdbd 33%);
+  background: linear-gradient(to right, #ffffff 8%, #dedede 18%, #d6d6d6 33%);
   background-size: 40rem 100%;
 }
 
@@ -43,14 +46,11 @@
 }
 
 .adminuser_table td {
-  background-color: #373737;
+  background-color: #2f2f2f;
   color: white;
 }
 
 
-
-
-/* 기존 스타일 */
 .pagination1 {
   display: flex;
   justify-content: center;
@@ -64,8 +64,9 @@
   /* 버튼 배경색 */
   color: #ffffff;
   /* 대비되는 어두운 텍스트 색상 */
-  border: 0.2vh solid #5164f5;
+  border: 0.2vh solid #3343c3;
   /* 버튼 가장자리를 정의하는 경계선 */
+  border-radius: 10vh;
   padding: 0.5vh 1vh;
   /* 버튼 내부 여백 */
   margin: 0 1vh;
@@ -79,7 +80,7 @@
 
 .pagination1 button:hover,
 .pagination1 button:focus {
-  background-color: #1122a8;
+  background-color: rgb(89, 139, 255);
   color: rgb(255, 255, 255);
 }
 
@@ -111,4 +112,60 @@
   /* 비활성 상태의 텍스트 색상 */
   cursor: not-allowed;
   /* 비활성 버튼의 커서 변경 */
+}
+
+
+
+@media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {}
+
+@media all and (min-width:480px) and (max-width:767px) {}
+
+@media all and (min-width:200px) and (max-width:479px) {
+
+  .adminuser_email {
+    word-break: break-word;
+    /* 이메일이 너무 길면 줄바꿈 */
+  }
+
+  .adminuser_table,
+  .adminuser_table thead,
+  .adminuser_table tbody,
+  .adminuser_table th,
+  .adminuser_table td,
+  .adminuser_table tr {
+    display: block;
+  }
+
+  /* Hide table headers on mobile */
+  .adminuser_table thead tr {
+    position: absolute;
+  }
+
+  .adminuser_table tr {
+    border: 0.1vh solid #ccc;
+    margin-bottom: 0.5em;
+  }
+
+  .adminuser_table td {
+    /* Make table cells look like rows */
+    /* border: none; */
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+    /* border-bottom: 1px solid #ececec; */
+  }
+
+  .adminuser_table td:before {
+    /* Add content from data-label attribute to each cell */
+    position: absolute;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+    content: attr(data-label);
+  }
 }

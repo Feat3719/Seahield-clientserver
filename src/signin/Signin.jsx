@@ -46,22 +46,19 @@ function Signin() {
                     },
                 });
 
-                Swal.fire({
+                // 로그인 성공 알림
+                await Swal.fire({
                     icon: 'success',
                     title: '로그인 성공',
                     text: '환영합니다!',
-                }).then((result) => {
-                    // 로그인 성공 시 아이디 저장
-                    if (rememberUsername) {
-                        localStorage.setItem('rememberedUserId', userid);
-                    } else {
-                        localStorage.removeItem('rememberedUserId'); // 체크되어 있지 않다면, 저장된 userid을 제거합니다.
-                    }
-                    setIsLoading(false);
-                    if (result.isConfirmed || result.isDismissed) {
-                        navigate('/map');
-                    }
                 });
+
+                // 알림이 확인되면 페이지 이동
+                navigate('/map');
+
+                setIsLoading(false);
+                return;
+
             } else if (response.status === 404) {
                 if (response.data.message === "사용자를 찾을 수 없음" || response.data.message === "비밀번호가 일치하지 않습니다.") {
                     Swal.fire({

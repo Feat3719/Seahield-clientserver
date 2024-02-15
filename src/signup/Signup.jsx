@@ -201,7 +201,13 @@ function Signup() {
           icon: "error",
           confirmButtonText: "확인",
         });
-      } else window.location.href = "/";
+      } else {
+        Swal.fire({
+          text: "잘못된 접근입니다.",
+          icon: "error",
+        });
+        window.location.href = "/";
+      }
     } finally {
       setIsLoading(false); // Ensure isLoading is set to false when the request is complete
     }
@@ -358,6 +364,7 @@ function Signup() {
     setIsEmailValid(validateEmail(email)); // onBlur 이벤트에서 유효성 검사 수행
   };
 
+
   return (
     <>
       {isLoading && <Loading />} {/* Show loading indicator when loading */}
@@ -438,11 +445,11 @@ function Signup() {
               <div className={style.input_wrapper}>
                 <div className={style.title_input}>
                   <label className={style.input_label}>
-                    {isBusinessUser ? "CEO이름" : "이름"}
+                    {isBusinessUser ? "대표자이름" : "이름"}
                   </label>
                   <input
                     type="text"
-                    placeholder={isBusinessUser ? "CEO이름" : "이름"}
+                    placeholder={isBusinessUser ? "대표자이름" : "이름"}
                     value={username}
                     onChange={(e) => {
                       setUsername(e.target.value);

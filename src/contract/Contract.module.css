@@ -297,6 +297,37 @@
     position: absolute;
 }
 
+.select_area {
+    width: 45%;
+    display: flex;
+}
+
+.form_select {
+    -webkit-appearance: none;
+    /* Chrome, Safari, Opera */
+    -moz-appearance: none;
+    /* Firefox */
+    appearance: none;
+    /* 표준 문법 */
+    width: 100%;
+    background-image: url('../../public/images/down-arrow.svg');
+    background-position: right 1vh center;
+    background-size: 3vh;
+    background-repeat: no-repeat;
+    background-position: right center;
+    font-size: 1.5vh;
+    color: #000000;
+    padding: 0.6vh;
+    border: 0.1vh solid #ccc;
+    border-radius: 0.7vh;
+    box-sizing: border-box;
+}
+
+.form_select:focus {
+    border: 0.25vh solid #569bea;
+    outline: none;
+}
+
 
 @media all and (min-width:1024px) and (max-width:1279px) {}
 
@@ -444,6 +475,11 @@
         width: 120%;
     }
 
+    .select_area {
+        width: 80%;
+    }
+
+
 }
 
 @media all and (min-width:200px) and (max-width:479px) {
@@ -524,4 +560,9 @@
         justify-content: center;
         width: 70%;
     }
+
+    .select_area {
+        width: 100%;
+    }
+
 }
