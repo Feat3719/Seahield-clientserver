@@ -29,10 +29,12 @@ import { Link } from "react-router-dom";
     const [posts, setPosts] = useState([]);
     // const [articleCtgr, setArticleCtgr] = useState("");
     // const [articleTitle, setArticleTitle] = useState("");
+    // const [contractId, setContractId] = useState([]);
 
-    const [contractStatus, setContractStatus] = useState("");
-    const [announceName, setAnnounceName] = useState("");
-    // const [contract, setContract] = useState("");
+    // const [contractStatus, setContractStatus] = useState("");
+    // const [announceName, setAnnounceName] = useState("");
+    const [contracts, setContracts] = useState([]); // 계약 목록 상태
+    const [contractDetails, setContractDetails] = useState([]);
     const [reenteredPwd, setReenteredPwd] = useState("");
     const [pwdMatch, setPwdMatch] = useState(true);
 
@@ -198,39 +200,47 @@ import { Link } from "react-router-dom";
     };
 // _______________비번 확인 관련_____________________
 
-
-
-
-
-    //계약 항목 조회
-    useEffect(() => {
-    const contractDetail = async() => {
-        try {
-            const response = await axios.get('/api/contract/details/102',
-            {
+    //계약 아이디 조회
+        useEffect(() => {
+            const fetchContracts = async () => {
+            try {
+                const response = await axios.get("/api/contract/list", {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
-                    },
-            }
-            )
-            console.log("트롸이!");
-            alert("1번 통과")
-
+                },
+                });
                 if (response.status === 200) {
-                    setContractStatus(response.data.contractStatus)
-                    setAnnounceName(response.data.announceName)
-                    // setContract(response.data)
+                setContracts(response.data); // 계약 목록 설정
+                // setContractId(response.data.contractId)
                 }
-            console.log("트롸잇!");
-
-        } catch(error) {
-            console.error("삐용삐용 에러! 에러!", error)
-        }
+            } catch (error) {
+                console.error("계약 목록 불러오기 에러", error);
+            }
+            };
+            fetchContracts();
+        }, [accessToken]); // accessToken 변경 시 다시 실행
         
-    }
-    contractDetail();
-    
-    },[accessToken]);
+        // 두 번째 useEffect: 선택된 계약의 세부 사항 불러오기
+        useEffect(() => {
+            contracts.forEach((contract) => {
+                const fetchContractDetails = async () => {
+                    try {
+                        const response = await axios.get(`/api/contract/details/${contract.contractId}`, {
+                            headers: {
+                                Authorization: `Bearer ${accessToken}`,
+                            },
+                        });
+                        if (response.status === 200) {
+                            setContractDetails(prevDetails => [...prevDetails, response.data]); // 세부 사항 추가
+                        }
+                    } catch (error) {
+                        console.error("계약 세부 사항 불러오기 에러", error);
+                    }
+                };
+        
+                fetchContractDetails();
+            });
+        }, [contracts, accessToken]);
 
 
   // 비밀번호 변경 핸들러
@@ -379,11 +389,13 @@ import { Link } from "react-router-dom";
                             </thead>
                             <tbody className={style.contract_table}>
                                 {/* 예제 데이터 또는 상태 변수를 매핑 */}
-                                <tr>
-                                    <td className={style.my_td}>{userType}</td> {/* 관할 지차제 정보, 예시로 userType 사용 */}
-                                    <td className={style.my_td}>{announceName}</td> {/* 공고명 */}
-                                    <td className={style.my_td}>{contractStatus}</td> {/* 승인여부 */}
+                                {contractDetails.map((contract, index) => (
+                                <tr key={index}>
+                                        <td className={style.my_td}>{contract.contractId}</td>
+                                        <td className={style.my_td}>{contract.announceName}</td>
+                                        <td className={style.my_td}>{contract.contractStatus}</td>
                                 </tr>
+                            ))}
                                 {/* 더 많은 행을 매핑하려면 여기에 반복문을 사용 */}
                             </tbody>
                         </table>
