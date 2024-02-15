@@ -2,11 +2,11 @@ import React from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-function extractContent(html) {
-    const parser = new DOMParser();
-    const parsed = parser.parseFromString(html, "text/html");
-    return parsed.body.textContent || "";
-}
+// function extractContent(html) {
+//     const parser = new DOMParser();
+//     const parsed = parser.parseFromString(html, "text/html");
+//     return parsed.body.textContent || "";
+// }
 
 function Editor({ content, setContent }) {
     return (
@@ -25,8 +25,7 @@ function Editor({ content, setContent }) {
                     console.log("Blur.", editor);
                     const data = editor.getData();
                     console.log(event, editor, data);
-                    const textContent = extractContent(data);
-                    setContent(textContent);
+                    setContent(data);
                     console.log(content);
                 }}
                 onFocus={(event, editor) => {

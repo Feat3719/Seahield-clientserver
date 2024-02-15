@@ -27,7 +27,10 @@ function BoardList({ category, tabName, userType }) {
             const response = await axios.get(
                 `/api/board/articles?articleCtgr=${category}`
             );
-            setPosts(response.data);
+            const sortedPosts = response.data.sort(
+                (a, b) => b.articleId - a.articleId
+            );
+            setPosts(sortedPosts);
             setLoading(false);
         };
         fetchPost();
@@ -75,6 +78,7 @@ function BoardList({ category, tabName, userType }) {
                     postsPerPage={postsPerPage}
                     totalPosts={posts.length}
                     paginate={setCurrentPage}
+                    currentPage={currentPage}
                 ></Pagination>
             </div>
         </>

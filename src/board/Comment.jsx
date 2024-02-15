@@ -36,6 +36,7 @@ const Comment = ({ comments, fetchPost }) => {
             });
             fetchPost();
             setIsUpdating({ ...isUpdating, [commentId]: false });
+            setCheckedComment(null);
         } catch (error) {
             console.error("Error", error);
         }
@@ -51,6 +52,7 @@ const Comment = ({ comments, fetchPost }) => {
                 }
             );
             fetchPost();
+            setCheckedComment(null);
         } catch (error) {
             console.error("Error", error);
         }
@@ -93,6 +95,9 @@ const Comment = ({ comments, fetchPost }) => {
                         ) : (
                             comment.commentContents
                         )}
+                        <div className={style.commentLikes}>
+                            {comment.commentLikes}
+                        </div>
                         <div>
                             <div className={style.commentCreatedDate}>
                                 {FormatDatetime(comment.commentCreatedDate)}

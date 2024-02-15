@@ -30,9 +30,7 @@ const Posts = ({ posts, loading }) => {
                     <td className={style.article_reads}>
                         {post.articleViewCounts}
                     </td>
-                    <td className={style.article_like}>
-                        {post.articleLikeCounts}
-                    </td>
+                    <td className={style.article_like}>{post.articleLikes}</td>
                 </tr>
             ))}
         </>

@@ -1,5 +1,3 @@
-
-
 .link {
     text-decoration-line: none;
     color: white;
@@ -16,6 +14,16 @@
 }
 
 .article_user {
+    text-align: center;
+    border: none;
+}
+
+.article_reads {
+    text-align: center;
+    border: none;
+}
+
+.article_like {
     text-align: center;
     border: none;
 }

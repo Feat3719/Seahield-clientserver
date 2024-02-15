@@ -7,6 +7,7 @@ import axios from "axios";
 import FormatDatetime from "./FormatDatetime";
 import { useSelector } from "react-redux";
 import Comment from "./Comment";
+import Sidenav from "../sidenav/Sidenav";
 
 function BoardDetail() {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -35,6 +36,7 @@ function BoardDetail() {
     const handleDelete = async () => {
         try {
             await axios.delete(`/api/board/article/${id}`);
+
             navigate("/boardtab");
         } catch (error) {
             console.error("Error", error);
@@ -79,6 +81,9 @@ function BoardDetail() {
     return (
         post && (
             <div id={style.boardDetailContainer}>
+                <div className={style.login_nav}>
+                    <Sidenav />
+                </div>
                 <div id={style.pageTitleBox}>
                     <div className={style.pageTitle}>게시글 상세</div>
                 </div>
@@ -153,7 +158,12 @@ function BoardDetail() {
                         <tbody>
                             <tr>
                                 <td className={style.content} colSpan={24}>
-                                    {post.articleContents}
+                                    {/* {post.articleContents} */}
+                                    <div
+                                        dangerouslySetInnerHTML={{
+                                            __html: post.articleContents,
+                                        }}
+                                    />
                                 </td>
                             </tr>
                         </tbody>
