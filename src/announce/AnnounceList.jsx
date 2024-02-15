@@ -1,37 +1,40 @@
 import React, { useState, useEffect } from "react";
-import style from "./BoardList.module.css";
+import style from "./AnnounceList.module.css";
 import axios from "axios";
 import Posts from "./Posts";
-import Pagination from "./Pagination";
-import { Link } from "react-router-dom";
+import Pagination from "../board/Pagination";
+// import { Link } from "react-router-dom";
 // import { useSelector } from "react-redux";
 
-function BoardList({ category, tabName, userType }) {
+function AnnounceList({ category, tabName, userType }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(3);
+    const [postsPerPage] = useState(10);
+    // const [showWriteButton, setShowWriteButton] = useState(false);
     // const usertype = useSelector((state) => state.auth.usertype);
     // console.log(usertype);
 
-    let showWriteButton = false;
-    if (tabName === "자유게시판" || tabName === "질문게시판") {
-        showWriteButton = true;
-    } else if (tabName === "공지사항" && userType === "ADMIN") {
-        showWriteButton = true;
-    }
+    // useEffect(() => {
+    //     if (userType === "ADMIN") {
+    //         setShowWriteButton(true);
+    //     }
+    // });
 
     useEffect(() => {
         const fetchPost = async () => {
             setLoading(true);
-            const response = await axios.get(
-                `/api/board/articles?articleCtgr=${category}`
-            );
-            setPosts(response.data);
-            setLoading(false);
+            const response = await axios.get("/api/announce/in-apply");
+
+            if (response.status === 200) {
+                setPosts(response.data);
+                setLoading(false);
+            } else if (response.status === 404) {
+                console.error("요청이 실패했습니다.");
+            }
         };
         fetchPost();
-    }, [category]);
+    }, []);
 
     const indexOfLast = currentPage * postsPerPage;
     const indexOfFirst = indexOfLast - postsPerPage;
@@ -47,11 +50,15 @@ function BoardList({ category, tabName, userType }) {
                 <table className={style.table}>
                     <thead className={style.thead}>
                         <tr>
-                            <td className={style.article_no}>번호</td>
-                            <td className={style.article_title}>제목</td>
-                            <td className={style.article_user}>작성자</td>
-                            <td className={style.article_reads}>조회수</td>
-                            <td className={style.article_like}>좋아요</td>
+                            <td className={style.announce_no}>번호</td>
+                            <td className={style.announce_name}>제목</td>
+                            <td className={style.announce_created_date}>
+                                게시일
+                            </td>
+                            {/* <td className={style.bidding_start_date}>
+                                입찰시작
+                            </td>
+                            <td className={style.bidding_end_date}>입찰종료</td> */}
                         </tr>
                     </thead>
                     <tbody className={style.tbody}>
@@ -62,13 +69,13 @@ function BoardList({ category, tabName, userType }) {
                     </tbody>
                 </table>
             </div>
-            {showWriteButton && (
+            {/* {showWriteButton && (
                 <div id={style.buttonBox}>
                     <Link to="/boardwrite">
-                        <button className={style.button}>글쓰기</button>
+                        <button className={style.button}>공고작성</button>
                     </Link>
                 </div>
-            )}
+            )} */}
 
             <div id={style.paginationBox}>
                 <Pagination
@@ -81,4 +88,4 @@ function BoardList({ category, tabName, userType }) {
     );
 }
 
-export default BoardList;
+export default AnnounceList;
