@@ -1,10 +1,12 @@
 @keyframes shimmer {
   0% {
-    background-position: -20rem 0;
+    background-position: -40rem -20rem;
+    /* 시작 위치 변경 */
   }
 
   100% {
-    background-position: 20rem 0;
+    background-position: 40rem 20rem;
+    /* 종료 위치 변경 */
   }
 }
 
@@ -16,7 +18,7 @@
 
 .skeleton_shimmer {
   animation: shimmer 2s infinite linear;
-  background: linear-gradient(to right, #eff1f3 8%, #828282 18%, #bdbdbd 33%);
+  background: linear-gradient(to right, #ffffff 8%, #dedede 18%, #d6d6d6 33%);
   background-size: 40rem 100%;
 }
 
@@ -121,6 +123,11 @@
 @media all and (min-width:480px) and (max-width:767px) {}
 
 @media all and (min-width:200px) and (max-width:479px) {
+
+  .adminuser_email {
+    word-break: break-word;
+    /* 이메일이 너무 길면 줄바꿈 */
+  }
 
   .adminuser_table,
   .adminuser_table thead,

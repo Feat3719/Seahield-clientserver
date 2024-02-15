@@ -9,7 +9,7 @@
 }
 
 .admin_area {
-  height: 96%;
+  height: 100vh;
   width: 97vw;
   align-items: center;
   display: flex;
@@ -316,4 +316,5 @@
     margin-right: 0;
     /* 기존 마진 제거 */
   }
+
 }

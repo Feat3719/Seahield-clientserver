@@ -127,16 +127,16 @@ function AdminPageBoard() {
               : // Ensure this opening parenthesis for the map function is removed
               articles.map((article) => (
                 <tr key={article.articleId}>
-                  <td>{article.articleId}</td>
-                  <td onClick={() => handleArticleClick(article.articleId)} className={style.articleTitle}>
+                  <td data-label="게시글 ID">{article.articleId}</td>
+                  <td data-label="제목" onClick={() => handleArticleClick(article.articleId)} className={style.articleTitle}>
                     {article.articleTitle}
                   </td>
-                  <td>
+                  <td data-label="작성일">
                     {new Date(article.articleCreatedDate).toLocaleString()}
                   </td>
-                  <td>{article.userId}</td>
-                  <td>{article.articleViewCounts ?? "0"}</td>
-                  <td>{article.articleLikes}</td>
+                  <td data-label="작성자">{article.userId}</td>
+                  <td data-label="조회수">{article.articleViewCounts ?? "0"}</td>
+                  <td data-label="좋아요 수">{article.articleLikes}</td>
                 </tr>
               ))}
           </tbody>

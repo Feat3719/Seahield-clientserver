@@ -81,7 +81,7 @@ function AdminPageUser() {
                 <td data-label="번호">{indexOfFirstItem + index + 1}</td>
                 <td data-label="사용자 ID">{user.userId}</td>
                 <td data-label="닉네임">{user.userNickname}</td>
-                <td data-label="이메일">{user.userEmail}</td>
+                <td className={style.adminuser_email} data-label="이메일">{user.userEmail}</td>
                 <td data-label="연락처">{user.userContact || "N/A"}</td>
                 <td data-label="유형">{user.userType}</td>
               </tr>

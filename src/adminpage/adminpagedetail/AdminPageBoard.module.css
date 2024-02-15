@@ -1,12 +1,15 @@
 @keyframes shimmer {
     0% {
-        background-position: -20rem 0;
+        background-position: -40rem -20rem;
+        /* 시작 위치 변경 */
     }
 
     100% {
-        background-position: 20rem 0;
+        background-position: 40rem 20rem;
+        /* 종료 위치 변경 */
     }
 }
+
 
 .adminboardpage {
     display: flex;
@@ -23,7 +26,7 @@
 
 .skeleton_shimmer {
     animation: shimmer 2s infinite linear;
-    background: linear-gradient(to right, #eff1f3 8%, #828282 18%, #bdbdbd 33%);
+    background: linear-gradient(to right, #ffffff 8%, #dedede 18%, #d6d6d6 33%);
     background-size: 40rem 100%;
 }
 
@@ -47,7 +50,7 @@
 }
 
 .adminboard_table th:hover {
-    background-color: #b13232;
+    background-color: #3247b1;
 }
 
 .adminboard_table td {
@@ -170,7 +173,7 @@
     /* 초기 너비를 0으로 설정 */
     height: 0.5vh;
     /* 선의 두께 */
-    background-color: red;
+    background-color: #3247b1;
     /* 선의 색상 */
     transition: width 0.3s ease, left 0.3s ease;
 }
@@ -181,7 +184,7 @@
     /* 너비를 100%로 확장 */
     left: 0;
     /* 위치를 왼쪽 끝으로 이동 */
-    color: red;
+    color: #3247b1;
 }
 
 .activeTab::after {
@@ -189,4 +192,171 @@
     /* 너비를 100%로 설정하여 선을 전체 길이로 표시 */
     left: 0;
     /* 위치를 왼쪽 끝으로 이동 */
+}
+
+/* ContractModal */
+
+.modalBackground {
+    position: fixed;
+    /* 고정 위치 */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(88, 88, 88, 0.813);
+    /* 반투명 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* 다른 요소 위에 표시 */
+}
+
+.modalContent {
+    background: #151515;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 50%;
+    /* 모달의 너비 */
+    max-width: 500px;
+    /* 모달의 최대 너비 */
+    z-index: 1001;
+}
+
+.modalcontent_title {
+    font-size: 3vh;
+    margin-bottom: 4vh;
+}
+
+.admin_contract_id {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.admin_contract_id:hover {
+    color: #5164f5;
+}
+
+.modalcontent_detail {
+    font-size: 2vh;
+}
+
+
+
+
+
+@media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {}
+
+@media all and (min-width:480px) and (max-width:767px) {
+    .tabs {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .adminboard_table,
+    .adminboard_table thead,
+    .adminboard_table tbody,
+    .adminboard_table th,
+    .adminboard_table td,
+    .adminboard_table tr {
+        display: block;
+    }
+
+    .adminboard_table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .adminboard_table tr {
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+
+    .adminboard_table td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+        margin-top: 5px;
+        white-space: normal;
+    }
+
+    .adminboard_table td:before {
+        /* td에 data-label 속성을 기반으로 가상 요소 내용 삽입 */
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        content: attr(data-label);
+    }
+
+    .admin_tabbutton {
+        margin: 0;
+    }
+}
+
+@media all and (min-width:200px) and (max-width:479px) {
+    @media screen and (max-width: 767px) {
+
+        .tabs {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .adminboard_table,
+        .adminboard_table thead,
+        .adminboard_table tbody,
+        .adminboard_table th,
+        .adminboard_table td,
+        .adminboard_table tr {
+            display: block;
+        }
+
+        .adminboard_table thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        .adminboard_table tr {
+            margin-bottom: 5px;
+            padding: 5px;
+        }
+
+        .adminboard_table td {
+            border: none;
+            position: relative;
+            padding-left: 50%;
+            text-align: left;
+            margin-top: 5px;
+            white-space: normal;
+        }
+
+        .adminboard_table td:before {
+            /* td에 data-label 속성을 기반으로 가상 요소 내용 삽입 */
+            position: absolute;
+            left: 10px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            text-align: left;
+            font-weight: bold;
+            content: attr(data-label);
+        }
+
+        .admin_tabbutton {
+            margin: 0;
+        }
+
+    }
+
 }
