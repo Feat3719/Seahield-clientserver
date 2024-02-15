@@ -92,7 +92,7 @@ function Signin() {
         } finally {
             setIsLoading(false); // 로그인 요청이 완료되면 로딩 상태를 false로 설정
         }
-    }, [userid, password, setIsLoading, dispatch, navigate, rememberUsername]); // 의존성 배열에 필요한 변수들을 추가
+    }, [userid, password, setIsLoading, dispatch, navigate]); // 의존성 배열에 필요한 변수들을 추가
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
