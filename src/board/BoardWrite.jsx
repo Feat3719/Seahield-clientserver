@@ -4,6 +4,7 @@ import style from "./BoardWrite.module.css";
 import axios from "axios";
 import Editor from "./Editor";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function BoardWrite() {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -17,15 +18,28 @@ function BoardWrite() {
     }, [content]);
 
     const handleWrite = async () => {
+        if (category === "") {
+            alert("분류를 선택해주세요."); // 분류가 선택되지 않았을 때 경고창 표시
+            return;
+        }
         try {
-            await axios.post("/api/board/article", {
-                articleTitle: title,
-                articleCtgr: category,
-                articleContents: content,
-            },{
-                headers: {Authorization: `Bearer ${accessToken}`} 
-            });
-            navigate("/boardtab");
+            const response = await axios.post(
+                "/api/board/article",
+                {
+                    articleTitle: title,
+                    articleCtgr: category,
+                    articleContents: content,
+                },
+                {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                }
+            );
+
+            if (response.status === 201) {
+                navigate("/boardtab");
+            } else if (response.status === 404) {
+                console.error("요청이 실패했습니다.");
+            }
         } catch (error) {
             console.error("Error", error);
         }
@@ -56,6 +70,7 @@ function BoardWrite() {
                             id="category"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
+                            required
                         >
                             <option value="" disabled>
                                 분류
@@ -63,23 +78,26 @@ function BoardWrite() {
                             <option value="FREE">자유게시판</option>
                             <option value="QNA">질문게시판</option>
                             <option value="NOTICE">공지사항</option>
-                            <option value="ANNOUNCE">공고</option>
                         </select>
                     </div>
                 </div>
 
                 <div className={style.editor}>
-                    <Editor content={content} setContent={setContent}/>
-
+                    <Editor content={content} setContent={setContent} />
                 </div>
             </div>
             <div id={style.button_box}>
-                <div className={style.complete_button}>
-                    <button className={style.button} onClick={handleWrite}>
+                <div className={style.buttons}>
+                    <button
+                        className={style.complete_button}
+                        onClick={handleWrite}
+                    >
                         작성완료
                     </button>
+                    <Link to={"/boardtab"}>
+                        <button className={style.cancle_button}>취소</button>
+                    </Link>
                 </div>
-
             </div>
         </div>
     );

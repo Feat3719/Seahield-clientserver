@@ -5,15 +5,43 @@ import style from "./Contract.module.css";
 import { motion } from "framer-motion";
 import SignatureCanvas from "react-signature-canvas";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 function Contract() {
+
+  const today = new Date();
+  const formattedToday = today.getFullYear() +
+    ('0' + (today.getMonth() + 1)).slice(-2) +
+    ('0' + today.getDate()).slice(-2);
+
   const [announceId, setAnnounceId] = useState("");
-  const [contractAplDate, setContractAplDate] = useState("");
+  // 신청일자 상태에 오늘 날짜를 초기값으로 설정
   const [contractPrice, setContractPrice] = useState("");
   const [announceName, setAnnounceName] = useState("");
 
   const [companyRegistNum, setCompanyRegistNum] = useState("");
   const [ceoName, setCeoName] = useState("");
+
+  const [announceList, setAnnounceList] = useState([]);
+
+  // 콤마 추가 함수
+  const formatNumber = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  // 콤마 제거 함수
+  const unformatNumber = (num) => {
+    return num.replace(/,/g, '');
+  };
+
+  // 입찰금액 입력 처리
+  const handleContractPriceChange = (e) => {
+    // 숫자만 입력되도록 처리
+    const { value } = e.target;
+    const unformattedNumber = value.replace(/[^0-9]/g, '');
+    setContractPrice(formatNumber(unformattedNumber));
+  };
+
 
   //서명
   const [signature, setSignature] = useState(null);
@@ -25,7 +53,11 @@ function Contract() {
       setSignature(sigPad.current.toDataURL());
       setIsSigning(false);
     } else {
-      alert("서명이 제공되지 않았습니다.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '서명이 제공되지 않았습니다.',
+      });
     }
   };
 
@@ -51,7 +83,11 @@ function Contract() {
       }
 
       if (!accessToken) {
-        console.error("회사 정보 가져오기 실패: 액세스 토큰이 없습니다.");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '회사 정보를 가져오는 중 오류가 발생했습니다. 나중에 다시 시도해주세요.',
+        });
         return;
       }
 
@@ -81,25 +117,74 @@ function Contract() {
   const submitContract = async () => {
     // 공고번호, 신청일자 등 필요한 데이터를 상태에서 추출하여 객체로 구성
     const contractData = {
-      contractAplDate: contractAplDate,
-      contractPrice: parseInt(contractPrice, 10), // 문자열을 숫자로 변환
+      contractAplDate: formattedToday,
+      contractPrice: parseInt(unformatNumber(contractPrice), 10), // 문자열을 숫자로 변환
       announceId: announceId,
       annoucneName: announceName, // 오타 확인 필요: annoucneName -> announceName
       companyRegistNum: companyRegistNum,
       userNickName: ceoName,
     };
 
+
     try {
       const response = await axios.post("/api/contract", contractData);
       if (response.status === 201) {
-        alert("입찰신청이 성공적으로 완료되었습니다.");
-        // 성공 후 필요한 작업 수행, 예를 들어 페이지 이동
+        Swal.fire(
+          '성공!',
+          '입찰신청이 성공적으로 완료되었습니다.',
+          'success'
+        );
       }
     } catch (error) {
       console.error("입찰신청 실패:", error);
-      alert("입찰신청에 실패하였습니다. 나중에 다시 시도해주세요.");
+      Swal.fire({
+        icon: 'error',
+        title: '입찰신청 실패',
+        text: '입찰신청에 실패하였습니다. 나중에 다시 시도해주세요.',
+      });
     }
   };
+
+
+  useEffect(() => {
+    // 백엔드에서 공고 목록을 불러오는 함수
+    const fetchAnnounceList = async () => {
+      try {
+        const response = await axios.get("/api/announce/in-apply");
+        if (response.status === 200) {
+          setAnnounceList(response.data);
+        }
+      } catch (error) {
+        console.error("공고 목록 불러오기 실패:", error);
+        Swal.fire("오류", "공고 목록을 불러오는 데 실패했습니다.", "error");
+      }
+    };
+
+    fetchAnnounceList();
+  }, []);
+
+
+  // 공고명 선택 시 공고번호 및 공고명 상태 설정
+  const handleAnnounceSelect = (event) => {
+    // 이벤트에서 공고명을 가져옵니다.
+    const selectedAnnounceName = event.target.value;
+    // 공고명으로 리스트에서 공고를 찾습니다.
+    const selectedAnnounce = announceList.find(
+      (announce) => announce.announceName === selectedAnnounceName
+    );
+
+    if (selectedAnnounce) {
+      // 상태 업데이트
+      setAnnounceId(selectedAnnounce.announceId);
+      setAnnounceName(selectedAnnounce.announceName);
+    } else {
+      // 선택하지 않았을 때 로그
+      console.log("", "");
+      setAnnounceId("");
+      setAnnounceName("");
+    }
+  };
+
 
   return (
     <Wrapper>
@@ -130,9 +215,9 @@ function Contract() {
                     <label className={style.form_label}>공고번호</label>
                     <input
                       className={style.form_input}
+                      placeholder="자동으로 입력됩니다."
                       value={announceId}
-                      onChange={(e) => setAnnounceId(e.target.value)}
-                      placeholder="공고번호"
+                      readOnly
                     />
                   </div>
 
@@ -140,9 +225,8 @@ function Contract() {
                     <label className={style.form_label}>신청일자</label>
                     <input
                       className={style.form_input}
-                      value={contractAplDate}
-                      onChange={(e) => setContractAplDate(e.target.value)}
-                      placeholder="YYYY-MM-DD"
+                      value={formattedToday}
+                      readOnly // 사용자가 값을 변경할 수 없도록 읽기 전용으로 설정
                     />
                   </div>
                 </div>
@@ -150,19 +234,27 @@ function Contract() {
                 <div className={style.form_top_row2}>
                   <div className={style.form_date}>
                     <label className={style.form_label}>공고명</label>
-                    <input
-                      className={style.form_input}
-                      value={announceName}
-                      onChange={(e) => setAnnounceName(e.target.value)}
-                      placeholder="공고명"
-                    />
+                    <div className={style.select_area}>
+                      <select
+                        className={style.form_select}
+                        value={announceName}
+                        onChange={handleAnnounceSelect}
+                      >
+                        <option value="" disabled>공고를 선택하세요</option>
+                        {announceList.map((announce) => (
+                          <option key={announce.announceId} value={announce.announceName}>
+                            {announce.announceName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                   <div className={style.form_date}>
                     <label className={style.form_label}>입찰금액</label>
                     <input
                       className={style.form_input}
                       value={contractPrice}
-                      onChange={(e) => setContractPrice(e.target.value)}
+                      onChange={handleContractPriceChange}
                       placeholder="입찰금액"
                     />
                   </div>

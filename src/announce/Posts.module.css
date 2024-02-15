@@ -1,5 +1,3 @@
-
-
 .link {
     text-decoration-line: none;
     color: white;
@@ -15,7 +13,7 @@
     border: none;
 }
 
-.article_user {
+.article_date {
     text-align: center;
     border: none;
 }

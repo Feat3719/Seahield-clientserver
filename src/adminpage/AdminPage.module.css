@@ -2,12 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
   background-color: #000000e0;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: auto;
 }
 
 .admin_area {
-  height: 96vh;
+  height: 100vh;
   width: 97vw;
   align-items: center;
   display: flex;
@@ -86,4 +88,233 @@
 
 .admin_user_title {
   font-size: 3vh;
+}
+
+
+@media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {
+  .admin {
+    flex-direction: column;
+    justify-content: flex-start;
+    /* 상단 정렬 */
+    height: auto;
+    /* 높이를 자식 요소에 맞게 조정 */
+    min-height: 100vh;
+    /* 최소 높이는 뷰포트 높이 */
+    padding-bottom: 10vh;
+    /* 하단 탭 높이만큼 패딩 추가 */
+    overflow: visible;
+  }
+
+  .tabs {
+    position: sticky;
+    flex-direction: row;
+    justify-content: space-around;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+    height: 10vh;
+    background-color: #333;
+    /* 탭 배경색 */
+    border-top: 0.1vh solid #ccc;
+    /* 상단 테두리 */
+    z-index: 100;
+    /* 다른 요소 위에 오도록 z-index 설정 */
+  }
+
+  .tab {
+    flex-grow: 1;
+    /* 모든 탭이 동일한 너비를 가지도록 설정 */
+    text-align: center;
+    /* 텍스트 가운데 정렬 */
+    padding: 2vh 1vh;
+    /* 탭 내부 여백 */
+    display: flex;
+    /* flex 컨테이너 설정 */
+    justify-content: center;
+    /* 가로 중앙 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    font-size: 2vh;
+    /* 탭 글자 크기 */
+  }
+
+  .activeTab {
+    background-color: #666;
+    /* 활성 탭 배경색 */
+  }
+
+  .admin_area {
+    height: auto;
+    /* 높이를 자동으로 설정하여 내용에 맞게 조정 */
+    padding-bottom: 10vh;
+    padding-bottom: 10vh;
+    /* 하단 탭으로 인해 가려지는 내용이 없도록 패딩 추가 */
+  }
+
+  .admin_contents {
+    flex-direction: column;
+    /* 모바일 화면에서는 세로로 내용을 쌓음 */
+  }
+
+  .tabContent {
+    margin-top: 2vh;
+    /* 탭과 내용 사이의 간격 조정 */
+    margin-right: 0;
+    /* 기존 마진 제거 */
+  }
+}
+
+@media all and (min-width:480px) and (max-width:767px) {
+  .admin {
+    flex-direction: column;
+    justify-content: flex-start;
+    /* 상단 정렬 */
+    height: auto;
+    /* 높이를 자식 요소에 맞게 조정 */
+    min-height: 100vh;
+    /* 최소 높이는 뷰포트 높이 */
+    padding-bottom: 10vh;
+    /* 하단 탭 높이만큼 패딩 추가 */
+    overflow: visible;
+  }
+
+  .tabs {
+    position: sticky;
+    flex-direction: row;
+    justify-content: space-around;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+    height: 10vh;
+    background-color: #333;
+    /* 탭 배경색 */
+    border-top: 0.1vh solid #ccc;
+    /* 상단 테두리 */
+    z-index: 100;
+    /* 다른 요소 위에 오도록 z-index 설정 */
+  }
+
+  .tab {
+    flex-grow: 1;
+    /* 모든 탭이 동일한 너비를 가지도록 설정 */
+    text-align: center;
+    /* 텍스트 가운데 정렬 */
+    padding: 2vh 1vh;
+    /* 탭 내부 여백 */
+    display: flex;
+    /* flex 컨테이너 설정 */
+    justify-content: center;
+    /* 가로 중앙 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    font-size: 2vh;
+    /* 탭 글자 크기 */
+  }
+
+  .activeTab {
+    background-color: #666;
+    /* 활성 탭 배경색 */
+  }
+
+  .admin_area {
+    height: auto;
+    /* 높이를 자동으로 설정하여 내용에 맞게 조정 */
+    padding-bottom: 10vh;
+    padding-bottom: 10vh;
+    /* 하단 탭으로 인해 가려지는 내용이 없도록 패딩 추가 */
+  }
+
+  .admin_contents {
+    flex-direction: column;
+    /* 모바일 화면에서는 세로로 내용을 쌓음 */
+  }
+
+  .tabContent {
+    margin-top: 2vh;
+    /* 탭과 내용 사이의 간격 조정 */
+    margin-right: 0;
+    /* 기존 마진 제거 */
+  }
+}
+
+@media all and (min-width:200px) and (max-width:479px) {
+  .admin {
+    flex-direction: column;
+    justify-content: flex-start;
+    /* 상단 정렬 */
+    height: auto;
+    /* 높이를 자식 요소에 맞게 조정 */
+    min-height: 100vh;
+    /* 최소 높이는 뷰포트 높이 */
+    padding-bottom: 10vh;
+    /* 하단 탭 높이만큼 패딩 추가 */
+    overflow: visible;
+  }
+
+  .tabs {
+    position: sticky;
+    flex-direction: row;
+    justify-content: space-around;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+    height: 10vh;
+    background-color: #333;
+    /* 탭 배경색 */
+    border-top: 0.1vh solid #ccc;
+    /* 상단 테두리 */
+    z-index: 100;
+    /* 다른 요소 위에 오도록 z-index 설정 */
+  }
+
+  .tab {
+    flex-grow: 1;
+    /* 모든 탭이 동일한 너비를 가지도록 설정 */
+    text-align: center;
+    /* 텍스트 가운데 정렬 */
+    padding: 2vh 1vh;
+    /* 탭 내부 여백 */
+    display: flex;
+    /* flex 컨테이너 설정 */
+    justify-content: center;
+    /* 가로 중앙 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    font-size: 2vh;
+    /* 탭 글자 크기 */
+  }
+
+  .activeTab {
+    background-color: #666;
+    /* 활성 탭 배경색 */
+  }
+
+  .admin_area {
+    height: auto;
+    /* 높이를 자동으로 설정하여 내용에 맞게 조정 */
+    padding-bottom: 10vh;
+    padding-bottom: 10vh;
+    /* 하단 탭으로 인해 가려지는 내용이 없도록 패딩 추가 */
+  }
+
+  .admin_contents {
+    flex-direction: column;
+    /* 모바일 화면에서는 세로로 내용을 쌓음 */
+  }
+
+  .tabContent {
+    margin-top: 2vh;
+    /* 탭과 내용 사이의 간격 조정 */
+    margin-right: 0;
+    /* 기존 마진 제거 */
+  }
+
 }

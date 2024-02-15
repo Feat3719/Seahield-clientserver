@@ -2,14 +2,16 @@ import { useState } from "react";
 import style from "./BoardTab.module.css";
 import BoardList from "./BoardList";
 import Sidenav from "../sidenav/Sidenav";
+import { useSelector } from "react-redux";
 
 function BoardTab() {
     const tabData = [
         { id: 1, content: "자유게시판" },
         { id: 2, content: "질문게시판" },
         { id: 3, content: "공지사항" },
-        { id: 4, content: "공고" },
     ];
+
+    const userType = useSelector((state) => state.auth.userType);
     const [activeTab, setActiveTab] = useState(tabData[0].id);
 
     const tabClickHandler = (tabId) => {
@@ -44,21 +46,24 @@ function BoardTab() {
 
             <div id={style.listBox}>
                 {activeTab === 1 && (
-                    <BoardList category={"FREE"} tabName={tabData[0].content} />
+                    <BoardList
+                        category={"FREE"}
+                        tabName={tabData[0].content}
+                        userType={userType}
+                    />
                 )}
                 {activeTab === 2 && (
-                    <BoardList category={"QNA"} tabName={tabData[1].content} />
+                    <BoardList
+                        category={"QNA"}
+                        tabName={tabData[1].content}
+                        userType={userType}
+                    />
                 )}
                 {activeTab === 3 && (
                     <BoardList
                         category={"NOTICE"}
                         tabName={tabData[2].content}
-                    />
-                )}
-                {activeTab === 4 && (
-                    <BoardList
-                        category={"ANNOUNCE"}
-                        tabName={tabData[3].content}
+                        userType={userType}
                     />
                 )}
             </div>

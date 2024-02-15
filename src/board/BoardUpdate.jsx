@@ -67,10 +67,14 @@ function BoardUpdate() {
                                         }
                                     ></input>
                                 </th>
-                                <th colSpan={8} className={style.writer}>{post.userId}</th>
+                                <th colSpan={8} className={style.writer}>
+                                    {post.userId}
+                                </th>
                             </tr>
                             <tr>
-                                <th colSpan={4} className={style.category}>분류</th>
+                                <th colSpan={4} className={style.category}>
+                                    분류
+                                </th>
                                 <td
                                     colSpan={4}
                                     className={style.category_blank}
@@ -88,7 +92,9 @@ function BoardUpdate() {
                                         name="category"
                                         id="category"
                                         value={category}
-                                        onChange={(e) => setCategory(e.target.value)}
+                                        onChange={(e) =>
+                                            setCategory(e.target.value)
+                                        }
                                     >
                                         {/* <option value="" disabled>
                                             분류
@@ -103,22 +109,22 @@ function BoardUpdate() {
                                     조회수
                                 </th>
                                 <td colSpan={4} className={style.reads_blank}>
-                                    {post.articleViewCounts}
+                                    {post.articleViewCount}
                                 </td>
                                 <th colSpan={4} className={style.like}>
                                     좋아요
                                 </th>
                                 <td colSpan={4} className={style.like_blank}>
-                                    {post.articleLikeCounts}
+                                    {post.articleLikes}
                                 </td>
                             </tr>
                             <tr>
-                                <th colSpan={4} >작성일</th>
+                                <th colSpan={4}>작성일</th>
                                 <td colSpan={8}>
                                     {FormatDatetime(post.articleCreatedDate)}
                                 </td>
                                 <th colSpan={4}>수정일</th>
-                                <td colSpan={8} >
+                                <td colSpan={8}>
                                     {FormatDatetime(post.articleUpdateDate)}
                                 </td>
                             </tr>
@@ -139,21 +145,15 @@ function BoardUpdate() {
                                 </td>
                             </tr>
                         </tbody>
-                        <tfoot>
-
-                        </tfoot>
+                        <tfoot></tfoot>
                     </table>
                 </div>
                 <div id={style.buttonBox}>
                     <div id={style.updateButton}>
-                    <button
-                        className={style.button}
-                        onClick={handleUpdate}
-                    >
-                        수정완료
-                    </button>
+                        <button className={style.button} onClick={handleUpdate}>
+                            수정완료
+                        </button>
                     </div>
-
                 </div>
             </div>
         )

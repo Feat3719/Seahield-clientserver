@@ -1,0 +1,36 @@
+.commentBox {
+    /* display: flex; */
+    /* margin: 10px auto; */
+    /* justify-content: space-around; */
+}
+
+.content {
+    display: flex;
+    width: 70vw;
+}
+
+/* .commentLikesBox {
+    display: flex;
+}
+
+.commentLikes {
+    margin: auto 10px;
+} */
+
+.commentCreatedDate {
+    font-size: 12px;
+    color: gray;
+    margin: auto 5px;
+}
+
+.commentUserId {
+    font-size: 12px;
+    color: gray;
+    margin: auto 5px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+}

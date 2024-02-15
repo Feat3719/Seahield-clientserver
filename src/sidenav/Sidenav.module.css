@@ -63,11 +63,6 @@
     font-size: 2.2vh;
 }
 
-.navLink:hover {
-    color: #49a8f7;
-    /* Hover 시 글자 색상을 빨간색으로 변경 */
-}
-
 .toggleButton {
     position: fixed;
     /* 버튼을 고정 위치에 둡니다 */

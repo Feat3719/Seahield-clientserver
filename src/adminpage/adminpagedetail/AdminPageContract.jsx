@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import style from "./AdminPageContract.module.css";
 import { useSelector } from "react-redux";
+import ContractModal from "./ContractModal";
+import Loading from "../../loading/Loading";
+import Swal from 'sweetalert2';
 
 function AdminPageContract() {
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -11,75 +14,112 @@ function AdminPageContract() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [contractsPerPage] = useState(10);
+  const [selectedContract, setSelectedContract] = useState(null); //모달
+  const [isLoadingContract, setIsLoadingContract] = useState(false);
 
-  useEffect(() => {
-    fetchContracts();
-  }, []);
 
-  const fetchContracts = async () => {
+  const fetchContractDetails = async (contractId) => {
+    const response = await axios.get(`/api/contract/details/${contractId}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    setSelectedContract(response.data); // Set the contract data
+  };
+
+  const handleContractClick = async (contractId) => {
+    setIsLoadingContract(true);
+    try {
+      await fetchContractDetails(contractId);
+    } catch (error) {
+      console.error("Error fetching contract details:", error);
+      setSelectedContract(null);
+    } finally {
+      setIsLoadingContract(false);
+    }
+  };
+
+  const fetchContracts = useCallback(async () => {
     setIsLoading(true);
-    const persistRoot = JSON.parse(
-      localStorage.getItem("persist:root") || "{}"
-    );
-    const accessToken = persistRoot.auth
-      ? JSON.parse(persistRoot.auth).accessToken
-      : "";
-
     try {
       const response = await axios.get("/api/contract/list", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
-      setContracts(response.data);
+      const sortedContracts = response.data.sort((a, b) =>
+        parseInt(b.contractId) - parseInt(a.contractId)
+      );
+      setContracts(sortedContracts);
     } catch (error) {
       console.error("계약 목록 불러오기 오류:", error);
     } finally {
-      setIsLoading(false); // 데이터 로딩 완료
+      setIsLoading(false);
     }
-  };
+  }, [accessToken]); // 의존성 배열에 accessToken 추가
+
+  useEffect(() => {
+    if (accessToken) {
+      fetchContracts();
+    }
+  }, [fetchContracts, accessToken]);
 
   const handleApprove = async (contractId) => {
-    if (!window.confirm("정말 승인하시겠습니까?")) return;
+    Swal.fire({
+      title: '정말 승인하시겠습니까?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '승인',
+      cancelButtonText: '취소'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // 승인 로직 실행
+        approveContract(contractId);
+      }
+    });
+  };
 
+  const approveContract = async (contractId) => {
     try {
       await axios.patch(
-        `/api/contract/status/${contractId}/approved`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }
+        `/api/contract/status/${contractId}/approved`, {}, { headers: { Authorization: `Bearer ${accessToken}` } }
       );
-      alert("승인되었습니다.");
+      Swal.fire('승인됨!', '계약이 성공적으로 승인되었습니다.', 'success');
       fetchContracts(); // 목록 새로고침
     } catch (error) {
-      alert("승인 처리 중 오류가 발생했습니다.");
       console.error(error);
-    } finally {
-      setIsLoading(false); // 데이터 로딩 완료
+      Swal.fire('실패!', '승인 처리 중 오류가 발생했습니다.', 'error');
     }
   };
 
   const handleReject = async (contractId) => {
-    if (!window.confirm("정말 비승인 하시겠습니까?")) return;
+    Swal.fire({
+      title: '정말 비승인 하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '비승인',
+      cancelButtonText: '취소'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // 비승인 로직 실행
+        rejectContract(contractId);
+      }
+    });
+  };
 
-    const accessToken = JSON.parse(localStorage.getItem("persist:root") || "{}")
-      .auth?.accessToken;
+  const rejectContract = async (contractId) => {
     try {
       await axios.patch(
-        `/api/contract/status/${contractId}/rejected`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }
+        `/api/contract/status/${contractId}/rejected`, {}, { headers: { Authorization: `Bearer ${accessToken}` } }
       );
-      alert("비승인되었습니다.");
+      Swal.fire('비승인됨!', '계약이 성공적으로 비승인되었습니다.', 'success');
       fetchContracts(); // 목록 새로고침
     } catch (error) {
-      alert("비승인 처리 중 오류가 발생했습니다.");
       console.error(error);
-    } finally {
-      setIsLoading(false); // 데이터 로딩 완료
+      Swal.fire('실패!', '비승인 처리 중 오류가 발생했습니다.', 'error');
     }
   };
+
 
   // 현재 페이지에서 보여줄 계약 목록 계산
   const indexOfLastContract = currentPage * contractsPerPage;
@@ -105,9 +145,9 @@ function AdminPageContract() {
           <tr>
             <th>계약 ID</th>
             <th>계약신청일</th>
-            <th>계약상태</th>
             <th>공고 ID</th>
             <th>회사명</th>
+            <th>승인상태</th>
             <th>승인/비승인</th>
           </tr>
         </thead>
@@ -136,24 +176,37 @@ function AdminPageContract() {
               </tr>
             ))
             : currentContracts.map((contract) => (
-              <tr key={contract.contractId}>
-                <td>{contract.contractId}</td>
-                <td>{contract.contractAplDate}</td>
-                <td>{contract.contractStatus}</td>
-                <td>{contract.announceId}</td>
-                <td>{contract.companyName}</td>
+              <tr key={contract.contractId} onClick={() => handleContractClick(contract.contractId)} className={style.admin_contract_click}>
+                <td data-label="계약 ID">{contract.contractId}
+                </td>
+                <td data-label="계약신청일">{contract.contractAplDate}</td>
+                <td data-label="공고 ID">{contract.announceId}</td>
+                <td data-label="회사명">{contract.companyName}</td>
+                <td data-label="승인상태">{contract.contractStatus}</td>
                 <td>
-                  <button onClick={() => handleApprove(contract.contractId)} className={style.admin_approvebtn}>
-                    승인
-                  </button>
-                  <button onClick={() => handleReject(contract.contractId)} className={style.admin_rejectbtn}>
-                    비승인
-                  </button>
+                  {contract.contractStatus === "승인대기" ? (
+                    <>
+                      <button onClick={(e) => { e.stopPropagation(); handleApprove(contract.contractId); }} className={style.admin_approvebtn}>
+                        승인
+                      </button>
+                      <button onClick={(e) => { e.stopPropagation(); handleReject(contract.contractId); }} className={style.admin_rejectbtn}>
+                        비승인
+                      </button>
+                    </>
+                  ) : (
+                    "처리완료"
+                  )}
                 </td>
               </tr>
             ))}
         </tbody>
       </table>
+
+
+      {isLoadingContract && <Loading />}
+
+
+
       <div className={style.pagination1}>
         <button
           onClick={() => setCurrentPage(currentPage - 1)}
@@ -176,6 +229,14 @@ function AdminPageContract() {
         >
           {">"}
         </button>
+
+        {selectedContract && (
+          <ContractModal
+            contract={selectedContract}
+            onClose={() => setSelectedContract(null)}
+          />
+        )}
+
       </div>
     </div>
   );
