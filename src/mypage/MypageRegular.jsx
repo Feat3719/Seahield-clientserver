@@ -459,7 +459,7 @@ import { Link } from "react-router-dom";
                 </form>
                 {/* <button onClick={updateUserInfo}>정보 수정</button> */}
                 <button className={style.transBtn} onClick={() => changeScene(1)}>1번 장면으로(내가쓴글)</button>
-                <button className={style.transBtn} onClick={() => changeScene(2)}>2번 장면으로(정보수정)</button>
+                {/* <button className={style.transBtn} onClick={() => changeScene(2)}>2번 장면으로(정보수정)</button> */}
                 {/* <button className={style.transBtn} onClick={() => changeScene(3)}>3번 장면으로(계약관련)</button> */}
                 <button className={style.transBtn} onClick={() => changeScene(4)}>4번 장면으로(수정전비번확인)</button>
 
@@ -515,7 +515,7 @@ import { Link } from "react-router-dom";
                     {/* {renderScene()} */}
                     {/* 장면 변경 버튼을 추가합니다. */}
                     <button className={style.transBtn} onClick={() => changeScene(1)}>1번 장면으로(내가 쓴글)</button>
-                    <button className={style.transBtn} onClick={() => changeScene(2)}>2번 장면으로(그냥수정)</button>
+                    {/* <button className={style.transBtn} onClick={() => changeScene(2)}>2번 장면으로(그냥수정)</button> */}
                     <button className={style.transBtn} onClick={() => changeScene(3)}>3번 장면으로(계약관련)</button>
                     <button className={style.transBtn} onClick={() => changeScene(4)}>4번 장면으로(수정전비번확인)</button>
                     </div>
