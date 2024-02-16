@@ -11,7 +11,6 @@ import Sidenav from "../sidenav/Sidenav";
 
 function BoardDetail() {
     const accessToken = useSelector((state) => state.auth.accessToken);
-    // const userId = useSelector((state) => state.auth.user);
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState("");
