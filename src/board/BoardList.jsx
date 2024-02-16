@@ -4,7 +4,6 @@ import axios from "axios";
 import Posts from "./Posts";
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
 
 function BoardList({ category, tabName, userType }) {
     const [posts, setPosts] = useState([]);
@@ -27,7 +26,10 @@ function BoardList({ category, tabName, userType }) {
             const response = await axios.get(
                 `/api/board/articles?articleCtgr=${category}`
             );
-            setPosts(response.data);
+            const sortedPosts = response.data.sort(
+                (a, b) => b.articleId - a.articleId
+            );
+            setPosts(sortedPosts);
             setLoading(false);
         };
         fetchPost();

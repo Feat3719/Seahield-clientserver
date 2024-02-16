@@ -4,6 +4,7 @@ import style from "./BoardUpdate.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import FormatDatetime from "./FormatDatetime";
+import Sidenav from "../sidenav/Sidenav";
 
 function BoardUpdate() {
     const { id } = useParams();
@@ -46,6 +47,9 @@ function BoardUpdate() {
     return (
         post && (
             <div id={style.boardUpdateContainer}>
+                <div className={style.login_nav}>
+                    <Sidenav />
+                </div>
                 <div id={style.pageTitleBox}>
                     <div className={style.pageTitle}>게시글 수정</div>
                 </div>

@@ -30,12 +30,6 @@ const Posts = ({ posts, loading }) => {
                     <td className={style.article_date}>
                         {FormatDate(post.announceCreatedDate)}
                     </td>
-                    {/* <td className={style.article_reads}>
-                        {post.articleViewCounts}
-                    </td>
-                    <td className={style.article_like}>
-                        {post.articleLikeCounts}
-                    </td> */}
                 </tr>
             ))}
         </>

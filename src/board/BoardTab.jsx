@@ -17,7 +17,6 @@ function BoardTab() {
 
     const tabClickHandler = (tabId) => {
         setActiveTab(tabId);
-        console.log(`${tabId}번 탭이 클릭됨`);
     };
 
     return (

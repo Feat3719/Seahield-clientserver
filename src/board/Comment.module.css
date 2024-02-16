@@ -5,6 +5,7 @@
 }
 
 .content {
+    font-size: 14px;
     display: flex;
     width: 70vw;
 }
@@ -16,6 +17,12 @@
 .commentLikes {
     margin: auto 10px;
 } */
+
+.commentLikes {
+    font-size: 12px;
+    color: gray;
+    margin: auto 5px;
+}
 
 .commentCreatedDate {
     font-size: 12px;
@@ -33,4 +40,22 @@
     display: flex;
     justify-content: flex-end;
     margin: 10px 0;
+}
+
+.like_button {
+    /* height: 35px; */
+    border-radius: 5px;
+    /* margin: 0 20px 0 0; */
+}
+
+.update_button {
+    /* height: 35px; */
+    border-radius: 5px;
+    /* margin: 0 5px 0 0; */
+}
+
+.delete_button {
+    /* height: 35px; */
+    border-radius: 5px;
+    /* margin: 0 5px 0 0; */
 }
