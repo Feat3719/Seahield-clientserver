@@ -46,3 +46,27 @@
     background: linear-gradient(to right, #ffffff 8%, #dedede 18%, #d6d6d6 33%);
     background-size: 40rem 100%;
 }
+
+@media all and (min-width: 320px) and (max-width: 999px) {
+    .article_no {
+        display: none;
+    }
+}
+
+@media all and (min-width: 320px) and (max-width: 799px) {
+    .article_date {
+        display: none;
+    }
+}
+
+@media all and (min-width: 320px) and (max-width: 600px) {
+    .article_title {
+        width: 96vw;
+    }
+}
+
+@media all and (min-width: 320px) and (max-width: 480px) {
+    .article_title {
+        font-size: 14px;
+    }
+}

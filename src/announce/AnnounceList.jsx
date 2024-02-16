@@ -3,10 +3,8 @@ import style from "./AnnounceList.module.css";
 import axios from "axios";
 import Posts from "./Posts";
 import Pagination from "../board/Pagination";
-// import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
 
-function AnnounceList({ category, tabName, userType }) {
+function AnnounceList() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);

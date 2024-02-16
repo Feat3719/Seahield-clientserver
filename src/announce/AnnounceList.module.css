@@ -38,3 +38,35 @@
     color: #fff;
     /* 텍스트 색상을 흰색으로 설정 */
 }
+
+@media all and (min-width: 320px) and (max-width: 999px) {
+    .announce_no {
+        display: none;
+    }
+}
+
+@media all and (min-width: 320px) and (max-width: 799px) {
+    .announce_created_date {
+        display: none;
+    }
+}
+
+@media all and (min-width: 320px) and (max-width: 600px) {
+    #tableBox {
+        width: 100%;
+        margin-top: 3vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    .announce_name {
+        width: 96vw;
+    }
+
+    .table {
+        width: 96vw;
+    }
+}
+
+@media all and (min-width: 320px) and (max-width: 480px) {
+}

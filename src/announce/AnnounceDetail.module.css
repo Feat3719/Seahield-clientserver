@@ -34,36 +34,17 @@
     width: 80%;
     height: 80%;
     margin: 0 auto 50px auto;
-    /* padding-bottom: 10px; */
     background-color: #00000081;
 }
 
 #tableBox {
-    /* width: 80%;
-    height: auto;
-    margin: 0 auto;
-    background-color: #343a43; */
-
     width: 100%;
     margin-top: 3vh;
     display: flex;
     justify-content: center;
-
-    /* border: none;
-    border-radius: 1vh;
-    width: 80%;
-    height: 80%;
-    margin: 0 auto 50px auto;
-    background-color: #00000081; */
 }
 
 .table {
-    /* border: 1px solid #000; */
-    /* width: 90%;
-    border-collapse: collapse;
-    color: white;
-    border-color: gray;
-    margin: 20px auto; */
     width: 90%;
     color: white;
     background-color: #373737;
@@ -82,17 +63,50 @@
     /* 텍스트 색상을 흰색으로 설정 */
 }
 
+.number {
+    width: 20%;
+}
+
+.title {
+    width: 60%;
+}
+
+.writer {
+    width: 20%;
+}
+
+.creDate {
+    width: 20%;
+}
+
+.creDate_blank {
+    width: 30%;
+}
+
+.updateDate {
+    width: 30%;
+}
+
+.updateDate_blank {
+    width: 20%;
+}
+
 .content {
     white-space: normal;
     height: 30vh;
 }
 
+.link {
+    margin: 0 0 0 7vw;
+}
+
 .announce_list_btn {
+    cursor: pointer;
     background-color: #d7d7d7;
     border: none;
     border-radius: 0.1vh;
     transition: background-color 0.3s, box-shadow 0.3s;
-    margin: 3vh 0 0 8.5vh;
+    margin: 3vh 0;
     font-size: 2vh;
 }
 
@@ -100,150 +114,3 @@
     background-color: #5164f5;
     box-shadow: 0 1vh 3vh rgb(0, 0, 0);
 }
-
-/* .number {
-    width: 30%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.title {
-    width: 40%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.writer {
-    width: 30%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.category {
-    width: 14%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.category_blank {
-    width: 16%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.reads {
-    width: 20%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.reads_blank {
-    width: 20%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.like {
-    width: 14%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.like_blank {
-    width: 16%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.imgHeart {
-    width: 30px;
-    height: 30px;
-}
-
-.creDate {
-    width: 25%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.creDate_blank {
-    width: 25%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.updateDate {
-    width: 25%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.updateDate_blank {
-    width: 25%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-#button_box {
-
-
-    width: 80%;
-    text-align: right;
-    margin: 0 auto;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    background-color: #343a43;
-}
-
-#buttons {
-    width: 90%;
-    margin: 20px auto;
-}
-
-.delete_button {
-
-    border-radius: 5px;
-
-}
-
-.list_button {
-
-    border-radius: 5px;
-
-}
-
-.update_button {
-
-    border-radius: 5px;
-
-}
-
-#comment_box {
-
-
-    width: 80%;
-
-    margin: 20px auto;
-
-    border-radius: 10px;
-    background-color: #343a43;
-}
-
-#comment {
-    width: 90%;
-    margin: 20px auto;
-}
-
-.inputBox {
-    display: flex;
-    margin: 20px auto;
-    justify-content: space-evenly;
-}
-
-.input {
-    width: 50vw;
-}
-
-.commentListBox {
-    color: white;
-} */
