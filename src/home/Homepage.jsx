@@ -6,6 +6,7 @@
     import RedDot from "./RedDot";
     import Sidenav from "../sidenav/Sidenav";
     import Wrapper from "../pagechange/Wrapper";
+    import CCTVModal from "./CCTVModal";
     // import GoogleMap from './GoogleMap';
     // import Kakao from './kakao';
     // const {kakao} = window;
@@ -52,10 +53,11 @@
 
     const mokpoData = [
         ["1", "전남 고흥군", "고흥_신흥"],
-        ["2", "전남 신안군", "신안고장리해변"],
-        ["3", "전남 완도군", "완도신지도해변"],
-        ["4", "전남 여수시", "여수백야도해변"],
-        ["5", "전남 고흥군", "고흥염포해변"],
+        ["2", "전남 순천시", "순천반월"],
+        ["3", "전남 신안군", "신안고장리해변"],
+        ["4", "전남 완도군", "완도신지도해변"],
+        ["5", "전남 여수시", "여수백야도해변"],
+        ["6", "전남 고흥군", "고흥염포해변"],
     ];
     const geojeData = [["1", "거제시", "거제 두모 몽돌 해변"]];
 
@@ -143,8 +145,10 @@
     };
 
     const handleCloseModal = () => {
-        setSelectedImage(null);
         setModalOpen(false);
+        // setSmallScreenImage(selectedImage); // 선택된 영상을 작은 화면으로 전환
+        setSelectedImage(null);
+  
     };
         // 모달 내용 클릭 시 이벤트 버블링 방지
         const handleModalContentClick = (event) => {
@@ -215,7 +219,7 @@
                         ))}
                     </tbody>
     );
-    const mokpoTableBody =(
+    const   mokpoTableBody =(
         <tbody>
                         {mokpoData.map((row, rowIndex) => (
                         <tr key={rowIndex}>
@@ -260,20 +264,27 @@
                     </tbody>
     );
 
-
+    // const [smallScreenImage, setSmallScreenImage] = useState(null);
+  
+    // // 큰 화면으로 CCTV 영상을 열기
+    // const handleOpenModal = (image) => {
+    //   setModalOpen(true);
+    //   setSelectedImage(image);
+    //   setSmallScreenImage(null); // 큰 화면에서는 작은 화면 영상을 숨깁니다.
+    // };
 
 
     return (
         <Wrapper>
-        <div className={style.home_box}>
+        <div className={style.home_box} style={{overflow:'hidden'}}>
             <div className={style.login_nav}>
             <Sidenav />
             </div>
-            <div className={style.home_box_2}>
+            <div className={style.home_box_2} style={{overflow:'hidden'}}>
             <div className={style.sub_1}>
                 <div className={style.sub_1_1}>
                 <div className={style.sub_1_1_title}>
-                    메인_서브_1_1
+                    메인_서브_1_1_관제시스템
                     {/* 모달 */}
                     {/* {selectedMarker && (
                                     <Modal closeModal={closeModal}>
@@ -285,9 +296,11 @@
                                     </Modal>
                                 )} */}
                 </div>
+                <CCTVModal />
                 <div className={style.modal_video}>
+
                     {isModalOpen && (
-                    <div className={style.modal} onClick={handleCloseModal}>
+                        <div className={style.modal} onClick={handleCloseModal}>
 
 
                         {selectedImage === "cctv-icon-1.png" && (
@@ -486,7 +499,7 @@
                     </thead>
                     )}
 
-                {selectedImage === "cctv-icon-1.png" && ulsanTableBody}
+                {selectedImage === "cctv-icon-2.png" && ulsanTableBody}
 
                     {selectedImage === "cctv-icon-3.png" && (
                     <div className={style.sub_1_2_title}>목포지사</div>
@@ -501,6 +514,7 @@
                         </tr>
                     </thead>
                     )}
+
                     {selectedImage === "cctv-icon-3.png" && mokpoTableBody}
 
                     {/* {selectedImage === "cctv-icon-3.png" && (
@@ -623,6 +637,16 @@
                     onGeojeWindSpeedData={() => {}}
                     onGeojeTMXData={() => {}}
                     onGeojeTMNData={() => {}}
+                    onWandoWindSpeedData={() => {}}
+                    onWandoTMXData={() => {}}
+                    onWandoTMNData={() => {}}
+                    onShinanWindSpeedData={() => {}}
+                    onShinanTMXData={() => {}}
+                    onShinanTMNData={() => {}}
+                    onSuncheonWindSpeedData={() => {}}
+                    onSuncheonTMXData={() => {}}
+                    onSuncheonTMNData={() => {}}
+                    
                     />
                 </div>
                 )}
@@ -643,6 +667,15 @@
                     onGeojeWindSpeedData={() => {}}
                     onGeojeTMXData={() => {}}
                     onGeojeTMNData={() => {}}
+                    onWandoWindSpeedData={() => {}}
+                    onWandoTMXData={() => {}}
+                    onWandoTMNData={() => {}}
+                    onShinanWindSpeedData={() => {}}
+                    onShinanTMXData={() => {}}
+                    onShinanTMNData={() => {}}
+                    onSuncheonWindSpeedData={() => {}}
+                    onSuncheonTMXData={() => {}}
+                    onSuncheonTMNData={() => {}}
                     onUlsanWindSpeedData={(item) => (
                         <div>
                         <p>풍속: {item.fcstValue} m/s</p>
@@ -683,6 +716,15 @@
                     onGeojeWindSpeedData={() => {}}
                     onGeojeTMXData={() => {}}
                     onGeojeTMNData={() => {}}
+                    onWandoWindSpeedData={() => {}}
+                    onWandoTMXData={() => {}}
+                    onWandoTMNData={() => {}}
+                    onShinanWindSpeedData={() => {}}
+                    onShinanTMXData={() => {}}
+                    onShinanTMNData={() => {}}
+                    onSuncheonWindSpeedData={() => {}}
+                    onSuncheonTMXData={() => {}}
+                    onSuncheonTMNData={() => {}}
                     onGoheungWindSpeedData={(item) => (
                         <div>
                         <p>풍속: {item.fcstValue} m/s</p>
@@ -720,6 +762,15 @@
                     onGeojeWindSpeedData={() => {}}
                     onGeojeTMXData={() => {}}
                     onGeojeTMNData={() => {}}
+                    onWandoWindSpeedData={() => {}}
+                    onWandoTMXData={() => {}}
+                    onWandoTMNData={() => {}}
+                    onShinanWindSpeedData={() => {}}
+                    onShinanTMXData={() => {}}
+                    onShinanTMNData={() => {}}
+                    onSuncheonWindSpeedData={() => {}}
+                    onSuncheonTMXData={() => {}}
+                    onSuncheonTMNData={() => {}}
                     onYeosuWindSpeedData={(item) => (
                         <div>
                         <p>풍속: {item.fcstValue} m/s</p>
@@ -733,6 +784,143 @@
                         </div>
                     )}
                     onYeosuTMNData={(item) => (
+                        <div>
+                        <p> 최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                        </div>
+                    )}
+                    />
+                    {/* ___________________________________________ */}
+                    <h2>완도 날씨 정보</h2>
+                    {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+                    <Weather
+                    onPohangWindSpeedData={() => {}}
+                    onPohangTMXData={() => {}}
+                    onPohangTMNData={() => {}}
+                    onUlsanWindSpeedData={() => {}}
+                    onUlsanTMXData={() => {}}
+                    onUlsanTMNData={() => {}}
+                    onGoheungWindSpeedData={() => {}}
+                    onGoheungTMXData={() => {}}
+                    onGoheungTMNData={() => {}}
+                    onYeosuWindSpeedData={() => {}}
+                    onYeosuTMXData={() => {}}
+                    onYeosuTMNData={() => {}}
+                    onGeojeWindSpeedData={() => {}}
+                    onGeojeTMXData={() => {}}
+                    onGeojeTMNData={() => {}}
+                    onShinanWindSpeedData={() => {}}
+                    onShinanTMXData={() => {}}
+                    onShinanTMNData={() => {}}
+                    onSuncheonWindSpeedData={() => {}}
+                    onSuncheonTMXData={() => {}}
+                    onSuncheonTMNData={() => {}}
+                    onWandoWindSpeedData={(item) => (
+                        <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onWandoTMXData={(item) => (
+                        <div>
+                        <p> 최고 기온 : {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onWandoTMNData={(item) => (
+                        <div>
+                        <p> 최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                        </div>
+                    )}
+                    />
+                    {/* _______________________________________________________ */}
+                    <h2> 신안 날씨 정보</h2>
+                    {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+                    <Weather
+                    onPohangWindSpeedData={() => {}}
+                    onPohangTMXData={() => {}}
+                    onPohangTMNData={() => {}}
+                    onUlsanWindSpeedData={() => {}}
+                    onUlsanTMXData={() => {}}
+                    onUlsanTMNData={() => {}}
+                    onGoheungWindSpeedData={() => {}}
+                    onGoheungTMXData={() => {}}
+                    onGoheungTMNData={() => {}}
+                    onYeosuWindSpeedData={() => {}}
+                    onYeosuTMXData={() => {}}
+                    onYeosuTMNData={() => {}}
+                    onWandoWindSpeedData={() => {}}
+                    onWandoTMXData={() => {}}
+                    onWandoTMNData={() => {}}
+                    onGeojeWindSpeedData={() => {}}
+                    onGeojeTMXData={() => {}}
+                    onGeojeTMNData={() => {}}
+                    onSuncheonWindSpeedData={() => {}}
+                    onSuncheonTMXData={() => {}}
+                    onSuncheonTMNData={() => {}}
+                    onShinanWindSpeedData={(item) => (
+                        <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onShinanTMXData={(item) => (
+                        <div>
+                        <p> 최고 기온 : {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onShinanTMNData={(item) => (
+                        <div>
+                        <p> 최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                        </div>
+                    )}
+                    />
+                    <h2> 순천 날씨 정보</h2>
+                    {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+                    <Weather
+                    onPohangWindSpeedData={() => {}}
+                    onPohangTMXData={() => {}}
+                    onPohangTMNData={() => {}}
+                    onUlsanWindSpeedData={() => {}}
+                    onUlsanTMXData={() => {}}
+                    onUlsanTMNData={() => {}}
+                    onGoheungWindSpeedData={() => {}}
+                    onGoheungTMXData={() => {}}
+                    onGoheungTMNData={() => {}}
+                    onYeosuWindSpeedData={() => {}}
+                    onYeosuTMXData={() => {}}
+                    onYeosuTMNData={() => {}}
+                    onWandoWindSpeedData={() => {}}
+                    onWandoTMXData={() => {}}
+                    onWandoTMNData={() => {}}
+                    onGeojeWindSpeedData={() => {}}
+                    onGeojeTMXData={() => {}}
+                    onGeojeTMNData={() => {}}
+                    onShinanWindSpeedData={() => {}}
+                    onShinanTMXData={() => {}}
+                    onShinanTMNData={() => {}}
+                    onSuncheonWindSpeedData={(item) => (
+                        <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onSuncheonTMXData={(item) => (
+                        <div>
+                        <p> 최고 기온 : {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onSuncheonTMNData={(item) => (
                         <div>
                         <p> 최저 기온 : {item.fcstValue} ℃</p>
                         <p>
@@ -762,6 +950,15 @@
                     onYeosuWindSpeedData={() => {}}
                     onYeosuTMXData={() => {}}
                     onYeosuTMNData={() => {}}
+                    onWandoWindSpeedData={() => {}}
+                    onWandoTMXData={() => {}}
+                    onWandoTMNData={() => {}}
+                    onShinanWindSpeedData={() => {}}
+                    onShinanTMXData={() => {}}
+                    onShinanTMNData={() => {}}
+                    onSuncheonWindSpeedData={() => {}}
+                    onSuncheonTMXData={() => {}}
+                    onSuncheonTMNData={() => {}}
                     onGeojeWindSpeedData={(item) => (
                         <div>
                         <p>풍속: {item.fcstValue} m/s</p>

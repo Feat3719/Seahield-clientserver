@@ -22,10 +22,12 @@ const MypageRegular = () => {
 
     const [scene, setScene] = useState(1);
     const [posts, setPosts] = useState([]);
+    // const [articleCtgr, setArticleCtgr] = useState("");
+    // const [articleTitle, setArticleTitle] = useState("");
 
     const [contractStatus, setContractStatus] = useState("");
     const [announceName, setAnnounceName] = useState("");
-
+    // const [contract, setContract] = useState("");
     const [reenteredPwd, setReenteredPwd] = useState("");
     const [pwdMatch, setPwdMatch] = useState(true);
 
@@ -121,35 +123,37 @@ const MypageRegular = () => {
 
 
 
+
+
     //계약 항목 조회
     useEffect(() => {
-        const contractDetail = async () => {
-            try {
-                const response = await axios.get('/api/contract/details/102',
-                    {
-                        headers: {
-                            Authorization: `Bearer ${accessToken}`,
-                        },
-                    }
-                )
-                console.log("트롸이!");
-                alert("1번 통과")
+    const contractDetail = async() => {
+        try {
+            const response = await axios.get('/api/contract/details/102',
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    },
+            }
+            )
+            console.log("트롸이!");
+            alert("1번 통과")
 
                 if (response.status === 200) {
                     setContractStatus(response.data.contractStatus)
                     setAnnounceName(response.data.announceName)
                     // setContract(response.data)
                 }
-                console.log("트롸잇!");
+            console.log("트롸잇!");
 
-            } catch (error) {
-                console.error("삐용삐용 에러! 에러!", error)
-            }
-
+        } catch(error) {
+            console.error("삐용삐용 에러! 에러!", error)
         }
-        contractDetail();
-
-    }, [accessToken]);
+        
+    }
+    contractDetail();
+    
+    },[accessToken]);
 
 
     // 비밀번호 변경 핸들러
@@ -272,29 +276,29 @@ const MypageRegular = () => {
             );
         }
 
-        // case 3:
-        else if (scene === 3) {
-            return (
-                <div className={style.contract_title}>
-                    <table className={style.my_table}>
-                        <thead className={style.contract_title}>
-                            <tr>
-                                <td style={{ width: "45vw" }} className={style.my_td}>관할 지차제</td>
-                                <td style={{ width: "45vw", borderBottom: "black 1px solid" }} className={style.my_td}>공고명</td>
-                                <td style={{ width: "45vw", borderBottom: "black 1px solid" }} className={style.my_td}>승인여부</td>
-                            </tr>
-                        </thead>
-                        <tbody className={style.contract_table}>
-                            {/* 예제 데이터 또는 상태 변수를 매핑 */}
-                            <tr>
-                                <td className={style.my_td}>{userType}</td> {/* 관할 지차제 정보, 예시로 userType 사용 */}
-                                <td className={style.my_td}>{announceName}</td> {/* 공고명 */}
-                                <td className={style.my_td}>{contractStatus}</td> {/* 승인여부 */}
-                            </tr>
-                            {/* 더 많은 행을 매핑하려면 여기에 반복문을 사용 */}
-                        </tbody>
-                    </table>
-                    {/* <div className={style.myslide_form}>
+            // case 3:
+            else if (scene === 3) {
+                return (
+                    <div className={style.contract_title}>
+                        <table className={style.my_table}>
+                            <thead className={style.contract_title}>
+                                <tr>
+                                    <td style={{ width: "45vw" }} className={style.my_td}>관할 지차제</td>
+                                    <td style={{ width: "45vw", borderBottom: "black 1px solid" }} className={style.my_td}>공고명</td>
+                                    <td style={{ width: "45vw", borderBottom: "black 1px solid" }} className={style.my_td}>승인여부</td>
+                                </tr>
+                            </thead>
+                            <tbody className={style.contract_table}>
+                                {/* 예제 데이터 또는 상태 변수를 매핑 */}
+                                <tr>
+                                    <td className={style.my_td}>{userType}</td> {/* 관할 지차제 정보, 예시로 userType 사용 */}
+                                    <td className={style.my_td}>{announceName}</td> {/* 공고명 */}
+                                    <td className={style.my_td}>{contractStatus}</td> {/* 승인여부 */}
+                                </tr>
+                                {/* 더 많은 행을 매핑하려면 여기에 반복문을 사용 */}
+                            </tbody>
+                        </table>
+                        {/* <div className={style.myslide_form}>
                             <Myslide />
                         </div> */}
                 </div>
@@ -349,14 +353,14 @@ const MypageRegular = () => {
                                     {/* 내정보 수정페이지로 렌더링해야함 */}
 
 
-                                    <div>{/* <button type="submit">정보 수정</button> */}</div>
-                                </div>
-                            </form>
-                            {/* <button onClick={updateUserInfo}>정보 수정</button> */}
-                            <button className={style.transBtn} onClick={() => changeScene(1)}>1번 장면으로(내가쓴글)</button>
-                            <button className={style.transBtn} onClick={() => changeScene(2)}>2번 장면으로(정보수정)</button>
-                            {/* <button className={style.transBtn} onClick={() => changeScene(3)}>3번 장면으로(계약관련)</button> */}
-                            <button className={style.transBtn} onClick={() => changeScene(4)}>4번 장면으로(수정전비번확인)</button>
+                    <div>{/* <button type="submit">정보 수정</button> */}</div>
+                    </div>
+                </form>
+                {/* <button onClick={updateUserInfo}>정보 수정</button> */}
+                <button className={style.transBtn} onClick={() => changeScene(1)}>1번 장면으로(내가쓴글)</button>
+                <button className={style.transBtn} onClick={() => changeScene(2)}>2번 장면으로(정보수정)</button>
+                {/* <button className={style.transBtn} onClick={() => changeScene(3)}>3번 장면으로(계약관련)</button> */}
+                <button className={style.transBtn} onClick={() => changeScene(4)}>4번 장면으로(수정전비번확인)</button>
 
                             {/* <button onClick={handleShowDetail}>정보 상세</button> */}
                         </div>
@@ -398,22 +402,23 @@ const MypageRegular = () => {
                                 {/* <button onClick={updateUserInfo}>정보 수정</button> */}
                                 {/* <button onClick={handleShowDetail}>내정보 상세보기</button> */}
 
-                                <div className="mypage_buttons">
-                                    {/* 장면에 따라 다른 JSX를 렌더링합니다. */}
-                                    {/* {renderScene()} */}
-                                    {/* 장면 변경 버튼을 추가합니다. */}
-                                    <button className={style.transBtn} onClick={() => changeScene(1)}>작성한 게시글</button>
-                                    <button className={style.transBtn} onClick={() => changeScene(3)}>수거계약신청내역</button>
-                                    <button className={style.transBtn} onClick={() => changeScene(4)}>회원정보수정</button>
-                                </div>
-                            </div>
-                        </div>
-                        {/* <div className={style.edit_1}>{renderScene()}</div> */}
+                    <div>
+                    {/* 장면에 따라 다른 JSX를 렌더링합니다. */}
+                    {/* {renderScene()} */}
+                    {/* 장면 변경 버튼을 추가합니다. */}
+                    <button className={style.transBtn} onClick={() => changeScene(1)}>1번 장면으로(내가 쓴글)</button>
+                    <button className={style.transBtn} onClick={() => changeScene(2)}>2번 장면으로(그냥수정)</button>
+                    <button className={style.transBtn} onClick={() => changeScene(3)}>3번 장면으로(계약관련)</button>
+                    <button className={style.transBtn} onClick={() => changeScene(4)}>4번 장면으로(수정전비번확인)</button>
                     </div>
-                )}
-                {/* 일반 조건 마감부분 --> 이 부분 사업자 페이지로 이용할거임 */}
+                </div>
+                </div>
+                {/* <div className={style.edit_1}>{renderScene()}</div> */}
             </div>
-            {/* <div className={style.myslide_form}>
+            )}
+            {/* 일반 조건 마감부분 --> 이 부분 사업자 페이지로 이용할거임 */}
+        </div>
+        {/* <div className={style.myslide_form}>
                 <Myslide />
             </div> */}
         </div>
