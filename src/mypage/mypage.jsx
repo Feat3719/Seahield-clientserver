@@ -29,16 +29,18 @@
 
 //     // },[] )
 
+
 //     return (
+        
 
 //         <div className={style.mypage}>
-//             <div className={style.my_info}>
+//             <div className={style.my_info}> 
 
 //             <h1>마이 페이지</h1>
 //             {/* {userRole === 'ADMIN' && (
 //             <p>관리자 페이지</p>
 //             )} */}
-//             {/* <p>사용자 이름:
+//             {/* <p>사용자 이름: 
 //                 {username}
 //                 </p> */}
 //                     <div className={style.my_input_wrapper}>
@@ -74,7 +76,7 @@
 //                         </div>
 //                     </div>
 
-//                     <div className={style.contract}>
+//                     <div className={style.contract}> 
 //                         <label>예약 내역</label>
 
 //                         <div className={style.contract_title}>
@@ -127,6 +129,10 @@
 //                         </div>
 //                     </div>
 
+
+
+            
+            
 //             </div>
 
 //         </div>

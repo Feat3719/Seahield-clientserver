@@ -54,13 +54,6 @@ function AdminPage() {
               >
                 게시글
               </div>
-              <div
-                onClick={() => handleTabClick("cameras")}
-                className={`${style.tab} ${selectedTab === "cameras" ? style.activeTab : ""
-                  }`}
-              >
-                카메라
-              </div>
             </div>
 
             <div className={style.tabContent}>
@@ -85,7 +78,6 @@ function AdminPage() {
                 </div>
               )}
 
-              {selectedTab === "cameras" && <p>카메라</p>}
             </div>
           </div>
         </motion.div>

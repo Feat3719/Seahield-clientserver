@@ -4,13 +4,12 @@ import axios from "axios";
 import Posts from "./Posts";
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
 
 function BoardList({ category, tabName, userType }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(3);
+    const [postsPerPage] = useState(10);
     // const usertype = useSelector((state) => state.auth.usertype);
     // console.log(usertype);
 
@@ -55,6 +54,7 @@ function BoardList({ category, tabName, userType }) {
                             <td className={style.article_user}>작성자</td>
                             <td className={style.article_reads}>조회수</td>
                             <td className={style.article_like}>좋아요</td>
+                            <td className={style.article_date}>작성 날짜</td>
                         </tr>
                     </thead>
                     <tbody className={style.tbody}>
@@ -68,7 +68,7 @@ function BoardList({ category, tabName, userType }) {
             {showWriteButton && (
                 <div id={style.buttonBox}>
                     <Link to="/boardwrite">
-                        <button className={style.button}>글쓰기</button>
+                        <button className={style.boardlist_btn}>글쓰기</button>
                     </Link>
                 </div>
             )}

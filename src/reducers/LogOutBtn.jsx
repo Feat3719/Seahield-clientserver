@@ -1,38 +1,64 @@
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import style from "./LogOutBtn.module.css";
+import style from "../sidenav/Sidenav.module.css";
+import Swal from "sweetalert2";
 
 function LogOutBtn() {
     const dispatch = useDispatch();
-    // Redux 상태에서 userId 가져오기
-    const userId = useSelector((state) => state.auth.user);
+    const accessToken = useSelector((state) => state.auth.accessToken);
+    const expiration = useSelector((state) => state.auth.expiration);
     const navigate = useNavigate();
 
-    const handleLogout = async () => {
-        if (userId) {
-            // 서버에 로그아웃 요청 보내기
-            try {
+    // handleLogout 함수에 useCallback 적용
+    const handleLogout = useCallback(async () => {
+        try {
+            if (accessToken.length > 0) {
                 await axios.post("/api/auth/signout", {}, { withCredentials: true });
-                // 쿠키에서 refreshToken 삭제
-                document.cookie =
-                    "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            } catch (error) {
-                // alert("다시 시도해주시기 바랍니다.");
+                dispatch({ type: "LOGOUT" });
+                navigate("/");
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "잘못된 접근입니다.",
+                });
+                dispatch({ type: "LOGOUT" });
+                navigate("/");
             }
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "서버 오류",
+                text: "다시 시도해 주시기 바랍니다.",
+            });
+        }
+    }, [accessToken, dispatch, navigate]); // handleLogout이 의존하는 값들을 의존성 배열에 포함
+
+    useEffect(() => {
+        let logoutTimer;
+        if (accessToken.length > 0 && expiration) {
+            const signOutTimer = expiration * 1000;
+
+            logoutTimer = setTimeout(() => {
+                handleLogout();
+                Swal.fire({
+                    title: "토큰 만료",
+                    text: "다시 로그인 해주세요",
+                    icon: "warning",
+                    confirmButtonText: "확인",
+                });
+                navigate("/");
+            }, signOutTimer);
         }
 
-        // Redux 상태 업데이트
-        dispatch({ type: "LOGOUT" });
-        navigate('/');
-        // 홈페이지로 리디렉션
-        // window.location.href = "/";
-    };
+        return () => clearTimeout(logoutTimer); // 컴포넌트 언마운트 시 타이머 제거
+    }, [expiration, handleLogout, navigate, accessToken.length]); // 의존성 배열에 handleLogout 추가
 
     return (
-        <p className={style.logout} onClick={handleLogout}>
+        <span className={style.itemTxt} onClick={handleLogout}>
             로그아웃
-        </p>
+        </span>
     );
 }
 

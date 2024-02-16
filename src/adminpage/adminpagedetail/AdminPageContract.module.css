@@ -1,21 +1,24 @@
 @keyframes shimmer {
     0% {
-        background-position: -20rem 0;
+        background-position: -40rem -20rem;
+        /* 시작 위치 변경 */
     }
 
     100% {
-        background-position: 20rem 0;
+        background-position: 40rem 20rem;
+        /* 종료 위치 변경 */
     }
 }
 
 .admincontract_title {
     font-size: 4vh;
     color: white;
+    margin: 3vh 0 3vh 0;
 }
 
 .skeleton_shimmer {
     animation: shimmer 2s infinite linear;
-    background: linear-gradient(to right, #eff1f3 8%, #828282 18%, #bdbdbd 33%);
+    background: linear-gradient(to right, #ffffff 8%, #dedede 18%, #d6d6d6 33%);
     background-size: 40rem 100%;
 }
 
@@ -64,7 +67,7 @@
     /* 버튼 배경색 */
     color: #ffffff;
     /* 대비되는 어두운 텍스트 색상 */
-    border: 0.2vh solid #5164f5;
+    border: none;
     /* 버튼 가장자리를 정의하는 경계선 */
     padding: 0.5vh 1vh;
     /* 버튼 내부 여백 */
@@ -79,7 +82,7 @@
 
 .pagination1 button:hover,
 .pagination1 button:focus {
-    background-color: #1122a8;
+    background-color: rgb(89, 139, 255);
     color: rgb(255, 255, 255);
 }
 
@@ -147,4 +150,149 @@
 .admin_rejectbtn:hover {
     background-color: rgb(239, 138, 138);
     box-shadow: 0 1vh 3vh rgb(0, 0, 0);
+}
+
+/* ContractModal */
+
+.modalBackground {
+    position: fixed;
+    /* 고정 위치 */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(88, 88, 88, 0.813);
+    /* 반투명 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* 다른 요소 위에 표시 */
+}
+
+.modalContent {
+    background: #151515;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 50%;
+    /* 모달의 너비 */
+    max-width: 500px;
+    /* 모달의 최대 너비 */
+    z-index: 1001;
+}
+
+.modalcontent_title {
+    font-size: 3vh;
+    margin-bottom: 4vh;
+}
+
+.admin_contract_click {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.admin_contract_click:hover {
+    background-color: #5164f5;
+}
+
+.modalcontent_detail {
+    font-size: 2vh;
+}
+
+
+@media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {}
+
+@media all and (min-width:480px) and (max-width:767px) {
+
+    .admincontract_table,
+    .admincontract_table thead,
+    .admincontract_table tbody,
+    .admincontract_table th,
+    .admincontract_table td,
+    .admincontract_table tr {
+        display: block;
+    }
+
+    .admincontract_table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .admincontract_table td {
+        /* 모든 td에 block 속성을 줘서 한 줄에 하나의 셀만 나오도록 함 */
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    .admincontract_table td:before {
+        /* 각 셀 앞에 라벨을 추가 */
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        /* 'data-label' 속성의 텍스트를 이용해서 라벨을 만듬 */
+        content: attr(data-label);
+    }
+
+    .admin_approvebtn,
+    .admin_rejectbtn {
+        /* 버튼 크기 조정 */
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+@media all and (min-width:200px) and (max-width:479px) {
+
+    .admincontract_table,
+    .admincontract_table thead,
+    .admincontract_table tbody,
+    .admincontract_table th,
+    .admincontract_table td,
+    .admincontract_table tr {
+        display: block;
+    }
+
+    .admincontract_table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .admincontract_table td {
+        /* 모든 td에 block 속성을 줘서 한 줄에 하나의 셀만 나오도록 함 */
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    .admincontract_table td:before {
+        /* 각 셀 앞에 라벨을 추가 */
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        /* 'data-label' 속성의 텍스트를 이용해서 라벨을 만듬 */
+        content: attr(data-label);
+    }
+
+    .admin_approvebtn,
+    .admin_rejectbtn {
+        /* 버튼 크기 조정 */
+        width: 100%;
+        margin: 5px 0;
+    }
 }

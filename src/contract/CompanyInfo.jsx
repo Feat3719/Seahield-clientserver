@@ -1,33 +1,30 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import DaumPost from "../daumpost/DaumPost";
 import Wrapper from "../pagechange/Wrapper";
 import Sidenav from "../sidenav/Sidenav";
 import style from "./CompanyInfo.module.css";
 import { motion } from "framer-motion";
+import Swal from 'sweetalert2';
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function CompanyInfo() {
+  const navigate = useNavigate();
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const [address, setAddress] = useState("");
   const [companyRegistNum, setCompanyRegistNum] = useState("");
   const [ceoName, setCeoName] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [socialSecurityNumber, setSocialSecurityNumber] = useState("");
+  const [detailAddress, setDetailAddress] = useState("");
+
+
+
 
   useEffect(() => {
     const fetchCompanyInfo = async () => {
-      // 'persist:root'에서 정보 가져오기
-      const persistRoot = localStorage.getItem("persist:root");
-      let accessToken = null;
-
-      if (persistRoot) {
-        const root = JSON.parse(persistRoot);
-        // 'auth' 객체 내에서 accessToken 추출
-        if (root.auth) {
-          const auth = JSON.parse(root.auth);
-          accessToken = auth.accessToken;
-        }
-      }
 
       if (!accessToken) {
         console.error("회사 정보 가져오기 실패: 액세스 토큰이 없습니다.");
@@ -47,14 +44,16 @@ function CompanyInfo() {
         }
       } catch (error) {
         console.error("회사 정보 가져오기 실패:", error);
-        alert(
-          "회사 정보를 가져오는 중 오류가 발생했습니다. 나중에 다시 시도해주세요."
-        );
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '회사 정보를 가져오는 중 오류가 발생했습니다. 나중에 다시 시도해주세요.',
+        });
       }
     };
 
     fetchCompanyInfo();
-  }, []);
+  }, [accessToken]); // accessToken 의존성 추가
 
   const handlePhoneNumberChange = (e) => {
     const { value } = e.target;
@@ -85,42 +84,87 @@ function CompanyInfo() {
     }
   };
 
-  const saveData = async () => {
+  // 상세주소 입력 핸들러 함수
+  const handleDetailAddressChange = (e) => {
+    setDetailAddress(e.target.value);
+  };
+
+
+  const saveData = useCallback(async () => {
+    // 모든 필수 입력 확인
+    if (!address || !companyRegistNum || !ceoName || !companyName || !phoneNumber || !socialSecurityNumber || !detailAddress) {
+      Swal.fire({
+        icon: 'warning',
+        title: '필수 정보 누락',
+        text: '항목을 모두 채워주세요.',
+      });
+      return;
+    }
+
+
+    // 전체 주소를 합침
+    const fullAddress = `${address} ${detailAddress}`;
+
     const formattedPhoneNumber = phoneNumber.replace(/\D/g, "");
     const payload = {
-      companyRegistNum: companyRegistNum,
-      companyName: companyName,
+      companyRegistNum,
+      companyName,
       userNickname: ceoName,
-      companyAddress: address,
+      companyAddress: fullAddress, // 주소와 상세주소를 합친 값을 전송
       companyContact: formattedPhoneNumber,
     };
 
     try {
       const response = await axios.post("/api/company/info", payload, {
         headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem("persist:root") &&
-            JSON.parse(localStorage.getItem("persist:root")).auth
-              ? JSON.parse(
-                  JSON.parse(localStorage.getItem("persist:root")).auth
-                ).accessToken
-              : ""
-          }`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
 
       if (response.status === 201) {
-        alert("회사 정보가 성공적으로 등록되었습니다.");
-        // 성공적으로 데이터가 저장된 후 필요한 로직을 여기에 추가하세요. 예를 들어, 페이지를 새로고침하거나 다른 페이지로 리다이렉션할 수 있습니다.
+        Swal.fire({
+          title: '성공!',
+          text: '입찰신청이 성공적으로 완료되었습니다. 수거계약신청 페이지로 이동하시겠습니까?',
+          icon: 'success',
+          showCancelButton: true,
+          confirmButtonText: '예',
+          cancelButtonText: '아니요',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate('/contract'); // '예'를 선택한 경우
+          } else {
+            navigate('/map'); // '아니요'를 선택한 경우
+          }
+        });
       }
     } catch (error) {
       console.error("회사 정보 등록 실패:", error);
-      alert(
-        "회사 정보를 등록하는 중 오류가 발생했습니다. 나중에 다시 시도해주세요."
-      );
+      Swal.fire({
+        icon: 'error',
+        title: '등록 실패',
+        text: '회사 정보를 등록하는 중 오류가 발생했습니다. 나중에 다시 시도해주세요.',
+      });
       // 에러 처리 로직을 여기에 추가하세요.
     }
-  };
+  }, [accessToken, address, companyRegistNum, ceoName, companyName, phoneNumber, socialSecurityNumber, detailAddress, navigate]);
+
+
+  useEffect(() => {
+    const handleEnterPress = (event) => {
+      if (event.keyCode === 13) {
+        saveData();
+      }
+    };
+
+    // 엔터 키 이벤트 리스너 등록
+    document.addEventListener("keydown", handleEnterPress);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      document.removeEventListener("keydown", handleEnterPress);
+    };
+  }, [saveData]);
+
 
   return (
     <Wrapper>
@@ -172,12 +216,17 @@ function CompanyInfo() {
                   <input
                     className={style.address_input}
                     placeholder="주소를 검색하세요."
-                    value={address} // 주소 상태를 입력창에 연결
-                    readOnly // 주소는 직접 입력하지 않고 DaumPost를 통해 받으므로 readOnly로 설정
+                    value={address}
+                    readOnly
                   />
                   <DaumPost setAddress={setAddress} />
                 </div>
-                <input className={style.form_input2} placeholder="상세주소" />
+                <input
+                  className={style.form_input2}
+                  placeholder="상세주소"
+                  value={detailAddress} // 상태 바인딩
+                  onChange={handleDetailAddressChange} // 변경 핸들러 연결
+                />
               </div>
             </div>
             <div className={style.form_date}>

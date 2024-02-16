@@ -1,5 +1,6 @@
 #announceDetailContainer {
     height: 100vh;
+    width: 100vw;
     background: rgb(39, 38, 38);
     display: flex;
     flex-direction: column;
@@ -7,195 +8,109 @@
 
 #pageTitleBox {
     width: 80%;
-    height: 40px;
+    height: 10%;
     margin: 50px auto 0 auto;
-
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-
-    background-image: linear-gradient(
-        to bottom,
-        rgb(166, 166, 167),
-        rgb(8, 8, 20)
-    );
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .pageTitle {
-    width: 90%;
-    line-height: 40px;
+    width: 70%;
+    margin-bottom: 5vh;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 0;
+    font-size: 2.3vh;
     color: white;
-    border: none;
-    margin: 0 auto;
 }
 
 #detailBox {
+    border: none;
+    border-radius: 1vh;
     width: 80%;
-    height: auto;
-    margin: 0 auto;
-    background-color: #343a43;
+    height: 80%;
+    margin: 0 auto 50px auto;
+    background-color: #00000081;
+}
+
+#tableBox {
+    width: 100%;
+    margin-top: 3vh;
+    display: flex;
+    justify-content: center;
 }
 
 .table {
-    /* border: 1px solid #000; */
     width: 90%;
-    border-collapse: collapse;
     color: white;
-    border-color: gray;
-    margin: 20px auto;
+    background-color: #373737;
+}
+
+.table td,
+.table th {
+    border-bottom: 0.1vh solid rgb(66, 66, 66);
+    text-align: center;
+}
+
+.thead tr {
+    background-color: #000;
+    /* 배경색을 검정색으로 설정 */
+    color: #fff;
+    /* 텍스트 색상을 흰색으로 설정 */
 }
 
 .number {
-    width: 30%;
-    text-align: center;
-    border-bottom: 1px solid gray;
+    width: 20%;
 }
 
 .title {
-    width: 40%;
-    text-align: center;
-    border-bottom: 1px solid gray;
+    width: 60%;
 }
 
 .writer {
-    width: 30%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.category {
-    width: 14%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.category_blank {
-    width: 16%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.reads {
     width: 20%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.reads_blank {
-    width: 20%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.like {
-    width: 14%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.like_blank {
-    width: 16%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-}
-
-.imgHeart {
-    width: 30px;
-    height: 30px;
 }
 
 .creDate {
-    width: 25%;
-    text-align: center;
-    border-bottom: 1px solid gray;
+    width: 20%;
 }
 
 .creDate_blank {
-    width: 25%;
-    text-align: center;
-    border-bottom: 1px solid gray;
+    width: 30%;
 }
 
 .updateDate {
-    width: 25%;
-    text-align: center;
-    border-bottom: 1px solid gray;
+    width: 30%;
 }
 
 .updateDate_blank {
-    width: 25%;
-    text-align: center;
-    border-bottom: 1px solid gray;
+    width: 20%;
 }
 
 .content {
     white-space: normal;
+    height: 30vh;
 }
 
-#button_box {
-    /* height: 40px;
-    line-height: 40px;
-    text-align: right; */
-
-    width: 80%;
-    text-align: right;
-    margin: 0 auto;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    background-color: #343a43;
+.link {
+    margin: 0 0 0 7vw;
 }
 
-#buttons {
-    width: 90%;
-    margin: 20px auto;
+.announce_list_btn {
+    cursor: pointer;
+    background-color: #d7d7d7;
+    border: none;
+    border-radius: 0.1vh;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin: 3vh 0;
+    font-size: 2vh;
 }
 
-.delete_button {
-    /* height: 35px; */
-    border-radius: 5px;
-    /* margin: 0 20px 0 0; */
-}
-
-.list_button {
-    /* height: 35px; */
-    border-radius: 5px;
-    /* margin: 0 5px 0 0; */
-}
-
-.update_button {
-    /* height: 35px; */
-    border-radius: 5px;
-    /* margin: 0 5px 0 0; */
-}
-
-#comment_box {
-    /* height: 40px;
-    line-height: 40px;
-    text-align: right; */
-
-    width: 80%;
-    /* text-align: right; */
-    margin: 20px auto;
-    /* border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px; */
-    border-radius: 10px;
-    background-color: #343a43;
-}
-
-#comment {
-    width: 90%;
-    margin: 20px auto;
-}
-
-.inputBox {
-    display: flex;
-    margin: 20px auto;
-    justify-content: space-evenly;
-}
-
-.input {
-    width: 50vw;
-}
-
-.commentListBox {
-    color: white;
+.announce_list_btn:hover {
+    background-color: #5164f5;
+    box-shadow: 0 1vh 3vh rgb(0, 0, 0);
 }
