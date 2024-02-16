@@ -37,11 +37,7 @@ function AdminPageContract() {
     }
   };
 
-  useEffect(() => {
-    if (accessToken) {
-      fetchContracts(); // accessToken이 있을 때만 계약 목록을 가져옵니다.
-    }
-  }, [accessToken]);
+
 
   const fetchContracts = useCallback(async () => {
     setIsLoading(true);
