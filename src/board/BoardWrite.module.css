@@ -13,11 +13,9 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 
-    background-image: linear-gradient(
-        to bottom,
-        rgb(166, 166, 167),
-        rgb(8, 8, 20)
-    );
+    background-image: linear-gradient(to bottom,
+            rgb(166, 166, 167),
+            rgb(8, 8, 20));
 }
 
 .pageTitle {
@@ -33,7 +31,7 @@
     height: auto;
     margin: 0 auto;
 
-    background-color: #343a43;
+    background-color: #121212a5;
 }
 
 #flex_box {
@@ -47,12 +45,12 @@
     width: 50%;
     color: white;
     border-color: gray;
-    background-color: #343a43;
+    background-color: #121212a5;
     /* margin: 10px auto 10px 40px; */
 }
 
 .input {
-    width: 90%;
+    width: 100%;
     height: 30px;
     border-radius: 5px;
 }
@@ -61,21 +59,41 @@
     width: 50%;
     color: white;
     border-color: gray;
-    background-color: #343a43;
     /* margin: 10px 40px 10px auto; */
     text-align: right;
 }
 
 .select {
-    height: 30px;
-    border-radius: 5px;
+    -webkit-appearance: none;
+    /* Chrome, Safari, Opera */
+    -moz-appearance: none;
+    /* Firefox */
+    appearance: none;
+    /* 표준 문법 */
+    width: 20vh;
+    background-image: url('../../public/images/down-arrow.svg');
+    background-position: right 1vh center;
+    background-size: 3vh;
+    background-repeat: no-repeat;
+    background-position: right center;
+    font-size: 1.5vh;
+    color: #000000;
+    padding: 0.6vh;
+    border: 0.1vh solid #ccc;
+    border-radius: 0.7vh;
+    box-sizing: border-box;
+}
+
+.select:focus {
+    border: 0.25vh solid #569bea;
+    outline: none;
 }
 
 .editor {
     width: 90%;
     color: black;
     border-color: gray;
-    background-color: #343a43;
+    background-color: #121212a5;
     margin: 20px auto;
 }
 
@@ -85,7 +103,7 @@
     margin: 0 auto;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-color: #343a43;
+    background-color: #121212a5;
 }
 
 .buttons {
@@ -94,10 +112,24 @@
 }
 
 .complete_button {
+    cursor: pointer;
+    height: 35px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.cancle_button {
+    cursor: pointer;
     height: 35px;
     border-radius: 5px;
 }
-.cancle_button {
-    height: 35px;
-    border-radius: 5px;
+
+.complete_button:hover {
+    background-color: #659deb;
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+}
+
+.cancle_button:hover {
+    background-color: rgb(239, 138, 138);
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
 }
