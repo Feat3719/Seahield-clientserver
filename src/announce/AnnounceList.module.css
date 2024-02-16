@@ -32,28 +32,18 @@
     margin: 20px auto;
 }
 
-.article_no {
+.announce_no {
     width: 20%;
     text-align: center;
 }
 
-.article_title {
-    width: 40%;
+.announce_name {
+    width: 60%;
     text-align: center;
 }
 
-.article_user {
-    width: 10%;
-    text-align: center;
-}
-
-.article_reads {
-    width: 15%;
-    text-align: center;
-}
-
-.article_like {
-    width: 15%;
+.announce_created_date {
+    width: 20%;
     text-align: center;
 }
 

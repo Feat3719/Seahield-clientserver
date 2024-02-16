@@ -4,15 +4,12 @@ import axios from "axios";
 import Posts from "./Posts";
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
 
 function BoardList({ category, tabName, userType }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(3);
-    // const usertype = useSelector((state) => state.auth.usertype);
-    // console.log(usertype);
 
     let showWriteButton = false;
     if (tabName === "자유게시판" || tabName === "질문게시판") {

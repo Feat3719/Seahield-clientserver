@@ -7,45 +7,20 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
         pageNumbers.push(i);
     }
 
-    const indexOfLastPageNumber = Math.min(
-        currentPage * 10,
-        pageNumbers.length
-    );
-    const indexOfFirstPageNumber = indexOfLastPageNumber - 9;
+    const currentPageGroup = Math.floor((currentPage - 1) / 10);
+    const startPage = currentPageGroup * 10 + 1;
+    const endPage = Math.min((currentPageGroup + 1) * 10, pageNumbers.length);
 
-    const currentPages = pageNumbers.slice(
-        indexOfFirstPageNumber - 1,
-        indexOfLastPageNumber
-    );
-
-    //     return (
-    //         <div id={style.pagination_box}>
-    //             <nav className={style.nav}>
-    //                 <div className={style.page_ul}>
-    //                     {pageNumbers.map((number) => (
-    //                         <div key={number} className={style.page_li}>
-    //                             <div
-    //                                 onClick={() => paginate(number)}
-    //                                 className={style.page_span}
-    //                             >
-    //                                 {number}
-    //                             </div>
-    //                         </div>
-    //                     ))}
-    //                 </div>
-    //             </nav>
-    //         </div>
-    //     );
-    // };
+    const currentPages = pageNumbers.slice(startPage - 1, endPage);
 
     return (
         <div id={style.pagination_box}>
             <nav className={style.nav}>
                 <div className={style.page_ul}>
-                    {currentPage > 10 && (
+                    {startPage > 1 && (
                         <div
                             className={style.page_li}
-                            onClick={() => paginate(currentPage - 10)}
+                            onClick={() => paginate(startPage - 1)}
                         >
                             <div className={style.page_span}>Pre</div>
                         </div>
@@ -53,12 +28,11 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
                     {currentPages.map((number) => (
                         <div
                             key={number}
-                            className={style.page_li}
-                            style={
+                            className={`${style.page_li} ${
                                 number === currentPage
-                                    ? { backgroundColor: "gray" }
-                                    : null
-                            }
+                                    ? style.currentPage
+                                    : style.otherPage
+                            }`}
                         >
                             <div
                                 onClick={() => paginate(number)}
@@ -68,10 +42,10 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
                             </div>
                         </div>
                     ))}
-                    {pageNumbers.length > indexOfLastPageNumber && (
+                    {endPage < pageNumbers.length && (
                         <div
                             className={style.page_li}
-                            onClick={() => paginate(currentPage + 10)}
+                            onClick={() => paginate(endPage + 1)}
                         >
                             <div className={style.page_span}>Next</div>
                         </div>
