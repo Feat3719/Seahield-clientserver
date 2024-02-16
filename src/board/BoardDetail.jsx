@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import Comment from "./Comment";
 import Sidenav from "../sidenav/Sidenav";
 import Swal from 'sweetalert2';
+import ReactAnimatedHeart from 'react-animated-heart';
+import Loading from "../loading/Loading";
 
 function BoardDetail() {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -17,6 +19,7 @@ function BoardDetail() {
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState("");
     const [isLiked, setIsLiked] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const categoryNames = {
         FREE: '자유게시판',
@@ -83,6 +86,7 @@ function BoardDetail() {
     };
 
     const handleComment = async () => {
+        setIsSubmitting(true); // 로딩 시작
         try {
             await axios.post(
                 "/api/board/comment",
@@ -94,10 +98,20 @@ function BoardDetail() {
                     headers: { Authorization: `Bearer ${accessToken}` },
                 }
             );
-            fetchPost();
-            setComments("");
+            fetchPost(); // 글을 다시 불러와서 댓글을 최신 상태로 갱신
+            setComments(""); // 입력 필드 초기화
         } catch (error) {
             console.error("Error", error);
+        } finally {
+            setIsSubmitting(false); // 로딩 종료
+        }
+    };
+
+    // 엔터 키 입력 감지 함수
+    const handleKeyDown = async (event) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault(); // 기본 동작 방지 (폼 제출 등)
+            await handleComment(); // 댓글 작성 함수 호출
         }
     };
 
@@ -159,25 +173,13 @@ function BoardDetail() {
                 <div id={style.button_box}>
 
                     <div id={style.buttons}>
-                        <button
-                            className={style.likeButton}
-                            onClick={handleLike}
-                        >
-                            좋아요
-                            {/* <img
-                                            className={style.imgHeart}
-                                            src={
-                                                isLiked
-                                                    ? `${process.env.PUBLIC_URL}/images/filledHeart.svg`
-                                                    : `${process.env.PUBLIC_URL}/images/emptyHeart.svg`
-                                            }
-                                        /> */}
-                        </button>
-
-                        {post.articleLikes}
-
-
-
+                        <div className={style.heart}>
+                            <ReactAnimatedHeart
+                                isClick={isLiked}
+                                onClick={() => handleLike()}
+                            />
+                            <div className={style.articleLikes}>{post.articleLikes}</div>
+                        </div>
 
 
                         <Link to="/boardtab">
@@ -201,17 +203,20 @@ function BoardDetail() {
                 <div id={style.comment_box}>
                     <div id={style.comment}>
                         <div className={style.inputBox}>
+                            <p className={style.comment}>댓글</p>
                             <input
                                 className={style.input}
                                 type="text"
                                 value={comments}
                                 onChange={(e) => setComments(e.target.value)}
+                                onKeyDown={handleKeyDown}
                             />
-                            <button
-                                className={style.inputButton}
-                                onClick={handleComment}
-                            >
-                                댓글 작성
+                            <button className={style.inputButton} onClick={handleComment}>
+                                {isSubmitting ? (
+                                    <Loading />
+                                ) : (
+                                    "작성하기"
+                                )}
                             </button>
                         </div>
                         <div className={style.commentListBox}>

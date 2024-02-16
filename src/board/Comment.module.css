@@ -8,6 +8,7 @@
     font-size: 14px;
     display: flex;
     width: 70vw;
+    align-items: center;
 }
 
 /* .commentLikesBox {
@@ -43,19 +44,66 @@
 }
 
 .like_button {
-    /* height: 35px; */
+    border: none;
+    cursor: pointer;
     border-radius: 5px;
-    /* margin: 0 20px 0 0; */
+    transition: background-color 0.3s ease;
+    margin-right: 1vh;
+}
+
+.like_button:hover {
+    background-color: #659deb;
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
 }
 
 .update_button {
-    /* height: 35px; */
+    border: none;
+    cursor: pointer;
     border-radius: 5px;
-    /* margin: 0 5px 0 0; */
+    transition: background-color 0.3s ease;
+    margin-right: 1vh;
+}
+
+.update_button:hover {
+    background-color: #7eeb65;
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
 }
 
 .delete_button {
-    /* height: 35px; */
+    border: none;
+    cursor: pointer;
     border-radius: 5px;
-    /* margin: 0 5px 0 0; */
+    transition: background-color 0.3s ease;
+    margin-right: 1vh;
+}
+
+.delete_button:hover {
+    background-color: rgb(239, 138, 138);
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+}
+
+.checkbox {
+    appearance: none;
+    /* 기본 체크박스 스타일 제거 */
+    background-color: transparent;
+    width: 2vh;
+    height: 2vw;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    border: none;
+    /* 추가된 부분: 테두리 제거 */
+    margin-right: 1vh;
+    /* 추가된 부분: 체크박스와 라벨 사이 간격 */
+}
+
+.checkbox:checked {
+    background-image: url('../../public/images/checkbox_white1.svg');
+    /* 체크된 상태의 이미지 */
+}
+
+.checkbox:not(:checked) {
+    background-image: url('../../public/images/checkbox_white2.svg');
+    /* 체크되지 않은 상태의 이미지 */
 }

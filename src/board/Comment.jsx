@@ -95,16 +95,16 @@ const Comment = ({ comments, fetchPost }) => {
                         ) : (
                             comment.commentContents
                         )}
-                        <div className={style.commentLikes}>
-                            {comment.commentLikes}
+                        <div className={style.commentUserId}>
+                            <div>{comment.userId}</div>
                         </div>
                         <div>
                             <div className={style.commentCreatedDate}>
                                 {FormatDatetime(comment.commentCreatedDate)}
                             </div>
                         </div>
-                        <div className={style.commentUserId}>
-                            <div>{comment.userId}</div>
+                        <div className={style.commentLikes}>
+                            {comment.commentLikes}
                         </div>
                     </div>
                 ))}
