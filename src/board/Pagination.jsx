@@ -53,12 +53,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
                     {currentPages.map((number) => (
                         <div
                             key={number}
-                            className={style.page_li}
-                            style={
-                                number === currentPage
-                                    ? { backgroundColor: "gray" }
-                                    : null
-                            }
+                            className={`${style.page_li} ${number === currentPage ? style.currentPage : style.otherPage}`}
                         >
                             <div
                                 onClick={() => paginate(number)}

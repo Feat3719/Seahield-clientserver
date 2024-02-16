@@ -33,3 +33,15 @@
         /* background-color: #263a6c; */
     }
 }
+
+.currentPage {
+    color: white;
+}
+
+.otherPage {
+    color: gray;
+}
+
+.page_li:hover {
+    color: blue;
+}
