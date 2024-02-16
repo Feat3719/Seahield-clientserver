@@ -1,3 +1,4 @@
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -7,9 +8,11 @@ import Swal from "sweetalert2";
 function LogOutBtn() {
     const dispatch = useDispatch();
     const accessToken = useSelector((state) => state.auth.accessToken);
+    const expiration = useSelector((state) => state.auth.expiration);
     const navigate = useNavigate();
 
-    const handleLogout = async () => {
+    // handleLogout 함수에 useCallback 적용
+    const handleLogout = useCallback(async () => {
         try {
             if (accessToken.length > 0) {
                 await axios.post("/api/auth/signout", {}, { withCredentials: true });
@@ -30,7 +33,27 @@ function LogOutBtn() {
                 text: "다시 시도해 주시기 바랍니다.",
             });
         }
-    };
+    }, [accessToken, dispatch, navigate]); // handleLogout이 의존하는 값들을 의존성 배열에 포함
+
+    useEffect(() => {
+        let logoutTimer;
+        if (accessToken.length > 0 && expiration) {
+            const signOutTimer = expiration * 1000;
+
+            logoutTimer = setTimeout(() => {
+                handleLogout();
+                Swal.fire({
+                    title: "토큰 만료",
+                    text: "다시 로그인 해주세요",
+                    icon: "warning",
+                    confirmButtonText: "확인",
+                });
+                navigate("/");
+            }, signOutTimer);
+        }
+
+        return () => clearTimeout(logoutTimer); // 컴포넌트 언마운트 시 타이머 제거
+    }, [expiration, handleLogout, navigate, accessToken.length]); // 의존성 배열에 handleLogout 추가
 
     return (
         <span className={style.itemTxt} onClick={handleLogout}>

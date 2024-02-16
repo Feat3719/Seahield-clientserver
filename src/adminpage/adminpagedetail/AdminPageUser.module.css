@@ -64,9 +64,8 @@
   /* 버튼 배경색 */
   color: #ffffff;
   /* 대비되는 어두운 텍스트 색상 */
-  border: 0.2vh solid #3343c3;
+  border: none;
   /* 버튼 가장자리를 정의하는 경계선 */
-  border-radius: 10vh;
   padding: 0.5vh 1vh;
   /* 버튼 내부 여백 */
   margin: 0 1vh;

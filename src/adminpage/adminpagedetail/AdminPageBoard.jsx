@@ -1,37 +1,47 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ArticleModal from "./ArticleModal";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import style from "./AdminPageBoard.module.css";
-import Loading from "../../loading/Loading";
+import Posts from "../../board/Posts";
+import Pagination from "../../board/Pagination";
 
 function AdminPageBoard() {
   const [activeTab, setActiveTab] = useState("FREE");
-  const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingArticle, setIsLoadingArticle] = useState(false);
-  const [selectedArticle, setSelectedArticle] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [articlesPerPage] = useState(10);
+  const [postsPerPage] = useState(10);
+  const [posts, setPosts] = useState([]);
+
 
   useEffect(() => {
-    fetchArticles(activeTab);
-  }, [activeTab, currentPage]);
-
-  const fetchArticles = async (articleCtgr) => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(`/api/board/articles?articleCtgr=${articleCtgr}`);
-      if (response.status === 200) {
-        setArticles(response.data);
+    const fetchPost = async () => {
+      setIsLoading(true);
+      try {
+        // `activeTab` 값을 기반으로 API 엔드포인트를 동적으로 결정합니다.
+        const categoryParam = activeTab; // 예시: "FREE", "QNA", "NOTICE"
+        const response = await axios.get(`/api/board/articles?articleCtgr=${categoryParam}`, {
+          params: {
+            page: currentPage,
+            limit: postsPerPage,
+          },
+        });
+        setPosts(response.data);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error("Error fetching articles:", error);
-      setArticles([]);
-    } finally {
-      setIsLoading(false);
-    }
+    };
+    fetchPost();
+  }, [activeTab, currentPage, postsPerPage]);
+
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentPosts = (posts) => {
+    let currentPosts = 0;
+    currentPosts = posts.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
   };
 
   const handleTabClick = (tab) => {
@@ -39,33 +49,11 @@ function AdminPageBoard() {
     setCurrentPage(1);
   };
 
-  const handleArticleClick = async (articleId) => {
-    setIsLoadingArticle(true);
-    try {
-      const response = await axios.get(`/api/board/article/${articleId}`);
-      if (response.status === 200) {
-        setSelectedArticle(response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching article details:", error);
-      setSelectedArticle(null);
-    } finally {
-      setIsLoadingArticle(false);
-    }
-  };
-
-  const totalPages = Math.ceil(articles.length / articlesPerPage);
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
-
   const skeletonCount = 3;
 
 
   return (
     <div className={style.adminboardpage}>
-      <h2 className={style.adminboard_title}>게시글 목록</h2>
       <div className={style.tabs}>
         <button
           onClick={() => handleTabClick("FREE")}
@@ -93,10 +81,10 @@ function AdminPageBoard() {
             <tr>
               <th>게시글 ID</th>
               <th>제목</th>
-              <th>작성일</th>
               <th>작성자</th>
               <th>조회수</th>
               <th>좋아요 수</th>
+              <th>작성일</th>
             </tr>
           </thead>
           <tbody>
@@ -124,58 +112,22 @@ function AdminPageBoard() {
                   </td>
                 </tr>
               ))
-              : // Ensure this opening parenthesis for the map function is removed
-              articles.map((article) => (
-                <tr key={article.articleId}>
-                  <td data-label="게시글 ID">{article.articleId}</td>
-                  <td data-label="제목" onClick={() => handleArticleClick(article.articleId)} className={style.articleTitle}>
-                    {article.articleTitle}
-                  </td>
-                  <td data-label="작성일">
-                    {new Date(article.articleCreatedDate).toLocaleString()}
-                  </td>
-                  <td data-label="작성자">{article.userId}</td>
-                  <td data-label="조회수">{article.articleViewCounts ?? "0"}</td>
-                  <td data-label="좋아요 수">{article.articleLikes}</td>
-                </tr>
-              ))}
+              : <Posts posts={currentPosts(posts)} isLoading={isLoading} />
+            }
           </tbody>
         </table>
       </div>
 
-      {isLoadingArticle && <Loading />}
-
-      {/* 페이지네이션 버튼 */}
-      <div className={style.pagination1}>
-        <button
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          {"<"}
-        </button>
-        {pageNumbers.map((number) => (
-          <button
-            key={number}
-            onClick={() => setCurrentPage(number)}
-            className={currentPage === number ? "active" : ""}
-          >
-            {number}
-          </button>
-        ))}
-        <button
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          {">"}
-        </button>
-
-        {selectedArticle && (
-          <ArticleModal
-            article={selectedArticle}
-            onClose={() => setSelectedArticle(null)}
-          />
-        )}
+      <div id={style.paginationBox}>
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={posts.length}
+          paginate={setCurrentPage}
+          currentPage={currentPage}
+        ></Pagination>
       </div>
+
+
     </div>
   );
 }

@@ -1,5 +1,4 @@
-#pagination_box {
-}
+#pagination_box {}
 
 .page_ul {
     list-style: none;
@@ -11,25 +10,27 @@
     display: inline-block;
     border: none;
     color: gray;
-
     width: 25px;
-    &:hover {
-        cursor: pointer;
-        color: white;
-        /* background-color: #263a6c; */
-    }
-    &:focus::after {
-        color: white;
-        /* background-color: #263a6c; */
-    }
 }
 
 .page_span {
     border: none;
-    &:hover::after,
-    &:focus::after {
-        border-radius: 100%;
-        color: white;
-        /* background-color: #263a6c; */
-    }
+}
+
+.active {
+    background-color: #5164f5;
+    /* 현재 페이지 번호의 배경색 */
+    color: white;
+    /* 현재 페이지 번호의 글자색 */
+    border-radius: 5px;
+    /* 배경에 둥근 모서리 추가 */
+}
+
+.page_li:hover,
+.active {
+    cursor: pointer;
+    background-color: #263a6c;
+    /* 호버 상태와 현재 페이지에 대한 배경색 */
+    color: white;
+    /* 호버 상태와 현재 페이지에 대한 글자색 */
 }

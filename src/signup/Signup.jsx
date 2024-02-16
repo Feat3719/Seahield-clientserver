@@ -9,15 +9,16 @@ import Swal from "sweetalert2";
 import Wrapper from "../pagechange/Wrapper";
 import Business from "../bisness/Business";
 import Loading from "../loading/Loading";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
   const location = useLocation(); // location 객체를 사용합니다.
   const [userid, setUserid] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(""); // 비밀번호 확인 상태 추가
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [detailAddress, setDetailAddress] = useState("");
   // const [userType, setUserType] = useState('');
@@ -36,6 +37,11 @@ function Signup() {
   // const [phoneTouched, setPhoneTouched] = useState(false);
   // const [detailAddressTouched, setDetailAddressTouched] = useState(false);
 
+  // 연락처, 인증 관련
+  const [displayPhone, setDisplayPhone] = useState(""); // 사용자에게 보여주는 용도
+  const [purePhone, setPurePhone] = useState(""); // 실제 처리에 사용하는 순수 숫자
+  const [isSmsSendBtnDisabled, setIsSmsSendBtnDisabled] = useState(false);
+  const [isSmsSendInputDisabled, setIsSmsSendInputDisabled] = useState(false);
   //빈칸 검증
   const [isUserIdValid, setIsUserIdValid] = useState(false);
   const [isUsernameValid, setIsUsernameValid] = useState(false);
@@ -69,39 +75,14 @@ function Signup() {
     setIsUsernameValid(username.trim() !== "");
     setIsPasswordValid(password.trim() !== "");
     setIsEmailValid(email.trim() !== "");
-    setIsPhoneValid(phone.trim() !== "");
+    setIsPhoneValid(purePhone.trim() !== "");
     // 상세주소는 선택적 필드일 수 있습니다. 필수인 경우 아래 로직 추가
     // setIsDetailAddressValid(detailAddress.trim() !== '');
-  }, [userid, username, password, email, phone, detailAddress]);
+  }, [userid, username, password, email, purePhone, detailAddress]);
 
   // 인증번호 입력값과 인증 상태를 관리하는 상태 변수 추가
   const [verificationCode, setVerificationCode] = useState("");
   const [isVerified, setIsVerified] = useState(false);
-
-  const handleVerificationSubmit = () => {
-    // 인증번호 검증 로직
-    // 예: 서버로 인증번호 검증 요청을 보내거나, 프론트엔드에서 간단한 검증 수행
-    // 여기서는 예시로 입력된 인증번호가 '1234'일 경우를 인증 성공으로 가정
-    if (verificationCode === "1234") {
-      setIsVerified(true);
-      Swal.fire({
-        title: "인증 성공",
-        text: "인증이 완료되었습니다.",
-        icon: "success",
-        confirmButtonText: "확인",
-        confirmButtonColor: "#8ce650b2",
-      });
-    } else {
-      // 인증번호가 일치하지 않을 때s
-      Swal.fire({
-        title: "인증 실패",
-        text: "인증번호가 일치하지 않습니다.",
-        icon: "error",
-        confirmButtonText: "확인",
-        confirmButtonColor: "#e65a50b2",
-      });
-    }
-  };
 
   // handleSignup을 조정하여 필드 유효성을 확인
   // handleSignup 함수
@@ -149,13 +130,11 @@ function Signup() {
       userPwd: password,
       userNickname: username,
       userEmail: email,
-      userContact: phone,
+      userContact: purePhone,
       userAddress: fullAddress,
       userType: userTypeValue,
       companyRegistNum: isBusinessUser ? companyRegistNum : null, // 사업자 사용자의 경우만 값을 전달
     };
-
-    console.log("회원가입 데이터:", signupData);
 
     try {
       const response = await axios.post("/api/auth/user", signupData);
@@ -172,9 +151,9 @@ function Signup() {
           cancelButtonText: "아니오",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "/signin";
+            navigate("/signin");
           } else {
-            window.location.href = "/";
+            navigate("/");
           }
         });
         setIsLoading(false);
@@ -201,13 +180,7 @@ function Signup() {
           icon: "error",
           confirmButtonText: "확인",
         });
-      } else {
-        Swal.fire({
-          text: "잘못된 접근입니다.",
-          icon: "error",
-        });
-        window.location.href = "/";
-      }
+      } else navigate("/");
     } finally {
       setIsLoading(false); // Ensure isLoading is set to false when the request is complete
     }
@@ -216,37 +189,118 @@ function Signup() {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-
   // 주소와 상세 주소를 합쳐서 하나의 문자열로 만드는 함수
   const getFullAddress = () => {
     return address + (detailAddress ? `, ${detailAddress}` : "");
   };
+  //////////////////////////////////// 휴대폰 인증 /////////////////////////////////////////
+  const handleVerificationSubmit = async () => {
+    // 인증번호 검증 로직
+    // 예: 서버로 인증번호 검증 요청을 보내거나, 프론트엔드에서 간단한 검증 수행
+    // 여기서는 예시로 입력된 인증번호가 '1234'일 경우를 인증 성공으로 가정
+    const response = await axios.post("/api/sms/check", {
+      userContact: purePhone,
+      code: verificationCode,
+    });
+    if (response.status === 200) {
+      Swal.fire({
+        title: "인증 성공",
+        text: "인증이 완료되었습니다.",
+        icon: "success",
+        confirmButtonText: "확인",
+        confirmButtonColor: "#8ce650b2",
+      });
+      setIsVerified(true);
+      setIsSmsSendInputDisabled(true);
+      setIsSmsSendBtnDisabled(true);
+      setIsSmsSend(false);
+    } else if (response.status === 404) {
+      Swal.fire({
+        title: "인증 실패",
+        text: "인증번호가 일치하지 않습니다.",
+        icon: "error",
+        confirmButtonText: "확인",
+        confirmButtonColor: "#e65a50b2",
+      });
+    } else {
+      Swal.fire({
+        title: "서버 오류",
+        text: "다시 시도해 주세요.",
+        icon: "error",
+        confirmButtonText: "확인",
+        confirmButtonColor: "#e65a50b2",
+      });
+    }
+  };
+  const handlePhoneChange = (e) => {
+    const { value } = e.target;
+    let cleaned = value.replace(/\D/g, ""); // 숫자가 아닌 모든 문자 제거
+    let formatted = "";
 
+    if (cleaned.length > 11) {
+      cleaned = cleaned.substring(0, 11); // 최대 11자리 숫자만 허용
+    }
+
+    // 하이픈 추가 로직
+    if (cleaned.length > 7) {
+      formatted = `${cleaned.substring(0, 3)}-${cleaned.substring(
+        3,
+        7
+      )}-${cleaned.substring(7)}`;
+    } else if (cleaned.length > 3) {
+      formatted = `${cleaned.substring(0, 3)}-${cleaned.substring(3)}`;
+    } else {
+      formatted = cleaned;
+    }
+
+    setDisplayPhone(formatted); // 하이픈이 포함된 형태로 상태 업데이트
+    setPurePhone(cleaned); // 하이픈이 제거된 순수 숫자 상태 업데이트
+  };
   //타이머 시간 설정
   const smsAuthBtn = async () => {
-    setIsSmsSend(true);
-    setTimer(180); // 타이머를 180초(3분)으로 설정
+    if (purePhone.length !== 11) {
+      Swal.fire({
+        text: "연락처를 올바른 형식으로 입력해주세요",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
+    } else {
+      setIsSmsSend(true);
+      setIsSmsSendBtnDisabled(true);
+      await axios.post("/api/sms/send", {
+        userContact: purePhone,
+      });
+      setTimer(180); // 타이머를 180초(3분)으로 설정
+    }
   };
 
   //타이머
+  let interval = null;
   useEffect(() => {
-    let interval = null;
+    console.log(interval);
     if (isSmsSend && timer > 0) {
       interval = setInterval(() => {
         setTimer(timer - 1);
       }, 1000);
     } else if (timer === 0) {
       clearInterval(interval);
-      // 타이머가 0이 되면 추가적인 처리를 할 수 있습니다 (예: 메시지 표시, 인증번호 입력 비활성화 등)
+      Swal.fire({
+        icon: "warning",
+        title: "휴대폰 인증 유효시간 만료",
+        text: "다시 시도하세요",
+        confirmButtonText: "확인",
+      });
+      navigate("/signup");
     }
     return () => clearInterval(interval);
-  }, [isSmsSend, timer]);
+  }, [isSmsSend, timer, navigate]);
 
   const formatTimer = () => {
     const minutes = Math.floor(timer / 60);
     const seconds = timer % 60;
     return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
   };
+  //////////////////////////////////// 휴대폰 인증 end /////////////////////////////////////////
 
   // 아이디 중복 상태와 검사 진행 상태
   const [isUserIdUnique, setIsUserIdUnique] = useState(null);
@@ -364,7 +418,6 @@ function Signup() {
     setIsEmailValid(validateEmail(email)); // onBlur 이벤트에서 유효성 검사 수행
   };
 
-
   return (
     <>
       {isLoading && <Loading />} {/* Show loading indicator when loading */}
@@ -445,11 +498,11 @@ function Signup() {
               <div className={style.input_wrapper}>
                 <div className={style.title_input}>
                   <label className={style.input_label}>
-                    {isBusinessUser ? "대표자이름" : "이름"}
+                    {isBusinessUser ? "CEO이름" : "이름"}
                   </label>
                   <input
                     type="text"
-                    placeholder={isBusinessUser ? "대표자이름" : "이름"}
+                    placeholder={isBusinessUser ? "CEO이름" : "이름"}
                     value={username}
                     onChange={(e) => {
                       setUsername(e.target.value);
@@ -573,16 +626,18 @@ function Signup() {
                       <input
                         type="text"
                         placeholder="연락처"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        value={displayPhone}
+                        onChange={handlePhoneChange}
                         className={style.sms_input1}
+                        disabled={isSmsSendInputDisabled}
                       />
-                      <div
+                      <button
                         onClick={smsAuthBtn}
                         className={style.send_code_button}
+                        disabled={isSmsSendBtnDisabled}
                       >
                         인증번호발송
-                      </div>
+                      </button>
                     </div>
                     {isSmsSend && (
                       <div className={style.sms_verification}>

@@ -7,6 +7,19 @@ import style from "./Posts.module.css";
 const Posts = ({ posts, loading }) => {
     const navigate = useNavigate();
 
+    // 날짜를 포맷하는 함수
+    const formatDate = (dateArray) => {
+        const date = new Date(Date.UTC(...dateArray));
+        return date.toLocaleDateString("ko-KR", {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        }).replace(/(\s오전|\s오후)/, ''); // '오전'과 '오후' 제거
+    };
+
     if (loading) {
         // 로딩 중 스켈레톤 표시
         return (
@@ -15,6 +28,7 @@ const Posts = ({ posts, loading }) => {
                     .fill(0)
                     .map((_, index) => (
                         <tr key={index}>
+                            <td><Skeleton className={style.skeleton_shimmer} /></td>
                             <td><Skeleton className={style.skeleton_shimmer} /></td>
                             <td><Skeleton className={style.skeleton_shimmer} /></td>
                             <td><Skeleton className={style.skeleton_shimmer} /></td>
@@ -42,7 +56,8 @@ const Posts = ({ posts, loading }) => {
                     <td className={style.article_title}>{post.articleTitle}</td>
                     <td className={style.article_user}>{post.userId}</td>
                     <td className={style.article_reads}>{post.articleViewCounts}</td>
-                    <td className={style.article_like}>{post.articleLikeCounts}</td>
+                    <td className={style.article_like}>{post.articleLikes}</td>
+                    <td className={style.article_date}>{formatDate(post.articleCreatedDate)}</td>
                 </tr>
             ))}
         </>
