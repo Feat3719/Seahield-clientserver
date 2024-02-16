@@ -10,25 +10,25 @@ import style from './MypageRegular.module.css';
 // import { baseUrl } from "./config";
 
 function SampleNextArrow(props) {
-    const { className ,onClick } = props;
+    const { className, onClick } = props;
     return (
         <div
             className={className}
             // style={{ ...style, display: "block", background:'red' }}
             onClick={onClick}
         />
-        );
-    }
+    );
+}
 function SamplePrevArrow(props) {
-    const { className ,onClick } = props;
+    const { className, onClick } = props;
     return (
         <div
             className={className}
             // style={{ ...style, display: "block", background:'red' }}
             onClick={onClick}
         />
-        );
-    }
+    );
+}
 
 
 const Myslide = () => {
@@ -56,49 +56,49 @@ const Myslide = () => {
     // 정보 불러오는 부분________________________________
     useEffect(() => {
         const fetchData = async () => {
-        const response = await axios.get("/api/user/info", {
-            headers: {
-            Authorization: `Bearer ${accessToken}`,
-            },
-        });
-        if (response.status === 200) {
-            setUserNickname(response.data.userNickname);
-        } else {
-            alert("다시 시도해 주세요");
-            window.location.href = "/";
-        }
-        };
-        fetchData();
-    }, [accessToken]);
-
-// 좋아요한 게시글 데이터를 불러오는 useEffect
-useEffect(() => {
-    const fetchLikePosts = async () => {
-        try {
-            const response = await axios.get('/api/user/articles-like', {
+            const response = await axios.get("/api/user/info", {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
             if (response.status === 200) {
-                setLikePosts(response.data); // 받아온 데이터를 posts 상태에 저장
+                setUserNickname(response.data.userNickname);
+            } else {
+                alert("다시 시도해 주세요");
+                window.location.href = "/";
             }
-        } catch (error) {
-            console.error("게시글을 불러오는 데 실패했습니다.", error);
-        }
-    };
+        };
+        fetchData();
+    }, [accessToken]);
 
-    if (userNickname) { // 사용자 닉네임이 설정되어 있을 때만 게시글 데이터를 불러옴
-        fetchLikePosts();
-    }
-}, [userNickname, accessToken]);
+    // 좋아요한 게시글 데이터를 불러오는 useEffect
+    useEffect(() => {
+        const fetchLikePosts = async () => {
+            try {
+                const response = await axios.get('/api/user/articles-like', {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                if (response.status === 200) {
+                    setLikePosts(response.data); // 받아온 데이터를 posts 상태에 저장
+                }
+            } catch (error) {
+                console.error("게시글을 불러오는 데 실패했습니다.", error);
+            }
+        };
+
+        if (userNickname) { // 사용자 닉네임이 설정되어 있을 때만 게시글 데이터를 불러옴
+            fetchLikePosts();
+        }
+    }, [userNickname, accessToken]);
 
 
 
     return (
         <div className={style.slide} >
             <Slider {...settings}>
-            {likeposts.length > 0 ? (
+                {likeposts.length > 0 ? (
                     likeposts.map((lpost) => (
                         <div key={lpost.id} className={style.slideBoard}>
                             <h2>{lpost.articleTitle}</h2> {/* 게시글 제목 */}
@@ -109,7 +109,7 @@ useEffect(() => {
                 ) : (
                     <div>좋아요한 게시글이 없습니다.</div>
                 )}
-            {/* <div className={style.slideBoard}>
+                {/* <div className={style.slideBoard}>
             <img src={process.env.PUBLIC_URL + '/images/img2.jpg'} alt="img2.jpg" style={{ width: '22vw', height: '35vh' }} 
             />
             </div>
@@ -124,6 +124,6 @@ useEffect(() => {
             </Slider>
         </div>
     );
-    };
+};
 
 export default Myslide;

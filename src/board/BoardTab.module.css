@@ -1,9 +1,9 @@
 #boardTabContainer {
-    height: 100vh;
     width: 100vw;
     background: rgb(39, 38, 38);
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 #tabBox {
@@ -80,4 +80,26 @@
     /* 활성 탭에 대해 선의 너비를 100%로 설정 */
     left: 0;
     /* 선의 위치를 왼쪽 끝으로 설정 */
+}
+
+@media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {}
+
+@media all and (min-width:480px) and (max-width:767px) {}
+
+@media all and (min-width:200px) and (max-width:479px) {
+    #tabBox {
+        height: 20%;
+    }
+
+    #tab {
+        flex-direction: column;
+    }
+
+    .tab {
+        width: 40%;
+        margin: 0 0 1vh 0;
+    }
+
 }

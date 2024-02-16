@@ -38,8 +38,6 @@ function Signin() {
                 },
                 { withCredentials: true }
             );
-            alert("response.data.accessToken")
-            alert("response.data.expiresIn")
             if (response.status === 201) {
                 const userIdInClient = userid;
                 dispatch({

@@ -52,18 +52,14 @@
 .currentPage .page_span {
     color: white;
     /* background-color: blue; */
-    
+
 }
 
 .otherPage .page_span {
     color: gray;
-}
-.currentPage .page_span:hover {
-    color: rgb(102, 22, 22);
-    /* background-color: blue; */
-    
+    transition: color 0.3s ease;
 }
 
 .otherPage .page_span:hover {
-    color: rgb(37, 94, 160);
+    color: #5164f5;
 }
