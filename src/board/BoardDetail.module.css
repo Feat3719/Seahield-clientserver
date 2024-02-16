@@ -92,6 +92,10 @@
     border-bottom: 1px solid gray;
 }
 
+.likeButton {
+    border-radius: 5px;
+}
+
 .like_blank {
     width: 16%;
     text-align: center;
@@ -194,6 +198,10 @@
 
 .input {
     width: 50vw;
+}
+
+.inputButton {
+    border-radius: 5px;
 }
 
 .commentListBox {

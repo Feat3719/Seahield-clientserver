@@ -61,12 +61,6 @@
   color: white;
 }
 
-/* 추가 스타일 */
-.activeTab {
-  color: white;
-  /* 활성 탭 텍스트 색상 */
-}
-
 .tabContent {
   border: 0.1vh solid #ccc;
   border-radius: 1vh;

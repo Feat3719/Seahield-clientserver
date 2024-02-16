@@ -1,80 +1,102 @@
-.mypage{
-    height: 180vh;
+.mypage {
+    height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #4b4b4b;
+    background-color: #000000e0;
 }
 
-.my_form{
-    /* border: 1px royalblue dotted; */
-    height: 160vh;
-    width: 95vw;
+.my_form {
+    width: 97vw;
+    height: 100%;
     align-items: baseline;
     display: flex;
+    border-radius: 3vh;
     flex-direction: column;
     text-align: center;
-    background-color: rgb(77, 77, 77);
+    background-color: rgb(39, 38, 38);
     margin-top: 2vh;
     margin-bottom: 0vh;
     border-radius: 10px;
     font-size: 3vh;
+    color: white;
 }
-.my_title{
-    position: absolute;    
+
+.my_title {
+    position: absolute;
     margin: 0 auto;
     left: 46vw;
     padding: 2vh 0 2vh 0;
     justify-content: center;
     display: flex;
 }
-.my_info{
-    /* border: 1px solid bisque; */
-    padding-top: 7.5vh;
-    background-color: rgba(255, 255, 255, 0.952);
-    height: 150vh;
-    font-size: 1vw;
+
+.my_info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #000000;
+    border-radius: 1vh;
+    margin: 0 2vh 0 1vh;
+    align-items: center;
+    height: 100%;
+    width: 20vh;
+    justify-content: space-evenly;
+    color: white;
 }
-.my_info_name{
+
+.my_info_name {
     font-size: 2vh;
 }
 
-.my_input_wrapper_1{
-        /* position: relative; */
-        /* border: 5px rgb(54, 90, 153) dotted; */
-        border-collapse: collapse;
-        width: 15vw;
-        height: 50vh;
-        left: 2vh;
-        font-size: 1vw;
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        text-align: end;
+.my_input_wrapper_1 {
+    /* position: relative; */
+    /* border: 5px rgb(54, 90, 153) dotted; */
+    border-collapse: collapse;
+    width: 15vw;
+    height: 50vh;
+    left: 2vh;
+    font-size: 1vw;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: end;
 }
+
 .my_input_wrapper_1 input {
     width: 20vw;
-    height : 5vh;
+    height: 5vh;
     font-size: 1.5vh;
     top: 0vh;
     gap: 5vh;
 
 }
-.editTable{
+
+.userinfo_id {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.editTable {
     position: relative;
     background-color: #9c9696e7;
     padding: 5vw 10%;
     display: flex;
     /* justify-content: first baseline; */
 }
-.editBtn{
+
+.editBtn {
     position: relative;
     justify-content: space-between;
 }
-.contract_table > tr > td {
+
+.contract_table>tr>td {
     border-collapse: collapse;
     border: 1px solid rgb(0, 0, 0);
 }
+
 /* 수정 폼 틀에 관함거 */
 /* .edit_form{
     justify-content: "space-between";
@@ -83,22 +105,24 @@
 } */
 
 
-.my_info_input_edit{
+.my_info_input_edit {
     width: 35vw;
 }
+
 /* .my_info_input_edit > p> div{
     width: 100vw;
 } */
-.my_info_input_edit > input{
+.my_info_input_edit>input {
     width: 100%;
 }
-.edit_input{
+
+.edit_input {
     width: 25vw;
     margin-bottom: 2.5vh;
 }
 
 
-.my_input_wrapper_2{
+.my_input_wrapper_2 {
     /* position: relative; */
     border: 5px rgb(25, 29, 36) dotted;
     border-collapse: collapse;
@@ -111,34 +135,39 @@
     flex-direction: column;
     text-align: center;
 }
-.contract_title{
+
+.contract_title {
     height: 10vh;
     /* width: 55vw; */
 }
-.contract_input{
+
+.contract_input {
     width: 55vw;
 }
-.contract_title thead{
+
+.contract_title thead {
     height: 10vh;
     background-color: #2e2d2d;
     color: #ffffff;
 }
-.contract_title > tr > td{
+
+.contract_title>tr>td {
     border-collapse: collapse;
     border: 1px solid black;
     background-color: #2e2d2d;
 }
 
-.my_table{
+.my_table {
     position: absolute;
     width: 60vw;
-    
+
     left: -12vw;
     background-color: #bdbbbb;
     border: 2px black solid;
     border-collapse: collapse;
 }
-.my_board{
+
+.my_board {
     overflow: auto;
     font-size: 3vh;
     width: 72vw;
@@ -151,12 +180,13 @@
     position: absolute;
     display: flex;
 }
-.contract_table{
+
+.contract_table {
     /* border: #9e4141 2px solid; */
     border-collapse: collapse;
 }
 
-.edit_1{
+.edit_1 {
     display: flex;
     /* border: #ca8181 2px dotted; */
     left: 42vw;
@@ -170,12 +200,13 @@
 
 /* _______myslide내용 관련__________ */
 
-.slide{
+.slide {
     display: contents;
     justify-content: space-between;
     width: 80vw;
 }
-.myslide_form{
+
+.myslide_form {
     position: absolute;
     background-color: #ffffff;
     width: 70vw;
@@ -186,7 +217,8 @@
     align-items: center;
     /* justify-content: space-between; */
 }
-.slideBoard{
+
+.slideBoard {
     display: 'flex';
     background-color: 'lightgrey';
     text-align: center;
@@ -195,7 +227,7 @@
     width: 25vw;
 }
 
-.liketitle{
+.liketitle {
     display: flex;
     justify-content: center;
 }
@@ -203,22 +235,26 @@
 /* _______myslide내용 관련__________ */
 
 
-.transBtn{
-    background-image: linear-gradient(to right, #e96d4e, #feb47b);
+.mypage_buttons {
+    width: 100%;
+}
+
+.transBtn {
+    background-image: linear-gradient(to bottom, rgb(166, 166, 167), rgb(8, 8, 20));
     color: white;
     display: flex;
-    width: 15vw;
     height: 5vh;
-    /* font-size: bold; */
-    font-weight: bold ;
-    transition: background-image 0.5s ease;
     cursor: pointer;
-    font-size: 1vw;
+    border-radius: 0.3vh;
+    font-size: 2vh;
+    width: 100%;
 }
+
 .transBtn:hover {
     background-image: linear-gradient(to right, #feb47b, #ff7e5f);
-    }
-.daumBtn{
+}
+
+.daumBtn {
     display: flex;
     text-align: center;
     justify-content: flex-end;
@@ -226,12 +262,12 @@
 }
 
 @media (max-width: 412px) {
-    .my_info{
+    .my_info {
         width: 20vw;
     }
 
-    .my_title{
-        position: absolute;    
+    .my_title {
+        position: absolute;
         font-size: 7vw;
         margin: 0 auto;
         left: 30vw;
@@ -239,7 +275,8 @@
         justify-content: center;
         display: flex;
     }
-    .my_table{
+
+    .my_table {
         position: relative;
         align-items: center;
         width: 50vw;
@@ -248,9 +285,9 @@
         margin-left: 19vw;
         top: 0vh;
     }
-    
-    
-    .my_input_wrapper_1{
+
+
+    .my_input_wrapper_1 {
         position: absolute;
         /* border: 5px rgb(25, 29, 36) dotted; */
         border-collapse: collapse;
@@ -262,44 +299,48 @@
         display: flex;
         flex-direction: column;
         text-align: end;
-}
-.my_input_wrapper_1 input{
-    width: 20vw;
-    height: 3vh;
-}
-.my_input_wrapper_1 button{
-    display: block;
-    width: 18vw;
-    left: 3vw;
-    height: 2vh;
-    font-size: 2vw;
-    align-items: center;
-}
-.transBtn{
-    background-image: linear-gradient(to right, #e96d4e, #feb47b);
-    color: white;
-    display: flex;
-    width: 15vw;
-    height: 5vh;
-    /* font-size: bold; */
-    font-weight: bold ;
-    transition: background-image 0.5s ease;
-    cursor: pointer;
-}
+    }
 
-.my_input_wrapper_2{
-    /* position: relative; */
-    /* border: 5px rgb(25, 29, 36) dotted; */
-    border-collapse: collapse;
-    width: 15vw;
-    height: 50vh;
-    left: 2vh;
-    font-size: 3vw;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
+    .my_input_wrapper_1 input {
+        width: 20vw;
+        height: 3vh;
+    }
+
+    .my_input_wrapper_1 button {
+        display: block;
+        width: 18vw;
+        left: 3vw;
+        height: 2vh;
+        font-size: 2vw;
+        align-items: center;
+    }
+
+    .transBtn {
+        background-image: linear-gradient(to right, #e96d4e, #feb47b);
+        color: white;
+        display: flex;
+        width: 15vw;
+        height: 5vh;
+        /* font-size: bold; */
+        font-weight: bold;
+        transition: background-image 0.5s ease;
+        cursor: pointer;
+    }
+
+    .my_input_wrapper_2 {
+        /* position: relative; */
+        /* border: 5px rgb(25, 29, 36) dotted; */
+        border-collapse: collapse;
+        width: 15vw;
+        height: 50vh;
+        left: 2vh;
+        font-size: 3vw;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
     .my_board {
         overflow: auto;
         font-size: 3vh;
@@ -312,11 +353,13 @@
         margin-left: 10vw;
         display: flex;
     }
-    .contract_title{
+
+    .contract_title {
         font-size: 4vw;
         width: 20vw;
     }
-    .edit_1{
+
+    .edit_1 {
         display: flex;
         /* border: #ca8181 2px dotted; */
         left: 29vw;
@@ -326,7 +369,8 @@
         height: 70vh;
         justify-content: center;
     }
-    .myslide_form{
+
+    .myslide_form {
         position: absolute;
         width: 55vw;
         height: 30vh;
@@ -336,26 +380,30 @@
         border: 2px #ca8181 solid;
         align-items: center;
     }
-    .slideBoard{
+
+    .slideBoard {
         position: relative;
         height: 24.5vh;
     }
-    .slideBoard h2{
+
+    .slideBoard h2 {
         font-size: 0.5rem;
         height: 5vh;
     }
-    .slide{
+
+    .slide {
         position: relative;
         display: contents;
         justify-content: space-between;
         width: 80vw;
         height: 20vh;
     }
-    .contract_table{
+
+    .contract_table {
         font-size: 4vw;
     }
 
-    .slideBoard{
+    .slideBoard {
         height: 20;
     }
-    }
+}

@@ -4,12 +4,19 @@ import axios from 'axios';
 const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
                 onUlsanWindSpeedData,onUlsanTMXData, onUlsanTMNData,
                 onGoheungWindSpeedData, onGoheungTMXData, onGoheungTMNData,onYeosuWindSpeedData,onYeosuTMXData, onYeosuTMNData,
-                onGeojeWindSpeedData,onGeojeTMXData, onGeojeTMNData}) => {
+                onGeojeWindSpeedData, onGeojeTMXData, onGeojeTMNData,
+                onWandoWindSpeedData, onWandoTMXData, onWandoTMNData,
+                onShinanWindSpeedData, onShinanTMXData, onShinanTMNData,
+                onSuncheonWindSpeedData, onSuncheonTMXData, onSuncheonTMNData,
+                }) => {
     const [pohangWeather, setPohangWeather] = useState(null);
     const [ulsanWeather, setUlsanWeather] = useState(null);
     const [goheungWeather, setGoheungWeather] = useState(null);
     const [yeosuWeather, setYeosuWeather] = useState(null);
     const [geojeWeather, setGeojeWeather] = useState(null);
+    const [wandoWeather, setWandoWeather] = useState(null);
+    const [shinanWeather, setShinanWeather] = useState(null);
+    const [suncheonWeather, setSuncheonWeather] = useState(null);
   
     const fetchWeatherData = async (nx, ny, setWeatherData) => {
       try {
@@ -56,6 +63,9 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
           await fetchWeatherData(59, 69, setGoheungWeather);
           await fetchWeatherData(74, 63, setYeosuWeather);
           await fetchWeatherData(91,	71, setGeojeWeather);
+          await fetchWeatherData(58, 56, setWandoWeather);
+          await fetchWeatherData(73,	63, setShinanWeather);
+          await fetchWeatherData(71,	69, setSuncheonWeather);
         } catch (error) {
           console.error('날씨 정보를 가져오는 중 오류 발생:', error);
         }
@@ -143,7 +153,6 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
             .slice(0, 1)
             .map( (item, index) =>(
               <div key={index}>
-
                   {onGoheungWindSpeedData(item)}
                 </div>
             ))
@@ -237,6 +246,111 @@ const Weather = ({ onPohangWindSpeedData,onPohangTMXData,onPohangTMNData ,
                   {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
                   <p>풍속: {item.fcstValue} m/s</p> */}
                   {onGeojeTMNData(item)}
+                </div>
+              ))}
+            
+          </div>
+        )}
+
+        {wandoWeather &&(
+          <div>
+            {wandoWeather.response.body.items.item
+            .filter((item) => item.category==='WSD' )
+            .slice(0, 1)
+            .map( (item, index) =>(
+              <div key={index}>
+                {/* <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onWandoWindSpeedData(item)}
+                </div>
+            ))}
+            {wandoWeather.response.body.items.item
+              .filter((item) => item.category === 'TMX')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onWandoTMXData(item)}
+                </div>
+              ))}
+              {wandoWeather.response.body.items.item
+              .filter((item) => item.category === 'TMN')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onWandoTMNData(item)}
+                </div>
+              ))}
+            
+          </div>
+        )}
+
+        {shinanWeather &&(
+          <div>
+            {shinanWeather.response.body.items.item
+            .filter((item) => item.category==='WSD' )
+            .slice(0, 1)
+            .map( (item, index) =>(
+              <div key={index}>
+                {/* <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onShinanWindSpeedData(item)}
+                </div>
+            ))}
+            {shinanWeather.response.body.items.item
+              .filter((item) => item.category === 'TMX')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onShinanTMXData(item)}
+                </div>
+              ))}
+              {shinanWeather.response.body.items.item
+              .filter((item) => item.category === 'TMN')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onShinanTMNData(item)}
+                </div>
+              ))}
+            
+          </div>
+        )}
+
+        {suncheonWeather &&(
+          <div>
+            {suncheonWeather.response.body.items.item
+            .filter((item) => item.category==='WSD' )
+            .slice(0, 1)
+            .map( (item, index) =>(
+              <div key={index}>
+                {/* <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onSuncheonWindSpeedData(item)}
+                </div>
+            ))}
+            {suncheonWeather.response.body.items.item
+              .filter((item) => item.category === 'TMX')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onSuncheonTMXData(item)}
+                </div>
+              ))}
+              {suncheonWeather.response.body.items.item
+              .filter((item) => item.category === 'TMN')
+              .slice(0, 1)
+              .map((item, index) => (
+                <div key={index}>
+                  {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p>
+                  <p>풍속: {item.fcstValue} m/s</p> */}
+                  {onSuncheonTMNData(item)}
                 </div>
               ))}
             

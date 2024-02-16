@@ -1,4 +1,14 @@
+@keyframes shimmer {
+    0% {
+        background-position: -40rem -20rem;
+        /* 시작 위치 변경 */
+    }
 
+    100% {
+        background-position: 40rem 20rem;
+        /* 종료 위치 변경 */
+    }
+}
 
 .link {
     text-decoration-line: none;
@@ -7,7 +17,7 @@
 }
 
 .link:hover {
-    color: gray;
+    color: #5164f5;
 }
 
 .article_no {
@@ -18,4 +28,21 @@
 .article_user {
     text-align: center;
     border: none;
+}
+
+.row {
+    transition: background-color 0.3s ease;
+}
+
+.row:hover {
+    background-color: #5164f5;
+    /* 마우스 오버 시 배경색 변경 */
+    cursor: pointer;
+    /* 마우스 포인터를 손가락 모양으로 변경 */
+}
+
+.skeleton_shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(to right, #ffffff 8%, #dedede 18%, #d6d6d6 33%);
+    background-size: 40rem 100%;
 }

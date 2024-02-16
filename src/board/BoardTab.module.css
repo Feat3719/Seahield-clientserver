@@ -1,7 +1,6 @@
 #boardTabContainer {
-    /* overflow: hidden; */
-    /* padding: 2em; */
     height: 100vh;
+    width: 100vw;
     background: rgb(39, 38, 38);
     display: flex;
     flex-direction: column;
@@ -9,50 +8,76 @@
 
 #tabBox {
     width: 80%;
+    height: 10%;
     margin: 50px auto 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 #tab {
-    width: fit-content;
+    width: 70%;
+    margin-bottom: 5vh;
     list-style-type: none;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     padding: 0;
     margin-bottom: 0;
 }
 
 #listBox {
     border: none;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-
+    border-radius: 1vh;
     width: 80%;
-    height: auto;
+    height: 80%;
     margin: 0 auto 50px auto;
     /* padding-bottom: 10px; */
-    background-color: #343a43;
+    background-color: #00000081;
 }
 
 .tab {
-    height: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    background-image: linear-gradient(
-        to bottom,
-        rgb(166, 166, 167),
-        rgb(8, 8, 20)
-    );
-    color: gray;
-    cursor: pointer;
-    padding: 10px;
+    width: 10%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin-right: 1px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    color: white;
+    margin: 0 3vh 3vh 0;
+    font-size: 2.3vh;
+    overflow: hidden;
+    padding-bottom: 1vh;
 }
 
-.tab.active {
-    background-color: #000000;
-    color: white;
+.tab::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    /* 시작 위치를 버튼의 가운데로 설정 */
+    bottom: 0;
+    width: 0;
+    /* 초기 너비를 0으로 설정 */
+    height: 0.5vh;
+    /* 선의 두께 */
+    background-color: #3247b1;
+    /* 선의 색상 */
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.tab:hover::after {
+    width: 100%;
+    /* 너비를 100%로 확장 */
+    left: 0;
+    /* 위치를 왼쪽 끝으로 이동 */
+    color: #3247b1;
+}
+
+.active::after {
+    width: 100%;
+    /* 활성 탭에 대해 선의 너비를 100%로 설정 */
+    left: 0;
+    /* 선의 위치를 왼쪽 끝으로 설정 */
 }

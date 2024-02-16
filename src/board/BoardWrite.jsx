@@ -5,6 +5,7 @@ import axios from "axios";
 import Editor from "./Editor";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Sidenav from "../sidenav/Sidenav";
 
 function BoardWrite() {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -19,7 +20,7 @@ function BoardWrite() {
 
     const handleWrite = async () => {
         if (category === "") {
-            alert("분류를 선택해주세요."); // 분류가 선택되지 않았을 때 경고창 표시
+            alert("분류를 선택해주세요.");
             return;
         }
         try {
@@ -47,6 +48,9 @@ function BoardWrite() {
 
     return (
         <div id={style.boardWriteContainer}>
+            <div className={style.login_nav}>
+                <Sidenav />
+            </div>
             <div id={style.pageTitleBox}>
                 <div className={style.pageTitle}>게시글 작성</div>
             </div>
