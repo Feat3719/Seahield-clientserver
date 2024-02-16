@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import style from "./Announcement.module.css";
 import AnnounceList from "./AnnounceList";
 import Sidenav from "../sidenav/Sidenav";
