@@ -1,18 +1,20 @@
 const initialState = {
     isLoggedIn: false,
     user: null,
-    userType: null, // 초기 상태에 userType 추가
+    userType: null,
+    expiration: null,
 };
 
 function authReducer(state = initialState, action) {
     switch (action.type) {
-        case "LOGIN_SUCCESS":
+        case "LOGIN":
             return {
                 ...state,
                 isLoggedIn: true,
                 user: action.payload.user,
                 accessToken: action.payload.accessToken,
-                userType: action.payload.userType // userType 값을 액션에서 받아와 업데이트
+                userType: action.payload.userType, // userType 값을 액션에서 받아와 업데이트
+                expiration: action.payload.expiration,
             };
         case "LOGOUT":
             return {
@@ -20,7 +22,8 @@ function authReducer(state = initialState, action) {
                 isLoggedIn: false,
                 user: null,
                 accessToken: null,
-                userType: null
+                userType: null,
+                expiration: null,
             };
         default:
             return state;

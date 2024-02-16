@@ -13,11 +13,9 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 
-    background-image: linear-gradient(
-        to bottom,
-        rgb(166, 166, 167),
-        rgb(8, 8, 20)
-    );
+    background-image: linear-gradient(to bottom,
+            rgb(166, 166, 167),
+            rgb(8, 8, 20));
 }
 
 .pageTitle {
@@ -32,7 +30,7 @@
     width: 80%;
     height: auto;
     margin: 0 auto;
-    background-color: #343a43;
+    background-color: #121212a5;
 }
 
 .table {
@@ -44,56 +42,54 @@
     margin: 20px auto;
 }
 
+.boarddetail_title th {
+    border: 0.1vh solid gray;
+}
+
 .number {
-    width: 30%;
+    width: 10%;
     text-align: center;
-    border-bottom: 1px solid gray;
+    font-size: 2vh;
 }
 
 .title {
     width: 40%;
     text-align: center;
-    border-bottom: 1px solid gray;
 }
 
 .writer {
-    width: 30%;
+    width: 10%;
     text-align: center;
-    border-bottom: 1px solid gray;
 }
 
 .category {
-    width: 14%;
     text-align: center;
-    border-bottom: 1px solid gray;
 }
 
 .category_blank {
-    width: 16%;
     text-align: center;
-    border-bottom: 1px solid gray;
 }
 
 .reads {
     width: 20%;
     text-align: center;
-    border-bottom: 1px solid gray;
 }
 
 .reads_blank {
-    width: 20%;
     text-align: center;
     border-bottom: 1px solid gray;
 }
 
-.like {
-    width: 14%;
-    text-align: center;
-    border-bottom: 1px solid gray;
+#buttons {
+    border: none;
+    cursor: pointer;
 }
 
 .likeButton {
+    border: none;
+    cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 .like_blank {
@@ -131,8 +127,14 @@
     border-bottom: 1px solid gray;
 }
 
+.board_content {
+    height: 30vh;
+    border: 0.1vh solid gray;
+}
+
 .content {
     white-space: normal;
+    height: 100%;
 }
 
 #button_box {
@@ -145,30 +147,52 @@
     margin: 0 auto;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-color: #343a43;
+    background-color: #121212a5;
 }
 
 #buttons {
     width: 90%;
-    margin: 20px auto;
+    margin: 3vh auto;
 }
 
 .delete_button {
-    /* height: 35px; */
+    border: none;
+    cursor: pointer;
     border-radius: 5px;
-    /* margin: 0 20px 0 0; */
+    transition: background-color 0.3s ease;
+    margin-right: 1vh;
 }
 
+.delete_button:hover {
+    background-color: rgb(239, 138, 138);
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+}
+
+
 .list_button {
-    /* height: 35px; */
+    border: none;
+    cursor: pointer;
     border-radius: 5px;
-    /* margin: 0 5px 0 0; */
+    transition: background-color 0.3s ease;
+    margin-right: 1vh;
+}
+
+.list_button:hover {
+    background-color: #7eeb65;
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
 }
 
 .update_button {
-    /* height: 35px; */
+    border: none;
+    cursor: pointer;
     border-radius: 5px;
-    /* margin: 0 5px 0 0; */
+    transition: background-color 0.3s ease;
+    margin-right: 1vh;
+}
+
+.update_button:hover {
+    background-color: #659deb;
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
 }
 
 #comment_box {
@@ -182,7 +206,7 @@
     /* border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px; */
     border-radius: 10px;
-    background-color: #343a43;
+    background-color: #121212a5;
 }
 
 #comment {
@@ -201,9 +225,23 @@
 }
 
 .inputButton {
+    cursor: pointer;
     border-radius: 5px;
 }
 
 .commentListBox {
     color: white;
+}
+
+.boarddetail_title {
+    height: 8vh;
+    font-size: 2.3vh;
+}
+
+.boarddetail_1 {
+    height: 3vh;
+    width: 100%;
+    border-right: 0.1vh solid gray;
+    border-left: 0.1vh solid gray;
+
 }

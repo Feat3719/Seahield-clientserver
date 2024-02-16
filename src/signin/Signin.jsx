@@ -41,7 +41,7 @@ function Signin() {
             if (response.status === 201) {
                 const userIdInClient = userid;
                 dispatch({
-                    type: "LOGIN_SUCCESS",
+                    type: "LOGIN",
                     payload: {
                         user: userIdInClient,
                         accessToken: response.data.accessToken,

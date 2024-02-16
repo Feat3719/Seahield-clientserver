@@ -52,12 +52,12 @@ const Posts = ({ posts, loading }) => {
                     onClick={() => handleRowClick(post.articleId)}
                     className={style.row}
                 >
-                    <td className={style.article_no}>{post.articleId}</td>
-                    <td className={style.article_title}>{post.articleTitle}</td>
-                    <td className={style.article_user}>{post.userId}</td>
-                    <td className={style.article_reads}>{post.articleViewCounts}</td>
-                    <td className={style.article_like}>{post.articleLikes}</td>
-                    <td className={style.article_date}>{formatDate(post.articleCreatedDate)}</td>
+                    <td data-label="번호" className={style.article_no}>{post.articleId}</td>
+                    <td data-label="제목" className={style.article_title}>{post.articleTitle}</td>
+                    <td data-label="작성자" className={style.article_user}>{post.userId}</td>
+                    <td data-label="조회수" className={style.article_reads}>{post.articleViewCounts}</td>
+                    <td data-label="좋아요" className={style.article_like}>{post.articleLikes}</td>
+                    <td data-label="작성 날짜" className={style.article_date}>{formatDate(post.articleCreatedDate)}</td>
                 </tr>
             ))}
         </>

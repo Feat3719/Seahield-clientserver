@@ -6,6 +6,8 @@ import Editor from "./Editor";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Sidenav from "../sidenav/Sidenav";
+import Swal from 'sweetalert2';
+
 
 function BoardWrite() {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -20,9 +22,30 @@ function BoardWrite() {
 
     const handleWrite = async () => {
         if (category === "") {
-            alert("분류를 선택해주세요.");
+            Swal.fire({
+                title: '분류를 선택해주세요.',
+                icon: 'warning',
+                confirmButtonText: '확인'
+            });
             return;
         }
+
+
+        Swal.fire({
+            title: '등록하시겠습니까?',
+            showCancelButton: true,
+            confirmButtonText: '작성',
+            cancelButtonText: '취소',
+            icon: 'question'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // User clicked '작성', proceed with the write operation
+                submitPost();
+            }
+        });
+    };
+
+    const submitPost = async () => {
         try {
             const response = await axios.post(
                 "/api/board/article",
