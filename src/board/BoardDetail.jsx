@@ -8,6 +8,7 @@ import FormatDatetime from "./FormatDatetime";
 import { useSelector } from "react-redux";
 import Comment from "./Comment";
 import Sidenav from "../sidenav/Sidenav";
+import Swal from 'sweetalert2';
 
 function BoardDetail() {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -16,6 +17,12 @@ function BoardDetail() {
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState("");
     const [isLiked, setIsLiked] = useState(false);
+
+    const categoryNames = {
+        FREE: '자유게시판',
+        QNA: '질문게시판',
+        NOTICE: '공지사항',
+    };
 
     const fetchPost = useCallback(async () => {
         try {
@@ -33,15 +40,31 @@ function BoardDetail() {
 
     const navigate = useNavigate();
 
-    const handleDelete = async () => {
-        try {
-            await axios.delete(`/api/board/article/${id}`);
-
-            navigate("/boardtab");
-        } catch (error) {
-            console.error("Error", error);
-        }
+    const handleDelete = () => {
+        Swal.fire({
+            title: '게시글 삭제',
+            text: "게시글을 삭제하시면 복구할 수 없습니다. 삭제하시겠습니까?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '삭제하기'
+        }).then(async (result) => { // async 추가
+            if (result.isConfirmed) {
+                try {
+                    await axios.delete(`/api/board/article/${id}`, {
+                        headers: { Authorization: `Bearer ${accessToken}` },
+                    });
+                    Swal.fire('삭제 완료', '게시글이 삭제되었습니다.', 'success');
+                    navigate("/boardtab");
+                } catch (error) {
+                    console.error("Error", error);
+                    Swal.fire('Failed!', 'There was a problem deleting your post.', 'error');
+                }
+            }
+        });
     };
+
 
     const handleLike = async () => {
         try {
@@ -90,73 +113,36 @@ function BoardDetail() {
                 <div id={style.detailBox}>
                     <table className={style.table}>
                         <thead>
-                            <tr>
-                                <th colSpan={8} className={style.number}>
-                                    {post.articleId}
+                            <tr className={style.boarddetail_title}>
+                                <th className={style.number}>
+                                    글번호 : {post.articleId}
                                 </th>
-                                <th colSpan={8} className={style.title}>
-                                    {post.articleTitle}
+                                <th className={style.title}>
+                                    제목 : {post.articleTitle}
                                 </th>
-                                <th colSpan={8} className={style.writer}>
-                                    {post.userId}
+                                <th className={style.writer}>
+                                    작성자 : {post.userId}
+                                </th>
+                                <th className={style.category}>
+                                    분류 : {categoryNames[post.articleCtgr]}
                                 </th>
                             </tr>
-                            <tr>
-                                <th colSpan={4} className={style.category}>
-                                    분류
+
+                            <tr className={style.boarddetail_1}>
+                                <th className={style.number}>
                                 </th>
-                                <td
-                                    colSpan={4}
-                                    className={style.category_blank}
-                                >
-                                    {post.articleCtgr}
-                                </td>
-                                <th colSpan={4} className={style.reads}>
-                                    조회수
+                                <th className={style.title}>
                                 </th>
-                                <td colSpan={4} className={style.reads_blank}>
-                                    {post.articleViewCount}
-                                </td>
-                                <th colSpan={4} className={style.like}>
-                                    <button
-                                        className={style.likeButton}
-                                        onClick={handleLike}
-                                    >
-                                        좋아요
-                                        {/* <img
-                                            className={style.imgHeart}
-                                            src={
-                                                isLiked
-                                                    ? `${process.env.PUBLIC_URL}/images/filledHeart.svg`
-                                                    : `${process.env.PUBLIC_URL}/images/emptyHeart.svg`
-                                            }
-                                        /> */}
-                                    </button>
+                                <th className={style.creDate}>
+                                    작성일 : {FormatDatetime(post.articleCreatedDate)}
                                 </th>
-                                <td colSpan={4} className={style.like_blank}>
-                                    {post.articleLikes}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th colSpan={4} className={style.creDate}>
-                                    작성일
-                                </th>
-                                <td colSpan={8} className={style.creDate_blank}>
-                                    {FormatDatetime(post.articleCreatedDate)}
-                                </td>
-                                <th colSpan={4} className={style.updateDate}>
-                                    수정일
-                                </th>
-                                <td
-                                    colSpan={8}
-                                    className={style.updateDate_blank}
-                                >
-                                    {FormatDatetime(post.articleUpdateDate)}
+                                <td className={style.fixDate}>
+                                    수정일: {FormatDatetime(post.articleUpdateDate)}
                                 </td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr className={style.board_content}>
                                 <td className={style.content} colSpan={24}>
                                     {/* {post.articleContents} */}
                                     <div
@@ -171,7 +157,29 @@ function BoardDetail() {
                     </table>
                 </div>
                 <div id={style.button_box}>
+
                     <div id={style.buttons}>
+                        <button
+                            className={style.likeButton}
+                            onClick={handleLike}
+                        >
+                            좋아요
+                            {/* <img
+                                            className={style.imgHeart}
+                                            src={
+                                                isLiked
+                                                    ? `${process.env.PUBLIC_URL}/images/filledHeart.svg`
+                                                    : `${process.env.PUBLIC_URL}/images/emptyHeart.svg`
+                                            }
+                                        /> */}
+                        </button>
+
+                        {post.articleLikes}
+
+
+
+
+
                         <Link to="/boardtab">
                             <button className={style.list_button}>목록</button>
                         </Link>
