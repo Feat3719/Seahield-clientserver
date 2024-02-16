@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -43,7 +43,7 @@ function AdminPageContract() {
     }
   }, [accessToken]);
 
-  const fetchContracts = async () => {
+  const fetchContracts = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await axios.get("/api/contract/list", {
@@ -59,7 +59,13 @@ function AdminPageContract() {
     } finally {
       setIsLoading(false); // 데이터 로딩 완료
     }
-  };
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (accessToken) {
+      fetchContracts(); // accessToken이 있을 때만 계약 목록을 가져옵니다.
+    }
+  }, [accessToken, fetchContracts]);
 
   const handleApprove = async (contractId) => {
     Swal.fire({
@@ -185,12 +191,18 @@ function AdminPageContract() {
                 <td data-label="회사명">{contract.companyName}</td>
                 <td data-label="승인상태">{contract.contractStatus}</td>
                 <td>
-                  <button onClick={() => handleApprove(contract.contractId)} className={style.admin_approvebtn}>
-                    승인
-                  </button>
-                  <button onClick={() => handleReject(contract.contractId)} className={style.admin_rejectbtn}>
-                    비승인
-                  </button>
+                  {contract.contractStatus === "승인대기" ? (
+                    <>
+                      <button onClick={(e) => { e.stopPropagation(); handleApprove(contract.contractId); }} className={style.admin_approvebtn}>
+                        승인
+                      </button>
+                      <button onClick={(e) => { e.stopPropagation(); handleReject(contract.contractId); }} className={style.admin_rejectbtn}>
+                        비승인
+                      </button>
+                    </>
+                  ) : (
+                    "처리완료"
+                  )}
                 </td>
               </tr>
             ))}

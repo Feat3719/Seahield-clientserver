@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Sidenav from "../sidenav/Sidenav";
 import style from "./Signup.module.css";
 import { motion } from "framer-motion";
@@ -42,6 +42,7 @@ function Signup() {
   const [purePhone, setPurePhone] = useState(""); // 실제 처리에 사용하는 순수 숫자
   const [isSmsSendBtnDisabled, setIsSmsSendBtnDisabled] = useState(false);
   const [isSmsSendInputDisabled, setIsSmsSendInputDisabled] = useState(false);
+  const intervalRef = useRef(null);
   //빈칸 검증
   const [isUserIdValid, setIsUserIdValid] = useState(false);
   const [isUsernameValid, setIsUsernameValid] = useState(false);
@@ -275,15 +276,13 @@ function Signup() {
   };
 
   //타이머
-  let interval = null;
   useEffect(() => {
-    console.log(interval);
     if (isSmsSend && timer > 0) {
-      interval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         setTimer(timer - 1);
       }, 1000);
     } else if (timer === 0) {
-      clearInterval(interval);
+      clearInterval(intervalRef.current);
       Swal.fire({
         icon: "warning",
         title: "휴대폰 인증 유효시간 만료",
@@ -292,7 +291,7 @@ function Signup() {
       });
       navigate("/signup");
     }
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalRef.current);
   }, [isSmsSend, timer, navigate]);
 
   const formatTimer = () => {
