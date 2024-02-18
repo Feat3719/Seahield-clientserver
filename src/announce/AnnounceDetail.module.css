@@ -7,16 +7,29 @@
 }
 
 #pageTitleBox {
-    width: 80%;
+    /* width: 80%;
     height: 10%;
     margin: 50px auto 0 auto;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: center; */
+
+    width: 80%;
+    height: 40px;
+    margin: 50px auto 0 auto;
+
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+    background-image: linear-gradient(
+        to bottom,
+        rgb(166, 166, 167),
+        rgb(8, 8, 20)
+    );
 }
 
 .pageTitle {
-    width: 70%;
+    /* width: 70%;
     margin-bottom: 5vh;
     list-style-type: none;
     display: flex;
@@ -25,12 +38,19 @@
     padding: 0;
     margin-bottom: 0;
     font-size: 2.3vh;
+    color: white; */
+
+    width: 90%;
+    line-height: 40px;
     color: white;
+    border: none;
+    margin: 0 auto;
 }
 
 #detailBox {
     border: none;
-    border-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+    border-bottom-right-radius: 1vh;
     width: 80%;
     height: 80%;
     margin: 0 auto 50px auto;
@@ -45,7 +65,7 @@
 }
 
 .table {
-    border: 0.1vh solid rgb(66, 66, 66);
+    /* border: 0.1vh solid rgb(66, 66, 66); */
     width: 90%;
     color: white;
     background-color: #373737;
@@ -106,6 +126,16 @@
     order: 4;
 }
 
+.tbody {
+    border-bottom: 0.1vh solid rgb(66, 66, 66);
+    border-left: 0.1vh solid rgb(66, 66, 66);
+    border-right: 0.1vh solid rgb(66, 66, 66);
+    background-color: #000;
+    /* 배경색을 검정색으로 설정 */
+    color: #fff;
+    /* 텍스트 색상을 흰색으로 설정 */
+}
+
 .content {
     display: flex;
     justify-content: center;
@@ -115,6 +145,7 @@
     width: 95%;
     height: 30vh;
     margin: 0 auto;
+    background-color: black;
 }
 
 .link {
@@ -161,6 +192,12 @@
     }
 }
 @media all and (min-width: 320px) and (max-width: 768px) {
+    #pageTitleBox {
+        margin-left: 1vw;
+        margin-right: 1vw;
+        width: 98vw;
+    }
+
     #detailBox {
         margin-left: 1vw;
         margin-right: 1vw;
