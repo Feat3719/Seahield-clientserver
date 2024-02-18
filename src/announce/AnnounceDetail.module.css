@@ -45,16 +45,15 @@
 }
 
 .table {
+    border: 0.1vh solid rgb(66, 66, 66);
     width: 90%;
     color: white;
     background-color: #373737;
 }
 
-/* .table td,
-.table th  */
 .thead .cell {
     /* border-bottom: 0.1vh solid rgb(66, 66, 66); */
-    border: 0.15vh solid rgb(66, 66, 66);
+    border: 0.1vh solid rgb(66, 66, 66);
     text-align: center;
     box-sizing: border-box;
 }
@@ -116,12 +115,6 @@
     width: 95%;
     height: 30vh;
     margin: 0 auto;
-    /* text-align: center; */
-    /* line-height: 30vh; */
-    /* overflow: auto; */
-}
-
-.tbody .row {
 }
 
 .link {
