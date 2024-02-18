@@ -52,11 +52,11 @@
 
 /* .table td,
 .table th  */
-.thead .cell{
-
+.thead .cell {
     /* border-bottom: 0.1vh solid rgb(66, 66, 66); */
     border: 0.15vh solid rgb(66, 66, 66);
     text-align: center;
+    box-sizing: border-box;
 }
 
 .thead {
@@ -66,11 +66,11 @@
     /* 텍스트 색상을 흰색으로 설정 */
 }
 
-.row {
+.thead .row {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
-
 
 .number {
     width: 20%;
@@ -89,27 +89,39 @@
 
 .creDate {
     width: 20%;
+    order: 1;
 }
 
 .creDate_blank {
     width: 30%;
+    order: 2;
 }
 
 .updateDate {
     width: 30%;
+    order: 3;
 }
 
 .updateDate_blank {
     width: 20%;
+    order: 4;
 }
 
 .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     white-space: normal;
-    width: 100%;
+    width: 95%;
     height: 30vh;
-    text-align: center;
-    line-height: 30vh;
-    
+    margin: 0 auto;
+    /* text-align: center; */
+    /* line-height: 30vh; */
+    /* overflow: auto; */
+}
+
+.tbody .row {
 }
 
 .link {
@@ -132,5 +144,42 @@
 }
 
 @media all and (min-width: 320px) and (max-width: 1024px) {
+    .number,
+    .writer {
+        width: 50%;
+        order: 1;
+    }
 
+    .title {
+        width: 100%;
+        order: 2;
+    }
+
+    .creDate,
+    .creDate_blank {
+        width: 50%;
+        order: 1;
+    }
+
+    .updateDate,
+    .updateDate_blank {
+        width: 50%;
+        order: 2;
+    }
+}
+@media all and (min-width: 320px) and (max-width: 768px) {
+    #detailBox {
+        margin-left: 1vw;
+        margin-right: 1vw;
+        width: 98vw;
+    }
+}
+
+@media all and (min-width: 320px) and (max-width: 425px) {
+    .table {
+        width: 96vw;
+    }
+    .thead {
+        font-size: 14px;
+    }
 }

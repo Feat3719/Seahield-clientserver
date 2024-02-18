@@ -109,42 +109,67 @@ function AnnounceDetail() {
                             <div className={style.table}>
                                 <div className={style.thead}>
                                     <div className={style.row}>
-                                        <div className={`${style.cell} ${style.number}`} style={{gridColumn: 'span 2'}}>
+                                        <div
+                                            className={`${style.cell} ${style.number}`}
+                                            style={{ gridColumn: "span 2" }}
+                                        >
                                             {post.announceId}
                                         </div>
-                                        <div className={`${style.cell} ${style.title}`} style={{gridColumn: 'span 8'}}>
+                                        <div
+                                            className={`${style.cell} ${style.title}`}
+                                            style={{ gridColumn: "span 8" }}
+                                        >
                                             {post.announceName}
                                         </div>
-                                        <div className={`${style.cell} ${style.writer}`} style={{gridColumn: 'span 2'}}>
-                                            {FormatDate(post.aanounceCreatedDate)}
+                                        <div
+                                            className={`${style.cell} ${style.writer}`}
+                                            style={{ gridColumn: "span 2" }}
+                                        >
+                                            {FormatDate(
+                                                post.aanounceCreatedDate
+                                            )}
                                         </div>
                                     </div>
                                     <div className={style.row}>
-                                        <div className={`${style.cell} ${style.creDate}`} style={{gridColumn: 'span 2'}}>
+                                        <div
+                                            className={`${style.cell} ${style.creDate}`}
+                                            style={{ gridColumn: "span 2" }}
+                                        >
                                             입찰시작일
                                         </div>
-                                        <div className={`${style.cell} ${style.creDate_blank}`} style={{gridColumn: 'span 4'}}>
+                                        <div
+                                            className={`${style.cell} ${style.creDate_blank}`}
+                                            style={{ gridColumn: "span 4" }}
+                                        >
                                             {FormatDate(post.biddingStartDate)}
                                         </div>
-                                    {/* </div>
+                                        {/* </div>
                                     <div className={style.row}>     */}
-                                        <div className={`${style.cell} ${style.updateDate}`} style={{gridColumn: 'span 2'}}>
+                                        <div
+                                            className={`${style.cell} ${style.updateDate}`}
+                                            style={{ gridColumn: "span 2" }}
+                                        >
                                             입찰종료일
                                         </div>
-                                        <div className={`${style.cell} ${style.updateDate_blank}`} style={{gridColumn: 'span 4'}}>
+                                        <div
+                                            className={`${style.cell} ${style.updateDate_blank}`}
+                                            style={{ gridColumn: "span 4" }}
+                                        >
                                             {FormatDate(post.biddingEndDate)}
                                         </div>
                                     </div>
                                 </div>
                                 <div className={style.tbody}>
                                     <div className={style.row}>
-                                        <div className={`${style.cell} ${style.content}`} style={{gridColumn: 'span 12'}}>
+                                        <div
+                                            className={`${style.cell} ${style.content}`}
+                                            style={{ gridColumn: "span 12" }}
+                                        >
                                             {post.announceContents}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div id={style.button_box}>
                             <div id={style.buttons}>
