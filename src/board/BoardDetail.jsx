@@ -20,6 +20,7 @@ function BoardDetail() {
     const [comments, setComments] = useState("");
     const [isLiked, setIsLiked] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isLiking, setIsLiking] = useState(false);
 
     const categoryNames = {
         FREE: '자유게시판',
@@ -70,20 +71,23 @@ function BoardDetail() {
 
 
     const handleLike = async () => {
+        setIsLiking(true); // 로딩 시작
         try {
             await axios.post(
                 `/api/board/article/${id}/like`,
                 {},
-                {
-                    headers: { Authorization: `Bearer ${accessToken}` },
-                }
+                { headers: { Authorization: `Bearer ${accessToken}` } }
             );
-            setIsLiked(!isLiked);
-            fetchPost();
+            // 'isLiked' 상태를 토글하기 전에 로딩을 시작합니다.
+            setIsLiked(!isLiked); // 좋아요 상태 토글
+            fetchPost(); // 포스트를 다시 가져옵니다.
         } catch (error) {
             console.error("Error", error);
+        } finally {
+            setIsLiking(false); // 로딩 종료
         }
     };
+
 
     const handleComment = async () => {
         setIsSubmitting(true); // 로딩 시작
@@ -174,10 +178,12 @@ function BoardDetail() {
 
                     <div id={style.buttons}>
                         <div className={style.heart}>
+                            {/* 로딩 상태와 상관없이 'isLiked' 상태에 따라 하트를 표시합니다. */}
                             <ReactAnimatedHeart
                                 isClick={isLiked}
-                                onClick={() => handleLike()}
+                                onClick={handleLike}
                             />
+                            {isLiking && <Loading />} {/* 로딩 상태일 때만 로딩 컴포넌트를 표시합니다. */}
                             <div className={style.articleLikes}>{post.articleLikes}</div>
                         </div>
 

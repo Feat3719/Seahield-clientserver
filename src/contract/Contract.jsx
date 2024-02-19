@@ -3,6 +3,7 @@ import Wrapper from "../pagechange/Wrapper";
 import Sidenav from "../sidenav/Sidenav";
 import style from "./Contract.module.css";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import SignatureCanvas from "react-signature-canvas";
 import axios from "axios";
 import Swal from 'sweetalert2';
@@ -21,6 +22,7 @@ function Contract() {
 
   const [companyRegistNum, setCompanyRegistNum] = useState("");
   const [ceoName, setCeoName] = useState("");
+  const navigate = useNavigate();
 
   const [announceList, setAnnounceList] = useState([]);
 
@@ -133,7 +135,11 @@ function Contract() {
           '성공!',
           '입찰신청이 성공적으로 완료되었습니다.',
           'success'
-        );
+        ).then((result) => {
+          if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
+            navigate('/mypageregular'); // 여기에 리다이렉션을 추가합니다.
+          }
+        });
       }
     } catch (error) {
       console.error("입찰신청 실패:", error);

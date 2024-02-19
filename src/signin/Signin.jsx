@@ -56,15 +56,14 @@ function Signin() {
                     text: "환영합니다!",
                 }).then((result) => {
                     // 로그인 성공 시 아이디 저장
+                    if (rememberUsername) {
+                        localStorage.setItem("rememberedUserId", userid);
+                    } else {
+                        localStorage.removeItem("rememberedUserId"); // 체크되어 있지 않다면, 저장된 userid을 제거합니다.
+                    }
+                    setIsLoading(false);
                     if (result.isConfirmed || result.isDismissed) {
-                        // 로그인 성공 시 아이디 저장
-                        if (rememberUsername) {
-                            localStorage.setItem("rememberedUserId", userid);
-                        } else {
-                            localStorage.removeItem("rememberedUserId");
-                        }
-                        navigate("/map"); // 페이지 이동
-                        return;
+                        navigate("/map");
                     }
                 });
             } else if (response.status === 404) {

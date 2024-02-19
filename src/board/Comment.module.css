@@ -1,7 +1,14 @@
 .commentBox {
-    /* display: flex; */
-    /* margin: 10px auto; */
-    /* justify-content: space-around; */
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.commentItem {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around
 }
 
 .content {
@@ -9,6 +16,11 @@
     display: flex;
     width: 70vw;
     align-items: center;
+}
+
+.commentContent {
+    width: 28vw;
+    font-size: 1.5vh;
 }
 
 /* .commentLikesBox {
@@ -21,7 +33,7 @@
 
 .commentLikes {
     font-size: 12px;
-    color: gray;
+    color: rgba(255, 0, 0, 0.646);
     margin: auto 5px;
 }
 
@@ -32,8 +44,8 @@
 }
 
 .commentUserId {
-    font-size: 12px;
-    color: gray;
+    font-size: 2vh;
+    color: rgb(255, 255, 255);
     margin: auto 5px;
 }
 
@@ -41,32 +53,6 @@
     display: flex;
     justify-content: flex-end;
     margin: 10px 0;
-}
-
-.like_button {
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    margin-right: 1vh;
-}
-
-.like_button:hover {
-    background-color: #659deb;
-    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
-}
-
-.update_button {
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    margin-right: 1vh;
-}
-
-.update_button:hover {
-    background-color: #7eeb65;
-    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
 }
 
 .delete_button {
@@ -78,6 +64,72 @@
 }
 
 .delete_button:hover {
+    background-color: rgb(239, 138, 138);
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+}
+
+.updateSubmitButton {
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 1vh;
+}
+
+.updateSubmitButton:hover {
+    background-color: #7eeb65;
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+}
+
+.like_Button {
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 1vh;
+}
+
+.like_Button:hover {
+    background-color: #659deb;
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+}
+
+.updateButton {
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 1vh;
+}
+
+.updateButton:hover {
+    background-color: #7eeb65;
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+}
+
+
+.updateSubmitButton {
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 1vh;
+}
+
+.updateSubmitButton:hover {
+    background-color: #7eeb65;
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+}
+
+.delete_Button {
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 1vh;
+}
+
+.delete_Button:hover {
     background-color: rgb(239, 138, 138);
     box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
 }
@@ -106,4 +158,25 @@
 .checkbox:not(:checked) {
     background-image: url('../../public/images/checkbox_white2.svg');
     /* 체크되지 않은 상태의 이미지 */
+}
+
+
+@media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {
+    .commentItem {
+        flex-direction: column;
+    }
+}
+
+@media all and (min-width:480px) and (max-width:767px) {
+    .commentItem {
+        flex-direction: column;
+    }
+}
+
+@media all and (min-width:200px) and (max-width:479px) {
+    .commentItem {
+        flex-direction: column;
+    }
 }

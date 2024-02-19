@@ -2,6 +2,8 @@
     background: rgb(39, 38, 38);
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    justify-content: flex-start;
 }
 
 #pageTitleBox {
@@ -210,6 +212,7 @@
 #comment {
     width: 90%;
     margin: 20px auto;
+    font-size: 2vh;
 }
 
 .inputBox {
@@ -267,4 +270,33 @@
 .comment {
     color: white;
     margin: 0;
+}
+
+@media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {}
+
+@media all and (min-width:480px) and (max-width:767px) {
+
+    .number,
+    .title,
+    .writer,
+    .category,
+    .creDate,
+    .fixDate {
+        font-size: 1.5vh;
+    }
+}
+
+@media all and (min-width:200px) and (max-width:479px) {
+
+    .number,
+    .title,
+    .writer,
+    .category,
+    .creDate,
+    .fixDate {
+        font-size: 1.5vh;
+    }
+
 }
