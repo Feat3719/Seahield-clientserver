@@ -10,6 +10,7 @@
     display: flex;
     overflow: hidden;
     border: 1px black solid;
+    background-color: rgb(39, 38, 38);
     /* overflow-x: hidden; */
     box-sizing: content-box;
     /* overflow-y: hidden; */
@@ -19,22 +20,22 @@
 
 .home_box_2{
     border: 2px solid gray;
-    background-color: rgb(39, 38, 38);
-    position: absolute;
-    width: 101vw;
-    top: 0%;
-    height: 100vh;
+    background-color: rgb(0, 0, 0);
+    position: relative;
+    width: 92vw;
+    top: 2%;
+    height: 94vh;
     display: flex;
     margin-left: 0vw;
     /* margin-right: 2%; */
     overflow: hidden;
     justify-content: center;
-    left: 0vw;
+    left: 3vw;
 }
 .sealist{
   position: relative;
   max-width: 150vw;
-  max-height: 150vh;
+  max-height: 100vh;
   height: 100vh;
   /* top: 0vh; */
   bottom: 97%;
@@ -50,12 +51,12 @@
 
 .sub_1{
     /* color: rgb(41, 16, 65); */
-    position: fixed;
+    position: absolute;
     top: 7vh;
     left: 1vw;
     font-weight: bold;
-    border: blue solid 1px;
-    background-color: rgb(39, 38, 38);
+    /* border: blue solid 1px; */
+    /* background-color: rgb(39, 38, 38); */
     border-radius: 25px;
     /* display: flex; */
     width: 25.5vw;
@@ -63,7 +64,7 @@
     align-content: center;
     display: flex;
     margin-top : 1%;
-    height: 56.7vh;
+    height: 83.7vh;
     /* justify-content: space-between; */
     justify-content: flex-end;
     flex-direction: column;
@@ -78,27 +79,27 @@
     border-bottom-left-radius: 10vw;
     border-bottom-right-radius: 10vw; */
     color: white;
-    background-color: #0a2446f3;
+    /* background-color: #0a2446f3; */
     /* background-image: url('../../public/tv.png');  */
     background-size: cover;
     background-position: center;
     position: absolute;
     display: flex;
-    width: 35.2vw;
-    height: 65vh;
+    width: 27.2vw;
+    height: 40vh;
     top: 0vh;
-    left: 30vw;
+    left: 00vw;
     /* margin-top: 25%; */
     justify-content: center;
     padding-top: 1%;
     padding-bottom: 10%;
-    z-index: 5;
+    z-index: 0;
     /* margin: 5%; */
     /* padding-inline-start: 2%; */
 }
 .modal_1_form{
   width: 97vw;
-  height: 64vh;
+  height: 80vh;
   border: 1px beige solid;
   z-index: 6;
   position: relative;
@@ -110,6 +111,7 @@
   float: left;
   clear: both;
   z-index: 10px;
+  color: white;
 }
 
 .Bigvideo{
@@ -119,9 +121,10 @@
 .modal_video{
   position: relative;
   top: 1vh;
-  width:35vw;
-  height:42vh;
+  width:43vw;
+  height:49vh;
   color: white;
+  overflow: hidden;
 }
 /* .closeButton{
   top: 0vh;
@@ -164,7 +167,7 @@
     padding-bottom: 3%;
     top: -2vh;
     /* right: 1.8vw; */
-    left: 20vw;
+    left: 28vw;
     justify-content: center;
     align-items: center ;
     border-radius: 10px;
@@ -175,10 +178,10 @@
 
   .modal {
     position: fixed;
-    top: 2vh;
+    top: 9vh;
     left: 32vw;
-    width: 36vw;
-    height: 68vh;
+    width: 44vw;
+    height: 80vh;
     background-color: rgba(0, 0, 0, 0.904);
     display: flex;
     justify-content: center;
@@ -243,7 +246,7 @@
     /* border: 3px green solid; */
     color: white;
     border-radius: 10px;
-    background-color: #343A43;
+    /* background-color: #343A43; */
     position: relative;
     display: flex;
     width: 25vw;
@@ -344,18 +347,18 @@
   display: flex;
   position: relative;
   /* justify-content: center; */
-  border: 1px brown solid;
-  background-color: #343A43;
+  border: 1px beige solid;
+  /* background-color: #343A43; */
   border-radius: 10px;
   width: 40%;
-  height: 90vh;
+  height: 82vh;
   top: 7vh;
   justify-content: center;
   /* align-items: center; */
 
   margin-top: 1%;
   margin-left: 2%;
-  left: -15vw;
+  left: -5vw;
 }
 
 .sub_2_1 {
@@ -363,7 +366,7 @@
   position: absolute;
   /* justify-content: center; */
   /* border: 3px rgb(145, 76, 11) solid; */
-  background-color: #343A43;
+  /* background-color: #343A43; */
   border-radius: 10px;
   width: 100%;
   height: 90%;
@@ -489,14 +492,14 @@
     font-weight: bold;
     color: white;
     /* border: blue solid 3px; */
-    background-color: #343A43;
+    background-color: #1f2229;
     border-radius: 10px;
     /* display: flex; */
-    width: 25vw;
+    width: 15vw;
     /* padding: 2%; */
     display: flex;
     margin-top : 1%;
-    height: 95vh;
+    height: 100vh;
     font-size: 1.5vh;
     justify-content: space-between;
     text-align: center ;
@@ -504,8 +507,8 @@
     margin-left: 2vw;
     position: relative;
     font-size: 1vw;
-    right: 10vw;
-    top: 7vh;
+    right: 0vw;
+    top: -2vh;
 }
 .weather{
   position: relative;
@@ -513,7 +516,7 @@
   height: 95vh;
   display: block;
   align-content: center;
-  border: 1px rgb(197, 18, 18) dotted;
+  /* border: 1px rgb(197, 18, 18) dotted; */
   font-size: 1.3vh;
 
 }
@@ -521,12 +524,12 @@
 
 .map{
     position: relative;
-    left: 0%;
+    left: 0.4%;
     border: 1px solid black;
-    top: auto;
+    top: 0.5vh;
     display: flex;
-    width: 100%;
-    height: 100%;
+    width: 99%;
+    height: 90%;
     background-size: cover;
     background-position: center;
 }
@@ -560,14 +563,14 @@
 .sub_1{
   /* color: rgb(41, 16, 65); */
   position: fixed;
-  top: 64vh;
-  left: 1vw;
+  top: 62vh;
+  left: 3vw;
   font-weight: bold;
   /* border: blue solid 1px; */
   background-color: rgb(39, 38, 38);
   border-radius: 25px;
   /* display: flex; */
-  width: 25.5vw;
+  width: 54.5vw;
   /* padding: 2%; */
   align-content: center;
   display: flex;
@@ -808,7 +811,7 @@
   position: fixed;
   font-size: 1vw;
   right: 5vw;
-  top: 62vh;
+  top: 60vh;
 }
 
 }

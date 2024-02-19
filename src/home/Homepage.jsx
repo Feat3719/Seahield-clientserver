@@ -9,6 +9,7 @@
     import Wrapper from "../pagechange/Wrapper";
     // import CCTVModal from "./CCTVModal";
     import axios from "axios";
+    import MaterialChart from "./MaterialChart";
 // import VideoPlayer from "./VideoPlayer";
     // import GoogleMap from './GoogleMap';
     // import Kakao from './kakao';
@@ -49,19 +50,19 @@
     //     ['2', '울산시', '울주진하해변']
     // ]
 
-    const pohangData = [['1', "포항시", "포항구룡포 대보해변"]];
+    const pohangData = [["1", "포항시", "포항구룡포 대보해변"]];
     const ulsanData = [
-        ['2', "울산시", "울산대왕암"],
-        ['3', "울산시", "울주진하해변"],
+        ["2", "울산시", "울산대왕암"],
+        ["3", "울산시", "울주진하해변"],
     ];
 
     const mokpoData = [
-        ['4', "전남 고흥군", "고흥_신흥"],
-        ['5', "전남 순천시", "순천반월"],
-        ['6', "전남 신안군", "신안고장리해변"],
-        ['7', "전남 완도군", "완도신지도해변"],
-        ['8', "전남 여수시", "여수백야도해변"],
-        ['9', "전남 고흥군", "고흥염포해변"],
+        ["4", "전남 고흥군", "고흥_신흥"],
+        ["5", "전남 순천시", "순천반월"],
+        ["6", "전남 신안군", "신안고장리해변"],
+        ["7", "전남 완도군", "완도신지도해변"],
+        ["8", "전남 여수시", "여수백야도해변"],
+        ["9", "전남 고흥군", "고흥염포해변"],
     ];
     const geojeData = [['10', "거제시", "거제 두모 몽돌 해변"]];
 
@@ -88,6 +89,12 @@
     // const [selectedId, setSelectedId] = useState(null);
     const [latestLogs, setLatestLogs] = useState([]);
     // const [selectedCctvId, setSelectedCctvId] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [isModalOpen, setModalOpen] = useState(false);
+    // const [isweather, setIsweather] = useState(false);
+    
+    // const [userType, setUserType] = useState("");
+
     
     
     // const handleCellClick = (cell) => {
@@ -150,7 +157,7 @@
         const logData = latestLogs.find(log => log.cctvId === String(cctvId));
     if (logData) {
         setSelectedLog(logData);
-        // console.log('Selected log data:', logData);
+        console.log('Selected log data:', logData);
     } else {
         console.log('No log data found for cctvId:', cctvId);
     }
@@ -211,9 +218,7 @@
     //     </div>
     // );
 
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [isModalOpen, setModalOpen] = useState(false);
-    // const [isweather, setIsweather] = useState(false);
+
 
     const handleImageClick = (image) => {
         if (selectedImage === image) {
@@ -246,17 +251,17 @@
             const fetchLatestLogs = async () => {
                 const cctvIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
                 const logRequests = cctvIds.map(id =>
-                    axios.get(`/api/cctv/logs/${id}`, {
+                    axios.get(`/api/cctv/logs-details/${id}`, {
                         params: { cctvId: id.toString() },
                         headers: { Authorization: `Bearer ${accessToken}` },
                     })
                     .then(response => ({
-                        // cctvId: id,
+                        cctvId: id,
                         data: response.data
                     }))
                     .catch(error => console.error(`Error fetching logs for CCTV ID ${id}:`, error))
                 );
-        
+                    
                 const logResponses = await Promise.all(logRequests);
         
                 const latestData = logResponses.map(({ cctvId, data }) => {
@@ -276,10 +281,12 @@
                 // if (cctv1LatestLog) {
                 //     alert(`CCTV ID 1 Latest Log: ${cctv1LatestLog.detectedDate}`);
                 // }
+                console.log("Latest logs:", latestData);
             };
         
             fetchLatestLogs();
         }, [accessToken]);
+        
 
 
         // useEffect(() => {
@@ -308,6 +315,28 @@
 
 
     // };
+
+    // 유저정보 필요할때
+    // useEffect(() => {
+    //     const usercheck = async () => {
+    //     const response = await axios.get("/api/user/info", {
+    //         headers: {
+    //         Authorization: `Bearer ${accessToken}`,
+    //         },
+    //     });
+    //     if (response.status === 200) {
+    //         setUserType(response.data.userType);
+
+    //     } else {
+    //         alert("다시 시도해 주세요");
+    //         window.location.href = "/";
+    //     }
+    //     };
+    //     usercheck();
+    // }, [accessToken]);
+
+
+
 
       // pohangData를 렌더링하는 JSX를 변수에 할당
     const pohangTableBody = (
@@ -547,6 +576,164 @@ const goheungWeatherInfo = (
     </div>
 )
 
+    const yeosuWeatherInfo = (
+        <div>
+            <h2>여수 날씨 정보</h2>
+                    {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+                    <Weather
+                    onPohangWindSpeedData={() => {}}
+                    onPohangTMXData={() => {}}
+                    onPohangTMNData={() => {}}
+                    onUlsanWindSpeedData={() => {}}
+                    onUlsanTMXData={() => {}}
+                    onUlsanTMNData={() => {}}
+                    onGoheungWindSpeedData={() => {}}
+                    onGoheungTMXData={() => {}}
+                    onGoheungTMNData={() => {}}
+                    onGeojeWindSpeedData={() => {}}
+                    onGeojeTMXData={() => {}}
+                    onGeojeTMNData={() => {}}
+                    onWandoWindSpeedData={() => {}}
+                    onWandoTMXData={() => {}}
+                    onWandoTMNData={() => {}}
+                    onShinanWindSpeedData={() => {}}
+                    onShinanTMXData={() => {}}
+                    onShinanTMNData={() => {}}
+                    onSuncheonWindSpeedData={() => {}}
+                    onSuncheonTMXData={() => {}}
+                    onSuncheonTMNData={() => {}}
+                    onYeosuWindSpeedData={(item) => (
+                        <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onYeosuTMXData={(item) => (
+                        <div>
+                        <p> 최고 기온 : {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onYeosuTMNData={(item) => (
+                        <div>
+                        <p> 최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                        </div>
+                    )}
+                    />
+        </div>
+    )
+
+    const wandoWeatherInfo = (
+        <div>
+           <h2>완도 날씨 정보</h2>
+                    {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+                    <Weather
+                    onPohangWindSpeedData={() => {}}
+                    onPohangTMXData={() => {}}
+                    onPohangTMNData={() => {}}
+                    onUlsanWindSpeedData={() => {}}
+                    onUlsanTMXData={() => {}}
+                    onUlsanTMNData={() => {}}
+                    onGoheungWindSpeedData={() => {}}
+                    onGoheungTMXData={() => {}}
+                    onGoheungTMNData={() => {}}
+                    onYeosuWindSpeedData={() => {}}
+                    onYeosuTMXData={() => {}}
+                    onYeosuTMNData={() => {}}
+                    onGeojeWindSpeedData={() => {}}
+                    onGeojeTMXData={() => {}}
+                    onGeojeTMNData={() => {}}
+                    onShinanWindSpeedData={() => {}}
+                    onShinanTMXData={() => {}}
+                    onShinanTMNData={() => {}}
+                    onSuncheonWindSpeedData={() => {}}
+                    onSuncheonTMXData={() => {}}
+                    onSuncheonTMNData={() => {}}
+                    onWandoWindSpeedData={(item) => (
+                        <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onWandoTMXData={(item) => (
+                        <div>
+                        <p> 최고 기온 : {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onWandoTMNData={(item) => (
+                        <div>
+                        <p> 최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                        </div>
+                    )}
+                    />
+        </div>
+    )
+
+    const ShinanWeatherInfo = (
+        <div>
+            <h2> 신안 날씨 정보</h2>
+                    {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+                    <Weather
+                    onPohangWindSpeedData={() => {}}
+                    onPohangTMXData={() => {}}
+                    onPohangTMNData={() => {}}
+                    onUlsanWindSpeedData={() => {}}
+                    onUlsanTMXData={() => {}}
+                    onUlsanTMNData={() => {}}
+                    onGoheungWindSpeedData={() => {}}
+                    onGoheungTMXData={() => {}}
+                    onGoheungTMNData={() => {}}
+                    onYeosuWindSpeedData={() => {}}
+                    onYeosuTMXData={() => {}}
+                    onYeosuTMNData={() => {}}
+                    onWandoWindSpeedData={() => {}}
+                    onWandoTMXData={() => {}}
+                    onWandoTMNData={() => {}}
+                    onGeojeWindSpeedData={() => {}}
+                    onGeojeTMXData={() => {}}
+                    onGeojeTMNData={() => {}}
+                    onSuncheonWindSpeedData={() => {}}
+                    onSuncheonTMXData={() => {}}
+                    onSuncheonTMNData={() => {}}
+                    onShinanWindSpeedData={(item) => (
+                        <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onShinanTMXData={(item) => (
+                        <div>
+                        <p> 최고 기온 : {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                        </div>
+                    )}
+                    onShinanTMNData={(item) => (
+                        <div>
+                        <p> 최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                        </div>
+                    )}
+                    />
+        </div>
+    )
+
+
+
+
+
+
+
+
+
 // const videoUrl = [
 //     'http://192.168.0.74:8000/static/webcamapp/video/video.mp4'
 //   ];
@@ -565,12 +752,14 @@ const goheungWeatherInfo = (
 
     return (
         <Wrapper>
+            {/* 조건 추가가능 */}
+            {/* {userType === "관리자"&&( */}
         <div className={style.home_box} style={{overflow:'hidden'}}>
             <div className={style.login_nav}>
             <Sidenav />
             </div>
             <div className={style.home_box_2} style={{overflow:'hidden'}}>
-            <div className={style.modal_video}>
+            <div >
                     <table>
                                                         {/* <CCTVModal
                                                             icon="cctv-icon-1.png"
@@ -614,7 +803,8 @@ const goheungWeatherInfo = (
 {/* <VideoPlayer videoUrl={videoUrl} frameRate={24} />; */}
 {selectedLog && (
         <div>
-            <video className={style.modal_video} controls autoPlay muted>                           
+          {/* <MaterialChart cctvId={selectedLog.cctvId} /> */}
+            <video className={style.modal_video} controls autoPlay muted loop>                           
             <source src={'http://192.168.0.74:8000/static/webcamapp/video/video.mp4'} type="video/mp4" />
             </video>
           {/* <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted>                           
@@ -695,7 +885,7 @@ const goheungWeatherInfo = (
 
 {selectedLog && (
         <div>
-          <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted>                           
+          <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted loop>                           
             <source src={`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`} type="video/mp4" />
           </video>
           <p>CCTV ID: {selectedLog.cctvId}</p>
@@ -775,17 +965,20 @@ const goheungWeatherInfo = (
                             />
                             Your browser does not support the video tag.
                         </video> */}
+
                         {selectedLog && (
-        <div>
-          <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted>                           
+                            <div>
+          <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted loop>                           
             <source src={`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`} type="video/mp4" />
           </video>
+            <>
           <p>CCTV ID: {selectedLog.cctvId}</p>
           <p>최신 감지 날짜: {selectedLog.detectedDate}</p>
           <p>위험도: {selectedLog.riskIndex}</p>
           <p>쓰레기 수: {selectedLog.objectCount}</p>
           {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
           {/* <p>{goheungWeatherInfo}</p> */}
+          </>
         </div>
       )}
 
@@ -844,13 +1037,15 @@ const goheungWeatherInfo = (
             {selectedLog && (
         <div>
           {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
-          <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted>                           
+          <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted loop>                           
             <source src={`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`} type="video/mp4" />
           </video>
           <p>CCTV ID: {selectedLog.cctvId}</p>
           <p>최신 감지 날짜: {selectedLog.detectedDate}</p>
           <p>위험도: {selectedLog.riskIndex}</p>
           <p>쓰레기 수: {selectedLog.objectCount}</p>
+          {/* <MaterialChart logData={selectedLog} /> */}
+          {/* <MaterialChart cctvId={selectedLog.cctvId} /> */}
         </div>
       )}
         </div>
@@ -885,6 +1080,18 @@ const goheungWeatherInfo = (
                     메인_서브_1_1_관제시스템
 
                 </div> */}
+                {/* <MaterialChart cctvId={selectedLog.cctvId} /> */}
+
+                {
+                    (selectedImage === "cctv-icon-1.png"||selectedImage === "cctv-icon-2.png"||
+                    selectedImage === "cctv-icon-3.png"||selectedImage === "cctv-icon-4.png") &&(
+                    <div>
+                        {selectedLog && (
+                            <MaterialChart logData={selectedLog} /> 
+                        )}                    
+                    </div>
+                    ) 
+                }
                 
                 </div>
 
@@ -1072,145 +1279,15 @@ const goheungWeatherInfo = (
                 )}
                 {selectedImage === "cctv-icon-3.png" && (
                 <div className={style.weather}>
+                    {/* 고흥 */}
                     {goheungWeatherInfo}
-
-                    <h2>여수 날씨 정보</h2>
-                    {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
-                    <Weather
-                    onPohangWindSpeedData={() => {}}
-                    onPohangTMXData={() => {}}
-                    onPohangTMNData={() => {}}
-                    onUlsanWindSpeedData={() => {}}
-                    onUlsanTMXData={() => {}}
-                    onUlsanTMNData={() => {}}
-                    onGoheungWindSpeedData={() => {}}
-                    onGoheungTMXData={() => {}}
-                    onGoheungTMNData={() => {}}
-                    onGeojeWindSpeedData={() => {}}
-                    onGeojeTMXData={() => {}}
-                    onGeojeTMNData={() => {}}
-                    onWandoWindSpeedData={() => {}}
-                    onWandoTMXData={() => {}}
-                    onWandoTMNData={() => {}}
-                    onShinanWindSpeedData={() => {}}
-                    onShinanTMXData={() => {}}
-                    onShinanTMNData={() => {}}
-                    onSuncheonWindSpeedData={() => {}}
-                    onSuncheonTMXData={() => {}}
-                    onSuncheonTMNData={() => {}}
-                    onYeosuWindSpeedData={(item) => (
-                        <div>
-                        <p>풍속: {item.fcstValue} m/s</p>
-                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                        </div>
-                    )}
-                    onYeosuTMXData={(item) => (
-                        <div>
-                        <p> 최고 기온 : {item.fcstValue} ℃</p>
-                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                        </div>
-                    )}
-                    onYeosuTMNData={(item) => (
-                        <div>
-                        <p> 최저 기온 : {item.fcstValue} ℃</p>
-                        <p>
-                            기준 시간: {item.baseDate} {item.baseTime}
-                        </p>
-                        </div>
-                    )}
-                    />
+                    {/* 여수 */}
+                    {yeosuWeatherInfo}
                     {/* ___________________________________________ */}
-                    <h2>완도 날씨 정보</h2>
-                    {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
-                    <Weather
-                    onPohangWindSpeedData={() => {}}
-                    onPohangTMXData={() => {}}
-                    onPohangTMNData={() => {}}
-                    onUlsanWindSpeedData={() => {}}
-                    onUlsanTMXData={() => {}}
-                    onUlsanTMNData={() => {}}
-                    onGoheungWindSpeedData={() => {}}
-                    onGoheungTMXData={() => {}}
-                    onGoheungTMNData={() => {}}
-                    onYeosuWindSpeedData={() => {}}
-                    onYeosuTMXData={() => {}}
-                    onYeosuTMNData={() => {}}
-                    onGeojeWindSpeedData={() => {}}
-                    onGeojeTMXData={() => {}}
-                    onGeojeTMNData={() => {}}
-                    onShinanWindSpeedData={() => {}}
-                    onShinanTMXData={() => {}}
-                    onShinanTMNData={() => {}}
-                    onSuncheonWindSpeedData={() => {}}
-                    onSuncheonTMXData={() => {}}
-                    onSuncheonTMNData={() => {}}
-                    onWandoWindSpeedData={(item) => (
-                        <div>
-                        <p>풍속: {item.fcstValue} m/s</p>
-                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                        </div>
-                    )}
-                    onWandoTMXData={(item) => (
-                        <div>
-                        <p> 최고 기온 : {item.fcstValue} ℃</p>
-                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                        </div>
-                    )}
-                    onWandoTMNData={(item) => (
-                        <div>
-                        <p> 최저 기온 : {item.fcstValue} ℃</p>
-                        <p>
-                            기준 시간: {item.baseDate} {item.baseTime}
-                        </p>
-                        </div>
-                    )}
-                    />
+                    {wandoWeatherInfo}
                     {/* _______________________________________________________ */}
-                    <h2> 신안 날씨 정보</h2>
-                    {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
-                    <Weather
-                    onPohangWindSpeedData={() => {}}
-                    onPohangTMXData={() => {}}
-                    onPohangTMNData={() => {}}
-                    onUlsanWindSpeedData={() => {}}
-                    onUlsanTMXData={() => {}}
-                    onUlsanTMNData={() => {}}
-                    onGoheungWindSpeedData={() => {}}
-                    onGoheungTMXData={() => {}}
-                    onGoheungTMNData={() => {}}
-                    onYeosuWindSpeedData={() => {}}
-                    onYeosuTMXData={() => {}}
-                    onYeosuTMNData={() => {}}
-                    onWandoWindSpeedData={() => {}}
-                    onWandoTMXData={() => {}}
-                    onWandoTMNData={() => {}}
-                    onGeojeWindSpeedData={() => {}}
-                    onGeojeTMXData={() => {}}
-                    onGeojeTMNData={() => {}}
-                    onSuncheonWindSpeedData={() => {}}
-                    onSuncheonTMXData={() => {}}
-                    onSuncheonTMNData={() => {}}
-                    onShinanWindSpeedData={(item) => (
-                        <div>
-                        <p>풍속: {item.fcstValue} m/s</p>
-                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                        </div>
-                    )}
-                    onShinanTMXData={(item) => (
-                        <div>
-                        <p> 최고 기온 : {item.fcstValue} ℃</p>
-                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-                        </div>
-                    )}
-                    onShinanTMNData={(item) => (
-                        <div>
-                        <p> 최저 기온 : {item.fcstValue} ℃</p>
-                        <p>
-                            기준 시간: {item.baseDate} {item.baseTime}
-                        </p>
-                        </div>
-                    )}
-                    />
+                    {ShinanWeatherInfo}
+
                     <h2> 순천 날씨 정보</h2>
                     {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
                     <Weather
@@ -1312,6 +1389,8 @@ const goheungWeatherInfo = (
             </div>
             </div>
         </div>
+            {/* )} */}
+
         </Wrapper>
     );
     }
