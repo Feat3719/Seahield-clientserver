@@ -5,6 +5,7 @@
     left: 0;
     right: 0;
     bottom: 0;
+    height: 40vh;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
@@ -12,22 +13,33 @@
 }
 
 .modalContainer {
-    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    width: 60vw; /* 모달의 너비 */
+    margin: auto;
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
-    max-width: 500px;
-    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+
 .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
 .modalContent {
+    justify-content: center;
     margin-bottom: 20px;
+    top: 0vh;
     overflow-y: auto;
-    width: 80vw;
+    width: 40vw;
     height: 60vh;
+    border: 2px blue solid;
+
 }
 
 /* 각 요소별로 고유한 className을 정의합니다. */
@@ -42,8 +54,28 @@
 }
 
 .dataTable {
-    width: 100%;
+    /* width: 100%; */
     border-collapse: collapse;
+    height: 30vh;
+    border: 1px purple solid;
+    background-color: red;
+    position: static;
+    width: 25.6%;
+    text-align: center;
+}
+
+.dataTable th, .dataTable td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd; /* 셀 하단에 경계선 추가 */
+}
+.tbody_cell{
+    background-color: red;
+}
+
+.tcell:hover {
+    cursor: pointer;
+    background-color: bisque;
 }
 
 .tableHeader,
@@ -60,3 +92,4 @@
 .tableHeader {
     background-color: #f2f2f2;
 }
+

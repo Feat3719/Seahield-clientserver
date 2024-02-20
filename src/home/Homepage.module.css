@@ -112,6 +112,7 @@
   clear: both;
   z-index: 10px;
   color: white;
+  overflow-x: hidden;
   
 }
 
@@ -131,15 +132,16 @@
   cursor: pointer;
   position: absolute;
   top: 73.3vh;
-  left: 6vw;
+  left: 0vw;
   padding: 0.5vw 1vh 0.5vw 1vh;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   font-size: 2vh;
-  width: 5vw;
+  width: 4vw;
   height: 5vh;
+  font-size: 2vh;
 }
 
 /* .modal_video{
@@ -362,7 +364,7 @@
   border: 1px beige solid;
   /* background-color: #343A43; */
   border-radius: 10px;
-  width: 40%;
+  width: 36vw;
   height: 82vh;
   top: 7vh;
   justify-content: center;
@@ -533,7 +535,38 @@
   font-size: 1.3vh;
 
 }
-
+.showcctv{
+  position: absolute;
+  background-color: #05101b;
+  display: flex;
+  align-items: flex-start;
+  height: 40vh;
+  width: 25vw;
+  top: 20vh;
+  justify-content: center;
+  border-collapse: collapse;
+  overflow-y: auto;
+  /* color: aliceblue; */
+/* gap: 100vw; */
+}
+.cctvTable{
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  right: 0.95vw;
+width: 23vw;
+  border: 1px white solid;
+}
+.cctvTable table {
+  width: 24.5vw;
+  border: 1px white solid;
+  
+}
+.cctvTable td{
+  border: 1px white solid;
+}
 
 .map{
     position: relative;
@@ -567,7 +600,7 @@
     padding-bottom: 3%;
     top: -2vh;
     /* right: 1.8vw; */
-    left: 10vw;
+    left: -9vw;
     justify-content: center;
     align-items: center ;
     font-size: 2vh;
@@ -706,7 +739,7 @@
   justify-content: center;
   margin-top: 1%;
   margin-left: 2%;
-  left: -15vw;
+  left: 0vw;
 }
 .sub_2_2{
   position: relative;

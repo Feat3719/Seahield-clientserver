@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import style from './CCTV.Module.css'; // 스타일 파일 경로 확인
+import style from './CCTV.Module.css';
+import SelectedLogDetails from './SelectedLogDetails'; // SelectedLogDetails 컴포넌트 import
 
-function CCTVModal({ accessToken, onClose }) {
+function CCTVModal({ accessToken, onClose, setSelectedLogComponent }) { // setSelectedLogComponent를 추가하여 SelectedLogDetails 컴포넌트를 전달합니다.
     const [cctvLogs, setCctvLogs] = useState([]);
     const [selectedLog, setSelectedLog] = useState(null);
 
@@ -23,16 +24,28 @@ function CCTVModal({ accessToken, onClose }) {
                 },
             });
             const newLogs = Array.isArray(response.data) ? response.data : [response.data];
-            
-            // 기존 로그와 새로운 로그를 합쳐서 상태에 업데이트합니다.
-            setCctvLogs(prevLogs => [...prevLogs, ...newLogs]);
+
+            // 새 로그가 기존 로그에 없는 경우에만 추가
+            setCctvLogs(prevLogs => {
+                const updatedLogs = [...prevLogs];
+                newLogs.forEach(newLog => {
+                    if (!prevLogs.some(log => log.cctvLogId === newLog.cctvLogId)) {
+                        updatedLogs.unshift(newLog); // 새로운 로그를 배열의 맨 앞에 추가
+                    } else {
+                        // 이미 존재하는 경우에는 detectedDate로 업데이트된 값인지 확인
+                        const existingLogIndex = prevLogs.findIndex(log => log.cctvLogId === newLog.cctvLogId);
+                        if (prevLogs[existingLogIndex].detectedDate !== newLog.detectedDate) {
+                            updatedLogs[existingLogIndex] = newLog;
+                        }
+                    }
+                });
+                return updatedLogs;
+            });
         } catch (error) {
             console.error("Error fetching CCTV details:", error);
         }
     };
 
-
-    
     const handleClickCctvId = async (cctvLogId) => {
         try {
             const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
@@ -40,9 +53,10 @@ function CCTVModal({ accessToken, onClose }) {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            const selectedLogData = [response.data]; // 객체를 배열로 변환
+            const selectedLogData = response.data; // 객체 형태로 유지
 
             setSelectedLog(selectedLogData);
+            setSelectedLogComponent(<SelectedLogDetails selectedLog={selectedLogData} onClose={() => setSelectedLog(null)} />);
         } catch (error) {
             console.error("Error fetching CCTV details:", error);
         }
@@ -53,7 +67,6 @@ function CCTVModal({ accessToken, onClose }) {
             <div className={style.modalContainer}>
                 <div className={style.modalHeader}>
                     <h2>CCTV 상세 정보</h2>
-                    <button onClick={onClose} className={style.closeButton}>닫기</button>
                 </div>
                 <div className={style.modalContent}>
                     {cctvLogs.length > 0 ? (
@@ -63,53 +76,28 @@ function CCTVModal({ accessToken, onClose }) {
                                     <th>CCTV ID</th>
                                     <th>객체 수</th>
                                     <th>위험도</th>
+                                    <th>시간</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className={style.tbody_cell}>
                                 {cctvLogs.map((log, index) => (
                                     <tr key={index} onClick={() => handleClickCctvId(log.cctvLogId)}>
                                         <td>{log.cctvId}</td>
                                         <td>{log.objectCount}</td>
                                         <td>{log.riskIndex}</td>
+                                        <td>{log.detectedDate}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
+                        
                     ) : (
                         <p>로딩 중이거나 데이터가 없습니다.</p>
                     )}
+                    <button onClick={onClose} className={style.closeButton}>닫기</button>
+
                 </div>
             </div>
-            {selectedLog && (
-    <div className={style.modalBackground}>
-        <div className={style.modalContainer}>
-            <div className={style.modalHeader}>
-                <h2>Selected CCTV Log Details</h2>
-                <button onClick={() => setSelectedLog(null)} className={style.closeButton}>닫기</button>
-            </div>
-            <div className={style.modalContent}>
-                <table className={style.dataTable}>
-                    <thead>
-                        <tr>
-                            {Object.keys(selectedLog[0]).map((key, index) => (
-                                <th key={index}>{key}</th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {selectedLog.map((log, index) => (
-                            <tr key={index}>
-                                {Object.values(log).map((value, index) => (
-                                    <td key={index}>{value}</td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-)}
         </div>
     );
 }
