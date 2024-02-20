@@ -22,7 +22,7 @@ import Announcement from "./announce/Announcement";
 import AnnounceDetail from "./announce/AnnounceDetail";
 import ProtectedRoute from "./reducers/ProtectedRoute";
 import PublicOnlyRoute from "./reducers/PublicOnlyRoute";
-import AdminOnlyRoute from "./reducers/PublicOnlyRoute";
+import AdminOnlyRoute from "./reducers/AdminOnlyRoute";
 import BusinessOnlyRoute from "./reducers/BusinessOnlyRoute";
 
 axios.defaults.baseURL = "https://devfeat.com";

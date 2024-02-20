@@ -546,7 +546,7 @@ const MypageRegular = () => {
                         <h1 className={style.my_title}>마이 페이지_사업자</h1>
 
                         <div className={style.my_info}>
-                            <div>
+                            <div className={style.info_area}>
                                 <h2 className={style.my_info_name}>{userNickname}님 정보</h2>
                                 <div className={style.my_input_wrapper_1}>
                                     {scene !== 0 && <div className={style.edit_1}>{renderScene()}</div>}

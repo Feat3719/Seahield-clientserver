@@ -1,5 +1,5 @@
 .mypage {
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@
 
 .my_form {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     align-items: baseline;
     display: flex;
     border-radius: 3vh;
@@ -52,6 +52,11 @@
     color: white;
 }
 
+.info_area {
+    height: 100%;
+    min-height: 100vh;
+}
+
 .my_input_info {
     display: flex;
     flex-direction: column;
@@ -60,6 +65,7 @@
 
 .my_info_name {
     font-size: 3vh;
+    margin-top: 10vh;
 }
 
 .my_input_wrapper_1 {
@@ -77,12 +83,40 @@
 }
 
 .my_input_wrapper_1 input {
-    width: 20vw;
-    height: 5vh;
+    width: 15vw;
+    height: 3vh;
     font-size: 1.5vh;
-    top: 0vh;
-    gap: 5vh;
+    text-align: left;
+    border: 0.1vh solid #ccc;
+    border-radius: 0.3vh;
+    outline: none;
+    transition: border-color 0.3s;
+    font-size: 1.8vh;
+    margin: 0 1vh 0 1vh;
+}
 
+.my_input_wrapper_1 input:focus {
+    border-color: #2e7eef;
+    /* 입력 필드 클릭(포커스) 시 테두리 색상을 파란색으로 변경 */
+}
+
+
+.password_submitbtn {
+    cursor: pointer;
+    border-radius: 0.3vh;
+    border: none;
+    height: 3.5vh;
+    transition: background-color 0.3s ease;
+}
+
+.password_submitbtn:hover {
+    background-color: #3247b1;
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+}
+
+.password_describe {
+    font-size: 2vh;
+    margin-top: 3vh;
 }
 
 .userinfo_id {
@@ -93,7 +127,7 @@
 
 .editTable {
     position: relative;
-    background-color: #9c9696e7;
+    background-color: #c1c1c1e7;
     padding: 5vw 10%;
     display: flex;
     /* justify-content: first baseline; */
@@ -102,6 +136,15 @@
 .editBtn {
     position: relative;
     justify-content: space-between;
+    cursor: pointer;
+    border: none;
+    margin-top: 3vh;
+    border-radius: 0.2vh;
+    font-size: 2vh;
+}
+
+.editBtn:hover {
+    background-image: linear-gradient(to right, #7ba7fe, #3247b1);
 }
 
 .contract_table>tr>td {
@@ -150,7 +193,7 @@
     width: 15vw;
     height: 50vh;
     left: 2vh;
-    font-size: 2vw;
+    font-size: 2vh;
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -219,6 +262,18 @@
     justify-content: center;
 }
 
+.passwordinput {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20vh;
+}
+
+.password_input {
+    width: 10%;
+}
 
 /* _______myslide내용 관련__________ */
 
@@ -361,6 +416,13 @@
 
 
 @media (max-width: 412px) {
+
+    .edit_1 {
+        width: 50vw;
+        left: 30vw;
+        top: 5vh;
+    }
+
     .my_info {
         width: 20vw;
     }
@@ -391,18 +453,12 @@
         /* border: 5px rgb(25, 29, 36) dotted; */
         border-collapse: collapse;
         width: 15vw;
-        height: 50vh;
         left: 3vh;
-        font-size: 1vw;
+        font-size: 1vh;
         align-items: center;
         display: flex;
         flex-direction: column;
         text-align: end;
-    }
-
-    .my_input_wrapper_1 input {
-        width: 20vw;
-        height: 3vh;
     }
 
     .my_input_wrapper_1 button {
@@ -410,20 +466,19 @@
         width: 18vw;
         left: 3vw;
         height: 2vh;
-        font-size: 2vw;
+        font-size: 2vh;
         align-items: center;
     }
 
     .transBtn {
-        background-image: linear-gradient(to right, #e96d4e, #feb47b);
         color: white;
         display: flex;
         width: 15vw;
         height: 5vh;
         /* font-size: bold; */
-        font-weight: bold;
         transition: background-image 0.5s ease;
         cursor: pointer;
+        width: 10vh;
     }
 
     .my_input_wrapper_2 {
@@ -458,27 +513,10 @@
         width: 20vw;
     }
 
-    .edit_1 {
-        display: flex;
-        /* border: #ca8181 2px dotted; */
-        left: 29vw;
-        top: 0vh;
-        position: absolute;
-        width: 30vw;
-        height: 70vh;
-        justify-content: center;
-    }
 
 
     .myslide_form {
-        position: absolute;
-        width: 55vw;
-        height: 30vh;
-        top: 100vh;
-        /* bottom: 20vh; */
-        left: 0vw;
-        border: 2px #ca8181 solid;
-        align-items: center;
+        display: none;
     }
 
     .slideBoard {
@@ -501,6 +539,7 @@
 
     .mypage_btn {
         display: flex;
+        height: 100%;
     }
 
     .contract_table {
@@ -510,4 +549,57 @@
     .slideBoard {
         height: 20;
     }
+
+    .my_table {
+        position: relative;
+        align-items: center;
+        width: 50vw;
+        height: 5vh;
+        top: 0vh;
+        width: 50vw;
+        /* 표의 너비를 화면 너비에 맞춤 */
+        margin-left: 0;
+        /* 왼쪽 여백 제거 */
+        overflow-x: auto;
+        /* 내용이 너비를 초과할 경우 스크롤 가능하도록 설정 */
+    }
+
+    .my_table,
+    .contract_title {
+        font-size: 3vw;
+        /* 작은 화면에서의 폰트 사이즈 조정 */
+    }
+
+    .my_td,
+    .contract_table tr td {
+        padding: 5px;
+        /* 셀의 패딩을 줄여 더 많은 내용이 보이도록 함 */
+    }
+
+    /* 표의 헤더와 바디가 작은 화면에 맞게 조정될 수 있도록 설정 */
+    .contract_title thead tr,
+    .contract_table tbody tr {
+        display: block;
+        /* 각 행을 블록 요소로 변경 */
+        width: 100%;
+    }
+
+    /* 테이블 셀을 작은 화면에 맞게 조정 */
+    .contract_title th,
+    .contract_table td {
+        display: block;
+        /* 셀을 블록 요소로 변경 */
+        text-align: right;
+        /* 텍스트를 오른쪽 정렬 */
+        border: none;
+        /* 테이블 셀의 테두리 제거 */
+    }
+
+    /* 추가적으로, 테이블 내 각 셀의 데이터를 보기 쉽게 하기 위한 스타일링 조정이 필요할 수 있음 */
+    .contractRow:hover {
+        background-color: #3247b1;
+        /* 호버 상태의 배경색 변경 */
+    }
+
+
 }
