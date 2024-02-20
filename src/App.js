@@ -49,7 +49,10 @@ function AppContent() {
                 <Route path="/map" element={<Homepage />} />
                 <Route path="/boardtab" element={<BoardTab />} />
                 <Route path="/announce" element={<Announcement />} />
-                <Route path="/announcedetail/:id" element={<AnnounceDetail />} />
+                <Route
+                    path="/announcedetail/:id"
+                    element={<AnnounceDetail />}
+                />
                 <Route path="/boarddetail/:id" element={<BoardDetail />} />
 
                 {/* 로그인한 사용자만 접근 가능 라우트 */}
@@ -62,13 +65,50 @@ function AppContent() {
                 <Route path="/companyinfo" element={<ProtectedRoute><BusinessOnlyRoute><CompanyInfo /></BusinessOnlyRoute></ProtectedRoute>} />
 
                 {/* 관리자만 접근 가능 라우트 */}
-                <Route path="/admin" element={<ProtectedRoute><AdminOnlyRoute><AdminPage /></AdminOnlyRoute></ProtectedRoute>} />
+                <Route
+                    path="/admin"
+                    element={
+                        <ProtectedRoute>
+                            <AdminOnlyRoute>
+                                <AdminPage />
+                            </AdminOnlyRoute>
+                        </ProtectedRoute>
+                    }
+                />
 
                 {/* 비회원만 접근 가능 라우트 */}
-                <Route path="/signin" element={<PublicOnlyRoute><Signin /></PublicOnlyRoute>} />
-                <Route path="/signupver" element={<PublicOnlyRoute><SignupVer /></PublicOnlyRoute>} />
-                <Route path="/signup" element={<PublicOnlyRoute><Signup /></PublicOnlyRoute>} />
-                <Route path="/idfind" element={<PublicOnlyRoute><IdFind /></PublicOnlyRoute>} />
+                <Route
+                    path="/signin"
+                    element={
+                        <PublicOnlyRoute>
+                            <Signin />
+                        </PublicOnlyRoute>
+                    }
+                />
+                <Route
+                    path="/signupver"
+                    element={
+                        <PublicOnlyRoute>
+                            <SignupVer />
+                        </PublicOnlyRoute>
+                    }
+                />
+                <Route
+                    path="/signup"
+                    element={
+                        <PublicOnlyRoute>
+                            <Signup />
+                        </PublicOnlyRoute>
+                    }
+                />
+                <Route
+                    path="/idfind"
+                    element={
+                        <PublicOnlyRoute>
+                            <IdFind />
+                        </PublicOnlyRoute>
+                    }
+                />
             </Routes>
         </AnimatePresence>
     );
