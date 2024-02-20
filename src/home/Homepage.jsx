@@ -895,7 +895,6 @@ const goheungWeatherInfo = (
 
 {/* {showModal && (
                 <CCTVModal
-                    accessToken={accessToken}
                     selectedLog={selectedLog}
                     onClose={handleCloseModal}
                 />
