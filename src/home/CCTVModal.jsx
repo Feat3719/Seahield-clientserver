@@ -1,113 +1,122 @@
-import React, { useState } from 'react';
-import style from './CCTV.Module.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import style from './CCTV.Module.css'; // 스타일 파일 경로 확인
 
-function CCTVModal(props) {
-    const { icon, videoUrl, tableBody } = props;
+function CCTVModal({ accessToken, onClose }) {
+    const [cctvLogs, setCctvLogs] = useState([]);
+    const [selectedLog, setSelectedLog] = useState(null);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedVideo, setSelectedVideo] = useState('');
-    const [smallScreenVideo, setSmallScreenVideo] = useState('');
-    const [showTable, setShowTable] = useState(false);
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            fetchCCTVDetails();
+        }, 1000);
 
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-        if(videoUrl !==null){
-            setSelectedVideo(videoUrl);
+        // 컴포넌트가 언마운트될 때 interval 정리
+        return () => clearInterval(intervalId);
+    }, [accessToken]);
+
+    const fetchCCTVDetails = async () => {
+        try {
+            const response = await axios.get("/api/cctv/logs-dynamic", {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            const newLogs = Array.isArray(response.data) ? response.data : [response.data];
+
+            // 새 로그가 기존 로그에 없는 경우만 추가
+            setCctvLogs(prevLogs => {
+                const updatedLogs = [...prevLogs];
+                newLogs.forEach(newLog => {
+                    // 기존 로그와 중복 여부를 확인하기 위해 cctvLogId를 사용합니다.
+                    if (!prevLogs.some(log => log.cctvLogId === newLog.cctvLogId)) {
+                        updatedLogs.push(newLog);
+                    }
+                });
+                return updatedLogs;
+            });
+        } catch (error) {
+            console.error("Error fetching CCTV details:", error);
         }
-        setSmallScreenVideo('');
-        setShowTable(false); // 작은 화면에 테이블을 보여주지 않습니다.
     };
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        setSmallScreenVideo(selectedVideo); // 마지막으로 선택된 비디오를 작은 화면 비디오로 설정합니다.
-    if(videoUrl){
-        setSelectedVideo('');
-    }
-        setShowTable(true); // 작은 화면에 테이블을 보여줍니다.
-    };
+    const handleClickCctvId = async (cctvLogId) => {
+        try {
+            const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            const selectedLogData = [response.data]; // 객체를 배열로 변환
 
-    const handleModalOutsideClick = () => {
-        if (isModalOpen) {
-            handleCloseModal();
+            setSelectedLog(selectedLogData);
+        } catch (error) {
+            console.error("Error fetching CCTV details:", error);
         }
     };
 
     return (
-        <div className={style.container} onClick={handleModalOutsideClick}>
-            {icon === "cctv-icon-1.png" && (
-                <img 
-                    style={{position: 'absolute',width: '2.5vw', height:' 5vh', right: '5vw',
-                            top: '40vh'}} 
-                    src={process.env.PUBLIC_URL + '/images/cctv-icon-1.png'} 
-                    alt="CCTV 1" 
-                    onClick={handleOpenModal} 
-                    className={style.icon} 
-                />
-            )}
-            {icon === "cctv-icon-2.png" && (
-                <img 
-                    style={{position: 'absolute',width: '2.5vw', height:' 5vh',left:'10vw',top: '50vh'}} 
-                    src={process.env.PUBLIC_URL + '/images/cctv-icon-2.png'} 
-                    alt="CCTV 2" 
-                    onClick={handleOpenModal} 
-                    className={style.icon} 
-                />
-            )}
-
-            {isModalOpen && (
-                <div className={style.modal}>
-                    <div className={style.modalContent} onClick={e => e.stopPropagation()}>
-                        <VideoPlayer
-                            videoUrl={selectedVideo}
-                            handleCloseModal={handleCloseModal}
-                            showTable={showTable}
-                            tableBody={tableBody}
-                        />
-                    </div>
+        <div className={style.modalBackground}>
+            <div className={style.modalContainer}>
+                <div className={style.modalHeader}>
+                    <h2>CCTV 상세 정보</h2>
+                    <button onClick={onClose} className={style.closeButton}>닫기</button>
                 </div>
-            )}
-
-            {smallScreenVideo && (
-                <div className={style.smallScreen} style={{ position: 'fixed', top: '3vh', left: '5vw' }}>
-                    <video 
-                        controls 
-                        autoPlay 
-                        muted 
-                        className={style.smallScreenVideo} 
-                        style={{ width: '25vw' }}
-                    >
-                        <source src={smallScreenVideo} type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
+                <div className={style.modalContent}>
+                    {cctvLogs.length > 0 ? (
+                        <table className={style.dataTable}>
+                            <thead>
+                                <tr>
+                                    <th>CCTV ID</th>
+                                    <th>객체 수</th>
+                                    <th>위험도</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {cctvLogs.map((log, index) => (
+                                    <tr key={index} onClick={() => handleClickCctvId(log.cctvLogId)}>
+                                        <td>{log.cctvId}</td>
+                                        <td>{log.objectCount}</td>
+                                        <td>{log.riskIndex}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <p>로딩 중이거나 데이터가 없습니다.</p>
+                    )}
                 </div>
-            )}
-
-            {showTable && (
-                <div className={style.smallScreenTable} style={{ position: 'fixed',fontSize:'2vh', bottom: '3vh', left: '5vw',width:'24.6vw',height:'1vh',top:'50vh' }}>
-                    {tableBody}
-                </div>
-            )}
-                    </div>
-                );
-            }
-
-function VideoPlayer({ videoUrl, handleCloseModal, showTable, tableBody }) {
-    return (
-        <div> 
-            <video 
-                controls 
-                autoPlay 
-                muted 
-                className={style.fullScreenVideo} 
-                style={{ position: 'fixed', top: 0, left: '30vw', width: '40vw' }}
-            >
-                <source src={videoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
-            <button onClick={handleCloseModal} style={{position:'relative',top:'40vh',right:'0vw'}}>Close</button>
-
-            {showTable && tableBody} {/* 작은 화면에 테이블을 보여줍니다. */}
+            </div>
+            {selectedLog && (
+    <div className={style.modalBackground}>
+        <div className={style.modalContainer}>
+            <div className={style.modalHeader}>
+                <h2>Selected CCTV Log Details</h2>
+                <button onClick={() => setSelectedLog(null)} className={style.closeButton}>닫기</button>
+            </div>
+            <div className={style.modalContent}>
+                <table className={style.dataTable}>
+                    <thead>
+                        <tr>
+                            {Object.keys(selectedLog[0]).map((key, index) => (
+                                <th key={index}>{key}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {selectedLog.map((log, index) => (
+                            <tr key={index}>
+                                {Object.values(log).map((value, index) => (
+                                    <td key={index}>{value}</td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+)}
         </div>
     );
 }

@@ -10,6 +10,8 @@
     // import CCTVModal from "./CCTVModal";
     import axios from "axios";
     import MaterialChart from "./MaterialChart";
+    import CCTVModal from "./CCTVModal";
+import MaterialChart2 from "./MaterialChart2";
 // import VideoPlayer from "./VideoPlayer";
     // import GoogleMap from './GoogleMap';
     // import Kakao from './kakao';
@@ -86,15 +88,29 @@
     // }
     // const [selectedDetail, setSelectedDetail] = useState([]);
     const [selectedLog, setSelectedLog] = useState(null);
+    const [cctvLog, setCctvLog] = useState([]);
+
     // const [selectedId, setSelectedId] = useState(null);
     const [latestLogs, setLatestLogs] = useState([]);
     // const [selectedCctvId, setSelectedCctvId] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setModalOpen] = useState(false);
+    const [showModal, setShowModal] = useState(false); // 모달 표시 상태
+    const [showDetails, setShowDetails] = useState(false); // 모달 표시 상태
+    const [detail, setDetail] = useState([]); // 모달 표시 상태
+    const [valuesArray, setValuesArray] = useState([]);
     // const [isweather, setIsweather] = useState(false);
     
     // const [userType, setUserType] = useState("");
 
+
+
+    
+
+    const handleShowDetails = () => {
+        setShowModal(true); // 모달 표시
+        setShowDetails(true); // 상세 정보 보여주기
+    };
     
     
     // const handleCellClick = (cell) => {
@@ -149,17 +165,20 @@
     //         setSelectedDetail([]);
     //     }
     // };
-    const handleClick1 = (cctvId) => {
+    const handleClick1 = (cctvLogId) => {
         // console.log(`Clicked cctvId: ${cctvId}, Type: ${typeof cctvId}`);
         // console.log('Current latestLogs state:', latestLogs);
      //클릭한 배열의 값의 첫번째값으로 cctvId찾는 과정
     // 이거 안하면 +1된 cctvId찾아서 보여주게됨
-        const logData = latestLogs.find(log => log.cctvId === String(cctvId));
-    if (logData) {
-        setSelectedLog(logData);
-        console.log('Selected log data:', logData);
+        const logData = latestLogs.find(log => log.cctvId === String(cctvLogId));
+        if (logData) {
+            setSelectedLog(logData);
+            setShowModal(true); // 클릭 시 모달을 표시하도록 상태 업데이트
+            setShowDetails(false); // 상세 정보를 바로 보여주지 않도록 설정
+            setCctvLog(logData)
+            console.log('Selected log data:', logData);
     } else {
-        console.log('No log data found for cctvId:', cctvId);
+        console.log('No log data found for cctvId:', cctvLogId);
     }
 };
     // const [selectedVideo, setSelectedVideo] = useState('');
@@ -234,6 +253,7 @@
     };
 
     const handleCloseModal = () => {
+        setShowModal(false);
         setModalOpen(false);
         // setIsweather(true);
         // setSmallScreenImage(selectedImage); // 선택된 영상을 작은 화면으로 전환
@@ -247,11 +267,96 @@
         };
         
 
+        const handleCCTVIdClick = async (cctvLogId) => {
+            try {
+                const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                // setDetail(response.data);
+                setSelectedLog(response.data)
+            } catch (error) {
+                console.error("Error fetching CCTV detail:", error);
+            }
+        };
+
+        useEffect(() => {
+            const fetchCCTVDetail = async (cctvLogId) => {
+                try {
+                    const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+                    const details = response.data;
+                    const valuesArray = Object.entries(details);
+                    setValuesArray(valuesArray)
+                    // setDetail(details); // 필요에 따라 상세 정보 상태를 업데이트
+                    // setSelectedLog(details);를 아래와 같이 수정할 수 있습니다.
+                    console.log(valuesArray+"@@@@@"); // 디버깅을 위해 상세 정보 콘솔에 출력
+                    // 여기서 petBottlePer 값을 확인하거나 사용할 수 있습니다.
+                    // 예를 들어, UI에 표시하고 싶다면 상태에 저장하고 해당 상태를 사용합니다.
+                } catch (error) {
+                    console.error("Error fetching CCTV detail:", error);
+                }
+            };
+        
+            if (selectedLog && selectedLog.cctvLogId) { // cctvLogId가 유효한 경우에만 fetchCCTVDetail 호출
+                fetchCCTVDetail(selectedLog.cctvLogId);
+            }
+        }, [selectedLog?.cctvLogId, accessToken]); // 종속성 배열 수정
+      
+
+        // useEffect(() => {
+        //     const fetchCCTVDetails = async () => {
+        //         try {
+        //             const response = await axios.get("/api/cctv/logs-dynamic", {
+        //                 headers: {
+        //                     Authorization: `Bearer ${accessToken}`,
+        //                 },
+        //             });
+        //             // 딕셔너리 형태의 데이터를 [키, 값] 쌍의 배열로 변환
+        //             const entriesArray = Object.entries(response.data);
+        //             // 이후 각 [키, 값] 쌍을 처리하여 필요한 데이터 구조로 변환
+        //             const logsArray = entriesArray.map(([key, value]) => ({
+        //                 ...value, // 스프레드 연산자를 사용하여 값 객체의 모든 속성을 복사
+        //                 logKey: key, // 필요하다면 키도 포함시킬 수 있음
+        //             }));
+        
+        //             setCctvLog(prevLogs => {
+        //                 const newLogs = logsArray.filter(newLog => 
+        //                     !prevLogs.some(log => log.cctvLogId === newLog.cctvLogId));
+        
+        //                 if (newLogs.length > 0) {
+        //                     return [...prevLogs, ...newLogs];
+        //                 } else {
+        //                     return prevLogs;
+        //                 }
+        //             });
+        //         } catch (error) {
+        //             console.error("Error fetching CCTV details:", error);
+        //         }
+        //     };
+        
+        //     const intervalId = setInterval(fetchCCTVDetails, 1000); // 1초마다 데이터 업데이트
+        
+        //     return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 정리
+        // }, [accessToken]);
+
+
+
+
+
+        
+
+
         useEffect(() => {
             const fetchLatestLogs = async () => {
                 const cctvIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
                 const logRequests = cctvIds.map(id =>
-                    axios.get(`/api/cctv/logs-details/${id}`, {
+                    // axios.get(`/api/cctv//api/cctv/logs-static/${id}`, {
+                    axios.get(`/api/cctv/logs-static-details/${id}`, {
                         params: { cctvId: id.toString() },
                         headers: { Authorization: `Bearer ${accessToken}` },
                     })
@@ -281,7 +386,7 @@
                 // if (cctv1LatestLog) {
                 //     alert(`CCTV ID 1 Latest Log: ${cctv1LatestLog.detectedDate}`);
                 // }
-                console.log("Latest logs:", latestData);
+                // console.log("Latest logs:", latestData);
             };
         
             fetchLatestLogs();
@@ -787,6 +892,15 @@ const goheungWeatherInfo = (
                         //     style={{ width: '110%', height: '200%', position: 'relative', top: '-22%'}}
                         // />
                         <div className={style.modal_1_form} onClick={handleModalContentClick}>
+
+{/* {showModal && (
+                <CCTVModal
+                    accessToken={accessToken}
+                    selectedLog={selectedLog}
+                    onClose={handleCloseModal}
+                />
+            )} */}
+
                             {/* <video className={style.Bigvideo}
                                 // width="700vw"
                                 // height="380vh"
@@ -801,23 +915,59 @@ const goheungWeatherInfo = (
                             </video> */}
 
 {/* <VideoPlayer videoUrl={videoUrl} frameRate={24} />; */}
+
+{/* <video className={style.modal_video} controls autoPlay muted loop>                           
+            <source src={'http://192.168.0.74:8000/static/webcamapp/video/video.mp4'} type="video/mp4" />
+            </video> */}
 {selectedLog && (
         <div>
-          {/* <MaterialChart cctvId={selectedLog.cctvId} /> */}
             <video className={style.modal_video} controls autoPlay muted loop>                           
             <source src={'http://192.168.0.74:8000/static/webcamapp/video/video.mp4'} type="video/mp4" />
             </video>
           {/* <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted>                           
             <source src={`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`} type="video/mp4" />
           </video> */}
-          <p>CCTV ID: {selectedLog.cctvId}</p>
-          <p>최신 감지 날짜: {selectedLog.detectedDate}</p>
-          <p>위험도: {selectedLog.riskIndex}</p>
-          <p>쓰레기 수: {selectedLog.objectCount}</p>
-          {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
+          {/* {selectedLog.styrofoamPiecePer}
+          <table className={style.logTable}>
+        <thead>
+            <tr>
+                <th>CCTV ID</th>
+                <th>CCTV LOG ID</th>
+                <th>스티로폼 비율</th>
+                <th>스티로폼 갯수</th>
+                <th>최신 감지 날짜</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+                <tr >
+                    <td className={style.cursorPointer}>{selectedLog?.cctvId ?? 'N/A'}</td>
+                    <td>{selectedLog?.cctvLogId ?? 'N/A'}</td>
+                    <td>{`${((selectedLog?.styrofoamPiecePer ?? 0) * 100).toFixed(2)}%`}</td>
+                    <td>{`${selectedLog?.styrofoamPieceCnt ?? 0}개`}</td>
+                    <td>{selectedLog?.detectedDate ?? 'N/A'}</td>
+                </tr>
+        </tbody>
+    </table> */}
+          {/* <p>위험도: {selectedLog.riskIndex}</p>
+          <p>쓰레기 수: {selectedLog.objectCount}</p> */}
+          {/* 상세 조회 버튼 추가 */}
+          {/* <button onClick={handleShowDetails} className={style.detail_btn}>상세 조회</button> */}
+          {/* <button onClick={handleCloseModal} className={style.closeButton}>Close</button> */}
           {/* <p>{goheungWeatherInfo}</p> */}
+          {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
         </div>
       )}
+      {/* <div>
+        {showModal && selectedLog && (
+        <div>
+            <CCTVModal
+            logData={selectedLog}
+            onClose={() => setShowModal(false)} // 모달을 닫기 위한 함수 prop
+            />
+        </div>
+            )}
+        </div> */}
 
                             {/* <p>1번 CCTV / 포항 / 구룡포</p> */}
                             <div style={{height:'1vh'}}>
@@ -941,7 +1091,7 @@ const goheungWeatherInfo = (
                                 )} */}
                         
                         
-                        <button onClick={handleCloseModal} className={style.closeButton}>Close</button>
+                        <button onClick={handleCloseModal} className={style.closeButton}>Close2</button>
                         </div>
                         )}
                         {selectedImage === "cctv-icon-3.png" && (
@@ -1008,7 +1158,7 @@ const goheungWeatherInfo = (
                                 {selectedImage === "cctv-icon-3.png" && mokpoTableBody}
                             </table> */}
                         </div>
-                        <button onClick={handleCloseModal} className={style.closeButton}>Close</button>
+                        <button onClick={handleCloseModal} className={style.closeButton}>Close3</button>
                         </div>
                         )}
                         {selectedImage === "cctv-icon-4.png" && (
@@ -1063,10 +1213,10 @@ const goheungWeatherInfo = (
                                 {/* {selectedImage === "cctv-icon-4.png" && geojeTableBody} */}
                             </table>
                         </div>
-                        <button onClick={handleCloseModal} className={style.closeButton}>Close</button>
+                        <button onClick={handleCloseModal} className={style.closeButton}>Close4</button>
+                        
                         </div>
                         )}
-                        {/* <button onClick={handleCloseModal}>Close Modal</button> */}
                     </div>
                     )}
 
@@ -1083,15 +1233,32 @@ const goheungWeatherInfo = (
                 {/* <MaterialChart cctvId={selectedLog.cctvId} /> */}
 
                 {
-                    (selectedImage === "cctv-icon-1.png"||selectedImage === "cctv-icon-2.png"||
+                    (selectedImage === "cctv-icon-2.png"||
                     selectedImage === "cctv-icon-3.png"||selectedImage === "cctv-icon-4.png") &&(
                     <div>
                         {selectedLog && (
-                            <MaterialChart logData={selectedLog} /> 
+                            <div>
+                            <MaterialChart logData={selectedLog}/>
+                            </div>
                         )}                    
                     </div>
                     ) 
                 }
+                {selectedImage === "cctv-icon-1.png"&&(
+                    <div>
+                        <MaterialChart2 data={selectedLog} /> 
+                    </div>
+                )}
+                {/* <div>
+        {showModal && selectedLog && (
+        <div>
+            <CCTVModal
+            logData={selectedLog}
+            onClose={() => setShowModal(false)} // 모달을 닫기 위한 함수 prop
+            />
+        </div>
+            )}
+        </div> */}
                 
                 </div>
 
@@ -1136,7 +1303,7 @@ const goheungWeatherInfo = (
                     {selectedImage === "cctv-icon-1.png" && (
                     <thead className={style.thead}>
                         <tr>
-                        <th>인덱스번호</th>
+                        <th>cctv번호</th>
                         <th>지역</th>
                         <th>위치</th>
                         </tr>
@@ -1253,7 +1420,14 @@ const goheungWeatherInfo = (
 
                 <div className={style.sub_2_2}>
                     <img className={style.map} src="/korea2.png" alt="지도사진" />
-                
+                    {/* {showModal && selectedLog && (
+        <div>
+            <CCTVModal
+            logData={selectedLog}
+            onClose={() => setShowModal(false)} // 모달을 닫기 위한 함수 prop
+            />
+        </div>
+            )} */}
                 {/* <RedDot x={16.8} y={80} id="redDot1" onClick={() => handleCCTVClick(1)}/> */}
                 {/* <RedDot w={1} h={1} id="redDot1" /> */}
                 {/* <RedDot x={16.8} y={80} id="redDot2" onClick={() => handleCCTVClick(2)}/> */}
@@ -1268,8 +1442,27 @@ const goheungWeatherInfo = (
                 {selectedImage === "cctv-icon-1.png" && (
                     <div className={style.weather}>
                     {pohangWeatherInfo}
+                    {/* {showModal && showDetails && ( */}
+        <div>
+            {/* <CCTVModal
+            logData={selectedLog}
+            
+            onClose={() => setShowModal(false)} // 모달을 닫기 위한 함수 prop
+            /> */}
+            {showModal && (
+                <CCTVModal accessToken={accessToken} onClose={handleCloseModal} />
+
+        // <CCTVModal
+        // //   accessToken={accessToken}
+        //   onClose={() => setShowModal(false)}
+        //   logData={selectedLog} // 필요한 경우
+        // />
+      )}
+        </div>
+            {/* )} */}
                     </div>
                 )}
+                
 
 
                 {selectedImage === "cctv-icon-2.png" && (
