@@ -90,7 +90,7 @@ function CCTVModal({ accessToken, onClose, setSelectedLogComponent }) { // setSe
                                 ))}
                             </tbody>
                         </table>
-                        
+
                     ) : (
                         <p>로딩 중이거나 데이터가 없습니다.</p>
                     )}
