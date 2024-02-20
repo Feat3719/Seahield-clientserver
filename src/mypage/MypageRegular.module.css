@@ -423,6 +423,10 @@
         top: 5vh;
     }
 
+    .mypage_btn {
+        margin-top: 40vh;
+    }
+
     .my_info {
         width: 20vw;
     }
@@ -436,17 +440,6 @@
         justify-content: center;
         display: flex;
     }
-
-    .my_table {
-        position: relative;
-        align-items: center;
-        width: 50vw;
-        height: 5vh;
-        font-size: 1vh;
-        margin-left: 19vw;
-        top: 0vh;
-    }
-
 
     .my_input_wrapper_1 {
         position: absolute;
@@ -465,7 +458,6 @@
         display: block;
         width: 18vw;
         left: 3vw;
-        height: 2vh;
         font-size: 2vh;
         align-items: center;
     }
@@ -508,11 +500,6 @@
         display: flex;
     }
 
-    .contract_title {
-        font-size: 4vw;
-        width: 20vw;
-    }
-
 
 
     .myslide_form {
@@ -537,11 +524,6 @@
         height: 20vh;
     }
 
-    .mypage_btn {
-        display: flex;
-        height: 100%;
-    }
-
     .contract_table {
         font-size: 4vw;
     }
@@ -555,13 +537,9 @@
         align-items: center;
         width: 50vw;
         height: 5vh;
+        font-size: 1vh;
+        margin-left: 19vw;
         top: 0vh;
-        width: 50vw;
-        /* 표의 너비를 화면 너비에 맞춤 */
-        margin-left: 0;
-        /* 왼쪽 여백 제거 */
-        overflow-x: auto;
-        /* 내용이 너비를 초과할 경우 스크롤 가능하도록 설정 */
     }
 
     .my_table,
