@@ -8,7 +8,7 @@ import FormatDatetime from "./FormatDatetime";
 import { useSelector } from "react-redux";
 import Comment from "./Comment";
 import Sidenav from "../sidenav/Sidenav";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 function BoardDetail() {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -18,9 +18,9 @@ function BoardDetail() {
     const [isLiked, setIsLiked] = useState(false);
 
     const categoryNames = {
-        FREE: '자유게시판',
-        QNA: '질문게시판',
-        NOTICE: '공지사항',
+        FREE: "자유게시판",
+        QNA: "질문게시판",
+        NOTICE: "공지사항",
     };
 
     const fetchPost = useCallback(async () => {
@@ -41,29 +41,37 @@ function BoardDetail() {
 
     const handleDelete = () => {
         Swal.fire({
-            title: '게시글 삭제',
+            title: "게시글 삭제",
             text: "게시글을 삭제하시면 복구할 수 없습니다. 삭제하시겠습니까?",
-            icon: 'warning',
+            icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '삭제하기'
-        }).then(async (result) => { // async 추가
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "삭제하기",
+        }).then(async (result) => {
+            // async 추가
             if (result.isConfirmed) {
                 try {
                     await axios.delete(`/api/board/article/${id}`, {
                         headers: { Authorization: `Bearer ${accessToken}` },
                     });
-                    Swal.fire('삭제 완료', '게시글이 삭제되었습니다.', 'success');
+                    Swal.fire(
+                        "삭제 완료",
+                        "게시글이 삭제되었습니다.",
+                        "success"
+                    );
                     navigate("/boardtab");
                 } catch (error) {
                     console.error("Error", error);
-                    Swal.fire('Failed!', 'There was a problem deleting your post.', 'error');
+                    Swal.fire(
+                        "Failed!",
+                        "There was a problem deleting your post.",
+                        "error"
+                    );
                 }
             }
         });
     };
-
 
     const handleLike = async () => {
         try {
@@ -128,15 +136,15 @@ function BoardDetail() {
                             </tr>
 
                             <tr className={style.boarddetail_1}>
-                                <th className={style.number}>
-                                </th>
-                                <th className={style.title}>
-                                </th>
+                                <th className={style.number}></th>
+                                <th className={style.title}></th>
                                 <th className={style.creDate}>
-                                    작성일 : {FormatDatetime(post.articleCreatedDate)}
+                                    작성일 :{" "}
+                                    {FormatDatetime(post.articleCreatedDate)}
                                 </th>
                                 <td className={style.fixDate}>
-                                    수정일: {FormatDatetime(post.articleUpdateDate)}
+                                    수정일:{" "}
+                                    {FormatDatetime(post.articleUpdateDate)}
                                 </td>
                             </tr>
                         </thead>
@@ -156,28 +164,15 @@ function BoardDetail() {
                     </table>
                 </div>
                 <div id={style.button_box}>
-
                     <div id={style.buttons}>
                         <button
                             className={style.likeButton}
                             onClick={handleLike}
                         >
                             좋아요
-                            {/* <img
-                                            className={style.imgHeart}
-                                            src={
-                                                isLiked
-                                                    ? `${process.env.PUBLIC_URL}/images/filledHeart.svg`
-                                                    : `${process.env.PUBLIC_URL}/images/emptyHeart.svg`
-                                            }
-                                        /> */}
                         </button>
 
                         {post.articleLikes}
-
-
-
-
 
                         <Link to="/boardtab">
                             <button className={style.list_button}>목록</button>
