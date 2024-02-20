@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import Comment from "./Comment";
 import Sidenav from "../sidenav/Sidenav";
 import Swal from "sweetalert2";
+import ReactAnimatedHeart from "react-animated-heart";
+import Loading from "../loading/Loading";
 
 function BoardDetail() {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -16,6 +18,8 @@ function BoardDetail() {
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState("");
     const [isLiked, setIsLiked] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isLiking, setIsLiking] = useState(false);
 
     const categoryNames = {
         FREE: "자유게시판",
@@ -74,22 +78,25 @@ function BoardDetail() {
     };
 
     const handleLike = async () => {
+        setIsLiking(true); // 로딩 시작
         try {
             await axios.post(
                 `/api/board/article/${id}/like`,
                 {},
-                {
-                    headers: { Authorization: `Bearer ${accessToken}` },
-                }
+                { headers: { Authorization: `Bearer ${accessToken}` } }
             );
-            setIsLiked(!isLiked);
-            fetchPost();
+            // 'isLiked' 상태를 토글하기 전에 로딩을 시작합니다.
+            setIsLiked(!isLiked); // 좋아요 상태 토글
+            fetchPost(); // 포스트를 다시 가져옵니다.
         } catch (error) {
             console.error("Error", error);
+        } finally {
+            setIsLiking(false); // 로딩 종료
         }
     };
 
     const handleComment = async () => {
+        setIsSubmitting(true); // 로딩 시작
         try {
             await axios.post(
                 "/api/board/comment",
@@ -101,10 +108,20 @@ function BoardDetail() {
                     headers: { Authorization: `Bearer ${accessToken}` },
                 }
             );
-            fetchPost();
-            setComments("");
+            fetchPost(); // 글을 다시 불러와서 댓글을 최신 상태로 갱신
+            setComments(""); // 입력 필드 초기화
         } catch (error) {
             console.error("Error", error);
+        } finally {
+            setIsSubmitting(false); // 로딩 종료
+        }
+    };
+
+    // 엔터 키 입력 감지 함수
+    const handleKeyDown = async (event) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault(); // 기본 동작 방지 (폼 제출 등)
+            await handleComment(); // 댓글 작성 함수 호출
         }
     };
 
@@ -165,14 +182,18 @@ function BoardDetail() {
                 </div>
                 <div id={style.button_box}>
                     <div id={style.buttons}>
-                        <button
-                            className={style.likeButton}
-                            onClick={handleLike}
-                        >
-                            좋아요
-                        </button>
-
-                        {post.articleLikes}
+                        <div className={style.heart}>
+                            {/* 로딩 상태와 상관없이 'isLiked' 상태에 따라 하트를 표시합니다. */}
+                            <ReactAnimatedHeart
+                                isClick={isLiked}
+                                onClick={handleLike}
+                            />
+                            {isLiking && <Loading />}{" "}
+                            {/* 로딩 상태일 때만 로딩 컴포넌트를 표시합니다. */}
+                            <div className={style.articleLikes}>
+                                {post.articleLikes}
+                            </div>
+                        </div>
 
                         <Link to="/boardtab">
                             <button className={style.list_button}>목록</button>
@@ -195,17 +216,19 @@ function BoardDetail() {
                 <div id={style.comment_box}>
                     <div id={style.comment}>
                         <div className={style.inputBox}>
+                            <p className={style.comment}>댓글</p>
                             <input
                                 className={style.input}
                                 type="text"
                                 value={comments}
                                 onChange={(e) => setComments(e.target.value)}
+                                onKeyDown={handleKeyDown}
                             />
                             <button
                                 className={style.inputButton}
                                 onClick={handleComment}
                             >
-                                댓글 작성
+                                {isSubmitting ? <Loading /> : "작성하기"}
                             </button>
                         </div>
                         <div className={style.commentListBox}>

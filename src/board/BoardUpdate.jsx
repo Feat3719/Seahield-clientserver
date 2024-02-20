@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import FormatDatetime from "./FormatDatetime";
 import Sidenav from "../sidenav/Sidenav";
+import Swal from 'sweetalert2';
 
 function BoardUpdate() {
     const { id } = useParams();
@@ -32,18 +33,41 @@ function BoardUpdate() {
     }, [id]);
 
     const handleUpdate = async () => {
-        try {
-            await axios.patch(`/api/board/article/${id}`, {
-                articleTitle: title,
-                articleCtgr: category,
-                articleContents: content,
-            });
-            navigate(`/boarddetail/${id}`);
-        } catch (error) {
-            console.error("Error", error);
-        }
+        // SweetAlert를 사용하여 수정 확인 요청
+        Swal.fire({
+            title: '정말 수정하시겠습니까?',
+            text: "수정 후에는 원래대로 돌릴 수 없습니다!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '수정',
+            cancelButtonText: '취소'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await axios.patch(`/api/board/article/${id}`, {
+                        articleTitle: title,
+                        articleCtgr: category,
+                        articleContents: content,
+                    });
+                    Swal.fire(
+                        '수정 완료!',
+                        '게시글이 성공적으로 수정되었습니다.',
+                        'success'
+                    );
+                    navigate(`/boarddetail/${id}`); // 수정 후 상세 페이지로 이동
+                } catch (error) {
+                    console.error("Error", error);
+                    Swal.fire(
+                        '수정 실패!',
+                        '게시글 수정에 실패했습니다.',
+                        'error'
+                    );
+                }
+            }
+        });
     };
-
     return (
         post && (
             <div id={style.boardUpdateContainer}>
@@ -56,16 +80,15 @@ function BoardUpdate() {
                 <div id={style.updateBox}>
                     <table className={style.table}>
                         <thead>
-                            <tr>
+                            <tr className={style.boarddetail_title}>
                                 <th colSpan={8} className={style.number}>
                                     {post.articleId}
                                 </th>
                                 <th colSpan={8} className={style.title}>
                                     <input
-                                        name="title"
+                                        className={style.title_input}
                                         type="text"
                                         value={title}
-                                        id="title"
                                         onChange={(e) =>
                                             setTitle(e.target.value)
                                         }
@@ -75,7 +98,7 @@ function BoardUpdate() {
                                     {post.userId}
                                 </th>
                             </tr>
-                            <tr>
+                            <tr className={style.boarddetail_title}>
                                 <th colSpan={4} className={style.category}>
                                     분류
                                 </th>
@@ -122,13 +145,13 @@ function BoardUpdate() {
                                     {post.articleLikes}
                                 </td>
                             </tr>
-                            <tr>
+                            <tr className={style.boarddetail_title}>
                                 <th colSpan={4}>작성일</th>
-                                <td colSpan={8}>
+                                <td colSpan={8} className={style.date}>
                                     {FormatDatetime(post.articleCreatedDate)}
                                 </td>
                                 <th colSpan={4}>수정일</th>
-                                <td colSpan={8}>
+                                <td colSpan={8} className={style.date}>
                                     {FormatDatetime(post.articleUpdateDate)}
                                 </td>
                             </tr>
@@ -137,8 +160,7 @@ function BoardUpdate() {
                             <tr>
                                 <td colSpan={24} className={style.content}>
                                     <textarea
-                                        name="content"
-                                        id="content"
+                                        className={style.contentTextarea}
                                         cols="30"
                                         rows="10"
                                         value={content}
