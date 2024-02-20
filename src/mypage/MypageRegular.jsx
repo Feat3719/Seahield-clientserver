@@ -567,42 +567,43 @@ const MypageRegular = () => {
                             <h2 className={style.my_info_name}>
                                 {userId}님 정보
                             </h2>
-                        </div>
-                        <div className={style.my_input_wrapper_1}>
-                            {scene !== 0 && (
-                                <div className={style.edit_1}>
-                                    {renderScene()}
-                                </div>
-                            )}
+                        
+                            <div className={style.my_input_wrapper_1}>
+                                {scene !== 0 && (
+                                    <div className={style.edit_1}>
+                                        {renderScene()}
+                                    </div>
+                                )}
 
-                            <form onSubmit={updateUserInfo}>
-                                <div className={style.my_input_info}>
-                                    <div>
-                                        <p>아이디 : {userId}</p>
+                                <form onSubmit={updateUserInfo}>
+                                    <div className={style.my_input_info}>
+                                        <div>
+                                            <p>아이디 : {userId}</p>
+                                        </div>
+                                        <div>
+                                            <p>이름 : {userNickname}</p>
+                                        </div>
+                                        <div>
+                                            <p>유형 : {userType}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p>이름 : {userNickname}</p>
-                                    </div>
-                                    <div>
-                                        <p>유형 : {userType}</p>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div className={style.mypage_btn}>
-                            <button
-                                className={style.transBtn}
-                                onClick={() => changeScene(1)}
-                            >
-                                작성한 게시글
-                            </button>
-                            <button
-                                className={style.transBtn}
-                                onClick={() => changeScene(4)}
-                            >
-                                회원정보수정
-                            </button>
+                                </form>
+                            </div>
+                        
+                            <div className={style.mypage_btn}>
+                                <button
+                                    className={style.transBtn}
+                                    onClick={() => changeScene(1)}
+                                >
+                                    작성한 게시글
+                                </button>
+                                <button
+                                    className={style.transBtn}
+                                    onClick={() => changeScene(4)}
+                                >
+                                    회원정보수정
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
