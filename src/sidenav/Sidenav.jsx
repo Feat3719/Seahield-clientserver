@@ -48,56 +48,51 @@ function Sidenav() {
                     {" "}
                     {/* Sidebar가 닫혔을 때 내부 내용 숨김 */}
                     <li
-                        className={`${style.sidebarItem} ${
-                            location.pathname === "/" ? style.active : ""
-                        }`}
+                        className={`${style.sidebarItem} ${location.pathname === "/" ? style.active : ""
+                            }`}
                     >
                         <Link to="/" className={style.navLink}>
-                            <span className={style.itemTxt}>메인페이지</span>
+                            <span className={style.itemTxt}>Home</span>
                         </Link>
                     </li>
                     <li
-                        className={`${style.sidebarItem} ${
-                            location.pathname === "/map" ? style.active : ""
-                        }`}
+                        className={`${style.sidebarItem} ${location.pathname === "/map" ? style.active : ""
+                            }`}
                     >
                         <Link to="/map" className={style.navLink}>
                             <span className={style.itemTxt}>
-                                해양쓰레기 지도
+                                해안쓰레기 현황지도
                             </span>
                         </Link>
                     </li>
                     <li
-                        className={`${style.sidebarItem} ${
-                            location.pathname === "/announce"
-                                ? style.active
-                                : ""
-                        }`}
+                        className={`${style.sidebarItem} ${location.pathname === "/announce"
+                            ? style.active
+                            : ""
+                            }`}
                     >
                         <Link to="/announce" className={style.navLink}>
                             <span className={style.itemTxt}>수거계약공고</span>
                         </Link>
                     </li>
                     <li
-                        className={`${style.sidebarItem} ${
-                            location.pathname === "/contractver"
-                                ? style.active
-                                : ""
-                        }`}
+                        className={`${style.sidebarItem} ${location.pathname === "/contractver"
+                            ? style.active
+                            : ""
+                            }`}
                     >
                         <Link to="/contractver" className={style.navLink}>
                             <span className={style.itemTxt}>수거계약신청</span>
                         </Link>
                     </li>
                     <li
-                        className={`${style.sidebarItem} ${
-                            location.pathname === "/boardtab"
-                                ? style.active
-                                : ""
-                        }`}
+                        className={`${style.sidebarItem} ${location.pathname === "/boardtab"
+                            ? style.active
+                            : ""
+                            }`}
                     >
                         <Link to="/boardtab" className={style.navLink}>
-                            <span className={style.itemTxt}>게시판</span>
+                            <span className={style.itemTxt}>커뮤니티</span>
                         </Link>
                     </li>
                     <div className={style.margin}></div>
@@ -107,13 +102,12 @@ function Sidenav() {
                                 <LogOutBtn />
                             </li>
                             <li
-                                className={`${style.sidebarItem} ${
-                                    location.pathname === "/admin"
-                                        ? style.active
-                                        : location.pathname === "/mypage"
+                                className={`${style.sidebarItem} ${location.pathname === "/admin"
+                                    ? style.active
+                                    : location.pathname === "/mypage"
                                         ? style.active
                                         : ""
-                                }`}
+                                    }`}
                             >
                                 {userType === "ADMIN" ? (
                                     <Link to="/admin" className={style.navLink}>
@@ -136,11 +130,10 @@ function Sidenav() {
                     ) : (
                         <>
                             <li
-                                className={`${style.sidebarItem} ${
-                                    location.pathname === "/signin"
-                                        ? style.active
-                                        : ""
-                                }`}
+                                className={`${style.sidebarItem} ${location.pathname === "/signin"
+                                    ? style.active
+                                    : ""
+                                    }`}
                             >
                                 <Link to="/signin" className={style.navLink}>
                                     <span className={style.itemTxt}>
@@ -149,11 +142,10 @@ function Sidenav() {
                                 </Link>
                             </li>
                             <li
-                                className={`${style.sidebarItem} ${
-                                    location.pathname === "/signupver"
-                                        ? style.active
-                                        : ""
-                                }`}
+                                className={`${style.sidebarItem} ${location.pathname === "/signupver"
+                                    ? style.active
+                                    : ""
+                                    }`}
                             >
                                 <Link to="/signupver" className={style.navLink}>
                                     <span className={style.itemTxt}>
