@@ -70,12 +70,12 @@ div {
     box-shadow: 0 1vh 3vh rgb(0, 0, 0);
 }
 
-.article_title {
-    width: 30%;
+.article_no {
+    width: 10%;
 }
 
 .article_user {
-    width: 15%;
+    width: 13%;
 }
 
 .article_reads {
