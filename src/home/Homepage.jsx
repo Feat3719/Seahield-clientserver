@@ -88,7 +88,7 @@ function Homepage() {
     // }
     // const [selectedDetail, setSelectedDetail] = useState([]);
     const [selectedLog, setSelectedLog] = useState(null);
-    const [cctvLog, setCctvLog] = useState([]);
+    // const [cctvLog, setCctvLog] = useState([]);
 
     // const [selectedId, setSelectedId] = useState(null);
     const [latestLogs, setLatestLogs] = useState([]);
@@ -96,9 +96,9 @@ function Homepage() {
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setModalOpen] = useState(false);
     const [showModal, setShowModal] = useState(false); // 모달 표시 상태
-    const [showDetails, setShowDetails] = useState(false); // 모달 표시 상태
-    const [detail, setDetail] = useState([]); // 모달 표시 상태
-    const [valuesArray, setValuesArray] = useState([]);
+    // const [showDetails, setShowDetails] = useState(false); // 모달 표시 상태
+    // const [detail, setDetail] = useState([]); // 모달 표시 상태
+    // const [valuesArray, setValuesArray] = useState([]);
     // const [isweather, setIsweather] = useState(false);
 
     // const [userType, setUserType] = useState("");
@@ -107,10 +107,10 @@ function Homepage() {
 
 
 
-    const handleShowDetails = () => {
-        setShowModal(true); // 모달 표시
-        setShowDetails(true); // 상세 정보 보여주기
-    };
+    // const handleShowDetails = () => {
+    //     setShowModal(true); // 모달 표시
+    //     setShowDetails(true); // 상세 정보 보여주기
+    // };
 
 
     // const handleCellClick = (cell) => {
@@ -174,8 +174,8 @@ function Homepage() {
         if (logData) {
             setSelectedLog(logData);
             setShowModal(true); // 클릭 시 모달을 표시하도록 상태 업데이트
-            setShowDetails(false); // 상세 정보를 바로 보여주지 않도록 설정
-            setCctvLog(logData)
+            // setShowDetails(false); // 상세 정보를 바로 보여주지 않도록 설정
+            // setCctvLog(logData)
             console.log('Selected log data:', logData);
         } else {
             console.log('No log data found for cctvId:', cctvLogId);
@@ -267,19 +267,19 @@ function Homepage() {
     };
 
 
-    const handleCCTVIdClick = async (cctvLogId) => {
-        try {
-            const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            // setDetail(response.data);
-            setSelectedLog(response.data)
-        } catch (error) {
-            console.error("Error fetching CCTV detail:", error);
-        }
-    };
+    // const handleCCTVIdClick = async (cctvLogId) => {
+    //     try {
+    //         const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    //         // setDetail(response.data);
+    //         setSelectedLog(response.data)
+    //     } catch (error) {
+    //         console.error("Error fetching CCTV detail:", error);
+    //     }
+    // };
 
     useEffect(() => {
         const fetchCCTVDetail = async (cctvLogId) => {
@@ -291,7 +291,7 @@ function Homepage() {
                 });
                 const details = response.data;
                 const valuesArray = Object.entries(details);
-                setValuesArray(valuesArray)
+                // setValuesArray(valuesArray)
                 // setDetail(details); // 필요에 따라 상세 정보 상태를 업데이트
                 // setSelectedLog(details);를 아래와 같이 수정할 수 있습니다.
                 console.log(valuesArray + "@@@@@"); // 디버깅을 위해 상세 정보 콘솔에 출력
@@ -305,7 +305,7 @@ function Homepage() {
         if (selectedLog && selectedLog.cctvLogId) { // cctvLogId가 유효한 경우에만 fetchCCTVDetail 호출
             fetchCCTVDetail(selectedLog.cctvLogId);
         }
-    }, [selectedLog?.cctvLogId, accessToken]); // 종속성 배열 수정
+    }, [selectedLog, accessToken]);  // 종속성 배열 수정
 
 
     // useEffect(() => {
