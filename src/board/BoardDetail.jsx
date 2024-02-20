@@ -14,6 +14,7 @@ import Loading from "../loading/Loading";
 
 function BoardDetail() {
     const accessToken = useSelector((state) => state.auth.accessToken);
+    const userId = useSelector((state) => state.auth.user);
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState("");
@@ -198,19 +199,24 @@ function BoardDetail() {
                         <Link to="/boardtab">
                             <button className={style.list_button}>목록</button>
                         </Link>
+                        {post.userId === userId ? (
+                            <>
+                                <Link to={`/boardupdate/${id}`}>
+                                    <button className={style.update_button}>
+                                        수정
+                                    </button>
+                                </Link>
 
-                        <Link to={`/boardupdate/${id}`}>
-                            <button className={style.update_button}>
-                                수정
-                            </button>
-                        </Link>
-
-                        <button
-                            className={style.delete_button}
-                            onClick={handleDelete}
-                        >
-                            삭제
-                        </button>
+                                <button
+                                    className={style.delete_button}
+                                    onClick={handleDelete}
+                                >
+                                    삭제
+                                </button>
+                            </>
+                        ) : (
+                            ""
+                        )}
                     </div>
                 </div>
                 <div id={style.comment_box}>
