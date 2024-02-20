@@ -7,7 +7,7 @@ function SelectedLogDetails({ selectedLog, onClose }) {
             <div className={style.modalContainer}>
                 <div className={style.modalHeader}>
                     <h2>Selected CCTV Log Details</h2>
-                    <button onClick={onClose} className={style.closeButton}>닫기</button>
+                    {/* <button onClick={onClose} className={style.closeButton}>닫기</button> */}
                 </div>
                 <div className={style.modalContent}>
                     <table className={style.dataTable}>

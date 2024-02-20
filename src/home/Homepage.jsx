@@ -49,6 +49,35 @@ import SelectedLogDetails from "./SelectedLogDetails";
 
     function Homepage() {
     const accessToken = useSelector((state) => state.auth.accessToken);
+    const [imageUrl, setImageUrl] = useState(`https://192.168.0.74:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const updateImage = () => {
+            setLoading(true);
+            const newImageUrl = `https://192.168.0.74:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
+
+            // 이미지가 완전히 로드될 때까지 기다립니다.
+            const img = new Image();
+            img.onload = () => {
+                setLoading(false);
+                setImageUrl(newImageUrl);
+            };
+            img.src = newImageUrl;
+        };
+
+        const intervalId = setInterval(updateImage, 1000); // 200ms 마다 이미지 업데이트
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
+
+
+
+
+
+
     // const data = [
     //     ['1', '포항시', '구룡포앞바다'],
     //     ['2', '울산시', '울주진하해변']
@@ -932,20 +961,10 @@ import SelectedLogDetails from "./SelectedLogDetails";
                 </video> */}
                         {selectedLog && (
                         <div>
-                            <video
-                            className={style.modal_video}
-                            controls
-                            autoPlay
-                            muted
-                            loop
-                            >
-                            <source
-                                src={
-                                "http://192.168.0.74:8000/static/webcamapp/video/video.mp4"
-                                }
-                                type="video/mp4"
-                            />
-                            </video>
+                            <div style={{ position: 'relative' }}>
+                                                    <img src={imageUrl} alt="감지된 활동" style={{ opacity: loading ? 1 : 1 }} />
+                                                    {loading && <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(255, 255, 255, 0)' }}></div>}
+                                                </div>
                             {/* <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted>                           
                 <source src={`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`} type="video/mp4" />
             </video> */}
@@ -955,9 +974,9 @@ import SelectedLogDetails from "./SelectedLogDetails";
                 {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
             </div> */}
 
-                        <div style={{overflowX:"auto"}} >
+                            <div style={{overflowX:"auto"}} >
                                 {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
-                                </div>
+                            </div>
 
 
                             {/* <table className={style.logTable}>
@@ -1030,7 +1049,7 @@ import SelectedLogDetails from "./SelectedLogDetails";
                         onClick={handleCloseModal}
                         className={style.closeButton}
                         >
-                        Close
+                        ❌
                         </button>
                     </div>
                     )}
@@ -1142,7 +1161,8 @@ import SelectedLogDetails from "./SelectedLogDetails";
                         onClick={handleCloseModal}
                         className={style.closeButton}
                         >
-                        Close2
+                        ❌
+
                         </button>
                     </div>
                     )}
@@ -1191,8 +1211,11 @@ import SelectedLogDetails from "./SelectedLogDetails";
                             <>
                             <p>CCTV ID: {selectedLog.cctvId}</p>
                             <p>최신 감지 날짜: {selectedLog.detectedDate}</p>
-                            <p>위험도: {selectedLog.riskIndex}</p>
-                            <p>쓰레기 수: {selectedLog.objectCount}</p>
+                            <div style={{overflowX:"auto"}} >
+                                {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
+                            </div>
+                            {/* <p>위험도: {selectedLog.riskIndex}</p>
+                            <p>쓰레기 수: {selectedLog.objectCount}</p> */}
                             {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
                             {/* <p>{goheungWeatherInfo}</p> */}
                             </>
@@ -1224,7 +1247,7 @@ import SelectedLogDetails from "./SelectedLogDetails";
                         onClick={handleCloseModal}
                         className={style.closeButton}
                         >
-                        Close3
+                        ❌
                         </button>
                     </div>
                     )}
@@ -1285,8 +1308,11 @@ import SelectedLogDetails from "./SelectedLogDetails";
                             </video> */}
                             <p>CCTV ID: {selectedLog.cctvId}</p>
                             <p>최신 감지 날짜: {selectedLog.detectedDate}</p>
-                            <p>위험도: {selectedLog.riskIndex}</p>
-                            <p>쓰레기 수: {selectedLog.objectCount}</p>
+                            <div style={{overflowX:"auto"}} >
+                                {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
+                            </div>
+                            {/* <p>위험도: {selectedLog.riskIndex}</p>
+                            <p>쓰레기 수: {selectedLog.objectCount}</p> */}
                             {/* <MaterialChart logData={selectedLog} /> */}
                             {/* <MaterialChart cctvId={selectedLog.cctvId} /> */}
                             </div>
@@ -1308,7 +1334,7 @@ import SelectedLogDetails from "./SelectedLogDetails";
                         onClick={handleCloseModal}
                         className={style.closeButton}
                         >
-                        Close4
+                        ❌
                         </button>
                     </div>
                     )}
