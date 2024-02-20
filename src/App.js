@@ -53,10 +53,10 @@ function AppContent() {
                 <Route path="/boarddetail/:id" element={<BoardDetail />} />
 
                 {/* 로그인한 사용자만 접근 가능 라우트 */}
-                <Route path="/boardupdate/:id" element={<ProtectedRoute><BusinessOnlyRoute><BoardUpdate /></BusinessOnlyRoute></ProtectedRoute>} />
-                <Route path="/boardwrite" element={<ProtectedRoute><BusinessOnlyRoute><BoardWrite /></BusinessOnlyRoute></ProtectedRoute>} />
-                <Route path="/mypageregular" element={<ProtectedRoute><BusinessOnlyRoute><MypageRegular /></BusinessOnlyRoute></ProtectedRoute>} />
-                <Route path="/myeditprev" element={<ProtectedRoute><BusinessOnlyRoute><MyEditPrev /></BusinessOnlyRoute></ProtectedRoute>} />
+                <Route path="/boardupdate/:id" element={<ProtectedRoute><BoardUpdate /></ProtectedRoute>} />
+                <Route path="/boardwrite" element={<ProtectedRoute><BoardWrite /></ProtectedRoute>} />
+                <Route path="/mypageregular" element={<ProtectedRoute><MypageRegular /></ProtectedRoute>} />
+                <Route path="/myeditprev" element={<ProtectedRoute><MyEditPrev /></ProtectedRoute>} />
                 <Route path="/contract" element={<ProtectedRoute><BusinessOnlyRoute><Contract /></BusinessOnlyRoute></ProtectedRoute>} />
                 <Route path="/contractver" element={<ProtectedRoute><BusinessOnlyRoute><ContractVer /></BusinessOnlyRoute></ProtectedRoute>} />
                 <Route path="/companyinfo" element={<ProtectedRoute><BusinessOnlyRoute><CompanyInfo /></BusinessOnlyRoute></ProtectedRoute>} />

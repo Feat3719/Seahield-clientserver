@@ -42,7 +42,6 @@ const MypageRegular = () => {
 
     const [selectedContract, setSelectedContract] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isLoadingModal, setIsLoadingModal] = useState(false);
 
     // const [data] = useState([
     //     { id: 1, aria: "포항", name: "구룡포대보해변", ctgr: "공지" },
@@ -299,7 +298,6 @@ const MypageRegular = () => {
 
     // 계약 상세 정보를 불러오는 함수
     const handleContractClick = async (contractId) => {
-        setIsLoadingModal(true);
         try {
             const response = await axios.get(`/api/contract/details/${contractId}`, {
                 headers: {
@@ -312,7 +310,6 @@ const MypageRegular = () => {
             }
         } catch (error) {
             console.error('계약 정보를 가져오는 데 실패했습니다.', error);
-            setIsLoadingModal(false);
         }
     };
 
