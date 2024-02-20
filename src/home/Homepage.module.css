@@ -437,6 +437,7 @@
   position: relative;
   /* top: 83%;
     left: 15%; */
+  z-index: 1000;
 }
 
 .selected {
@@ -454,6 +455,7 @@
     height: 40px; */
   height: 5vh;
   width: 5vh;
+  z-index: 1000;
 }
 
 /* .img2{

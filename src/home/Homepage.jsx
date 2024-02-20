@@ -12,6 +12,7 @@ import axios from "axios";
 import MaterialChart from "./MaterialChart";
 import CCTVModal from "./CCTVModal";
 import MaterialChart2 from "./MaterialChart2";
+import CameraCircle from "./CameraCircle";
 
 
 const images = [
@@ -603,6 +604,71 @@ function Homepage() {
         </div>
     )
 
+    //빨간원
+    // 최신 로그를 저장할 상태를 추가합니다.
+    const [objectCounts, setObjectCounts] = useState({});
+
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            const responses = await Promise.all(
+                images.map((_, index) => axios.get(`/api/cctv/logs-static/${index + 1}`, {
+                    params: { cctvId: (index + 1).toString() }
+                }))
+            );
+
+            // 새로운 오브젝트 카운트 상태를 생성합니다.
+            const newCounts = {};
+            responses.forEach((response, index) => {
+                const cctvId = index + 1;
+                const logs = response.data;
+                if (logs.length > 0) {
+                    newCounts[cctvId] = logs.slice(0, 3).map(log => log.objectCount); // 가장 최근 로그의 objectCount를 사용합니다.
+                }
+            });
+
+            setObjectCounts(newCounts);
+            console.log(newCounts)
+        }, 10000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    // CameraCircle 컴포넌트의 크기를 조절하는 함수를 추가합니다.
+    const calculateCircleSize = (count) => {
+        // 숫자에 따른 원의 크기를 결정합니다.
+        if (count > 30) return 100; // 'large'
+        if (count > 20) return 75; // 'medium'
+        return 10; // 'small'
+    };
+
+    // 각 CCTV에 대해 원의 크기를 변경하는 로직
+    useEffect(() => {
+        const updateCircleSizes = () => {
+            // 새로운 오브젝트 카운트 상태를 복사하고 업데이트합니다.
+            const newCounts = { ...objectCounts };
+
+            Object.keys(newCounts).forEach(cctvId => {
+                const counts = newCounts[cctvId];
+                if (counts && counts.length > 0) {
+                    // 배열의 첫 번째 값을 사용하여 크기 업데이트
+                    const firstCount = counts.shift(); // 배열에서 첫 번째 원소 제거
+                    counts.push(firstCount); // 제거된 원소를 배열 끝에 추가
+                    newCounts[cctvId] = counts; // 변경된 배열로 업데이트
+                }
+            });
+
+            setObjectCounts(newCounts);
+        };
+
+        const intervalId = setInterval(updateCircleSizes, 3000); // 3초마다 원의 크기 업데이트
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [objectCounts]);
+
+
+
     return (
         <Wrapper>
             {/* 조건 추가가능 */}
@@ -1001,21 +1067,24 @@ function Homepage() {
                                 className={`${style.icon} ${style.icon3}`}
                                 style={{ top: '30px', left: '40px' }}
                             /> */}
-                            {images.map((image, index) => (
-                                <img
-                                    key={image}
-                                    src={process.env.PUBLIC_URL + `/images/${image}`}
-                                    alt={`Thumbnail ${image}`}
-                                    className={`${style.thumbnail} ${style[`cctv-${index + 1}`]
-                                        } ${selectedImage === image ? style.selected : ""}`}
-                                    style={{
-                                        zIndex: index + 1,
-                                        position: selectedImage === image ? "absolute" : "absolute",
-                                        ...iconMappings[image]?.style,
-                                    }}
-                                    onClick={() => handleImageClick(image)}
-                                />
-                            ))}
+                            {images.map((image, index) => {
+                                const cctvId = index + 1;
+                                const counts = objectCounts[cctvId] || []; // 현재 CCTV의 로그 배열을 가져옵니다.
+                                const circleSize = calculateCircleSize(counts); // 원의 크기를 결정합니다. (이 함수는 이미 존재해야 합니다.)
+
+                                return (
+                                    <div key={index} style={{ position: 'relative' }}>
+                                        <img
+                                            src={process.env.PUBLIC_URL + `/images/${image}`}
+                                            alt={`Thumbnail ${image}`}
+                                            className={`${style.thumbnail} ${style[`cctv-${cctvId}`]}`}
+                                            onClick={() => handleImageClick(image)}
+                                        />
+                                        {/* 여기서 CameraCircle에 size와 count를 전달합니다. */}
+                                        <CameraCircle count={counts.length > 0 ? counts[0] : 0} size={circleSize} />
+                                    </div>
+                                );
+                            })}
                         </div>
 
                         <div className={style.sub_2_2}>

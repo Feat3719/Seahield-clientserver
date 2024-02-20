@@ -1,20 +1,26 @@
 import React from 'react';
-import './Homepage.module.css'; // 원하는 스타일링을 위한 CSS
+import styles from './Homepage.module.css'; // CSS 모듈 임포트를 수정합니다.
 
-const CameraCircle = ({ objectCount }) => {
-    const circleSize = objectCount * 10; // objectCount에 따라 크기 조정, 기준은 변경 가능
+const CameraCircle = ({ count, size = 'small' }) => {
+    let baseSize = 10; // 기본 크기
+    if (size === 'medium') {
+        baseSize = 20; // 중간 크기
+    } else if (size === 'large') {
+        baseSize = 30; // 큰 크기
+    }
+    const actualSize = baseSize + count * 2; // count에 따라 조정된 실제 크기
+
     const circleStyle = {
-        width: `${circleSize}px`,
-        height: `${circleSize}px`,
-        backgroundColor: 'red',
-        borderRadius: '50%',
         position: 'absolute',
-        transform: 'translate(-50%, -50%)'
+        width: `${actualSize}px`,
+        height: `${actualSize}px`,
+        borderRadius: '50%',
+        backgroundColor: 'red',
+        zIndex: 1000,
     };
-    console.log(objectCount)
 
-    return <div style={circleStyle}>
-    </div>;
+    return <div style={circleStyle}></div>;
 };
+
 
 export default CameraCircle;
