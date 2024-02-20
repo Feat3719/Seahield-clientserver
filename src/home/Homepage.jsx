@@ -893,7 +893,6 @@ function Homepage() {
 
                                         {/* {showModal && (
                 <CCTVModal
-                    accessToken={accessToken}
                     selectedLog={selectedLog}
                     onClose={handleCloseModal}
                 />

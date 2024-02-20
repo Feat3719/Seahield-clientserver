@@ -23,23 +23,16 @@ function CCTVModal({ accessToken, onClose }) {
                 },
             });
             const newLogs = Array.isArray(response.data) ? response.data : [response.data];
-
-            // 새 로그가 기존 로그에 없는 경우만 추가
-            setCctvLogs(prevLogs => {
-                const updatedLogs = [...prevLogs];
-                newLogs.forEach(newLog => {
-                    // 기존 로그와 중복 여부를 확인하기 위해 cctvLogId를 사용합니다.
-                    if (!prevLogs.some(log => log.cctvLogId === newLog.cctvLogId)) {
-                        updatedLogs.push(newLog);
-                    }
-                });
-                return updatedLogs;
-            });
+            
+            // 기존 로그와 새로운 로그를 합쳐서 상태에 업데이트합니다.
+            setCctvLogs(prevLogs => [...prevLogs, ...newLogs]);
         } catch (error) {
             console.error("Error fetching CCTV details:", error);
         }
     };
 
+
+    
     const handleClickCctvId = async (cctvLogId) => {
         try {
             const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
