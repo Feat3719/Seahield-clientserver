@@ -1,17 +1,4 @@
-/* body {
-    padding: 1.5em;
-    background: rgb(39, 38, 38);
-}
-
-div {
-    border: none;
-} */
-
 #container {
-    border: none;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
     width: 100%;
     height: auto;
     margin: 0 auto 0 auto;
@@ -19,17 +6,18 @@ div {
     padding-bottom: 10px;
     background-color: #343a43;
 }
-/* 
-#table_box {
-    width: 100%;
-    height: auto;
-} */
 
-#button_box {
+#tableBox {
     width: 100%;
-    height: 40px;
-    line-height: 40px;
-    text-align: right;
+    height: 80%;
+    margin-top: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#buttonBox {
+    width: 100%;
 }
 
 #pagination_box {
@@ -41,36 +29,97 @@ div {
 .table {
     width: 90%;
     color: white;
-    border-color: gray;
-    background-color: #343a43;
-    margin: 20px auto;
+    background-color: #373737;
+}
+
+.table td,
+.table th {
+    border-bottom: 0.1vh solid rgb(66, 66, 66);
+    text-align: center;
+}
+
+.thead tr {
+    background-color: #000;
+    /* 배경색을 검정색으로 설정 */
+    color: #fff;
+    /* 텍스트 색상을 흰색으로 설정 */
+}
+
+.boardlist_btn {
+    cursor: pointer;
+    background-color: #d7d7d7;
+    border: none;
+    border-radius: 0.3vh;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin: 3vh 0 0 8.5vh;
+    font-size: 2vh;
+}
+
+.boardlist_btn:hover {
+    background-color: #5164f5;
+    box-shadow: 0 1vh 3vh rgb(0, 0, 0);
 }
 
 .article_no {
-    width: 20%;
-    text-align: center;
-}
-
-.article_title {
-    width: 40%;
-    text-align: center;
+    width: 10%;
 }
 
 .article_user {
-    width: 10%;
-    text-align: center;
+    width: 13%;
 }
 
 .article_reads {
-    width: 15%;
-    text-align: center;
+    width: 10%;
 }
 
 .article_like {
-    width: 15%;
-    text-align: center;
+    width: 10%;
 }
 
-.button {
-    margin: 0 30px;
+.article_date {
+    width: 20%;
+}
+
+@media all and (min-width: 1024px) and (max-width: 1279px) {
+}
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+}
+
+@media all and (min-width: 480px) and (max-width: 767px) {
+}
+
+@media all and (min-width: 200px) and (max-width: 479px) {
+    .table {
+        width: 100%;
+        /* Adjust table width as per your requirement */
+        font-size: 14px;
+        /* Adjust font size as per your requirement */
+    }
+
+    .thead tr {
+        display: none;
+        /* Hide the header row */
+    }
+
+    .table td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .boardlist_btn {
+        margin: 0;
+    }
 }

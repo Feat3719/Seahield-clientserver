@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const PublicOnlyRoute = ({ children }) => {
   const navigate = useNavigate();
@@ -13,7 +13,11 @@ const PublicOnlyRoute = ({ children }) => {
       if (location.pathname === "/signin") {
         navigate("/");
       } else {
-        alert("이미 로그인된 상태입니다.");
+        Swal.fire({
+          icon: "warning",
+          title: "접근 제한",
+          text: "이미 로그인된 상태입니다.",
+        });
         navigate("/");
       }
     }

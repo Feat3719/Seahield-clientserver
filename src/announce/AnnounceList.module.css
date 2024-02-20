@@ -1,21 +1,17 @@
-#container {
-    border: none;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
+/* #container {
     width: 100%;
     height: auto;
     margin: 0 auto 0 auto;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: #343a43;
-}
+} */
 
-#button_box {
+#tableBox {
     width: 100%;
-    height: 40px;
-    line-height: 40px;
-    text-align: right;
+    margin-top: 3vh;
+    display: flex;
+    justify-content: center;
 }
 
 #pagination_box {
@@ -27,36 +23,50 @@
 .table {
     width: 90%;
     color: white;
-    border-color: gray;
-    background-color: #343a43;
-    margin: 20px auto;
+    background-color: #373737;
 }
 
-.article_no {
-    width: 20%;
+.table td,
+.table th {
+    border-bottom: 0.1vh solid rgb(66, 66, 66);
     text-align: center;
 }
 
-.article_title {
-    width: 40%;
-    text-align: center;
+.thead tr {
+    background-color: #000;
+    /* 배경색을 검정색으로 설정 */
+    color: #fff;
+    /* 텍스트 색상을 흰색으로 설정 */
 }
 
-.article_user {
-    width: 10%;
-    text-align: center;
+@media all and (min-width: 280px) and (max-width: 999px) {
+    .announce_no {
+        display: none;
+    }
 }
 
-.article_reads {
-    width: 15%;
-    text-align: center;
+@media all and (min-width: 280px) and (max-width: 799px) {
+    .announce_created_date {
+        display: none;
+    }
 }
 
-.article_like {
-    width: 15%;
-    text-align: center;
+@media all and (min-width: 280px) and (max-width: 600px) {
+    #tableBox {
+        width: 100%;
+        margin-top: 3vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    .announce_name {
+        width: 96vw;
+    }
+
+    .table {
+        width: 96vw;
+    }
 }
 
-.button {
-    margin: 0 30px;
+@media all and (min-width: 280px) and (max-width: 480px) {
 }

@@ -37,28 +37,31 @@ function AdminPageContract() {
     }
   };
 
+
+
   const fetchContracts = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await axios.get("/api/contract/list", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
+      // 계약 ID 기준으로 내림차순 정렬
       const sortedContracts = response.data.sort((a, b) =>
         parseInt(b.contractId) - parseInt(a.contractId)
       );
-      setContracts(sortedContracts);
+      setContracts(sortedContracts); // 정렬된 배열을 상태로 설정
     } catch (error) {
       console.error("계약 목록 불러오기 오류:", error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // 데이터 로딩 완료
     }
-  }, [accessToken]); // 의존성 배열에 accessToken 추가
+  }, [accessToken]);
 
   useEffect(() => {
     if (accessToken) {
-      fetchContracts();
+      fetchContracts(); // accessToken이 있을 때만 계약 목록을 가져옵니다.
     }
-  }, [fetchContracts, accessToken]);
+  }, [accessToken, fetchContracts]);
 
   const handleApprove = async (contractId) => {
     Swal.fire({

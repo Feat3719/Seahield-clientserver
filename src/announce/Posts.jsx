@@ -1,41 +1,62 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import style from "./Posts.module.css";
 import FormatDate from "./FormatDatetime";
+import Skeleton from "react-loading-skeleton"; // 스켈레톤 컴포넌트 import
+import "react-loading-skeleton/dist/skeleton.css"; // 스켈레톤 CSS import
+import { useNavigate } from "react-router-dom";
 
 const Posts = ({ posts, loading }) => {
-    console.log(posts);
+    const navigate = useNavigate();
 
     if (loading) {
+        // 로딩 중 스켈레톤 표시
         return (
-            <tr>
-                <td colSpan="3">loading...</td>
-            </tr>
+            <>
+                {Array(3) // 5개의 스켈레톤 행을 생성
+                    .fill(0)
+                    .map((_, index) => (
+                        <tr key={index}>
+                            <td>
+                                <Skeleton className={style.skeleton_shimmer} />
+                            </td>
+                            <td>
+                                <Skeleton className={style.skeleton_shimmer} />
+                            </td>
+                            <td>
+                                <Skeleton className={style.skeleton_shimmer} />
+                            </td>
+                            <td>
+                                <Skeleton className={style.skeleton_shimmer} />
+                            </td>
+                            <td>
+                                <Skeleton className={style.skeleton_shimmer} />
+                            </td>
+                            <td>
+                                <Skeleton className={style.skeleton_shimmer} />
+                            </td>
+                        </tr>
+                    ))}
+            </>
         );
     }
+
+    const handleRowClick = (announceId) => {
+        navigate(`/announcedetail/${announceId}`);
+    };
 
     return (
         <>
             {posts.map((post) => (
-                <tr key={post.announceId}>
+                <tr
+                    key={post.announceId}
+                    onClick={() => handleRowClick(post.announceId)}
+                    className={style.row}
+                >
                     <td className={style.article_no}>{post.announceId}</td>
-                    <td>
-                        <Link
-                            to={`/announcedetail/${post.announceId}`}
-                            className={style.link}
-                        >
-                            {post.announceName}
-                        </Link>
-                    </td>
+                    <td className={style.article_title}>{post.announceName}</td>
                     <td className={style.article_date}>
                         {FormatDate(post.announceCreatedDate)}
                     </td>
-                    {/* <td className={style.article_reads}>
-                        {post.articleViewCounts}
-                    </td>
-                    <td className={style.article_like}>
-                        {post.articleLikeCounts}
-                    </td> */}
                 </tr>
             ))}
         </>

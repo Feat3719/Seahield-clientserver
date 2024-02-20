@@ -1,7 +1,6 @@
 #announceTabContainer {
-    /* overflow: hidden; */
-    /* padding: 2em; */
     height: 100vh;
+    width: 100vw;
     background: rgb(39, 38, 38);
     display: flex;
     flex-direction: column;
@@ -9,35 +8,55 @@
 
 #pageTitleBox {
     width: 80%;
-    height: 40px;
+    height: 10%;
     margin: 50px auto 0 auto;
-
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-
-    background-image: linear-gradient(
-        to bottom,
-        rgb(166, 166, 167),
-        rgb(8, 8, 20)
-    );
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .pageTitle {
-    width: 90%;
-    line-height: 40px;
+    width: 70%;
+    margin-bottom: 5vh;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 0;
+    font-size: 2.3vh;
     color: white;
-    border: none;
-    margin: 0 auto;
 }
 
 #listBox {
     border: none;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-
+    border-radius: 1vh;
     width: 80%;
-    height: auto;
+    height: 80%;
     margin: 0 auto 50px auto;
     /* padding-bottom: 10px; */
-    background-color: #343a43;
+    background-color: #00000081;
+}
+
+/* @media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {}
+
+@media all and (min-width:480px) and (max-width:767px) {
+
+
+
+}
+
+@media all and (min-width:200px) and (max-width:479px) {
+
+
+} */
+
+@media all and (min-width: 2800px) and (max-width: 600px) {
+    #listBox {
+        margin-left: 1vw;
+        margin-right: 1vw;
+        width: 98vw;
+    }
 }

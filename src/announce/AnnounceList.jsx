@@ -3,23 +3,12 @@ import style from "./AnnounceList.module.css";
 import axios from "axios";
 import Posts from "./Posts";
 import Pagination from "../board/Pagination";
-// import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
 
-function AnnounceList({ category, tabName, userType }) {
+function AnnounceList() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(10);
-    // const [showWriteButton, setShowWriteButton] = useState(false);
-    // const usertype = useSelector((state) => state.auth.usertype);
-    // console.log(usertype);
-
-    // useEffect(() => {
-    //     if (userType === "ADMIN") {
-    //         setShowWriteButton(true);
-    //     }
-    // });
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -55,10 +44,6 @@ function AnnounceList({ category, tabName, userType }) {
                             <td className={style.announce_created_date}>
                                 게시일
                             </td>
-                            {/* <td className={style.bidding_start_date}>
-                                입찰시작
-                            </td>
-                            <td className={style.bidding_end_date}>입찰종료</td> */}
                         </tr>
                     </thead>
                     <tbody className={style.tbody}>
@@ -69,19 +54,12 @@ function AnnounceList({ category, tabName, userType }) {
                     </tbody>
                 </table>
             </div>
-            {/* {showWriteButton && (
-                <div id={style.buttonBox}>
-                    <Link to="/boardwrite">
-                        <button className={style.button}>공고작성</button>
-                    </Link>
-                </div>
-            )} */}
-
             <div id={style.paginationBox}>
                 <Pagination
                     postsPerPage={postsPerPage}
                     totalPosts={posts.length}
                     paginate={setCurrentPage}
+                    currentPage={currentPage}
                 ></Pagination>
             </div>
         </>

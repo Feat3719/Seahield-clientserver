@@ -1,5 +1,4 @@
-#pagination_box {
-}
+#pagination_box {}
 
 .page_ul {
     list-style: none;
@@ -7,21 +6,11 @@
     border: none;
 }
 
-.page_li {
+/* .page_li {
     display: inline-block;
     border: none;
     color: gray;
-
     width: 25px;
-    &:hover {
-        cursor: pointer;
-        color: white;
-        /* background-color: #263a6c; */
-    }
-    &:focus::after {
-        color: white;
-        /* background-color: #263a6c; */
-    }
 }
 
 .page_span {
@@ -30,6 +19,47 @@
     &:focus::after {
         border-radius: 100%;
         color: white;
-        /* background-color: #263a6c; */
+
     }
+}
+
+.currentPage:focus {
+    color: white;
+}
+
+.otherPage:focus {
+    color: gray;
+}
+
+.page_li:hover {
+    color: blue;
+} */
+.page_li {
+    display: inline-block;
+    border: none;
+    width: 25px;
+}
+
+.page_li:hover {
+    color: blue;
+}
+
+.page_span {
+    color: gray;
+    cursor: pointer;
+}
+
+.currentPage .page_span {
+    color: white;
+    /* background-color: blue; */
+
+}
+
+.otherPage .page_span {
+    color: gray;
+    transition: color 0.3s ease;
+}
+
+.otherPage .page_span:hover {
+    color: #5164f5;
 }
