@@ -5,12 +5,10 @@ import Myslide from "./Myslide";
 import DaumPost from "../daumpost/DaumPost";
 import { useSelector } from "react-redux";
 import Sidenav from "../sidenav/Sidenav";
-// import { Link } from 'react-router-dom';
 import MyEditPrev from "./MyEditPrev";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import ModalMypageContract from "./ModalMypageContract";
-// import { type } from "@testing-library/user-event/dist/type";
 
 const MypageRegular = () => {
     const accessToken = useSelector((state) => state.auth.accessToken);
