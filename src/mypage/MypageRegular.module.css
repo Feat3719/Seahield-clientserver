@@ -335,6 +335,7 @@
 
 .modalHeader {
     display: flex;
+    justify-content: center;
 }
 
 .modalcontent_title {

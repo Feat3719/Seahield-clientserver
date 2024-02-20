@@ -20,6 +20,10 @@ import ContractVer from "./contract/ContractVer";
 import CompanyInfo from "./contract/CompanyInfo";
 import Announcement from "./announce/Announcement";
 import AnnounceDetail from "./announce/AnnounceDetail";
+import ProtectedRoute from "./reducers/ProtectedRoute";
+import PublicOnlyRoute from "./reducers/PublicOnlyRoute";
+import AdminOnlyRoute from "./reducers/PublicOnlyRoute";
+import BusinessOnlyRoute from "./reducers/BusinessOnlyRoute";
 
 axios.defaults.baseURL = "https://devfeat.com";
 
@@ -35,34 +39,36 @@ function App() {
 }
 
 function AppContent() {
-    const location = useLocation(); // `useLocation`은 이제 `<BrowserRouter>` 내부에서 호출됩니다.
+    const location = useLocation(); // useLocation은 이제 <BrowserRouter> 내부에서 호출됩니다.
 
     return (
-        <AnimatePresence mode="current">
-            {" "}
-            {/* exitBeforeEnter를 mode='wait'로 변경 */}
+        <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
+                {/* 공개 접근 가능 라우트 */}
                 <Route path="/" element={<Intro />} />
                 <Route path="/map" element={<Homepage />} />
-                <Route path="/signin" element={<Signin />} />
-                <Route path="/signupver" element={<SignupVer />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/idfind" element={<IdFind />} />
                 <Route path="/boardtab" element={<BoardTab />} />
-                <Route path="/boarddetail/:id" element={<BoardDetail />} />
-                <Route path="/boardupdate/:id" element={<BoardUpdate />} />
-                <Route path="/boardwrite" element={<BoardWrite />} />
-                <Route path="/mypageregular" element={<MypageRegular />} />
-                <Route path="/myeditprev" element={<MyEditPrev />} />
-                <Route path="/admin" element={<AdminPage />} />
-                <Route path="/contract" element={<Contract />} />
-                <Route path="/contractver" element={<ContractVer />} />
-                <Route path="/companyinfo" element={<CompanyInfo />} />
                 <Route path="/announce" element={<Announcement />} />
-                <Route
-                    path="/announcedetail/:id"
-                    element={<AnnounceDetail />}
-                />
+                <Route path="/announcedetail/:id" element={<AnnounceDetail />} />
+                <Route path="/boarddetail/:id" element={<BoardDetail />} />
+
+                {/* 로그인한 사용자만 접근 가능 라우트 */}
+                <Route path="/boardupdate/:id" element={<ProtectedRoute><BusinessOnlyRoute><BoardUpdate /></BusinessOnlyRoute></ProtectedRoute>} />
+                <Route path="/boardwrite" element={<ProtectedRoute><BusinessOnlyRoute><BoardWrite /></BusinessOnlyRoute></ProtectedRoute>} />
+                <Route path="/mypageregular" element={<ProtectedRoute><BusinessOnlyRoute><MypageRegular /></BusinessOnlyRoute></ProtectedRoute>} />
+                <Route path="/myeditprev" element={<ProtectedRoute><BusinessOnlyRoute><MyEditPrev /></BusinessOnlyRoute></ProtectedRoute>} />
+                <Route path="/contract" element={<ProtectedRoute><BusinessOnlyRoute><Contract /></BusinessOnlyRoute></ProtectedRoute>} />
+                <Route path="/contractver" element={<ProtectedRoute><BusinessOnlyRoute><ContractVer /></BusinessOnlyRoute></ProtectedRoute>} />
+                <Route path="/companyinfo" element={<ProtectedRoute><BusinessOnlyRoute><CompanyInfo /></BusinessOnlyRoute></ProtectedRoute>} />
+
+                {/* 관리자만 접근 가능 라우트 */}
+                <Route path="/admin" element={<ProtectedRoute><AdminOnlyRoute><AdminPage /></AdminOnlyRoute></ProtectedRoute>} />
+
+                {/* 비회원만 접근 가능 라우트 */}
+                <Route path="/signin" element={<PublicOnlyRoute><Signin /></PublicOnlyRoute>} />
+                <Route path="/signupver" element={<PublicOnlyRoute><SignupVer /></PublicOnlyRoute>} />
+                <Route path="/signup" element={<PublicOnlyRoute><Signup /></PublicOnlyRoute>} />
+                <Route path="/idfind" element={<PublicOnlyRoute><IdFind /></PublicOnlyRoute>} />
             </Routes>
         </AnimatePresence>
     );
