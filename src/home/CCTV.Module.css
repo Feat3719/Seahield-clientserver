@@ -15,7 +15,8 @@
 .modalContainer {
     display: flex;
     flex-direction: column;
-    width: 60vw; /* 모달의 너비 */
+    width: 60vw;
+    /* 모달의 너비 */
     margin: auto;
     background-color: white;
     padding: 20px;
@@ -64,12 +65,15 @@
     text-align: center;
 }
 
-.dataTable th, .dataTable td {
+.dataTable th,
+.dataTable td {
     text-align: left;
     padding: 8px;
-    border-bottom: 1px solid #ddd; /* 셀 하단에 경계선 추가 */
+    border-bottom: 1px solid #ddd;
+    /* 셀 하단에 경계선 추가 */
 }
-.tbody_cell{
+
+.tbody_cell {
     background-color: red;
 }
 
@@ -85,11 +89,10 @@
     text-align: left;
 }
 
-.cursorPointer{
+.cursorPointer {
     cursor: pointer;
 }
 
 .tableHeader {
     background-color: #f2f2f2;
 }
-
