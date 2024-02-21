@@ -1,0 +1,72 @@
+/* #container {
+    width: 100%;
+    height: auto;
+    margin: 0 auto 0 auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #343a43;
+} */
+
+#tableBox {
+    width: 100%;
+    margin-top: 3vh;
+    display: flex;
+    justify-content: center;
+    font-size: 1.8vh;
+}
+
+#pagination_box {
+    width: 90%;
+    height: auto;
+    margin: 10px auto;
+}
+
+.table {
+    width: 90%;
+    color: white;
+    background-color: #373737;
+}
+
+.table td,
+.table th {
+    border-bottom: 0.1vh solid rgb(66, 66, 66);
+    text-align: center;
+}
+
+.thead tr {
+    background-color: #000;
+    /* 배경색을 검정색으로 설정 */
+    color: #fff;
+    /* 텍스트 색상을 흰색으로 설정 */
+}
+
+@media all and (min-width: 280px) and (max-width: 999px) {
+    .announce_no {
+        display: none;
+    }
+}
+
+@media all and (min-width: 280px) and (max-width: 799px) {
+    .announce_created_date {
+        display: none;
+    }
+}
+
+@media all and (min-width: 280px) and (max-width: 600px) {
+    #tableBox {
+        width: 100%;
+        margin-top: 3vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    .announce_name {
+        width: 96vw;
+    }
+
+    .table {
+        width: 96vw;
+    }
+}
+
+@media all and (min-width: 280px) and (max-width: 480px) {}
