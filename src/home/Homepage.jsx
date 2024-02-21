@@ -1,63 +1,44 @@
-    // import React from 'react';
-    import React, { useEffect, useState } from "react";
-    // import Modal from './Modal';
-    import Weather from "./Weather";
-    import style from "./Homepage.module.css";
-    // import RedDot from "./RedDot";
-    import { useSelector } from "react-redux";
-    import Sidenav from "../sidenav/Sidenav";
-    import Wrapper from "../pagechange/Wrapper";
-    // import CCTVModal from "./CCTVModal";
-    import axios from "axios";
-    import MaterialChart from "./MaterialChart";
-    import CCTVModal from "./CCTVModal";
-    import MaterialChart2 from "./MaterialChart2";
+// import React from 'react';
+import React, { useEffect, useState } from "react";
+// import Modal from './Modal';
+import Weather from "./Weather";
+import style from "./Homepage.module.css";
+// import RedDot from "./RedDot";
+import { useSelector } from "react-redux";
+import Sidenav from "../sidenav/Sidenav";
+import Wrapper from "../pagechange/Wrapper";
+// import CCTVModal from "./CCTVModal";
+import axios from "axios";
+import MaterialChart from "./MaterialChart";
+import CCTVModal from "./CCTVModal";
+import MaterialChart2 from "./MaterialChart2";
 import SelectedLogDetails from "./SelectedLogDetails";
-    // import SelectedLogDetails from "./SelectedLogDetails";
-    // import VideoPlayer from "./VideoPlayer";
-    // import GoogleMap from './GoogleMap';
-    // import Kakao from './kakao';
-    // const {kakao} = window;
-    import CameraCircle from "./CameraCircle";
+// import SelectedLogDetails from "./SelectedLogDetails";
+// import VideoPlayer from "./VideoPlayer";
+// import GoogleMap from './GoogleMap';
+// import Kakao from './kakao';
+// const {kakao} = window;
+import CameraCircle from "./CameraCircle";
 import AnnounceListHomepage from "../announce/AnnounceListHomepage";
 
-    const images = [
+const images = [
     "cctv-icon-1.png",
     "cctv-icon-2.png",
     "cctv-icon-3.png",
     "cctv-icon-4.png",
-    ];
-    // const videos = ['video1.mp4', 'video2.mp4'];
-    const iconMappings = {
-    "cctv-icon-1.png": {
-        image: "cctv-icon-1.png",
-        // style: { top: '48vh', position: 'absolute', right: '3.5vw', margin: '0%' },
-        class: "cctv_1", // 스타일을 추가로 지정
-    },
-    "cctv-icon-2.png": {
-        image: "cctv-icon-2.png",
-        // style: { top: '60vh', position: 'absolute', right: '4vw' }, // 스타일을 추가로 지정
-    },
-    "cctv-icon-3.png": {
-        image: "cctv-icon-3.png",
-        // style: { top: '78vh', position: 'absolute', right: '27.5vw' }, // 스타일을 추가로 지정
-    },
-    "cctv-icon-4.png": {
-        image: "cctv-icon-3.png",
-        // style: { top: '76.5vh', position: 'absolute', right: '8.5vw' }, // 스타일을 추가로 지정
-    },
-    // 다른 이미지에 대한 매핑 추가
-    };
+];
+// const videos = ['video1.mp4', 'video2.mp4'];
 
-    function Homepage() {
+
+function Homepage() {
     const accessToken = useSelector((state) => state.auth.accessToken);
-    const [imageUrl, setImageUrl] = useState(`https://192.168.0.74:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`);
+    const [imageUrl, setImageUrl] = useState(`https://192.168.0.33:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const updateImage = () => {
             setLoading(true);
-            const newImageUrl = `https://192.168.0.74:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
+            const newImageUrl = `https://192.168.0.33:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
 
             // 이미지가 완전히 로드될 때까지 기다립니다.
             const img = new Image();
@@ -126,17 +107,17 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setModalOpen] = useState(false);
     const [showModal, setShowModal] = useState(false); // 모달 표시 상태
-    const [showDetails, setShowDetails] = useState(false); // 모달 표시 상태
-    const [detail, setDetail] = useState([]); // 모달 표시 상태
-    const [valuesArray, setValuesArray] = useState([]);
+    // const [showDetails, setShowDetails] = useState(false); // 모달 표시 상태
+    // const [detail, setDetail] = useState([]); // 모달 표시 상태
+    // const [valuesArray, setValuesArray] = useState([]);
     const [objectCounts, setObjectCounts] = useState({});
 
-    const [selectedCctvId, setSelectedCctvId] = useState(null);
+    // const [selectedCctvId, setSelectedCctvId] = useState(null);
     // const [isweather, setIsweather] = useState(false);
-    const [markers, setMarkers] = useState([
-        { id: 1, x: 100, y: 200, showCircle: false },
-        // 다른 마커 데이터...
-      ]);
+    // const [markers, setMarkers] = useState([
+    //     { id: 1, x: 100, y: 200, showCircle: false },
+    //     // 다른 마커 데이터...
+    //   ]);
 
     // const [userType, setUserType] = useState("");
 
@@ -144,52 +125,47 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
     //     setSelectedLog(logData);
     // };
 
-    const handleShowDetails = () => {
-        setShowModal(true); // 모달 표시
-        setShowDetails(true); // 상세 정보 보여주기
-    };
 
 
-    useEffect(() => {
-        const fetchCCTVDetail = async (cctvLogId) => {
-          try {
-            const response = await axios.get(
-              `/api/cctv/logs-dynamic-details/${cctvLogId}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${accessToken}`,
-                },
-              }
-            );
-            const details = response.data;
-            const valuesArray = Object.entries(details);
-            setValuesArray(valuesArray);
-          } catch (error) {
-            console.error("Error fetching CCTV detail:", error);
-          }
-        };
-    
-        if (selectedLog && selectedLog.cctvLogId) {
-          fetchCCTVDetail(selectedLog.cctvLogId);
-        }
-      }, [selectedLog?.cctvLogId, accessToken]);
-        // 가장 높은 riskIndex 값을 가진 데이터의 cctvId를 찾습니다.
-        const highestRiskCctvId = valuesArray.length > 0
-        ? valuesArray.reduce((prev, curr) => prev.riskIndex > curr.riskIndex ? prev : curr).cctvId
-        : null;
+    // useEffect(() => {
+    //     const fetchCCTVDetail = async (cctvLogId) => {
+    //       try {
+    //         const response = await axios.get(
+    //           `/api/cctv/logs-dynamic-details/${cctvLogId}`,
+    //           {
+    //             headers: {
+    //               Authorization: `Bearer ${accessToken}`,
+    //             },
+    //           }
+    //         );
+    //         const details = response.data;
+    //         const valuesArray = Object.entries(details);
+    //         setValuesArray(valuesArray);
+    //       } catch (error) {
+    //         console.error("Error fetching CCTV detail:", error);
+    //       }
+    //     };
 
-// // cctvId에 따라 해당하는 지역에 빨간 원을 그립니다.
-// const renderRedCircle = (cctvId) => {
-//   switch (cctvId) {
-//     case "cctv-icon-1.png":
-//       return <CircleMarker center={[37.7918, -122.4]} radius={20} color="red" />;
-//     case "cctv-icon-2.png":
-//       return <CircleMarker center={[37.788, -122.45]} radius={20} color="red" />;
-//     // 나머지 경우에 대한 처리 추가
-//     default:
-//       return null;
-//   }
-// };
+    //     if (selectedLog && selectedLog.cctvLogId) {
+    //       fetchCCTVDetail(selectedLog.cctvLogId);
+    //     }
+    //   }, [selectedLog?.cctvLogId, accessToken]);
+    // 가장 높은 riskIndex 값을 가진 데이터의 cctvId를 찾습니다.
+
+
+
+    // // cctvId에 따라 해당하는 지역에 빨간 원을 그립니다.
+    // const renderRedCircle = (cctvId) => {
+    //   switch (cctvId) {
+    //     case "cctv-icon-1.png":
+    //       return <CircleMarker center={[37.7918, -122.4]} radius={20} color="red" />;
+    //     case "cctv-icon-2.png":
+    //       return <CircleMarker center={[37.788, -122.45]} radius={20} color="red" />;
+    //     // 나머지 경우에 대한 처리 추가
+    //     default:
+    //       return null;
+    //   }
+    // };
 
 
 
@@ -251,13 +227,13 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
         // 이거 안하면 +1된 cctvId찾아서 보여주게됨
         const logData = latestLogs.find((log) => log.cctvId === String(cctvLogId));
         if (logData) {
-        setSelectedLog(logData);
-        setShowModal(true); // 클릭 시 모달을 표시하도록 상태 업데이트
-        setShowDetails(false); // 상세 정보를 바로 보여주지 않도록 설정
-        setCctvLog(logData);
-        console.log("Selected log data:", logData);
+            setSelectedLog(logData);
+            setShowModal(true); // 클릭 시 모달을 표시하도록 상태 업데이트
+            // setShowDetails(false); // 상세 정보를 바로 보여주지 않도록 설정
+            setCctvLog(logData);
+            // console.log("Selected log data:", logData);
         } else {
-        console.log("No log data found for cctvId:", cctvLogId);
+            // console.log("No log data found for cctvId:", cctvLogId);
         }
     };
     // const [selectedVideo, setSelectedVideo] = useState('');
@@ -318,13 +294,13 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
 
     const handleImageClick = (image) => {
         if (selectedImage === image) {
-        setSelectedImage(null);
-        setModalOpen(false);
-        // setIsweather(true);
+            setSelectedImage(null);
+            setModalOpen(false);
+            // setIsweather(true);
         } else {
-        setSelectedImage(image);
-        setModalOpen(true);
-        // setIsweather(false);
+            setSelectedImage(image);
+            setModalOpen(true);
+            // setIsweather(false);
         }
     };
 
@@ -341,53 +317,38 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
         event.stopPropagation();
     };
 
-    const handleCCTVIdClick = async (cctvLogId) => {
-        try {
-        const response = await axios.get(
-            `/api/cctv/logs-dynamic-details/${cctvLogId}`,
-            {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-            }
-        );
-        // setDetail(response.data);
-        setSelectedLog(response.data);
-        } catch (error) {
-        console.error("Error fetching CCTV detail:", error);
-        }
-    };
 
-    useEffect(() => {
-        const fetchCCTVDetail = async (cctvLogId) => {
-        try {
-            const response = await axios.get(
-            `/api/cctv/logs-dynamic-details/${cctvLogId}`,
-            {
-                headers: {
-                Authorization: `Bearer ${accessToken}`,
-                },
-            }
-            );
-            const details = response.data;
-            const valuesArray = Object.entries(details);
-            setValuesArray(valuesArray);
-            // setDetail(details); // 필요에 따라 상세 정보 상태를 업데이트
-            // setSelectedLog(details);를 아래와 같이 수정할 수 있습니다.
-            console.log(valuesArray + "@@@@@"); // 디버깅을 위해 상세 정보 콘솔에 출력
-            // 여기서 petBottlePer 값을 확인하거나 사용할 수 있습니다.
-            // 예를 들어, UI에 표시하고 싶다면 상태에 저장하고 해당 상태를 사용합니다.
-        } catch (error) {
-            console.error("Error fetching CCTV detail:", error);
-        }
-        };
 
-        if (selectedLog && selectedLog.cctvLogId) {
-        // cctvLogId가 유효한 경우에만 fetchCCTVDetail 호출
-        fetchCCTVDetail(selectedLog.cctvLogId);
-        }
-    }, [selectedLog?.cctvLogId, accessToken]); // 종속성 배열 수정
+    // useEffect(() => {
+    //     const fetchCCTVDetail = async (cctvLogId) => {
+    //     try {
+    //         const response = await axios.get(
+    //         `/api/cctv/logs-dynamic-details/${cctvLogId}`,
+    //         {
+    //             headers: {
+    //             Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         }
+    //         );
+    //         const details = response.data;
+    //         const valuesArray = Object.entries(details);
+    //         setValuesArray(valuesArray);
+    //         // setDetail(details); // 필요에 따라 상세 정보 상태를 업데이트
+    //         // setSelectedLog(details);를 아래와 같이 수정할 수 있습니다.
+    //         console.log(valuesArray + "@@@@@"); // 디버깅을 위해 상세 정보 콘솔에 출력
+    //         // 여기서 petBottlePer 값을 확인하거나 사용할 수 있습니다.
+    //         // 예를 들어, UI에 표시하고 싶다면 상태에 저장하고 해당 상태를 사용합니다.
+    //     } catch (error) {
+    //         console.error("Error fetching CCTV detail:", error);
+    //     }
+    //     };
 
+    //     if (selectedLog && selectedLog.cctvLogId) {
+    //     // cctvLogId가 유효한 경우에만 fetchCCTVDetail 호출
+    //     fetchCCTVDetail(selectedLog.cctvLogId);
+    //     }
+    // }, [selectedLog?.cctvLogId, accessToken]); // 종속성 배열 수정
+    // __________________________________________________________________
     // useEffect(() => {
     //     const fetchCCTVDetails = async () => {
     //         try {
@@ -426,45 +387,45 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
 
     useEffect(() => {
         const fetchLatestLogs = async () => {
-        const cctvIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        const logRequests = cctvIds.map((id) =>
-            // axios.get(`/api/cctv//api/cctv/logs-static/${id}`, {
-            axios
-            .get(`/api/cctv/logs-static-details/${id}`, {
-                params: { cctvId: id.toString() },
-                headers: { Authorization: `Bearer ${accessToken}` },
-            })
-            .then((response) => ({
-                cctvId: id,
-                data: response.data,
-            }))
-            .catch((error) =>
-                console.error(`Error fetching logs for CCTV ID ${id}:`, error)
-            )
-        );
+            const cctvIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            const logRequests = cctvIds.map((id) =>
+                // axios.get(`/api/cctv//api/cctv/logs-static/${id}`, {
+                axios
+                    .get(`/api/cctv/logs-static-details/${id}`, {
+                        params: { cctvId: id.toString() },
+                        headers: { Authorization: `Bearer ${accessToken}` },
+                    })
+                    .then((response) => ({
+                        cctvId: id,
+                        data: response.data,
+                    }))
+                    .catch((error) =>
+                        console.error(`Error fetching logs for CCTV ID ${id}:`, error)
+                    )
+            );
 
-        const logResponses = await Promise.all(logRequests);
+            const logResponses = await Promise.all(logRequests);
 
-        const latestData = logResponses
-            .map(({ cctvId, data }) => {
-            if (!data || !data.length) return null;
-            const latestLog = data.reduce((latest, current) => {
-                const latestDate = new Date(latest.detectedDate);
-                const currentDate = new Date(current.detectedDate);
-                return latestDate > currentDate ? latest : current;
-            });
-            return { cctvId, ...latestLog };
-            })
-            .filter((log) => log !== null);
+            const latestData = logResponses
+                .map(({ cctvId, data }) => {
+                    if (!data || !data.length) return null;
+                    const latestLog = data.reduce((latest, current) => {
+                        const latestDate = new Date(latest.detectedDate);
+                        const currentDate = new Date(current.detectedDate);
+                        return latestDate > currentDate ? latest : current;
+                    });
+                    return { cctvId, ...latestLog };
+                })
+                .filter((log) => log !== null);
 
-        setLatestLogs(latestData);
+            setLatestLogs(latestData);
 
-        // ID가 1인 CCTV의 최신 데이터를 알림으로 표시
-        // const cctv1LatestLog = latestData.find(log => log.cctvId === 2);
-        // if (cctv1LatestLog) {
-        //     alert(`CCTV ID 1 Latest Log: ${cctv1LatestLog.detectedDate}`);
-        // }
-        // console.log("Latest logs:", latestData);
+            // ID가 1인 CCTV의 최신 데이터를 알림으로 표시
+            // const cctv1LatestLog = latestData.find(log => log.cctvId === 2);
+            // if (cctv1LatestLog) {
+            //     alert(`CCTV ID 1 Latest Log: ${cctv1LatestLog.detectedDate}`);
+            // }
+            // console.log("Latest logs:", latestData);
         };
 
         fetchLatestLogs();
@@ -493,81 +454,81 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
     // pohangData를 렌더링하는 JSX를 변수에 할당
     const pohangTableBody = (
         <tbody className={style.tbody}>
-        {pohangData.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-            {row.map((cell, colIndex) => (
-                <td
-                key={colIndex}
-                className={`${style.cell} ${colIndex > 0 ? style.clickable : ""}`}
-                // onClick={() => handleClick(cell)}
-                onClick={() => handleClick1(row[0])} // 첫 번째 셀의 값이 cctvId라고 가정합니다.
-                style={{ height: "1vh", width: "19vw" }}
-                >
-                {cell}
-                </td>
+            {pohangData.map((row, rowIndex) => (
+                <tr key={rowIndex}>
+                    {row.map((cell, colIndex) => (
+                        <td
+                            key={colIndex}
+                            className={`${style.cell} ${colIndex > 0 ? style.clickable : ""}`}
+                            // onClick={() => handleClick(cell)}
+                            onClick={() => handleClick1(row[0])} // 첫 번째 셀의 값이 cctvId라고 가정합니다.
+                            style={{ height: "1vh", width: "19vw" }}
+                        >
+                            {cell}
+                        </td>
+                    ))}
+                </tr>
             ))}
-            </tr>
-        ))}
         </tbody>
     );
     const ulsanTableBody = (
         <tbody>
-        {ulsanData.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-            {row.map((cell, colIndex) => (
-                <td
-                key={colIndex}
-                className={`${style.cell} ${colIndex > 0 ? style.clickable : ""}`}
-                onClick={() => handleClick1(row[0])} // 첫 번째 셀의 값이 cctvId라고 가정합니다.
-                style={{ height: "1vh", width: "19vw" }}
-                >
-                {cell}
-                </td>
+            {ulsanData.map((row, rowIndex) => (
+                <tr key={rowIndex}>
+                    {row.map((cell, colIndex) => (
+                        <td
+                            key={colIndex}
+                            className={`${style.cell} ${colIndex > 0 ? style.clickable : ""}`}
+                            onClick={() => handleClick1(row[0])} // 첫 번째 셀의 값이 cctvId라고 가정합니다.
+                            style={{ height: "1vh", width: "19vw" }}
+                        >
+                            {cell}
+                        </td>
+                    ))}
+                </tr>
             ))}
-            </tr>
-        ))}
         </tbody>
     );
     const mokpoTableBody = (
         <tbody>
-        {mokpoData.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-            {row.map((cell, colIndex) => (
-                <td
-                key={colIndex}
-                className={`${style.cell} ${colIndex > 0 ? style.clickable : ""}`}
-                // onClick={() => {
-                // handleClick(cell);
-                // }}
-                onClick={() => handleClick1(row[0])}
-                style={{ height: "1vh", width: "19vw" }}
-                >
-                {cell}
-                </td>
+            {mokpoData.map((row, rowIndex) => (
+                <tr key={rowIndex}>
+                    {row.map((cell, colIndex) => (
+                        <td
+                            key={colIndex}
+                            className={`${style.cell} ${colIndex > 0 ? style.clickable : ""}`}
+                            // onClick={() => {
+                            // handleClick(cell);
+                            // }}
+                            onClick={() => handleClick1(row[0])}
+                            style={{ height: "1vh", width: "19vw" }}
+                        >
+                            {cell}
+                        </td>
+                    ))}
+                </tr>
             ))}
-            </tr>
-        ))}
         </tbody>
     );
     const geojeTableBody = (
         <tbody>
-        {geojeData.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-            {row.map((cell, colIndex) => (
-                <td
-                key={colIndex}
-                className={`${style.cell} ${colIndex > 0 ? style.clickable : ""}`}
-                // onClick={() => {
-                // handleClick(cell);
-                // }}
-                onClick={() => handleClick1(row[0])}
-                style={{ height: "1vh", width: "19vw" }}
-                >
-                {cell}
-                </td>
+            {geojeData.map((row, rowIndex) => (
+                <tr key={rowIndex}>
+                    {row.map((cell, colIndex) => (
+                        <td
+                            key={colIndex}
+                            className={`${style.cell} ${colIndex > 0 ? style.clickable : ""}`}
+                            // onClick={() => {
+                            // handleClick(cell);
+                            // }}
+                            onClick={() => handleClick1(row[0])}
+                            style={{ height: "1vh", width: "19vw" }}
+                        >
+                            {cell}
+                        </td>
+                    ))}
+                </tr>
             ))}
-            </tr>
-        ))}
         </tbody>
     );
 
@@ -575,300 +536,300 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
 
     const pohangWeatherInfo = (
         <div>
-        <h2>포항 날씨 정보</h2>
-        {/* Weather 컴포넌트에서 받아온 포항 풍속 정보 표시 함수 */}
-        <Weather
-            onPohangWindSpeedData={(item) => (
-            <div>
-                <p>풍속: {item.fcstValue} m/s</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onPohangTMXData={(item) => (
-            <div>
-                <p>최고 기온: {item.fcstValue} ℃</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onPohangTMNData={(item) => (
-            <div>
-                <p>최저 기온 : {item.fcstValue} ℃</p>
-                <p>
-                기준 시간: {item.baseDate} {item.baseTime}
-                </p>
-            </div>
-            )}
-            onUlsanWindSpeedData={() => {}}
-            onUlsanTMXData={() => {}}
-            onUlsanTMNData={() => {}}
-            onGoheungWindSpeedData={() => {}}
-            onGoheungTMXData={() => {}}
-            onGoheungTMNData={() => {}}
-            onYeosuWindSpeedData={() => {}}
-            onYeosuTMXData={() => {}}
-            onYeosuTMNData={() => {}}
-            onGeojeWindSpeedData={() => {}}
-            onGeojeTMXData={() => {}}
-            onGeojeTMNData={() => {}}
-            onWandoWindSpeedData={() => {}}
-            onWandoTMXData={() => {}}
-            onWandoTMNData={() => {}}
-            onShinanWindSpeedData={() => {}}
-            onShinanTMXData={() => {}}
-            onShinanTMNData={() => {}}
-            onSuncheonWindSpeedData={() => {}}
-            onSuncheonTMXData={() => {}}
-            onSuncheonTMNData={() => {}}
-        />
+            <h2>포항 날씨 정보</h2>
+            {/* Weather 컴포넌트에서 받아온 포항 풍속 정보 표시 함수 */}
+            <Weather
+                onPohangWindSpeedData={(item) => (
+                    <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onPohangTMXData={(item) => (
+                    <div>
+                        <p>최고 기온: {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onPohangTMNData={(item) => (
+                    <div>
+                        <p>최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                    </div>
+                )}
+                onUlsanWindSpeedData={() => { }}
+                onUlsanTMXData={() => { }}
+                onUlsanTMNData={() => { }}
+                onGoheungWindSpeedData={() => { }}
+                onGoheungTMXData={() => { }}
+                onGoheungTMNData={() => { }}
+                onYeosuWindSpeedData={() => { }}
+                onYeosuTMXData={() => { }}
+                onYeosuTMNData={() => { }}
+                onGeojeWindSpeedData={() => { }}
+                onGeojeTMXData={() => { }}
+                onGeojeTMNData={() => { }}
+                onWandoWindSpeedData={() => { }}
+                onWandoTMXData={() => { }}
+                onWandoTMNData={() => { }}
+                onShinanWindSpeedData={() => { }}
+                onShinanTMXData={() => { }}
+                onShinanTMNData={() => { }}
+                onSuncheonWindSpeedData={() => { }}
+                onSuncheonTMXData={() => { }}
+                onSuncheonTMNData={() => { }}
+            />
         </div>
     );
 
     const ulsanWeatherInfo = (
         <div>
-        <h2>울산 날씨 정보</h2>
-        {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
-        <Weather
-            onPohangWindSpeedData={() => {}}
-            onPohangTMXData={() => {}}
-            onPohangTMNData={() => {}}
-            onGoheungWindSpeedData={() => {}}
-            onGoheungTMXData={() => {}}
-            onGoheungTMNData={() => {}}
-            onYeosuWindSpeedData={() => {}}
-            onYeosuTMXData={() => {}}
-            onYeosuTMNData={() => {}}
-            onGeojeWindSpeedData={() => {}}
-            onGeojeTMXData={() => {}}
-            onGeojeTMNData={() => {}}
-            onWandoWindSpeedData={() => {}}
-            onWandoTMXData={() => {}}
-            onWandoTMNData={() => {}}
-            onShinanWindSpeedData={() => {}}
-            onShinanTMXData={() => {}}
-            onShinanTMNData={() => {}}
-            onSuncheonWindSpeedData={() => {}}
-            onSuncheonTMXData={() => {}}
-            onSuncheonTMNData={() => {}}
-            onUlsanWindSpeedData={(item) => (
-            <div>
-                <p>풍속: {item.fcstValue} m/s</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onUlsanTMXData={(item) => (
-            <div>
-                <p> 최고 기온 : {item.fcstValue} ℃</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onUlsanTMNData={(item) => (
-            <div>
-                <p> 최저 기온 : {item.fcstValue} ℃</p>
-                <p>
-                기준 시간: {item.baseDate} {item.baseTime}
-                </p>
-            </div>
-            )}
-        />
+            <h2>울산 날씨 정보</h2>
+            {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+            <Weather
+                onPohangWindSpeedData={() => { }}
+                onPohangTMXData={() => { }}
+                onPohangTMNData={() => { }}
+                onGoheungWindSpeedData={() => { }}
+                onGoheungTMXData={() => { }}
+                onGoheungTMNData={() => { }}
+                onYeosuWindSpeedData={() => { }}
+                onYeosuTMXData={() => { }}
+                onYeosuTMNData={() => { }}
+                onGeojeWindSpeedData={() => { }}
+                onGeojeTMXData={() => { }}
+                onGeojeTMNData={() => { }}
+                onWandoWindSpeedData={() => { }}
+                onWandoTMXData={() => { }}
+                onWandoTMNData={() => { }}
+                onShinanWindSpeedData={() => { }}
+                onShinanTMXData={() => { }}
+                onShinanTMNData={() => { }}
+                onSuncheonWindSpeedData={() => { }}
+                onSuncheonTMXData={() => { }}
+                onSuncheonTMNData={() => { }}
+                onUlsanWindSpeedData={(item) => (
+                    <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onUlsanTMXData={(item) => (
+                    <div>
+                        <p> 최고 기온 : {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onUlsanTMNData={(item) => (
+                    <div>
+                        <p> 최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                    </div>
+                )}
+            />
         </div>
     );
     const goheungWeatherInfo = (
         <div>
-        <h2>고흥 날씨 정보</h2>
-        {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
-        <Weather
-            onPohangWindSpeedData={() => {}}
-            onPohangTMXData={() => {}}
-            onPohangTMNData={() => {}}
-            onUlsanWindSpeedData={() => {}}
-            onUlsanTMXData={() => {}}
-            onUlsanTMNData={() => {}}
-            onYeosuWindSpeedData={() => {}}
-            onYeosuTMXData={() => {}}
-            onYeosuTMNData={() => {}}
-            onGeojeWindSpeedData={() => {}}
-            onGeojeTMXData={() => {}}
-            onGeojeTMNData={() => {}}
-            onWandoWindSpeedData={() => {}}
-            onWandoTMXData={() => {}}
-            onWandoTMNData={() => {}}
-            onShinanWindSpeedData={() => {}}
-            onShinanTMXData={() => {}}
-            onShinanTMNData={() => {}}
-            onSuncheonWindSpeedData={() => {}}
-            onSuncheonTMXData={() => {}}
-            onSuncheonTMNData={() => {}}
-            onGoheungWindSpeedData={(item) => (
-            <div>
-                <p>풍속: {item.fcstValue} m/s</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onGoheungTMXData={(item) => (
-            <div>
-                <p> 최고 기온 : {item.fcstValue} ℃</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onGoheungTMNData={(item) => (
-            <div>
-                <p> 최저 기온 : {item.fcstValue} ℃</p>
-                <p>
-                기준 시간: {item.baseDate} {item.baseTime}
-                </p>
-            </div>
-            )}
-        />
+            <h2>고흥 날씨 정보</h2>
+            {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+            <Weather
+                onPohangWindSpeedData={() => { }}
+                onPohangTMXData={() => { }}
+                onPohangTMNData={() => { }}
+                onUlsanWindSpeedData={() => { }}
+                onUlsanTMXData={() => { }}
+                onUlsanTMNData={() => { }}
+                onYeosuWindSpeedData={() => { }}
+                onYeosuTMXData={() => { }}
+                onYeosuTMNData={() => { }}
+                onGeojeWindSpeedData={() => { }}
+                onGeojeTMXData={() => { }}
+                onGeojeTMNData={() => { }}
+                onWandoWindSpeedData={() => { }}
+                onWandoTMXData={() => { }}
+                onWandoTMNData={() => { }}
+                onShinanWindSpeedData={() => { }}
+                onShinanTMXData={() => { }}
+                onShinanTMNData={() => { }}
+                onSuncheonWindSpeedData={() => { }}
+                onSuncheonTMXData={() => { }}
+                onSuncheonTMNData={() => { }}
+                onGoheungWindSpeedData={(item) => (
+                    <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onGoheungTMXData={(item) => (
+                    <div>
+                        <p> 최고 기온 : {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onGoheungTMNData={(item) => (
+                    <div>
+                        <p> 최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                    </div>
+                )}
+            />
         </div>
     );
 
     const yeosuWeatherInfo = (
         <div>
-        <h2>여수 날씨 정보</h2>
-        {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
-        <Weather
-            onPohangWindSpeedData={() => {}}
-            onPohangTMXData={() => {}}
-            onPohangTMNData={() => {}}
-            onUlsanWindSpeedData={() => {}}
-            onUlsanTMXData={() => {}}
-            onUlsanTMNData={() => {}}
-            onGoheungWindSpeedData={() => {}}
-            onGoheungTMXData={() => {}}
-            onGoheungTMNData={() => {}}
-            onGeojeWindSpeedData={() => {}}
-            onGeojeTMXData={() => {}}
-            onGeojeTMNData={() => {}}
-            onWandoWindSpeedData={() => {}}
-            onWandoTMXData={() => {}}
-            onWandoTMNData={() => {}}
-            onShinanWindSpeedData={() => {}}
-            onShinanTMXData={() => {}}
-            onShinanTMNData={() => {}}
-            onSuncheonWindSpeedData={() => {}}
-            onSuncheonTMXData={() => {}}
-            onSuncheonTMNData={() => {}}
-            onYeosuWindSpeedData={(item) => (
-            <div>
-                <p>풍속: {item.fcstValue} m/s</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onYeosuTMXData={(item) => (
-            <div>
-                <p> 최고 기온 : {item.fcstValue} ℃</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onYeosuTMNData={(item) => (
-            <div>
-                <p> 최저 기온 : {item.fcstValue} ℃</p>
-                <p>
-                기준 시간: {item.baseDate} {item.baseTime}
-                </p>
-            </div>
-            )}
-        />
+            <h2>여수 날씨 정보</h2>
+            {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+            <Weather
+                onPohangWindSpeedData={() => { }}
+                onPohangTMXData={() => { }}
+                onPohangTMNData={() => { }}
+                onUlsanWindSpeedData={() => { }}
+                onUlsanTMXData={() => { }}
+                onUlsanTMNData={() => { }}
+                onGoheungWindSpeedData={() => { }}
+                onGoheungTMXData={() => { }}
+                onGoheungTMNData={() => { }}
+                onGeojeWindSpeedData={() => { }}
+                onGeojeTMXData={() => { }}
+                onGeojeTMNData={() => { }}
+                onWandoWindSpeedData={() => { }}
+                onWandoTMXData={() => { }}
+                onWandoTMNData={() => { }}
+                onShinanWindSpeedData={() => { }}
+                onShinanTMXData={() => { }}
+                onShinanTMNData={() => { }}
+                onSuncheonWindSpeedData={() => { }}
+                onSuncheonTMXData={() => { }}
+                onSuncheonTMNData={() => { }}
+                onYeosuWindSpeedData={(item) => (
+                    <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onYeosuTMXData={(item) => (
+                    <div>
+                        <p> 최고 기온 : {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onYeosuTMNData={(item) => (
+                    <div>
+                        <p> 최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                    </div>
+                )}
+            />
         </div>
     );
 
     const wandoWeatherInfo = (
         <div>
-        <h2>완도 날씨 정보</h2>
-        {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
-        <Weather
-            onPohangWindSpeedData={() => {}}
-            onPohangTMXData={() => {}}
-            onPohangTMNData={() => {}}
-            onUlsanWindSpeedData={() => {}}
-            onUlsanTMXData={() => {}}
-            onUlsanTMNData={() => {}}
-            onGoheungWindSpeedData={() => {}}
-            onGoheungTMXData={() => {}}
-            onGoheungTMNData={() => {}}
-            onYeosuWindSpeedData={() => {}}
-            onYeosuTMXData={() => {}}
-            onYeosuTMNData={() => {}}
-            onGeojeWindSpeedData={() => {}}
-            onGeojeTMXData={() => {}}
-            onGeojeTMNData={() => {}}
-            onShinanWindSpeedData={() => {}}
-            onShinanTMXData={() => {}}
-            onShinanTMNData={() => {}}
-            onSuncheonWindSpeedData={() => {}}
-            onSuncheonTMXData={() => {}}
-            onSuncheonTMNData={() => {}}
-            onWandoWindSpeedData={(item) => (
-            <div>
-                <p>풍속: {item.fcstValue} m/s</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onWandoTMXData={(item) => (
-            <div>
-                <p> 최고 기온 : {item.fcstValue} ℃</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onWandoTMNData={(item) => (
-            <div>
-                <p> 최저 기온 : {item.fcstValue} ℃</p>
-                <p>
-                기준 시간: {item.baseDate} {item.baseTime}
-                </p>
-            </div>
-            )}
-        />
+            <h2>완도 날씨 정보</h2>
+            {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+            <Weather
+                onPohangWindSpeedData={() => { }}
+                onPohangTMXData={() => { }}
+                onPohangTMNData={() => { }}
+                onUlsanWindSpeedData={() => { }}
+                onUlsanTMXData={() => { }}
+                onUlsanTMNData={() => { }}
+                onGoheungWindSpeedData={() => { }}
+                onGoheungTMXData={() => { }}
+                onGoheungTMNData={() => { }}
+                onYeosuWindSpeedData={() => { }}
+                onYeosuTMXData={() => { }}
+                onYeosuTMNData={() => { }}
+                onGeojeWindSpeedData={() => { }}
+                onGeojeTMXData={() => { }}
+                onGeojeTMNData={() => { }}
+                onShinanWindSpeedData={() => { }}
+                onShinanTMXData={() => { }}
+                onShinanTMNData={() => { }}
+                onSuncheonWindSpeedData={() => { }}
+                onSuncheonTMXData={() => { }}
+                onSuncheonTMNData={() => { }}
+                onWandoWindSpeedData={(item) => (
+                    <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onWandoTMXData={(item) => (
+                    <div>
+                        <p> 최고 기온 : {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onWandoTMNData={(item) => (
+                    <div>
+                        <p> 최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                    </div>
+                )}
+            />
         </div>
     );
 
     const ShinanWeatherInfo = (
         <div>
-        <h2> 신안 날씨 정보</h2>
-        {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
-        <Weather
-            onPohangWindSpeedData={() => {}}
-            onPohangTMXData={() => {}}
-            onPohangTMNData={() => {}}
-            onUlsanWindSpeedData={() => {}}
-            onUlsanTMXData={() => {}}
-            onUlsanTMNData={() => {}}
-            onGoheungWindSpeedData={() => {}}
-            onGoheungTMXData={() => {}}
-            onGoheungTMNData={() => {}}
-            onYeosuWindSpeedData={() => {}}
-            onYeosuTMXData={() => {}}
-            onYeosuTMNData={() => {}}
-            onWandoWindSpeedData={() => {}}
-            onWandoTMXData={() => {}}
-            onWandoTMNData={() => {}}
-            onGeojeWindSpeedData={() => {}}
-            onGeojeTMXData={() => {}}
-            onGeojeTMNData={() => {}}
-            onSuncheonWindSpeedData={() => {}}
-            onSuncheonTMXData={() => {}}
-            onSuncheonTMNData={() => {}}
-            onShinanWindSpeedData={(item) => (
-            <div>
-                <p>풍속: {item.fcstValue} m/s</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onShinanTMXData={(item) => (
-            <div>
-                <p> 최고 기온 : {item.fcstValue} ℃</p>
-                {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
-            </div>
-            )}
-            onShinanTMNData={(item) => (
-            <div>
-                <p> 최저 기온 : {item.fcstValue} ℃</p>
-                <p>
-                기준 시간: {item.baseDate} {item.baseTime}
-                </p>
-            </div>
-            )}
-        />
+            <h2> 신안 날씨 정보</h2>
+            {/* Weather 컴포넌트에서 받아온 부산 풍속 정보 표시 함수 */}
+            <Weather
+                onPohangWindSpeedData={() => { }}
+                onPohangTMXData={() => { }}
+                onPohangTMNData={() => { }}
+                onUlsanWindSpeedData={() => { }}
+                onUlsanTMXData={() => { }}
+                onUlsanTMNData={() => { }}
+                onGoheungWindSpeedData={() => { }}
+                onGoheungTMXData={() => { }}
+                onGoheungTMNData={() => { }}
+                onYeosuWindSpeedData={() => { }}
+                onYeosuTMXData={() => { }}
+                onYeosuTMNData={() => { }}
+                onWandoWindSpeedData={() => { }}
+                onWandoTMXData={() => { }}
+                onWandoTMNData={() => { }}
+                onGeojeWindSpeedData={() => { }}
+                onGeojeTMXData={() => { }}
+                onGeojeTMNData={() => { }}
+                onSuncheonWindSpeedData={() => { }}
+                onSuncheonTMXData={() => { }}
+                onSuncheonTMNData={() => { }}
+                onShinanWindSpeedData={(item) => (
+                    <div>
+                        <p>풍속: {item.fcstValue} m/s</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onShinanTMXData={(item) => (
+                    <div>
+                        <p> 최고 기온 : {item.fcstValue} ℃</p>
+                        {/* <p>기준 시간: {item.baseDate} {item.baseTime}</p> */}
+                    </div>
+                )}
+                onShinanTMNData={(item) => (
+                    <div>
+                        <p> 최저 기온 : {item.fcstValue} ℃</p>
+                        <p>
+                            기준 시간: {item.baseDate} {item.baseTime}
+                        </p>
+                    </div>
+                )}
+            />
         </div>
     );
 
@@ -885,7 +846,7 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
     //   setSmallScreenImage(null); // 큰 화면에서는 작은 화면 영상을 숨깁니다.
     // };
 
- //빨간원
+    //빨간원
     // 최신 로그를 저장할 상태를 추가합니다.
 
 
@@ -916,7 +877,7 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
             });
 
             setObjectCounts(newCounts);
-            console.log(newCounts)
+            // console.log(newCounts)
         }, 4000);
 
         return () => clearInterval(interval);
@@ -975,25 +936,46 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
     const [totalDetectedTrash, setTotalDetectedTrash] = useState(0);
 
     useEffect(() => {
-        const fetchDynamicLogForCameraOne = async () => {
-            try {
-                const response = await axios.get(`/api/cctv/logs-dynamic`, {
-                    params: { cctvId: '1' } // 1번 카메라에 대한 정보만 요청
-                });
+        const fetchLatestLogs = async () => {
+            const cctvIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            const logRequests = cctvIds.map(id =>
+                // axios.get(`/api/cctv//api/cctv/logs-static/${id}`, {
+                axios.get(`/api/cctv/logs-static-details/${id}`, {
+                    params: { cctvId: id.toString() },
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                })
+                    .then(response => ({
+                        cctvId: id,
+                        data: response.data
+                    }))
+                    .catch(error => console.error(`Error fetching logs for CCTV ID ${id}:`, error))
+            );
 
-                // 새로운 오브젝트 카운트 상태를 업데이트합니다.
-                const logData = response.data;
-                if (logData) {
-                    // 오브젝트 카운트 정보 업데이트
-                    setObjectCounts({ '1': logData.objectCount });
-                }
-            } catch (error) {
-                console.error("Error fetching dynamic log for camera 1:", error);
-            }
+            const logResponses = await Promise.all(logRequests);
+            let totalTrashCount = 0;
+
+            const latestData = logResponses.map(({ cctvId, data }) => {
+                if (!data || !data.length) return null;
+                const latestLog = data.reduce((latest, current) => {
+                    const latestDate = new Date(latest.detectedDate);
+                    const currentDate = new Date(current.detectedDate);
+                    if (latestDate > currentDate) {
+                        totalTrashCount += latest.objectCount; // 최신 로그의 쓰레기 개수를 더합니다
+                        return latest;
+                    } else {
+                        totalTrashCount += current.objectCount; // 현재 로그의 쓰레기 개수를 더합니다
+                        return current;
+                    }
+                });
+                return { cctvId, ...latestLog };
+            }).filter(log => log !== null);
+
+            setTotalDetectedTrash(totalTrashCount); // 상태 업데이트
+            setLatestLogs(latestData);
         };
 
-        fetchDynamicLogForCameraOne();
-    }, []); // 빈 배열을 넣어서 컴포넌트 마운트 시에만 호출되도록 함
+        fetchLatestLogs();
+    }, [accessToken]);
 
 
 
@@ -1004,42 +986,42 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
 
     return (
         <Wrapper>
-        {/* 조건 추가가능 */}
-        {/* {userType === "관리자"&&( */}
-        <div className={style.home_box} style={{ overflow: "hidden" }}>
-            <div className={style.login_nav}>
-            <Sidenav />
-            </div>
-            <div className={style.home_box_2} style={{ overflow: "hidden" }}>
-            <div>
-                <table>
-                {/* <CCTVModal
+            {/* 조건 추가가능 */}
+            {/* {userType === "관리자"&&( */}
+            <div className={style.home_box} style={{ overflow: "hidden" }}>
+                <div className={style.login_nav}>
+                    <Sidenav />
+                </div>
+                <div className={style.home_box_2} style={{ overflow: "hidden" }}>
+                    <div>
+                        <table>
+                            {/* <CCTVModal
                                                                 icon="cctv-icon-1.png"
                                                                 videoUrl="/videos/sea.mp4"
                                                                 tableBody={pohangTableBody} 
                                                                 // pohangTableBody를 props로 전달
                                                                 /> */}
-                </table>
-                {/* {isweather &&(
+                        </table>
+                        {/* {isweather &&(
                             <div >
                                 {pohangWeatherInfo}
                             </div>
                         )} */}
-                {isModalOpen && (
-                <div className={style.modal} onClick={handleCloseModal}>
-                    {/* <div className={style.sealist} onClick={handleCloseModal}>
+                        {isModalOpen && (
+                            <div className={style.modal} onClick={handleCloseModal}>
+                                {/* <div className={style.sealist} onClick={handleCloseModal}>
                         {selectedImage === "cctv-icon-1.png" && pohangTableBody}
                         </div> */}
 
-                    {selectedImage === "cctv-icon-1.png" && (
-                    // <img src={process.env.PUBLIC_URL + '/images/img2.jpg'} alt="Modal img2.jpg"
-                    //     style={{ width: '110%', height: '200%', position: 'relative', top: '-22%'}}
-                    // />
-                    <div
-                        className={style.modal_1_form}
-                        onClick={handleModalContentClick}
-                    >
-                        {/* <video className={style.Bigvideo}
+                                {selectedImage === "cctv-icon-1.png" && (
+                                    // <img src={process.env.PUBLIC_URL + '/images/img2.jpg'} alt="Modal img2.jpg"
+                                    //     style={{ width: '110%', height: '200%', position: 'relative', top: '-22%'}}
+                                    // />
+                                    <div
+                                        className={style.modal_1_form}
+                                        onClick={handleModalContentClick}
+                                    >
+                                        {/* <video className={style.Bigvideo}
                                     // width="700vw"
                                     // height="380vh"
                                     controls
@@ -1052,36 +1034,36 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                                     />
                                 </video> */}
 
-                        {/* <VideoPlayer videoUrl={videoUrl} frameRate={24} />; */}
+                                        {/* <VideoPlayer videoUrl={videoUrl} frameRate={24} />; */}
 
-                        {/* <video className={style.modal_video} controls autoPlay muted loop>                           
+                                        {/* <video className={style.modal_video} controls autoPlay muted loop>                           
                 <source src={'http://192.168.0.74:8000/static/webcamapp/video/video.mp4'} type="video/mp4" />
                 </video> */}
-                        {selectedLog && (
-                        <div>
-                            <div style={{ position: 'relative' }}>
+                                        {selectedLog && (
+                                            <div>
+                                                <div style={{ position: 'relative' }}>
                                                     <img src={imageUrl} alt="감지된 활동" style={{ opacity: loading ? 1 : 1 }} />
                                                     {loading && <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(255, 255, 255, 0)' }}></div>}
                                                 </div>
-                            {/* <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted>                           
+                                                {/* <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted>                           
                 <source src={`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`} type="video/mp4" />
             </video> */}
-                            {/* {selectedLog.styrofoamPiecePer} */}
-                            {/* <div>
+                                                {/* {selectedLog.styrofoamPiecePer} */}
+                                                {/* <div>
                 <CCTVModal accessToken={accessToken} onClose={() => setSelectedLog(null)} onSelectLog={handleSelectLog} />
                 {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
             </div> */}
 
-                            <div style={{overflowX:"auto"}} >
-                                {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
-                            
-                            {/* {selectedCctvId && (
+                                                <div style={{ overflowX: "auto" }} >
+                                                    {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
+
+                                                    {/* {selectedCctvId && (
                             <SelectedLogDetails cctvId={selectedCctvId} onClose={() => setSelectedCctvId(null)} />
                         )} */}
-                            </div>
+                                                </div>
 
 
-                            {/* <table className={style.logTable}>
+                                                {/* <table className={style.logTable}>
                             
             <thead>
                 <tr>
@@ -1103,16 +1085,16 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                     </tr>
             </tbody>
         </table> */}
-                            {/* <p>위험도: {selectedLog.riskIndex}</p>
+                                                {/* <p>위험도: {selectedLog.riskIndex}</p>
             <p>쓰레기 수: {selectedLog.objectCount}</p> */}
-                            {/* 상세 조회 버튼 추가 */}
-                            {/* <button onClick={handleShowDetails} className={style.detail_btn}>상세 조회</button> */}
-                            {/* <button onClick={handleCloseModal} className={style.closeButton}>Close</button> */}
-                            {/* <p>{goheungWeatherInfo}</p> */}
-                            {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
-                        </div>
-                        )}
-                        {/* <div>
+                                                {/* 상세 조회 버튼 추가 */}
+                                                {/* <button onClick={handleShowDetails} className={style.detail_btn}>상세 조회</button> */}
+                                                {/* <button onClick={handleCloseModal} className={style.closeButton}>Close</button> */}
+                                                {/* <p>{goheungWeatherInfo}</p> */}
+                                                {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
+                                            </div>
+                                        )}
+                                        {/* <div>
             {showModal && selectedLog && (
             <div>
                 <CCTVModal
@@ -1123,40 +1105,40 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                 )}
             </div> */}
 
-                        {/* <p>1번 CCTV / 포항 / 구룡포</p> */}
-                        <div style={{ height: "1vh" }}>
-                        <div className={style.weatherinfo}>
-                            {/* {pohangWeatherInfo} */}
-                        </div>
+                                        {/* <p>1번 CCTV / 포항 / 구룡포</p> */}
+                                        <div style={{ height: "1vh" }}>
+                                            <div className={style.weatherinfo}>
+                                                {/* {pohangWeatherInfo} */}
+                                            </div>
 
-                        <div className={style.trashinfo}>
-                            {/* 여기서부터 selectedDetail과 selectedLog 정보를 렌더링 */}
-                            <div>{/* latestLogs를 사용하여 UI 렌더링 */}</div>
-                        </div>
-                        </div>
-                        <table style={{ height: "1vh" }}>
-                        {/* {selectedImage === "cctv-icon-1.png" && pohangTableBody} */}
-                        {/* <CCTVModal tableBody={pohangTableBody} /> */}
-                        </table>
-                        {/* {selectedDetail.length > 0 && (
+                                            <div className={style.trashinfo}>
+                                                {/* 여기서부터 selectedDetail과 selectedLog 정보를 렌더링 */}
+                                                <div>{/* latestLogs를 사용하여 UI 렌더링 */}</div>
+                                            </div>
+                                        </div>
+                                        <table style={{ height: "1vh" }}>
+                                            {/* {selectedImage === "cctv-icon-1.png" && pohangTableBody} */}
+                                            {/* <CCTVModal tableBody={pohangTableBody} /> */}
+                                        </table>
+                                        {/* {selectedDetail.length > 0 && (
                                         <ul className={style.sealist}>
                                         {selectedDetail.map((item, index) => (
                                             <li key={index}>{item}</li>
                                         ))}
                                         </ul>
                                     )} */}
-                        {/* 모달 닫기 버튼 */}
-                        {/* <CCTVModal icon="cctv-icon-1.png" /> */}
-                        <button
-                        onClick={handleCloseModal}
-                        className={style.closeButton}
-                        >
-                        ❌
-                        </button>
-                    </div>
-                    )}
+                                        {/* 모달 닫기 버튼 */}
+                                        {/* <CCTVModal icon="cctv-icon-1.png" /> */}
+                                        <button
+                                            onClick={handleCloseModal}
+                                            className={style.closeButton}
+                                        >
+                                            ❌
+                                        </button>
+                                    </div>
+                                )}
 
-                    {/* {selectedVideo && (
+                                {/* {selectedVideo && (
                                                         <div className="modal">
                                                         <div className="modal-content">
                                                             <button className="close-btn" onClick={closeModal}>Close</button>
@@ -1165,13 +1147,13 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                                                         </div>
                                                     )} */}
 
-                    {selectedImage === "cctv-icon-2.png" && (
-                    <div
-                        className={style.modal_1_form}
-                        onClick={handleModalContentClick}
-                    >
+                                {selectedImage === "cctv-icon-2.png" && (
+                                    <div
+                                        className={style.modal_1_form}
+                                        onClick={handleModalContentClick}
+                                    >
 
-                        {/* <video className={style.Bigvideo}
+                                        {/* <video className={style.Bigvideo}
                                 // width="620vw"
                                 // height="420vh"
                                 controls
@@ -1190,42 +1172,42 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                                 />
                                 Your browser does not support the video tag.
                             </video> */}
-                        <video
-                        className={style.modal_video}
-                        key={cctvLog.cctvId}
-                        controls
-                        autoPlay
-                        muted
-                        loop
-                        >
-                        <source
-                            src={`${process.env.PUBLIC_URL}/videos/g${cctvLog.cctvId}.mp4`}
-                            type="video/mp4"
-                        />
-                        </video>
-                        {selectedLog && (
-                        <div>
-                            {/* <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted loop>                           
+                                        <video
+                                            className={style.modal_video}
+                                            key={cctvLog.cctvId}
+                                            controls
+                                            autoPlay
+                                            muted
+                                            loop
+                                        >
+                                            <source
+                                                src={`${process.env.PUBLIC_URL}/videos/g${cctvLog.cctvId}.mp4`}
+                                                type="video/mp4"
+                                            />
+                                        </video>
+                                        {selectedLog && (
+                                            <div>
+                                                {/* <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted loop>                           
                 <source src={`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`} type="video/mp4" />
             </video> */}
-                            <p>CCTV ID: {selectedLog.cctvId}</p>
-                            <p>최신 감지 날짜: {selectedLog.detectedDate}</p>
-                            <div style={{overflowX:"auto"}} >
-                                {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
-                                </div>
-                            {/* <p>위험도: {selectedLog.riskIndex}</p>
+                                                <p>CCTV ID: {selectedLog.cctvId}</p>
+                                                <p>최신 감지 날짜: {selectedLog.detectedDate}</p>
+                                                <div style={{ overflowX: "auto" }} >
+                                                    {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
+                                                </div>
+                                                {/* <p>위험도: {selectedLog.riskIndex}</p>
                             <p>쓰레기 수: {selectedLog.objectCount}</p> */}
-                            {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
-                            {/* <p>{goheungWeatherInfo}</p> */}
-                        </div>
-                        )}
+                                                {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
+                                                {/* <p>{goheungWeatherInfo}</p> */}
+                                            </div>
+                                        )}
 
-                        {/* <p>2번 CCTV / 울산 / 어딘가</p> */}
+                                        {/* <p>2번 CCTV / 울산 / 어딘가</p> */}
 
-                        <div style={{ height: "1vh" }}>
-                        <div className={style.weatherinfo}>
-                            {/* 쓰레기 불러오는 부분 */}
-                            {/* <ul style={{listStyleType: "none"}}>
+                                        <div style={{ height: "1vh" }}>
+                                            <div className={style.weatherinfo}>
+                                                {/* 쓰레기 불러오는 부분 */}
+                                                {/* <ul style={{listStyleType: "none"}}>
                                         <li style={{listStyleType: "none"}}>
                                         {logdata.length > 0 ? `탐지된 쓰레기 수: ${logdata[0].objectCount}` : 'Loading...'}
                                         </li>
@@ -1233,8 +1215,8 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                                             {logdata.length > 0 ? `위험도: ${logdata[0].riskIndex}` : 'Loading...'}
                                         </li>
                                     </ul> */}
-                            {/* {ulsanWeatherInfo} */}
-                            {/* {selectedDetail.length > 0 && (
+                                                {/* {ulsanWeatherInfo} */}
+                                                {/* {selectedDetail.length > 0 && (
                                     <ul style={{listStyleType: "none"}}>
                                             {selectedDetail.map((item, index) => (
                                                 <li key={index} onClick={() => handleDetailClick(index)} style={{ cursor: 'pointer' }}>
@@ -1244,14 +1226,14 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                                     </ul>
                                     )} */}
 
-                            <div>{/* latestLogs를 사용하여 UI 렌더링 */}</div>
-                        </div>
-                        </div>
-                        {/* <table style={{height:'1vh'}}>
+                                                <div>{/* latestLogs를 사용하여 UI 렌더링 */}</div>
+                                            </div>
+                                        </div>
+                                        {/* <table style={{height:'1vh'}}>
                                     {selectedImage === "cctv-icon-2.png" && ulsanTableBody }
                                     <CCTVModal tableBody={pohangTableBody} />
                                     </table> */}
-                        {/* {selectedDetail.length > 0 && (
+                                        {/* {selectedDetail.length > 0 && (
                                         <ul style={{listStyleType: "none"}}>
                                         {selectedDetail.map((item, index) => (
                                             <li key={index}>{item}</li>
@@ -1259,21 +1241,21 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                                         </ul>
                                     )} */}
 
-                        <button
-                        onClick={handleCloseModal}
-                        className={style.closeButton}
-                        >
-                        ❌
+                                        <button
+                                            onClick={handleCloseModal}
+                                            className={style.closeButton}
+                                        >
+                                            ❌
 
-                        </button>
-                    </div>
-                    )}
-                    {selectedImage === "cctv-icon-3.png" && (
-                    <div
-                        className={style.modal_1_form}
-                        onClick={handleModalContentClick}
-                    >
-                        {/* <video className={style.Bigvideo}
+                                        </button>
+                                    </div>
+                                )}
+                                {selectedImage === "cctv-icon-3.png" && (
+                                    <div
+                                        className={style.modal_1_form}
+                                        onClick={handleModalContentClick}
+                                    >
+                                        {/* <video className={style.Bigvideo}
                                 // width="620vw"
                                 // height="420vh"
                                 controls
@@ -1292,44 +1274,44 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                                 />
                                 Your browser does not support the video tag.
                             </video> */}
-                        <video
-                        className={style.modal_video}
-                        key={cctvLog.cctvId}
-                        controls
-                        autoPlay
-                        muted
-                        loop
-                        >
-                        <source
-                            src={`${process.env.PUBLIC_URL}/videos/g${cctvLog.cctvId}.mp4`}
-                            type="video/mp4"
-                        />
-                        </video>
-                        {selectedLog && (
-                        <div>
-                            {/* <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted loop>                           
+                                        <video
+                                            className={style.modal_video}
+                                            key={cctvLog.cctvId}
+                                            controls
+                                            autoPlay
+                                            muted
+                                            loop
+                                        >
+                                            <source
+                                                src={`${process.env.PUBLIC_URL}/videos/g${cctvLog.cctvId}.mp4`}
+                                                type="video/mp4"
+                                            />
+                                        </video>
+                                        {selectedLog && (
+                                            <div>
+                                                {/* <video className={style.modal_video} key={selectedLog.cctvId} controls autoPlay muted loop>                           
                 <source src={`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`} type="video/mp4" />
             </video> */}
-                            <>
-                            <p>CCTV ID: {selectedLog.cctvId}</p>
-                            <p>최신 감지 날짜: {selectedLog.detectedDate}</p>
-                            <div style={{overflowX:"auto"}} >
-                                {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
-                            </div>
-                            {/* <p>위험도: {selectedLog.riskIndex}</p>
+                                                <>
+                                                    <p>CCTV ID: {selectedLog.cctvId}</p>
+                                                    <p>최신 감지 날짜: {selectedLog.detectedDate}</p>
+                                                    <div style={{ overflowX: "auto" }} >
+                                                        {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
+                                                    </div>
+                                                    {/* <p>위험도: {selectedLog.riskIndex}</p>
                             <p>쓰레기 수: {selectedLog.objectCount}</p> */}
-                            {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
-                            {/* <p>{goheungWeatherInfo}</p> */}
-                            </>
-                        </div>
-                        )}
+                                                    {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
+                                                    {/* <p>{goheungWeatherInfo}</p> */}
+                                                </>
+                                            </div>
+                                        )}
 
-                        <div>
-                        {/* <p>3번 CCTV / 목포 / 아마도</p> */}
-                        <div style={{ height: "1vh" }}>
-                            <div className={style.weatherinfo}>
-                            {/* {ulsanWeatherInfo} */}
-                            {/* {selectedDetail.length > 0 && (
+                                        <div>
+                                            {/* <p>3번 CCTV / 목포 / 아마도</p> */}
+                                            <div style={{ height: "1vh" }}>
+                                                <div className={style.weatherinfo}>
+                                                    {/* {ulsanWeatherInfo} */}
+                                                    {/* {selectedDetail.length > 0 && (
                                     <ul style={{listStyleType: "none"}}>
                                             {selectedDetail.map((item, index) => (
                                                 <li key={index} onClick={() => handleDetailClick(index)} style={{ cursor: 'pointer' }}>
@@ -1338,27 +1320,27 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                                         ))}
                                     </ul>
                                     )} */}
-                            <div>{/* latestLogs를 사용하여 UI 렌더링 */}</div>
-                            </div>
-                        </div>
-                        {/* <table>
+                                                    <div>{/* latestLogs를 사용하여 UI 렌더링 */}</div>
+                                                </div>
+                                            </div>
+                                            {/* <table>
                                     {selectedImage === "cctv-icon-3.png" && mokpoTableBody}
                                 </table> */}
-                        </div>
-                        <button
-                        onClick={handleCloseModal}
-                        className={style.closeButton}
-                        >
-                        ❌
-                        </button>
-                    </div>
-                    )}
-                    {selectedImage === "cctv-icon-4.png" && (
-                    <div
-                        className={style.modal_1_form}
-                        onClick={handleModalContentClick}
-                    >
-                        {/* <video className={style.Bigvideo}
+                                        </div>
+                                        <button
+                                            onClick={handleCloseModal}
+                                            className={style.closeButton}
+                                        >
+                                            ❌
+                                        </button>
+                                    </div>
+                                )}
+                                {selectedImage === "cctv-icon-4.png" && (
+                                    <div
+                                        className={style.modal_1_form}
+                                        onClick={handleModalContentClick}
+                                    >
+                                        {/* <video className={style.Bigvideo}
                                 // width="620vw"
                                 // height="420vh"
                                 controls
@@ -1377,25 +1359,25 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                                 />
                                 Your browser does not support the video tag.
                             </video> */}
-                        <div>
-                        <video
-                            className={style.modal_video}
-                            key={cctvLog.cctvId}
-                            controls
-                            autoPlay
-                            muted
-                            loop
-                        >
-                            <source
-                            src={`${process.env.PUBLIC_URL}/videos/g${cctvLog.cctvId}.mp4`}
-                            type="video/mp4"
-                            />
-                        </video>
+                                        <div>
+                                            <video
+                                                className={style.modal_video}
+                                                key={cctvLog.cctvId}
+                                                controls
+                                                autoPlay
+                                                muted
+                                                loop
+                                            >
+                                                <source
+                                                    src={`${process.env.PUBLIC_URL}/videos/g${cctvLog.cctvId}.mp4`}
+                                                    type="video/mp4"
+                                                />
+                                            </video>
 
-                        {selectedLog && (
-                            <div>
-                            {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
-                            {/* <video
+                                            {selectedLog && (
+                                                <div>
+                                                    {/* {console.log(`${process.env.PUBLIC_URL}/videos/g${selectedLog.cctvId}.mp4`)} */}
+                                                    {/* <video
                                 className={style.modal_video}
                                 key={selectedLog.cctvId}
                                 controls
@@ -1408,86 +1390,86 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                                 type="video/mp4"
                                 />
                             </video> */}
-                            <p>CCTV ID: {selectedLog.cctvId}</p>
-                            <p>최신 감지 날짜: {selectedLog.detectedDate}</p>
-                            <div style={{overflowX:"auto"}} >
-                                {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
-                            </div>
-                            {/* <p>위험도: {selectedLog.riskIndex}</p>
+                                                    <p>CCTV ID: {selectedLog.cctvId}</p>
+                                                    <p>최신 감지 날짜: {selectedLog.detectedDate}</p>
+                                                    <div style={{ overflowX: "auto" }} >
+                                                        {selectedLog && <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />}
+                                                    </div>
+                                                    {/* <p>위험도: {selectedLog.riskIndex}</p>
                             <p>쓰레기 수: {selectedLog.objectCount}</p> */}
-                            {/* <MaterialChart logData={selectedLog} /> */}
-                            {/* <MaterialChart cctvId={selectedLog.cctvId} /> */}
+                                                    {/* <MaterialChart logData={selectedLog} /> */}
+                                                    {/* <MaterialChart cctvId={selectedLog.cctvId} /> */}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div>
+                                            {/* <p>4번 CCTV / 거제시 / 그럴껄</p> */}
+                                            <div style={{ height: "1vh" }}>
+                                                <div className={style.weatherinfo}>
+                                                    {/* {ulsanWeatherInfo} */}
+                                                </div>
+                                            </div>
+
+                                            <table>
+                                                {/* {selectedImage === "cctv-icon-4.png" && geojeTableBody} */}
+                                            </table>
+                                        </div>
+                                        <button
+                                            onClick={handleCloseModal}
+                                            className={style.closeButton}
+                                        >
+                                            ❌
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         )}
-                        </div>
-                        <div>
-                        {/* <p>4번 CCTV / 거제시 / 그럴껄</p> */}
-                        <div style={{ height: "1vh" }}>
-                            <div className={style.weatherinfo}>
-                            {/* {ulsanWeatherInfo} */}
-                            </div>
-                        </div>
-
-                        <table>
-                            {/* {selectedImage === "cctv-icon-4.png" && geojeTableBody} */}
-                        </table>
-                        </div>
-                        <button
-                        onClick={handleCloseModal}
-                        className={style.closeButton}
-                        >
-                        ❌
-                        </button>
                     </div>
-                    )}
-                </div>
-                )}
-            </div>
-            <div className={style.sub_title}>
+                    <div className={style.sub_title}>
                         해안쓰레기 현황 지도
                         <span className={style.clock}>
                             {currentTime.toLocaleTimeString()}
                         </span>
                     </div>
 
-            <div className={style.sub_1}>
-                <div className={style.sub_1_1}>
-                {/* <div className={style.sub_title}>
+                    <div className={style.sub_1}>
+                        <div className={style.sub_1_1}>
+                            {/* <div className={style.sub_title}>
                         메인_서브_1_1_관제시스템
 
                     </div> */}
-                {/* <MaterialChart cctvId={selectedLog.cctvId} /> */}
+                            {/* <MaterialChart cctvId={selectedLog.cctvId} /> */}
 
 
-                {selectedImage ? (
+                            {selectedImage ? (
                                 <>
 
-                {(selectedImage === "cctv-icon-2.png" ||
-                    selectedImage === "cctv-icon-3.png" ||
-                    selectedImage === "cctv-icon-4.png") && (
-                    <div>
-                    {selectedLog && (
-                        <div>
-                        <MaterialChart logData={selectedLog} />
-                        </div>
-                    )}
-                    </div>
-                )}
-                
+                                    {(selectedImage === "cctv-icon-2.png" ||
+                                        selectedImage === "cctv-icon-3.png" ||
+                                        selectedImage === "cctv-icon-4.png") && (
+                                            <div>
+                                                {selectedLog && (
+                                                    <div>
+                                                        <MaterialChart logData={selectedLog} />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
 
 
 
 
 
-                {selectedImage === "cctv-icon-1.png" && (
-                    <div>
-                    <MaterialChart2 data={selectedLog} />
-                    </div>
-                )}
+
+                                    {selectedImage === "cctv-icon-1.png" && (
+                                        <div>
+                                            <MaterialChart2 data={selectedLog} />
+                                        </div>
+                                    )}
 
 
-                
-                {/* <div>
+
+                                    {/* <div>
             {showModal && selectedLog && (
             <div>
                 <CCTVModal
@@ -1662,10 +1644,10 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
 
                         <div className={style.sub_2_2}>
                             <img className={style.map} src="/korea2.png" alt="지도사진" />
-                
 
 
-                {/* {showModal && selectedLog && (
+
+                            {/* {showModal && selectedLog && (
             <div>
                 <CCTVModal
                 logData={selectedLog}
@@ -1673,15 +1655,15 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
                 />
             </div>
                 )} */}
-                {/* <RedDot x={16.8} y={80} id="redDot1" onClick={() => handleCCTVClick(1)}/> */}
-                {/* <RedDot w={10} h={-11} id="redDot1" /> */}
-                {/* <RedDot x={16.8} y={80} id="redDot2" onClick={() => handleCCTVClick(2)}/> */}
-                {/* <RedDot w={10} h={-201} id="redDot2" /> */}
-                {/* <div id="map" className={style.map}>여긴어디</div> */}
-                </div>
-            </div>
+                            {/* <RedDot x={16.8} y={80} id="redDot1" onClick={() => handleCCTVClick(1)}/> */}
+                            {/* <RedDot w={10} h={-11} id="redDot1" /> */}
+                            {/* <RedDot x={16.8} y={80} id="redDot2" onClick={() => handleCCTVClick(2)}/> */}
+                            {/* <RedDot w={10} h={-201} id="redDot2" /> */}
+                            {/* <div id="map" className={style.map}>여긴어디</div> */}
+                        </div>
+                    </div>
 
-            <div className={style.sub_3}>
+                    <div className={style.sub_3}>
                         {/* sub_3 */}
                         {selectedImage ? (
                             <>
@@ -1694,7 +1676,7 @@ import AnnounceListHomepage from "../announce/AnnounceListHomepage";
             logData={selectedLog}
             
             onClose={() => setShowModal(false)} // 모달을 닫기 위한 함수 prop
-            /> */}          
+            /> */}
                                             {showModal && (
                                                 <CCTVModal accessToken={accessToken} onClose={handleCloseModal} />
 

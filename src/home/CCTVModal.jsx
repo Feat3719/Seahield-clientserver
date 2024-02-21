@@ -1,23 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import style from './CCTV.Module.css';
-import SelectedLogDetails from './SelectedLogDetails'; // SelectedLogDetails 컴포넌트 import
+import SelectedLogDetails from './SelectedLogDetails';
 
-function CCTVModal({ accessToken, onClose, setSelectedLogComponent }) { // setSelectedLogComponent를 추가하여 SelectedLogDetails 컴포넌트를 전달합니다.
+function CCTVModal({ accessToken, onClose }) {
     const [cctvLogs, setCctvLogs] = useState([]);
     const [selectedLog, setSelectedLog] = useState(null);
     const [selectedCctvId, setSelectedCctvId] = useState(null);
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            fetchCCTVDetails();
-        }, 1000);
-
-        // 컴포넌트가 언마운트될 때 interval 정리
-        return () => clearInterval(intervalId);
-    }, [accessToken]);
-
-    const fetchCCTVDetails = async () => {
+    const fetchCCTVDetails = useCallback(async () => {
         try {
             const response = await axios.get("/api/cctv/logs-dynamic", {
                 headers: {
@@ -43,10 +34,18 @@ function CCTVModal({ accessToken, onClose, setSelectedLogComponent }) { // setSe
                 });
                 return updatedLogs;
             });
+            setCctvLogs(response.data);
         } catch (error) {
             console.error("Error fetching CCTV details:", error);
         }
-    };
+    }, [accessToken]);
+
+    useEffect(() => {
+        fetchCCTVDetails();
+
+        const intervalId = setInterval(fetchCCTVDetails, 1000);
+        return () => clearInterval(intervalId);
+    }, [accessToken, fetchCCTVDetails]);
 
     const handleClickCctvId = async (cctvLogId) => {
         try {
@@ -55,10 +54,7 @@ function CCTVModal({ accessToken, onClose, setSelectedLogComponent }) { // setSe
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            const selectedLogData = response.data; // 객체 형태로 유지
-
-            setSelectedLog(selectedLogData);
-            setSelectedLogComponent(<SelectedLogDetails selectedLog={selectedLogData} onClose={() => setSelectedLog(null)} />);
+            setSelectedLog(response.data);
         } catch (error) {
             console.error("Error fetching CCTV details:", error);
         }
@@ -69,6 +65,7 @@ function CCTVModal({ accessToken, onClose, setSelectedLogComponent }) { // setSe
             <div className={style.modalContainer}>
                 <div className={style.modalHeader}>
                     <h2>CCTV 상세 정보</h2>
+                    <button onClick={onClose} className={style.closeButton}>닫기</button>
                 </div>
                 <div className={style.modalContent}>
                     {cctvLogs.length > 0 ? (
@@ -92,13 +89,13 @@ function CCTVModal({ accessToken, onClose, setSelectedLogComponent }) { // setSe
                                 ))}
                             </tbody>
                         </table>
-
                     ) : (
                         <p>로딩 중이거나 데이터가 없습니다.</p>
                     )}
-                    {/* <button onClick={onClose} className={style.closeButton}>닫기</button> */}
-
                 </div>
+                {selectedLog && (
+                    <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />
+                )}
             </div>
         </div>
     );
