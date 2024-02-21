@@ -27,20 +27,17 @@ const MypageRegular = () => {
     const [scene, setScene] = useState(1);
     const [posts, setPosts] = useState([]);
 
+    // const [loading, setLoading] = useState(false);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [postsPerPage] = useState(10);
 
-    const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(10);
-
-    const indexOfLast = currentPage * postsPerPage;
-    const indexOfFirst = indexOfLast - postsPerPage;
-    const currentPosts = (posts) => {
-        let currentPosts = 0;
-        currentPosts = posts.slice(indexOfFirst, indexOfLast);
-        return currentPosts;
-    };
-
-
+    // const indexOfLast = currentPage * postsPerPage;
+    // const indexOfFirst = indexOfLast - postsPerPage;
+    // const currentPosts = (posts) => {
+    //     let currentPosts = 0;
+    //     currentPosts = posts.slice(indexOfFirst, indexOfLast);
+    //     return currentPosts;
+    // };
 
     const [contracts, setContracts] = useState([]); // 계약 목록 상태
     const [contractDetails, setContractDetails] = useState([]);
@@ -85,7 +82,7 @@ const MypageRegular = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                setLoading(true);
+                // setLoading(true);
                 const response = await axios.get("/api/user/articles", {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
@@ -93,7 +90,7 @@ const MypageRegular = () => {
                 });
                 if (response.status === 200) {
                     setPosts(response.data); // 받아온 데이터를 posts 상태에 저장
-                    setLoading(false);
+                    // setLoading(false);
                 }
             } catch (error) {
                 console.error("게시글을 불러오는 데 실패했습니다.", error);
@@ -109,9 +106,8 @@ const MypageRegular = () => {
     const navigate = useNavigate();
 
     // 게시글 렌더링 부분
-    const renderPosts = ({cposts, loading}) => {
-        // if (!posts.length) {
-        if (loading) {
+    const renderPosts = () => {
+        if (!posts.length) {
             // If posts have not been loaded
             return [...Array(3)].map(
                 (
@@ -141,7 +137,7 @@ const MypageRegular = () => {
                 )
             );
         }
-        return cposts.map((post, index) => (
+        return posts.map((post, index) => (
             <tr
                 key={index}
                 onClick={() => navigate(`/boarddetail/${post.articleId}`)}
@@ -325,11 +321,8 @@ const MypageRegular = () => {
         setPwdMatch(newPassword === userPwd);
     };
 
-    
-
     const renderScene = () => {
-
-        const cposts = currentPosts(posts)
+        // const cposts = currentPosts(posts);
 
         // switch (scene) {
         // case 1:
@@ -369,17 +362,17 @@ const MypageRegular = () => {
                             </tr>
                         </thead>
                         <tbody className={style.contract_table}>
-                            {renderPosts({cposts: cposts, loading: loading})}
+                            {renderPosts()}
                         </tbody>
                     </table>
-                    <div>
+                    {/* <div>
                     <Pagination
                         postsPerPage={postsPerPage}
                         totalPosts={posts.length}
                         paginate={setCurrentPage}
                         currentPage={currentPage}
                     ></Pagination>
-                    </div>
+                    </div> */}
                     <div className={style.myslide_form}>
                         <div className={style.liketitle}>
                             좋아요한 게시글 목록
@@ -567,7 +560,7 @@ const MypageRegular = () => {
                             <h2 className={style.my_info_name}>
                                 {userId}님 정보
                             </h2>
-                        
+
                             <div className={style.my_input_wrapper_1}>
                                 {scene !== 0 && (
                                     <div className={style.edit_1}>
@@ -589,7 +582,7 @@ const MypageRegular = () => {
                                     </div>
                                 </form>
                             </div>
-                        
+
                             <div className={style.mypage_btn}>
                                 <button
                                     className={style.transBtn}
