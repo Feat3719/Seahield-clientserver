@@ -124,7 +124,7 @@ function CompanyInfo() {
       if (response.status === 201) {
         Swal.fire({
           title: '성공!',
-          text: '입찰신청이 성공적으로 완료되었습니다. 수거계약신청 페이지로 이동하시겠습니까?',
+          text: '회사정보입력이 성공적으로 완료되었습니다. 수거계약신청 페이지로 이동하시겠습니까?',
           icon: 'success',
           showCancelButton: true,
           confirmButtonText: '예',
@@ -210,7 +210,7 @@ function CompanyInfo() {
               />
             </div>
             <div className={style.form_date}>
-              <label className={style.form_label}>주소</label>
+              <label className={style.form_label}>법인 주소</label>
               <div className={style.form_address_area}>
                 <div className={style.form_address}>
                   <input
@@ -230,7 +230,7 @@ function CompanyInfo() {
               </div>
             </div>
             <div className={style.form_date}>
-              <label className={style.form_label}>전화번호</label>
+              <label className={style.form_label}>법인 전화번호</label>
               <input
                 className={style.form_input}
                 placeholder="01000000000"
@@ -239,7 +239,7 @@ function CompanyInfo() {
               />
             </div>
             <div className={style.form_date}>
-              <label className={style.form_label}>주민등록번호</label>
+              <label className={style.form_label}>대표자 주민등록번호</label>
               <input
                 className={style.form_input}
                 placeholder="123456-1234567"

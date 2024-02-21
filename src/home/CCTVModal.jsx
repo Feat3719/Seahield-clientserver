@@ -6,6 +6,7 @@ import SelectedLogDetails from './SelectedLogDetails'; // SelectedLogDetails 컴
 function CCTVModal({ accessToken, onClose, setSelectedLogComponent }) { // setSelectedLogComponent를 추가하여 SelectedLogDetails 컴포넌트를 전달합니다.
     const [cctvLogs, setCctvLogs] = useState([]);
     const [selectedLog, setSelectedLog] = useState(null);
+    const [selectedCctvId, setSelectedCctvId] = useState(null);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -31,6 +32,7 @@ function CCTVModal({ accessToken, onClose, setSelectedLogComponent }) { // setSe
                 newLogs.forEach(newLog => {
                     if (!prevLogs.some(log => log.cctvLogId === newLog.cctvLogId)) {
                         updatedLogs.unshift(newLog); // 새로운 로그를 배열의 맨 앞에 추가
+                        setSelectedCctvId(newLog)
                     } else {
                         // 이미 존재하는 경우에는 detectedDate로 업데이트된 값인지 확인
                         const existingLogIndex = prevLogs.findIndex(log => log.cctvLogId === newLog.cctvLogId);

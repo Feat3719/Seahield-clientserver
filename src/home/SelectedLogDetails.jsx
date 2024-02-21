@@ -6,7 +6,7 @@ function SelectedLogDetails({ selectedLog, onClose }) {
         <div className={style.modalBackground}>
             <div className={style.modalContainer}>
                 <div className={style.modalHeader}>
-                    <h2>Selected CCTV Log Details</h2>
+                    <h2>상세내역</h2>
                     {/* <button onClick={onClose} className={style.closeButton}>닫기</button> */}
                 </div>
                 <div className={style.modalContent}>
