@@ -269,6 +269,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 20vh;
+    font-size: 2vh;
 }
 
 .password_input {
@@ -577,6 +578,14 @@
     .contractRow:hover {
         background-color: #3247b1;
         /* 호버 상태의 배경색 변경 */
+    }
+
+    .my_input_wrapper_1 input {
+        width: 44vw;
+    }
+
+    .password_describe {
+        text-align: center;
     }
 
 
