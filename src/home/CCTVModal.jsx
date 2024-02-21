@@ -7,13 +7,13 @@ function CCTVModal({ accessToken, onClose }) {
     const [cctvLogs, setCctvLogs] = useState([]);
 
     useEffect(() => {
+        // useEffect 내부에서 함수 정의
         const fetchCCTVDetails = async () => {
             try {
                 const response = await axios.get("/api/cctv/logs-dynamic", {
                     headers: { Authorization: `Bearer ${accessToken}` },
                 });
                 const newLogs = Array.isArray(response.data) ? response.data : [response.data];
-
                 setCctvLogs(prevLogs => {
                     const updatedLogs = [...prevLogs];
                     newLogs.forEach(newLog => {
@@ -31,6 +31,7 @@ function CCTVModal({ accessToken, onClose }) {
             }
         };
 
+        // 함수 직접 호출
         const intervalId = setInterval(fetchCCTVDetails, 1000);
         return () => clearInterval(intervalId);
     }, [accessToken]);
