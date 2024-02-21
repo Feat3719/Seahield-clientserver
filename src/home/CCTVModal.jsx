@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback  } from 'react';
 import axios from 'axios';
 import style from './CCTV.Module.css';
 import SelectedLogDetails from './SelectedLogDetails';
