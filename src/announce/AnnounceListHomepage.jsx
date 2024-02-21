@@ -54,6 +54,14 @@ function AnnounceListHomepage() {
                     </tbody>
                 </table>
             </div>
+            <div id={style.paginationBox}>
+                <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={posts.length}
+                    paginate={setCurrentPage}
+                    currentPage={currentPage}
+                ></Pagination>
+            </div>
         </>
     );
 }
