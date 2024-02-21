@@ -9,7 +9,7 @@ import MyEditPrev from "./MyEditPrev";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import ModalMypageContract from "./ModalMypageContract";
-import Pagination from "../board/Pagination";
+// import Pagination from "../board/Pagination";
 
 const MypageRegular = () => {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -197,9 +197,7 @@ const MypageRegular = () => {
         const fetchContracts = async () => {
             try {
                 const response = await axios.get("/api/contract/list", {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
+                    headers: { Authorization: `Bearer ${accessToken}` },
                 });
                 if (response.status === 200) {
                     setContracts(response.data); // 계약 목록 설정

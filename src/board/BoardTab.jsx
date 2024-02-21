@@ -7,9 +7,9 @@ import Wrapper from "../pagechange/Wrapper";
 
 function BoardTab() {
     const tabData = [
-        { id: 1, content: "자유게시판" },
+        { id: 1, content: "공지사항" },
         { id: 2, content: "질문게시판" },
-        { id: 3, content: "공지사항" },
+        { id: 3, content: "자유게시판" },
     ];
 
     const userType = useSelector((state) => state.auth.userType);
@@ -48,7 +48,7 @@ function BoardTab() {
                 <div id={style.listBox}>
                     {activeTab === 1 && (
                         <BoardList
-                            category={"FREE"}
+                            category={"NOTICE"}
                             tabName={tabData[0].content}
                             userType={userType}
                         />
@@ -62,7 +62,7 @@ function BoardTab() {
                     )}
                     {activeTab === 3 && (
                         <BoardList
-                            category={"NOTICE"}
+                            category={"FREE"}
                             tabName={tabData[2].content}
                             userType={userType}
                         />

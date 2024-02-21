@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { useSelector } from "react-redux";
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import style from './MypageRegular.module.css';
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import style from "./MypageRegular.module.css";
 
 // import { baseUrl } from "./config";
 
@@ -30,7 +29,6 @@ function SamplePrevArrow(props) {
     );
 }
 
-
 const Myslide = () => {
     const settings = {
         dots: true,
@@ -45,13 +43,12 @@ const Myslide = () => {
         autoplay: false, // 자동 전환 활성화
         autoplaySpeed: 3000,
         nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />
+        prevArrow: <SamplePrevArrow />,
     };
 
     const [likeposts, setLikePosts] = useState([]);
     const accessToken = useSelector((state) => state.auth.accessToken);
     const [userNickname, setUserNickname] = useState("");
-
 
     // 정보 불러오는 부분________________________________
     useEffect(() => {
@@ -75,7 +72,7 @@ const Myslide = () => {
     useEffect(() => {
         const fetchLikePosts = async () => {
             try {
-                const response = await axios.get('/api/user/articles-like', {
+                const response = await axios.get("/api/user/articles-like", {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
@@ -88,19 +85,18 @@ const Myslide = () => {
             }
         };
 
-        if (userNickname) { // 사용자 닉네임이 설정되어 있을 때만 게시글 데이터를 불러옴
+        if (userNickname) {
+            // 사용자 닉네임이 설정되어 있을 때만 게시글 데이터를 불러옴
             fetchLikePosts();
         }
     }, [userNickname, accessToken]);
 
-
-
     return (
-        <div className={style.slide} >
+        <div className={style.slide}>
             <Slider {...settings}>
                 {likeposts.length > 0 ? (
                     likeposts.map((lpost) => (
-                        <div key={lpost.id} className={style.slideBoard}>
+                        <div key={lpost.articleId} className={style.slideBoard}>
                             <h2>{lpost.articleTitle}</h2> {/* 게시글 제목 */}
                             <p>{lpost.articleCtgr}</p> {/* 게시글 내용 */}
                             {/* 여기에 더 많은 게시글 정보를 추가할 수 있습니다. */}

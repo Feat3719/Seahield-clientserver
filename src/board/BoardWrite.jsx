@@ -6,8 +6,7 @@ import Editor from "./Editor";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Sidenav from "../sidenav/Sidenav";
-import Swal from 'sweetalert2';
-
+import Swal from "sweetalert2";
 
 function BoardWrite() {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -16,27 +15,24 @@ function BoardWrite() {
     const [category, setCategory] = useState("");
     const [content, setContent] = useState("");
 
-    useEffect(() => {
-        console.log(content);
-    }, [content]);
+    useEffect(() => {}, [content]);
 
     const handleWrite = async () => {
         if (category === "") {
             Swal.fire({
-                title: '분류를 선택해주세요.',
-                icon: 'warning',
-                confirmButtonText: '확인'
+                title: "분류를 선택해주세요.",
+                icon: "warning",
+                confirmButtonText: "확인",
             });
             return;
         }
 
-
         Swal.fire({
-            title: '등록하시겠습니까?',
+            title: "등록하시겠습니까?",
             showCancelButton: true,
-            confirmButtonText: '작성',
-            cancelButtonText: '취소',
-            icon: 'question'
+            confirmButtonText: "작성",
+            cancelButtonText: "취소",
+            icon: "question",
         }).then((result) => {
             if (result.isConfirmed) {
                 // User clicked '작성', proceed with the write operation
