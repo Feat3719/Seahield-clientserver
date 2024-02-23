@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback  } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import style from './CCTV.Module.css';
-import SelectedLogDetails from './SelectedLogDetails';
+// import SelectedLogDetails from './SelectedLogDetails';
 
 function CCTVModal({ accessToken, onClose }) {
     const [cctvLogs, setCctvLogs] = useState([]);
+<<<<<<< HEAD
     const [selectedLog, setSelectedLog] = useState(null);
     const [selectedCctvId, setSelectedCctvId] = useState(null);
 
@@ -39,26 +40,38 @@ function CCTVModal({ accessToken, onClose }) {
             console.error("Error fetching CCTV details:", error);
         }
     }, [accessToken]);
+=======
+>>>>>>> 08ab2645d2bf7e1a66c81135ae430cfeb37c5b7f
 
     useEffect(() => {
-        fetchCCTVDetails();
+        // useEffect 내부에서 함수 정의
+        const fetchCCTVDetails = async () => {
+            try {
+                const response = await axios.get("/api/cctv/logs-dynamic", {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                });
+                const newLogs = Array.isArray(response.data) ? response.data : [response.data];
+                setCctvLogs(prevLogs => {
+                    const updatedLogs = [...prevLogs];
+                    newLogs.forEach(newLog => {
+                        const index = prevLogs.findIndex(log => log.cctvLogId === newLog.cctvLogId);
+                        if (index === -1) {
+                            updatedLogs.unshift(newLog);
+                        } else if (prevLogs[index].detectedDate !== newLog.detectedDate) {
+                            updatedLogs[index] = newLog;
+                        }
+                    });
+                    return updatedLogs;
+                });
+            } catch (error) {
+                console.error("Error fetching CCTV details:", error);
+            }
+        };
 
+        // 함수 직접 호출
         const intervalId = setInterval(fetchCCTVDetails, 1000);
         return () => clearInterval(intervalId);
-    }, [accessToken, fetchCCTVDetails]);
-
-    const handleClickCctvId = async (cctvLogId) => {
-        try {
-            const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            setSelectedLog(response.data);
-        } catch (error) {
-            console.error("Error fetching CCTV details:", error);
-        }
-    };
+    }, [accessToken]);
 
     return (
         <div className={style.modalBackground}>
@@ -78,9 +91,9 @@ function CCTVModal({ accessToken, onClose }) {
                                     <th>시간</th>
                                 </tr>
                             </thead>
-                            <tbody className={style.tbody_cell}>
+                            <tbody>
                                 {cctvLogs.map((log, index) => (
-                                    <tr key={index} onClick={() => handleClickCctvId(log.cctvLogId)}>
+                                    <tr key={index}>
                                         <td>{log.cctvId}</td>
                                         <td>{log.objectCount}</td>
                                         <td>{log.riskIndex}</td>
@@ -93,9 +106,6 @@ function CCTVModal({ accessToken, onClose }) {
                         <p>로딩 중이거나 데이터가 없습니다.</p>
                     )}
                 </div>
-                {selectedLog && (
-                    <SelectedLogDetails selectedLog={selectedLog} onClose={() => setSelectedLog(null)} />
-                )}
             </div>
         </div>
     );
