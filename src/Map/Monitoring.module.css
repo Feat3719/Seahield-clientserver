@@ -1,0 +1,19 @@
+.monitoring {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    min-height: 100vh;
+    background-color: #000000e0;
+}
+
+.monitoring_area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 94%;
+    margin-top: 3vh;
+    width: 97%;
+    border: 0.3vh grey solid;
+    background-color: rgb(0, 0, 0);
+}
