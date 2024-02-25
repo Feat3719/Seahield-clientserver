@@ -9,10 +9,10 @@ const CameraCircle = ({ count, cctvId }) => {
 
     // 원의 스타일 지정
     const locations = {
-        '1': { left: '39vh', top: '22vw', name: '포항' }, // CCTV 1 위치 및 이름
-        '2': { left: '33vh', top: '27vw', name: '울산' }, // CCTV 2 위치 및 이름
-        '3': { left: '-1.5vw', top: '72vh', name: '고흥' }, // CCTV 3 위치 및 이름
-        '4': { left: '10vh', top: '33.5vw', name: '거제' }  // CCTV 4 위치 및 이름
+        '1': { left: '82%', top: '50%', name: '포항' }, // CCTV 1 위치 및 이름
+        '2': { left: '82%', top: '62%', name: '울산' }, // CCTV 2 위치 및 이름
+        '4': { left: '67%', top: '80%', name: '고흥' }, // CCTV 3 위치 및 이름
+        '10': { left: '38%', top: '87%', name: '거제' }  // CCTV 4 위치 및 이름
     };
 
     // 현재 CCTV ID에 해당하는 위치 정보를 가져옵니다.

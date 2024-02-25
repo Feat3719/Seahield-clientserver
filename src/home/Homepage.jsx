@@ -1635,7 +1635,7 @@ function Homepage() {
                                         />
                                         {/* 여기서 CameraCircle에 size와 count를 전달합니다. */}
                                         <div className={style.cameraCircleWrapper}>
-                                            <CameraCircle count={counts.length > 0 ? counts[0] : 0} cctvId={cctvId} />
+                                            {/* <CameraCircle count={counts.length > 0 ? counts[0] : 0} cctvId={cctvId} /> */}
                                         </div>
                                     </div>
                                 );

@@ -1,0 +1,53 @@
+.monitoringmodalplace_1 {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.monitoringmodalplace_table {
+    color: white;
+    font-size: 2vh;
+    border-top: none;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    /* 테이블의 테두리를 합치는 속성 */
+}
+
+.monitoringmodalplace_table thead {
+    background-color: rgb(33, 77, 223);
+}
+
+.monitoringmodalplace_table th,
+.monitoringmodalplace_table td {
+    border: 0.1vh solid white;
+    /* 테이블 헤더와 셀에 흰색 테두리 적용 */
+}
+
+.monitoringmodalplace_table tr {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.monitoringmodalplace_table tr:hover {
+    background-color: rgb(33, 77, 223);
+}
+
+.monitoringmodalplace_title {
+    width: 100%;
+    height: 15%;
+    border-top-right-radius: 3vh;
+    border-top-left-radius: 3vh;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-image: linear-gradient(to bottom, rgb(166, 166, 167), rgb(8, 8, 20));
+}
+
+.monitoringplace_title_text {
+    color: white;
+    font-size: 2.5vh;
+}
