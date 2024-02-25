@@ -133,7 +133,7 @@ function MyEditPrev() {
             });
             // 서버 응답 로깅
             console.log(response.data);
-            alert("@@@@@@@@@@@@")
+            // alert("@@@@@@@@@@@@")
             if (response.data.isValid !== null) {
                 setScene(2); // 인증 성공
             } else {

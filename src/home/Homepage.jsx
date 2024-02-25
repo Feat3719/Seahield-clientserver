@@ -32,13 +32,13 @@ const images = [
 
 function Homepage() {
     const accessToken = useSelector((state) => state.auth.accessToken);
-    const [imageUrl, setImageUrl] = useState(`https://192.168.0.33:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`);
+    const [imageUrl, setImageUrl] = useState(`https://192.168.0.74:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const updateImage = () => {
             setLoading(true);
-            const newImageUrl = `https://192.168.0.33:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
+            const newImageUrl = `https://192.168.0.74:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
 
             // 이미지가 완전히 로드될 때까지 기다립니다.
             const img = new Image();

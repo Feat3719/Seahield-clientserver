@@ -5,43 +5,6 @@ import style from './CCTV.Module.css';
 
 function CCTVModal({ accessToken, onClose }) {
     const [cctvLogs, setCctvLogs] = useState([]);
-<<<<<<< HEAD
-    const [selectedLog, setSelectedLog] = useState(null);
-    const [selectedCctvId, setSelectedCctvId] = useState(null);
-
-    const fetchCCTVDetails = useCallback(async () => {
-        try {
-            const response = await axios.get("/api/cctv/logs-dynamic", {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            const newLogs = Array.isArray(response.data) ? response.data : [response.data];
-
-            // 새 로그가 기존 로그에 없는 경우에만 추가
-            setCctvLogs(prevLogs => {
-                const updatedLogs = [...prevLogs];
-                newLogs.forEach(newLog => {
-                    if (!prevLogs.some(log => log.cctvLogId === newLog.cctvLogId)) {
-                        updatedLogs.unshift(newLog); // 새로운 로그를 배열의 맨 앞에 추가
-                        setSelectedCctvId(newLog)
-                    } else {
-                        // 이미 존재하는 경우에는 detectedDate로 업데이트된 값인지 확인
-                        const existingLogIndex = prevLogs.findIndex(log => log.cctvLogId === newLog.cctvLogId);
-                        if (prevLogs[existingLogIndex].detectedDate !== newLog.detectedDate) {
-                            updatedLogs[existingLogIndex] = newLog;
-                        }
-                    }
-                });
-                return updatedLogs;
-            });
-            setCctvLogs(response.data);
-        } catch (error) {
-            console.error("Error fetching CCTV details:", error);
-        }
-    }, [accessToken]);
-=======
->>>>>>> 08ab2645d2bf7e1a66c81135ae430cfeb37c5b7f
 
     useEffect(() => {
         // useEffect 내부에서 함수 정의
