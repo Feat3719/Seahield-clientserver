@@ -1,18 +1,17 @@
 import React from "react";
 import style from "./Posts.module.css";
 import FormatDate from "./FormatDate";
-import Skeleton from "react-loading-skeleton"; // 스켈레톤 컴포넌트 import
-import "react-loading-skeleton/dist/skeleton.css"; // 스켈레톤 CSS import
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useNavigate } from "react-router-dom";
 
 const Posts = ({ posts, loading }) => {
     const navigate = useNavigate();
 
     if (loading) {
-        // 로딩 중 스켈레톤 표시
         return (
             <>
-                {Array(3) // 5개의 스켈레톤 행을 생성
+                {Array(3)
                     .fill(0)
                     .map((_, index) => (
                         <tr key={index}>
@@ -41,11 +40,8 @@ const Posts = ({ posts, loading }) => {
     }
 
     const handleRowClick = (announceId) => {
-        console.log(announceId);
         navigate(`/announcedetail/${announceId}`);
     };
-
-    // console.log(posts[0].announceCreatedDate);
 
     return (
         <>

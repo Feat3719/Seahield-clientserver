@@ -224,13 +224,6 @@ const Comment = ({ comments, fetchPost }) => {
                                             </button>
                                         </>
                                     )}
-
-                                    {/* {isUpdating[comment.commentId] ? (
-                                        <button className={style.updateSubmitButton} onClick={() => handleUpdateSubmit(comment.commentId)}>수정완료</button>
-                                    ) : (
-                                        <button className={style.updateButton} onClick={() => handleUpdateStart(comment.commentId)}>수정</button>
-                                    )}
-                                    <button className={style.delete_Button} onClick={() => handleDelete(comment.commentId)}>삭제</button> */}
                                 </>
                             )}
                         </div>

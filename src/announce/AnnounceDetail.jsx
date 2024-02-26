@@ -13,8 +13,6 @@ import { useNavigate } from "react-router-dom";
 function AnnounceDetail() {
     const accessToken = useSelector((state) => state.auth.accessToken);
     const { announceId } = useParams();
-    console.log("announcedetail");
-    console.log(announceId);
 
     const [post, setPost] = useState(null);
 

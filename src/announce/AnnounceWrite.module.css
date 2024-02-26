@@ -40,7 +40,6 @@
     width: 90%;
     height: 10vh;
     display: flex;
-    /* flex-direction: column; */
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 30px auto;
@@ -51,7 +50,6 @@
     color: white;
     border-color: gray;
     background-color: #121212a5;
-    /* margin: 10px auto 10px 40px; */
 }
 
 .announceName {
@@ -59,23 +57,13 @@
     color: white;
     border-color: gray;
     background-color: #121212a5;
-    /* margin: 10px auto 10px 40px; */
 }
-
-/* .announceContents {
-    width: 10%;
-    color: white;
-    border-color: gray;
-    background-color: #121212a5;
-
-} */
 
 .biddingStartDate {
     width: 15%;
     color: white;
     border-color: gray;
     background-color: #121212a5;
-    /* margin: 10px auto 10px 40px; */
 }
 
 .biddingEndDate {
@@ -83,7 +71,6 @@
     color: white;
     border-color: gray;
     background-color: #121212a5;
-    /* margin: 10px auto 10px 40px; */
 }
 
 .input {
@@ -93,7 +80,6 @@
 }
 
 .category {
-    /* width: 50%; */
     color: white;
     border-color: gray;
     text-align: right;
@@ -101,11 +87,9 @@
 
 .select {
     -webkit-appearance: none;
-    /* Chrome, Safari, Opera */
     -moz-appearance: none;
-    /* Firefox */
     appearance: none;
-    /* 표준 문법 */
+
     width: 20vh;
     background-image: url("../../public/images/down-arrow.svg");
     background-position: right 1vh center;
@@ -146,29 +130,6 @@
     width: 90%;
     margin: 20px auto;
 }
-
-/* .complete_button {
-    cursor: pointer;
-    height: 35px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-} */
-
-/* .cancle_button {
-    cursor: pointer;
-    height: 35px;
-    border-radius: 5px;
-} */
-
-/* .complete_button:hover {
-    background-color: #659deb;
-    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
-} */
-
-/* .cancle_button:hover {
-    background-color: rgb(239, 138, 138);
-    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
-} */
 
 .complete_button {
     cursor: pointer;
