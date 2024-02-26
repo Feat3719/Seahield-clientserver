@@ -51,3 +51,7 @@
     color: white;
     font-size: 2.5vh;
 }
+
+.selectedRow {
+    background-color: rgb(33, 77, 223);
+}

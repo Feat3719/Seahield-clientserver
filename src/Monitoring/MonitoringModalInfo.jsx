@@ -2,14 +2,9 @@ import React from 'react';
 import style from './MonitoringModalInfo.module.css';
 
 function MonitoringModalInfo({ selectedLog }) {
-    // detectedDate 배열을 YYYY-MM-DD HH:MM:SS 형식으로 변환하는 함수
+    // detectedDate를 YYYY-MM-DD HH:MM:SS 형식으로 변환
     const formatDate = (detectedDate) => {
-        if (!detectedDate || detectedDate.length !== 6) return '';
-        // detectedDate 배열에서 각 요소를 추출
-        const [year, month, day, hour, minute, second] = detectedDate;
-        // Date 객체 생성
-        const date = new Date(year, month - 1, day, hour, minute, second);
-        // 로케일에 맞는 날짜와 시간 문자열로 변환
+        const date = new Date(detectedDate[0], detectedDate[1] - 1, detectedDate[2], detectedDate[3], detectedDate[4], detectedDate[5]);
         return date.toLocaleString();
     };
 

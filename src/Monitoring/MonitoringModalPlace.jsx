@@ -1,9 +1,8 @@
+import React from 'react';
 import style from './MonitoringModalPlace.module.css';
 
-function MonitoringModalPlace({ data, title, onRowClick }) {
-
+function MonitoringModalPlace({ data, title, onRowClick, selectedId }) {
     return (
-
         <div className={style.monitoringmodalplace_1}>
             <div className={style.monitoringmodalplace_title}>
                 <p className={style.monitoringplace_title_text}>{title}</p>
@@ -18,7 +17,11 @@ function MonitoringModalPlace({ data, title, onRowClick }) {
                 </thead>
                 <tbody>
                     {data.map(([id, region, detail], index) => (
-                        <tr key={index} onClick={() => onRowClick(id)}>
+                        <tr
+                            key={index}
+                            onClick={() => onRowClick(id)}
+                            className={selectedId === id ? style.selectedRow : ''}
+                        >
                             <td>{id}</td>
                             <td>{region}</td>
                             <td>{detail}</td>

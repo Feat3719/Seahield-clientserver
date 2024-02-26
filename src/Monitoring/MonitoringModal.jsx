@@ -8,21 +8,128 @@ import TrashChart2 from './TrashChart2';
 import MonitoringModalInfo from './MonitoringModalInfo';
 import MonitoringModalLog from './MonitoringModalLog';
 import MonitoringWeather from './MonitoringWeather';
+import MonitoringCctvRealTime from './MonitoringCctvRealTime';
 
 const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
 
     const [selectedLog, setSelectedLog] = useState(null);
     const accessToken = useSelector((state) => state.auth.accessToken);
     const [selectedCctvId, setSelectedCctvId] = useState(cctvId);
+    const [loading, setLoading] = useState(false);
+    const [lastCctvLogId, setLastCctvLogId] = useState(null);
+    const [cctvLogs, setCctvLogs] = useState([]);
+
+    // 1번 카메라에 대한 데이터를 동적으로 가져오는 함수
+    const fetchDynamicData = async () => {
+        try {
+            const response = await axios.get(`/api/cctv/logs-dynamic`, {
+                headers: { Authorization: `Bearer ${accessToken}` },
+            });
+            const data = response.data;
+            setSelectedLog(data);
+            setCctvLogs(prevLogs => [...prevLogs, data]);
+        } catch (error) {
+            console.error("Error fetching CCTV details:", error);
+        }
+    };
+
+    // 2~10번 카메라에 대한 데이터를 정적으로 가져오는 함수
+    const fetchStaticData = async (id) => {
+        try {
+            const response = await axios.get(`/api/cctv/logs-static-details/${id}`, {
+                headers: { Authorization: `Bearer ${accessToken}` },
+            });
+            setSelectedLog(response.data[0]);
+        } catch (error) {
+            console.error(`Error fetching data for CCTV ID ${id}:`, error);
+        }
+    };
 
     const onRowClick = async (id) => {
-        const response = await fetchDataForCctvId(id); // 선택된 CCTV ID에 해당하는 데이터 가져오기
-        setSelectedLog(response); // 가져온 데이터를 selectedLog 상태에 저장
-        setSelectedCctvId(id.toString()); // 필요시 문자열로 변환
+        // 클릭된 로그에 따라 적절한 데이터 패칭 함수 호출
+        if (id === '1') {
+            fetchDynamicData();
+        } else {
+            fetchStaticData(id);
+        }
+        setSelectedCctvId(id.toString());
     };
-    // console.log(setSelectedLog)
 
-    const videoSrc = `${process.env.PUBLIC_URL}/videos/g${selectedLog?.cctvId}.mp4`;
+    // 초기 데이터 로딩만을 위한 useEffect 사용
+    useEffect(() => {
+        if (isOpen && selectedCctvId) {
+            if (cctvId === '1') {
+                fetchDynamicData();
+            } else {
+                fetchStaticData(cctvId);
+            }
+        }
+    }, [isOpen, selectedCctvId]);
+
+    const [imageUrl, setImageUrl] = useState(''); // 이미지 URL 상태
+
+    useEffect(() => {
+        setSelectedCctvId(cctvId);
+        if (cctvId && isOpen) {
+            fetchDataForCctvId(cctvId).then(data => {
+                setSelectedLog(data);
+                // 모달이 열릴 때 첫 번째 데이터를 선택하는 로직을 추가
+                if (data) {
+                    onRowClick(data.cctvId);
+                }
+            });
+        }
+    }, [cctvId, isOpen]);
+
+
+    const updateImage = () => {
+        setLoading(true);
+        const newImageUrl = `https://192.168.0.74:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
+        setImageUrl(newImageUrl);
+        setLoading(false);
+    };
+
+
+    //로그 업데이트
+    useEffect(() => {
+        if (selectedCctvId === '1') {
+            const intervalId = setInterval(() => {
+                updateImage(); // 이미지만 업데이트
+                // 이제 fetchDataForCctvId 함수는 여기서 호출되지 않음
+            }, 1000);
+
+            return () => clearInterval(intervalId);
+        }
+    }, [selectedCctvId, accessToken]);
+
+
+    // 로그 선택 처리 함수
+    // MonitoringModal 컴포넌트 내부
+    const handleSelectLog = async (cctvLogId) => {
+        try {
+            const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
+                headers: { Authorization: `Bearer ${accessToken}` },
+            });
+            setSelectedLog(response.data); // 사용자가 선택한 로그에 대한 상세 정보로만 상태를 업데이트합니다.
+        } catch (error) {
+            console.error("Error fetching CCTV log details:", error);
+        }
+    };
+
+
+    const renderMedia = () => {
+        if (selectedCctvId === '1') {
+            return loading ? <p>Loading...</p> : <img src={imageUrl} alt="CCTV 1 View" className={style.modal_video} />;
+        } else {
+            const videoSrc = `${process.env.PUBLIC_URL}/videos/g${selectedCctvId}.mp4`;
+            return (
+                <video className={style.modal_video} controls autoPlay muted loop key={selectedCctvId}>
+                    <source src={videoSrc} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            );
+        }
+    };
 
     const pohangData = [["1", "포항시", "포항구룡포 대보해변"]];
     const ulsanData = [
@@ -40,47 +147,6 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
     ];
     const geojeData = [["10", "거제시", "거제 두모 몽돌 해변"]];
 
-
-    useEffect(() => {
-        // 모달이 열릴 때마다 cctvId를 selectedCctvId로 설정
-        setSelectedCctvId(cctvId);
-        if (cctvId) {
-            const fetchData = async () => {
-                try {
-                    const response = await axios.get(`/api/cctv/logs-static-details/${cctvId}`, {
-                        params: { cctvId: cctvId.toString() },
-                        headers: { Authorization: `Bearer ${accessToken}` },
-                    });
-                    setSelectedLog(response.data[0]); // 최신 로그 데이터 설정
-                } catch (error) {
-                    console.error(`Error fetching data for CCTV ID ${cctvId}:`, error);
-                }
-            };
-            fetchData();
-        }
-    }, [cctvId, accessToken, isOpen]);
-
-
-
-
-
-    useEffect(() => {
-        if (cctvId) {
-            const fetchData = async () => {
-                try {
-                    const response = await axios.get(`/api/cctv/logs-static-details/${cctvId}`, {
-                        params: { cctvId: cctvId.toString() },
-                        headers: { Authorization: `Bearer ${accessToken}` },
-                    });
-                    setSelectedLog(response.data[0]); // 최신 로그 데이터 설정
-                } catch (error) {
-                    console.error(`Error fetching data for CCTV ID ${cctvId}:`, error);
-                }
-            };
-
-            fetchData();
-        }
-    }, [cctvId, accessToken]);
 
     if (!isOpen) return null;
 
@@ -110,17 +176,34 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
 
     //TrashChart2
     const fetchDataForCctvId = async (cctvId) => {
-        try {
-            const response = await axios.get(`/api/cctv/logs-static-details/${cctvId}`, {
-                params: { cctvId: cctvId.toString() },
-                headers: { Authorization: `Bearer ${accessToken}` },
-            });
-            // setSelectedLog 호출 방식 수정
-            return response.data[0]; // 수정된 부분
-        } catch (error) {
-            console.error(`Error fetching data for CCTV ID ${cctvId}:`, error);
+        if (cctvId === '1') {
+            try {
+                const response = await axios.get(`/api/cctv/logs-dynamic`, {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                });
+                const data = response.data;
+                if (data.cctvLogId !== lastCctvLogId) {
+                    setSelectedLog(data);
+                    setLastCctvLogId(data.cctvLogId);
+                    setCctvLogs(prevLogs => [...prevLogs, data]);
+                }
+            } catch (error) {
+                console.error("Error fetching CCTV details:", error);
+            }
+        } else {
+            try {
+                const response = await axios.get(`/api/cctv/logs-static-details/${cctvId}`, {
+                    params: { cctvId: cctvId.toString() },
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                });
+                setSelectedLog(response.data[0]);
+            } catch (error) {
+                console.error(`Error fetching data for CCTV ID ${cctvId}:`, error);
+            }
         }
     };
+
+
 
     return (
         <motion.div
@@ -145,20 +228,14 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
                             data={selectedData}
                             title={title}
                             onRowClick={onRowClick}
+                            selectedId={selectedCctvId}
                         />
                     </div>
                 </div>
 
                 <div className={style.monitoringmodal_2}>
                     <div className={style.video_area}>
-                        <video
-                            className={style.modal_video}
-                            controls autoPlay muted loop
-                            key={selectedLog?.cctvId} // key 속성으로 selectedLog의 변경 감지
-                        >
-                            <source src={videoSrc} type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
+                        {renderMedia(selectedCctvId)}
                     </div>
 
                     <div className={style.cctv_info_area}>
@@ -178,7 +255,11 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
                     </div>
 
                     <div className={style.cctv_real_time}>
-
+                        <MonitoringCctvRealTime
+                            cctvLogs={cctvLogs} // cctvLogs는 1번 카메라의 로그 데이터
+                            accessToken={accessToken}
+                            onSelectLog={handleSelectLog} // 로그 선택 처리 함수 전달
+                        />
                     </div>
 
 

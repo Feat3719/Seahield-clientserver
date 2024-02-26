@@ -1,0 +1,79 @@
+/* CCTVModal.module.css */
+
+.realTimeContainer {
+    /* 원하는 최대 높이 설정 */
+    overflow-y: auto;
+    max-height: 30vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* 모달의 너비 */
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.realTime_title {
+    font-size: 2.5vh;
+    text-align: center;
+}
+
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modalContent {
+    justify-content: center;
+    margin-bottom: 20px;
+    top: 0vh;
+    overflow-y: auto;
+    width: 40vw;
+    height: 60vh;
+    border: 2px blue solid;
+
+}
+
+/* 각 요소별로 고유한 className을 정의합니다. */
+.closeButton {
+    cursor: pointer;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.dataTable {
+    /* width: 100%; */
+    border-collapse: collapse;
+    border: 0.1vh rgb(0, 15, 128) solid;
+    position: static;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.dataTable th,
+.dataTable td {
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    /* 셀 하단에 경계선 추가 */
+}
+
+.dataTable th {
+    background-color: #007bff;
+}
+
+.dataTable tr {
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.dataTable tr:hover {
+    background-color: #007bff;
+}
