@@ -93,7 +93,7 @@ const MypageRegular = () => {
                     // setLoading(false);
                 }
             } catch (error) {
-                console.error("게시글을 불러오는 데 실패했습니다.", error);
+                // console.error("게시글을 불러오는 데 실패했습니다.", error);
             }
         };
 
@@ -153,7 +153,7 @@ const MypageRegular = () => {
     // 정보 업데이트 부분___________________________________
     const updateUserInfo = async () => {
         if (userPwd !== reenteredPwd) {
-            console.error("비밀번호가 일치하지 않습니다.");
+            // console.error("비밀번호가 일치하지 않습니다.");
             alert("비밀번호가 일치하지 않습니다.");
             setPwdMatch(false); // pwdMatch 상태 업데이트
             return; // 함수 실행 중단
@@ -185,7 +185,7 @@ const MypageRegular = () => {
                 alert("사용자 정보 업데이트에 실패했습니다.");
             }
         } catch (error) {
-            console.error("Error updating user info:", error);
+            // console.error("Error updating user info:", error);
             alert("사용자 정보 업데이트에 실패했습니다.");
         }
     };

@@ -33,7 +33,7 @@ function AnnounceWrite() {
 
     const [category] = useState(queryParams.get("category"));
 
-    useEffect(() => {}, [announceContents]);
+    useEffect(() => { }, [announceContents]);
 
     const handleWrite = async () => {
         if (category === "") {
@@ -78,10 +78,10 @@ function AnnounceWrite() {
             if (response.status === 200) {
                 navigate("/announce");
             } else if (response.status === 404) {
-                console.error("요청이 실패했습니다.");
+                // console.error("요청이 실패했습니다.");
             }
         } catch (error) {
-            console.error("Error", error);
+            // console.error("Error", error);
         }
     };
 

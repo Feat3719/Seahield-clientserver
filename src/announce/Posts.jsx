@@ -41,7 +41,7 @@ const Posts = ({ posts, loading }) => {
     }
 
     const handleRowClick = (announceId) => {
-        console.log(announceId);
+        // console.log(announceId);
         navigate(`/announcedetail/${announceId}`);
     };
 

@@ -57,7 +57,7 @@ const MWeather = ({ cctvId }) => {
 
       const coordinates = getCoordinatesByCctvId(cctvId);
       if (!coordinates) {
-        console.error('Invalid cctvId for weather data.');
+        // console.error('Invalid cctvId for weather data.');
         return;
       }
 
@@ -70,10 +70,10 @@ const MWeather = ({ cctvId }) => {
         if (response.data && response.data.response && response.data.response.body && response.data.response.body.items) {
           filterAndSelectLatestWeatherData(response.data.response.body.items.item);
         } else {
-          console.error('Invalid weather data structure:', response.data);
+          // console.error('Invalid weather data structure:', response.data);
         }
       } catch (error) {
-        console.error('Error fetching weather data:', error);
+        // console.error('Error fetching weather data:', error);
       }
     };
 
@@ -86,13 +86,13 @@ const MWeather = ({ cctvId }) => {
     '1': "포항",
     '2': "울산",
     '3': "울산",
-    '4': "고흥",
+    '10': "고흥",
     '5': "순천",
     '6': "신안",
     '7': "완도",
     '8': "여수",
     '9': "고흥",
-    '10': "거제",
+    '4': "거제",
   };
 
   return (

@@ -13,8 +13,8 @@ import { useNavigate } from "react-router-dom";
 function AnnounceDetail() {
     const accessToken = useSelector((state) => state.auth.accessToken);
     const { announceId } = useParams();
-    console.log("announcedetail");
-    console.log(announceId);
+    // console.log("announcedetail");
+    // console.log(announceId);
 
     const [post, setPost] = useState(null);
 
@@ -28,10 +28,10 @@ function AnnounceDetail() {
                 const post = response.data;
                 setPost(post);
             } else if (response.status === 404) {
-                console.error("요청이 실패했습니다.");
+                // console.error("요청이 실패했습니다.");
             }
         } catch (error) {
-            console.error("Error", error);
+            // console.error("Error", error);
         }
     }, [announceId]);
 
@@ -64,7 +64,7 @@ function AnnounceDetail() {
                     );
                     navigate("/announce");
                 } catch (error) {
-                    console.error("Error", error);
+                    // console.error("Error", error);
                     Swal.fire(
                         "Failed!",
                         "There was a problem deleting your post.",

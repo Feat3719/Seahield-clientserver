@@ -30,7 +30,7 @@ function AdminPageContract() {
     try {
       await fetchContractDetails(contractId);
     } catch (error) {
-      console.error("Error fetching contract details:", error);
+      // console.error("Error fetching contract details:", error);
       setSelectedContract(null);
     } finally {
       setIsLoadingContract(false);
@@ -51,7 +51,7 @@ function AdminPageContract() {
       );
       setContracts(sortedContracts); // 정렬된 배열을 상태로 설정
     } catch (error) {
-      console.error("계약 목록 불러오기 오류:", error);
+      // console.error("계약 목록 불러오기 오류:", error);
     } finally {
       setIsLoading(false); // 데이터 로딩 완료
     }
@@ -88,7 +88,7 @@ function AdminPageContract() {
       Swal.fire('승인됨!', '계약이 성공적으로 승인되었습니다.', 'success');
       fetchContracts(); // 목록 새로고침
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       Swal.fire('실패!', '승인 처리 중 오류가 발생했습니다.', 'error');
     }
   };
@@ -118,7 +118,7 @@ function AdminPageContract() {
       Swal.fire('비승인됨!', '계약이 성공적으로 비승인되었습니다.', 'success');
       fetchContracts(); // 목록 새로고침
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       Swal.fire('실패!', '비승인 처리 중 오류가 발생했습니다.', 'error');
     }
   };

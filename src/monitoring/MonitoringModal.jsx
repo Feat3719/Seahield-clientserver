@@ -19,19 +19,38 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
     const [lastCctvLogId, setLastCctvLogId] = useState(null);
     const [cctvLogs, setCctvLogs] = useState([]);
 
-    // 1번 카메라에 대한 데이터를 동적으로 가져오는 함수
+    // 실시간 데이터 업데이트 로직을 개선합니다.
     const fetchDynamicData = useCallback(async () => {
-        try {
-            const response = await axios.get(`/api/cctv/logs-dynamic`, {
-                headers: { Authorization: `Bearer ${accessToken}` },
-            });
-            const data = response.data;
-            setSelectedLog(data);
-            setCctvLogs(prevLogs => [...prevLogs, data]);
-        } catch (error) {
-            console.error("Error fetching CCTV details:", error);
+        if (selectedCctvId === '1') {
+            try {
+                const response = await axios.get(`/api/cctv/logs-dynamic`, {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                });
+                const data = response.data;
+
+                // 새로운 로그가 있을 경우에만 상태를 업데이트합니다.
+                if (data.cctvLogId !== lastCctvLogId) {
+                    setSelectedLog(data);
+                    setLastCctvLogId(data.cctvLogId);
+                    setCctvLogs(prevLogs => [...prevLogs, data]);
+                }
+            } catch (error) {
+                // console.error("Error fetching CCTV dynamic data:", error);
+            }
         }
-    }, [accessToken]);
+    }, [accessToken, selectedCctvId, lastCctvLogId]);
+
+
+    // 1초마다 실시간 데이터를 확인하고 업데이트합니다.
+    useEffect(() => {
+        let intervalId;
+        if (isOpen && selectedCctvId === '1') {
+            intervalId = setInterval(fetchDynamicData, 1000);
+        }
+
+        return () => clearInterval(intervalId);
+    }, [fetchDynamicData, isOpen, selectedCctvId]);
+
 
     // 2~10번 카메라에 대한 데이터를 정적으로 가져오는 함수
     const fetchStaticData = useCallback(async (id) => {
@@ -41,7 +60,7 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
             });
             setSelectedLog(response.data[0]);
         } catch (error) {
-            console.error(`Error fetching data for CCTV ID ${id}:`, error);
+            // console.error(`Error fetching data for CCTV ID ${id}:`, error);
         }
     }, [accessToken]);
 
@@ -59,7 +78,7 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
                     setCctvLogs(prevLogs => [...prevLogs, data]);
                 }
             } catch (error) {
-                console.error("Error fetching CCTV details:", error);
+                // console.error("Error fetching CCTV details:", error);
             }
         } else {
             try {
@@ -69,7 +88,7 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
                 });
                 setSelectedLog(response.data[0]);
             } catch (error) {
-                console.error(`Error fetching data for CCTV ID ${cctvId}:`, error);
+                // console.error(`Error fetching data for CCTV ID ${cctvId}:`, error);
             }
         }
     }, [accessToken, lastCctvLogId]);
@@ -82,7 +101,7 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
             // 선택된 로그에 대한 상세 정보로만 상태를 업데이트합니다.
             setSelectedLog(response.data);
         } catch (error) {
-            console.error("Error fetching CCTV log details:", error);
+            // console.error("Error fetching CCTV log details:", error);
         }
     }, [accessToken]);
 
@@ -132,7 +151,12 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
 
     const updateImage = () => {
         setLoading(true);
-        const newImageUrl = `https://192.168.0.74:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
+        //강의실
+        // const newImageUrl = `https://192.168.0.74:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
+        //기숙사
+        const newImageUrl = `https://172.16.1.252:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
+        //강당
+        // const newImageUrl = `https://192.168.0.3:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
         setImageUrl(newImageUrl);
         setLoading(false);
     };
@@ -199,11 +223,11 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
             title = "울산지사";
             break;
         case 4:
-            selectedData = mokpoData;
+            selectedData = geojeData;
             title = "목포지사";
             break;
         case 10:
-            selectedData = geojeData;
+            selectedData = mokpoData;
             title = "거제지사";
             break;
         default:

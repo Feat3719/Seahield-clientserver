@@ -27,7 +27,7 @@ function CompanyInfo() {
     const fetchCompanyInfo = async () => {
 
       if (!accessToken) {
-        console.error("회사 정보 가져오기 실패: 액세스 토큰이 없습니다.");
+        // console.error("회사 정보 가져오기 실패: 액세스 토큰이 없습니다.");
         return;
       }
 
@@ -43,7 +43,7 @@ function CompanyInfo() {
           setCeoName(response.data.userNickname);
         }
       } catch (error) {
-        console.error("회사 정보 가져오기 실패:", error);
+        // console.error("회사 정보 가져오기 실패:", error);
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -138,7 +138,7 @@ function CompanyInfo() {
         });
       }
     } catch (error) {
-      console.error("회사 정보 등록 실패:", error);
+      // console.error("회사 정보 등록 실패:", error);
       Swal.fire({
         icon: 'error',
         title: '등록 실패',

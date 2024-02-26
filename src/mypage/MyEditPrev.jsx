@@ -47,7 +47,7 @@ function MyEditPrev() {
     // 정보 업데이트 부분___________________________________
     const updateUserInfo = async () => {
         if (userPwd !== reenteredPwd) {
-            console.error("비밀번호가 일치하지 않습니다.");
+            // console.error("비밀번호가 일치하지 않습니다.");
             alert("비밀번호가 일치하지 않습니다.");
             setPwdMatch(false); // pwdMatch 상태 업데이트
             return; // 함수 실행 중단
@@ -80,7 +80,7 @@ function MyEditPrev() {
                 alert("사용자 정보 업데이트에 실패했습니다.");
             }
         } catch (error) {
-            console.error("Error updating user info:", error);
+            // console.error("Error updating user info:", error);
             alert("사용자 정보 업데이트에 실패했습니다.");
         }
     };
@@ -131,7 +131,7 @@ function MyEditPrev() {
                 }
             );
             // 서버 응답 로깅
-            console.log(response.data);
+            // console.log(response.data);
             // alert("@@@@@@@@@@@@")
             if (response.data.isValid !== null) {
                 setScene(2); // 인증 성공
@@ -139,7 +139,7 @@ function MyEditPrev() {
                 setScene(1); // 인증 실패
             }
         } catch (error) {
-            console.error("Error verifying user:", error);
+            // console.error("Error verifying user:", error);
             setScene(1); // 에러 발생 시 인증 실패로 처리
         }
     };

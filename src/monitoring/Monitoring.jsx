@@ -105,10 +105,10 @@ function Monitoring() {
                     headers: { Authorization: `Bearer ${accessToken}` },
                 });
                 const latestLogs = response.data.slice(0, 3); // 최신 3개의 로그만 반환
-                console.log(`CCTV ${id} 최신 로그:`, latestLogs.map(log => log.objectCount)); // 로그 출력
+                // console.log(`CCTV ${id} 최신 로그:`, latestLogs.map(log => log.objectCount)); // 로그 출력
                 return latestLogs;
             } catch (error) {
-                console.error(`Error fetching data for CCTV ID ${id}:`, error);
+                // console.error(`Error fetching data for CCTV ID ${id}:`, error);
                 return [];
             }
         };

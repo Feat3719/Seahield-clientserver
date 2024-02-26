@@ -60,7 +60,7 @@ function TrashChart2({ data }) {
                     },
                 ],
             };
-            console.log(data)
+            // console.log(data)
             setChartData(newData);
         }
     }, [data]);

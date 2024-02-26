@@ -49,7 +49,7 @@ function IdFind() {
             });
 
         } catch (error) {
-            console.error('아이디 찾기 실패:', error);
+            // console.error('아이디 찾기 실패:', error);
             setIdFoundMessage(error.response?.data?.message || '아이디 찾기를 실패했습니다.');
         } finally {
             setIsFindingId(false); // 요청 완료
@@ -83,7 +83,7 @@ function IdFind() {
             });
 
         } catch (error) {
-            console.error('비밀번호 변경 실패:', error);
+            // console.error('비밀번호 변경 실패:', error);
             // 서버에서 반환하는 오류 메시지를 표시
             setPasswordChangeMessage(error.response?.data?.message || '비밀번호 변경을 실패했습니다.');
 

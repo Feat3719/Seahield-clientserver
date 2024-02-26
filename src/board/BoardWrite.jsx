@@ -25,7 +25,7 @@ function BoardWrite() {
 
     // setCategory(ctgr);
 
-    useEffect(() => {}, [content]);
+    useEffect(() => { }, [content]);
 
     const handleWrite = async () => {
         if (category === "") {
@@ -68,10 +68,10 @@ function BoardWrite() {
             if (response.status === 201) {
                 navigate("/boardtab");
             } else if (response.status === 404) {
-                console.error("요청이 실패했습니다.");
+                // console.error("요청이 실패했습니다.");
             }
         } catch (error) {
-            console.error("Error", error);
+            // console.error("Error", error);
         }
     };
 

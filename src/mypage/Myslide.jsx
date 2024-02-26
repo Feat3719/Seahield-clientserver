@@ -81,7 +81,7 @@ const Myslide = () => {
                     setLikePosts(response.data); // 받아온 데이터를 posts 상태에 저장
                 }
             } catch (error) {
-                console.error("게시글을 불러오는 데 실패했습니다.", error);
+                // console.error("게시글을 불러오는 데 실패했습니다.", error);
             }
         };
 

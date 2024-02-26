@@ -6,9 +6,9 @@ function MonitoringCctvRealTime({ cctvLogs, onSelectLog }) {
     const handleRowClick = async (cctvLogId) => {
         try {
             onSelectLog(cctvLogId);
-            console.log(cctvLogId)
+            // console.log(cctvLogId)
         } catch (error) {
-            console.error("Error fetching CCTV log details:", error);
+            // console.error("Error fetching CCTV log details:", error);
         }
     }
 

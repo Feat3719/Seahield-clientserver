@@ -27,7 +27,7 @@ function AdminPageUser() {
           throw new Error("Failed to fetch users");
         }
       } catch (error) {
-        console.error("Error fetching users:", error);
+        // console.error("Error fetching users:", error);
       } finally {
         setIsLoading(false); // 데이터 로딩 완료
       }
