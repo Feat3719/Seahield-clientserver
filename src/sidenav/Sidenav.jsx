@@ -56,10 +56,10 @@ function Sidenav() {
                         </Link>
                     </li>
                     <li
-                        className={`${style.sidebarItem} ${location.pathname === "/map" ? style.active : ""
+                        className={`${style.sidebarItem} ${location.pathname === "/monitoring" ? style.active : ""
                             }`}
                     >
-                        <Link to="/map" className={style.navLink}>
+                        <Link to="/monitoring" className={style.navLink}>
                             <span className={style.itemTxt}>
                                 해안쓰레기 현황지도
                             </span>
