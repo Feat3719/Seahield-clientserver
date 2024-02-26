@@ -6,8 +6,8 @@ import axios from "axios";
 import { useSelector } from 'react-redux';
 import AnnounceListHomepage from '../announce/AnnounceListHomepage';
 import { motion } from "framer-motion";
-import MonitoringModal from './MonitoringModal';
 import CameraCircle from '../home/CameraCircle';
+import MonitoringModal from './MonitoringModal';
 
 
 function Monitoring() {

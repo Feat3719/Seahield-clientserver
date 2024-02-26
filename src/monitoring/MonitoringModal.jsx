@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './MonitoringModal.module.css';
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -20,7 +20,7 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
     const [cctvLogs, setCctvLogs] = useState([]);
 
     // 1번 카메라에 대한 데이터를 동적으로 가져오는 함수
-    const fetchDynamicData = useCallback(async () => {
+    const fetchDynamicData = async () => {
         try {
             const response = await axios.get(`/api/cctv/logs-dynamic`, {
                 headers: { Authorization: `Bearer ${accessToken}` },
@@ -31,10 +31,10 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
         } catch (error) {
             console.error("Error fetching CCTV details:", error);
         }
-    }, [accessToken]);
+    };
 
     // 2~10번 카메라에 대한 데이터를 정적으로 가져오는 함수
-    const fetchStaticData = useCallback(async (id) => {
+    const fetchStaticData = async (id) => {
         try {
             const response = await axios.get(`/api/cctv/logs-static-details/${id}`, {
                 headers: { Authorization: `Bearer ${accessToken}` },
@@ -43,50 +43,9 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
         } catch (error) {
             console.error(`Error fetching data for CCTV ID ${id}:`, error);
         }
-    }, [accessToken]);
+    };
 
-    //TrashChart2
-    const fetchDataForCctvId = useCallback(async (cctvId) => {
-        if (cctvId === '1') {
-            try {
-                const response = await axios.get(`/api/cctv/logs-dynamic`, {
-                    headers: { Authorization: `Bearer ${accessToken}` },
-                });
-                const data = response.data;
-                if (data.cctvLogId !== lastCctvLogId) {
-                    setSelectedLog(data);
-                    setLastCctvLogId(data.cctvLogId);
-                    setCctvLogs(prevLogs => [...prevLogs, data]);
-                }
-            } catch (error) {
-                console.error("Error fetching CCTV details:", error);
-            }
-        } else {
-            try {
-                const response = await axios.get(`/api/cctv/logs-static-details/${cctvId}`, {
-                    params: { cctvId: cctvId.toString() },
-                    headers: { Authorization: `Bearer ${accessToken}` },
-                });
-                setSelectedLog(response.data[0]);
-            } catch (error) {
-                console.error(`Error fetching data for CCTV ID ${cctvId}:`, error);
-            }
-        }
-    }, [accessToken, lastCctvLogId]);
-
-    const handleSelectLog = useCallback(async (cctvLogId) => {
-        try {
-            const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
-                headers: { Authorization: `Bearer ${accessToken}` },
-            });
-            // 선택된 로그에 대한 상세 정보로만 상태를 업데이트합니다.
-            setSelectedLog(response.data);
-        } catch (error) {
-            console.error("Error fetching CCTV log details:", error);
-        }
-    }, [accessToken]);
-
-    const onRowClick = useCallback(async (id) => {
+    const onRowClick = async (id) => {
         // 클릭된 로그에 따라 적절한 데이터 패칭 함수 호출
         // 여기서는 상태 업데이트를 분리하여 진행합니다.
         if (id === '1') {
@@ -97,13 +56,10 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
             handleSelectLog(id); // CCTV 실시간 기록의 행을 클릭했을 때만 호출
         }
         setSelectedCctvId(id.toString());
-    }, [handleSelectLog]);
+    };
 
 
-    const [imageUrl, setImageUrl] = useState(''); // 이미지 URL 상태
-
-
-    // useEffect 예시
+    // 초기 데이터 로딩만을 위한 useEffect 사용
     useEffect(() => {
         if (isOpen) {
             if (cctvId === '1') {
@@ -112,9 +68,9 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
                 fetchStaticData(cctvId);
             }
         }
-        // fetchDataForCctvId 함수가 정의되기 전에 사용되는 것을 피하기 위해
-        // 함수를 상위로 이동시키거나, 함수 정의 후 useEffect를 배치
-    }, [isOpen, cctvId, fetchDynamicData, fetchStaticData]);
+    }, [isOpen, selectedCctvId]);
+
+    const [imageUrl, setImageUrl] = useState(''); // 이미지 URL 상태
 
     useEffect(() => {
         setSelectedCctvId(cctvId);
@@ -127,7 +83,7 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
                 }
             });
         }
-    }, [cctvId, isOpen, fetchDataForCctvId, onRowClick]);
+    }, [cctvId, isOpen]);
 
 
     const updateImage = () => {
@@ -149,8 +105,21 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
 
             return () => clearInterval(intervalId);
         }
-    }, [selectedCctvId, accessToken, fetchDataForCctvId]);
+    }, [selectedCctvId, accessToken]);
 
+    // 로그 선택 처리 함수
+    // MonitoringModal 컴포넌트 내부
+    const handleSelectLog = async (cctvLogId) => {
+        try {
+            const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
+                headers: { Authorization: `Bearer ${accessToken}` },
+            });
+            // 선택된 로그에 대한 상세 정보로만 상태를 업데이트합니다.
+            setSelectedLog(response.data);
+        } catch (error) {
+            console.error("Error fetching CCTV log details:", error);
+        }
+    };
 
 
 
@@ -211,8 +180,34 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
             title = "지사 정보 없음";
     }
 
-
-
+    //TrashChart2
+    const fetchDataForCctvId = async (cctvId) => {
+        if (cctvId === '1') {
+            try {
+                const response = await axios.get(`/api/cctv/logs-dynamic`, {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                });
+                const data = response.data;
+                if (data.cctvLogId !== lastCctvLogId) {
+                    setSelectedLog(data);
+                    setLastCctvLogId(data.cctvLogId);
+                    setCctvLogs(prevLogs => [...prevLogs, data]);
+                }
+            } catch (error) {
+                console.error("Error fetching CCTV details:", error);
+            }
+        } else {
+            try {
+                const response = await axios.get(`/api/cctv/logs-static-details/${cctvId}`, {
+                    params: { cctvId: cctvId.toString() },
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                });
+                setSelectedLog(response.data[0]);
+            } catch (error) {
+                console.error(`Error fetching data for CCTV ID ${cctvId}:`, error);
+            }
+        }
+    };
 
 
 
