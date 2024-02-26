@@ -24,7 +24,7 @@ import ProtectedRoute from "./reducers/ProtectedRoute";
 import PublicOnlyRoute from "./reducers/PublicOnlyRoute";
 import AdminOnlyRoute from "./reducers/AdminOnlyRoute";
 import BusinessOnlyRoute from "./reducers/BusinessOnlyRoute";
-import Monitoring from "./Monitoring/Monitoring";
+import Monitoring from "./monitoring/Monitoring";
 import AnnounceWrite from "./announce/AnnounceWrite";
 
 axios.defaults.baseURL = "https://devfeat.com";
