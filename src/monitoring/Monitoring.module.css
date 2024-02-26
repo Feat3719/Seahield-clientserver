@@ -1,0 +1,280 @@
+.monitoring {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    min-height: 100vh;
+    background-color: #000000e0;
+}
+
+.monitoring_area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 95%;
+    margin-top: 2vh;
+    width: 97%;
+    border: 0.3vh grey solid;
+    background-color: rgb(0, 0, 0);
+}
+
+.sub_title {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 35.5vh;
+    height: 4.5vh;
+    color: white;
+    border: 0.4vh rgb(6, 25, 122) solid;
+    border-left-width: 5vh;
+    border-right-width: 5vh;
+    border-bottom-left-radius: 10vh;
+    border-bottom-right-radius: 10vh;
+    border-left: 15vh solid transparent;
+    border-right: 15vh solid transparent;
+    clip-path: polygon(0 0%, 100% 0%, 75% 70%, 25% 70%);
+    justify-content: center;
+    padding-top: 1%;
+    padding-bottom: 2.5%;
+    /* right: 1.8vw; */
+    justify-content: center;
+    align-items: center;
+    border-radius: 3vh;
+    font-size: 3vh;
+    background-image: linear-gradient(to bottom, rgb(51, 51, 51), rgb(0, 0, 0));
+}
+
+.clock {
+    color: white;
+    font-size: 2.2vh;
+}
+
+.monitoring_place {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 85%;
+    width: 97%;
+}
+
+.monitoring_place_1,
+.monitoring_place_3 {
+    height: 100%;
+    width: 30%;
+    border: 0.1vh solid beige;
+    border-radius: 0.5vh;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.monitoring_place_1_top,
+.monitoring_place_1_bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.monitoring_place_1_top {
+    height: 70%;
+}
+
+.monitoring_place_1_bottom {
+    height: 30%;
+}
+
+.trash_detection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.trash_detection_text {
+    font-size: 3vh;
+    margin: 0;
+}
+
+.circle_info1,
+.circle_info2 {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle_info_detail {
+    font-size: 3vh;
+    margin: 0;
+}
+
+.circle_info_detail2 {
+    font-size: 2.8vh;
+    margin: 0;
+}
+
+.cctv_img {
+    width: 3vh;
+    height: 3vh;
+}
+
+.circle_info_detail_red {
+    color: rgb(185, 14, 14);
+}
+
+.circle_info_detail_blue {
+    color: rgb(33, 77, 223);
+}
+
+
+.monitoring_place_2 {
+    height: 100%;
+    width: 35%;
+    border: 0.1vh solid beige;
+    border-radius: 0.5vh;
+    position: relative;
+}
+
+.homepage_announce {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.announce_title {
+    font-size: 3vh;
+    margin: 0;
+}
+
+.korea {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    object-fit: cover;
+}
+
+.cctv1,
+.cctv2,
+.cctv3,
+.cctv4 {
+    cursor: pointer;
+    position: absolute;
+    width: 5vh;
+    height: 5vh;
+    z-index: 11;
+}
+
+.cctv1 {
+    top: 50%;
+    left: 82%;
+}
+
+.cctv2 {
+    top: 64%;
+    left: 82%;
+}
+
+.cctv3 {
+    top: 80%;
+    left: 67%;
+}
+
+.cctv4 {
+    top: 87%;
+    left: 38%;
+}
+
+@media all and (min-width: 280px) and (max-width: 999px) {
+    .sub_title {
+        height: 16vh;
+    }
+}
+
+@media all and (min-width: 280px) and (max-width: 799px) {
+    .monitoring {
+        height: auto;
+    }
+
+    .sub_title {
+        height: 16vh;
+    }
+
+    .monitoring_place {
+        flex-direction: column;
+    }
+
+    .monitoring_place_1,
+    .monitoring_place_2,
+    .monitoring_place_3 {
+        width: 100%;
+    }
+
+    .circle_info_detail,
+    .circle_info_detail2,
+    .trash_detection_text {
+        font-size: 2vh;
+    }
+}
+
+@media all and (min-width: 280px) and (max-width: 600px) {
+    .monitoring {
+        height: auto;
+    }
+
+    .sub_title {
+        height: 16vh;
+    }
+
+    .monitoring_place {
+        flex-direction: column;
+    }
+
+    .monitoring_place_1,
+    .monitoring_place_2,
+    .monitoring_place_3 {
+        width: 100%;
+    }
+
+    .circle_info_detail,
+    .circle_info_detail2,
+    .trash_detection_text {
+        font-size: 2vh;
+    }
+}
+
+@media all and (min-width: 280px) and (max-width: 480px) {
+    .monitoring {
+        height: auto;
+    }
+
+    .sub_title {
+        height: 16vh;
+    }
+
+    .monitoring_place {
+        flex-direction: column;
+    }
+
+    .monitoring_place_1,
+    .monitoring_place_2,
+    .monitoring_place_3 {
+        width: 100%;
+    }
+
+    .circle_info_detail,
+    .circle_info_detail2,
+    .trash_detection_text {
+        font-size: 2vh;
+    }
+}

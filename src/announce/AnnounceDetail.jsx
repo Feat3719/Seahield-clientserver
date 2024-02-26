@@ -3,17 +3,26 @@ import style from "./AnnounceDetail.module.css";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import FormatDate from "./FormatDatetime";
+import FormatDate from "./FormatDate";
 import Sidenav from "../sidenav/Sidenav";
 import Wrapper from "../pagechange/Wrapper";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function AnnounceDetail() {
-    const { id } = useParams();
+    const accessToken = useSelector((state) => state.auth.accessToken);
+    const { announceId } = useParams();
+    console.log("announcedetail");
+    console.log(announceId);
+
     const [post, setPost] = useState(null);
 
     const fetchPost = useCallback(async () => {
         try {
-            const response = await axios.get(`/api/announce/in-ctgr/${id}`);
+            const response = await axios.get(
+                `/api/announce/in-ctgr/${announceId}`
+            );
 
             if (response.status === 200) {
                 const post = response.data;
@@ -24,11 +33,47 @@ function AnnounceDetail() {
         } catch (error) {
             console.error("Error", error);
         }
-    }, [id]);
+    }, [announceId]);
 
     useEffect(() => {
         fetchPost();
     }, [fetchPost]);
+
+    const navigate = useNavigate();
+
+    const handleDelete = () => {
+        Swal.fire({
+            title: "게시글 삭제",
+            text: "게시글을 삭제하시면 복구할 수 없습니다. 삭제하시겠습니까?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "삭제하기",
+        }).then(async (result) => {
+            // async 추가
+            if (result.isConfirmed) {
+                try {
+                    await axios.delete(`/api/announce/${announceId}`, {
+                        headers: { Authorization: `Bearer ${accessToken}` },
+                    });
+                    Swal.fire(
+                        "삭제 완료",
+                        "게시글이 삭제되었습니다.",
+                        "success"
+                    );
+                    navigate("/announce");
+                } catch (error) {
+                    console.error("Error", error);
+                    Swal.fire(
+                        "Failed!",
+                        "There was a problem deleting your post.",
+                        "error"
+                    );
+                }
+            }
+        });
+    };
 
     return (
         post && (
@@ -62,7 +107,7 @@ function AnnounceDetail() {
                                             style={{ gridColumn: "span 2" }}
                                         >
                                             {FormatDate(
-                                                post.aanounceCreatedDate
+                                                post.announceCreatedDate
                                             )}
                                         </div>
                                     </div>
@@ -101,7 +146,12 @@ function AnnounceDetail() {
                                             className={`${style.cell} ${style.content}`}
                                             style={{ gridColumn: "span 12" }}
                                         >
-                                            {post.announceContents}
+                                            {/* {post.announceContents} */}
+                                            <div
+                                                dangerouslySetInnerHTML={{
+                                                    __html: post.announceContents,
+                                                }}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -114,6 +164,12 @@ function AnnounceDetail() {
                                         목록
                                     </button>
                                 </Link>
+                                <button
+                                    className={style.announce_delete_btn}
+                                    onClick={handleDelete}
+                                >
+                                    삭제
+                                </button>
                             </div>
                         </div>
                     </div>

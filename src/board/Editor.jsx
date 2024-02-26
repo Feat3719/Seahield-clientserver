@@ -14,23 +14,13 @@ function Editor({ content, setContent }) {
             <CKEditor
                 editor={ClassicEditor}
                 data=""
-                onReady={(editor) => {
-                    // You can store the "editor" and use when it is needed.
-                    console.log("Editor is ready to use!", editor);
-                }}
-                // onChange={ ( event ) => {
-                //     console.log( event );
-                // } }
+                onReady={(editor) => {}}
                 onBlur={(event, editor) => {
-                    console.log("Blur.", editor);
                     const data = editor.getData();
-                    console.log(event, editor, data);
+
                     setContent(data);
-                    console.log(content);
                 }}
-                onFocus={(event, editor) => {
-                    console.log("Focus.", editor);
-                }}
+                onFocus={(event, editor) => {}}
             />
         </div>
     );
