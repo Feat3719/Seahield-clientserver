@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import AnnounceListHomepage from '../announce/AnnounceListHomepage';
 import { motion } from "framer-motion";
 import MonitoringModal from './MonitoringModal';
-import CameraCircle from './CameraCircle';
+import CameraCircle from '../home/CameraCircle';
 
 
 function Monitoring() {

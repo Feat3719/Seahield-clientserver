@@ -1,4 +1,5 @@
 import "./App.css";
+import Homepage from "./home/Homepage";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import SignupVer from "./signupVer/SignupVer";
 import Signup from "./signup/Signup";
@@ -18,13 +19,13 @@ import AdminPage from "./adminpage/AdminPage";
 import ContractVer from "./contract/ContractVer";
 import CompanyInfo from "./contract/CompanyInfo";
 import Announcement from "./announce/Announcement";
-import AnnounceWrite from "./announce/AnnounceWrite";
 import AnnounceDetail from "./announce/AnnounceDetail";
 import ProtectedRoute from "./reducers/ProtectedRoute";
 import PublicOnlyRoute from "./reducers/PublicOnlyRoute";
 import AdminOnlyRoute from "./reducers/AdminOnlyRoute";
 import BusinessOnlyRoute from "./reducers/BusinessOnlyRoute";
 import Monitoring from "./monitoring/Monitoring";
+import AnnounceWrite from "./announce/AnnounceWrite";
 
 axios.defaults.baseURL = "https://devfeat.com";
 
@@ -47,14 +48,12 @@ function AppContent() {
       <Routes location={location} key={location.pathname}>
         {/* 공개 접근 가능 라우트 */}
         <Route path="/" element={<Intro />} />
+        <Route path="/map" element={<Homepage />} />
         <Route path="/monitoring" element={<Monitoring />} />
         <Route path="/boardtab" element={<BoardTab />} />
         <Route path="/announce" element={<Announcement />} />
+        <Route path="/announcedetail/:announceId" element={<AnnounceDetail />} />
         <Route path="/announcewrite/" element={<AnnounceWrite />} />
-        <Route
-          path="/announcedetail/:announceId"
-          element={<AnnounceDetail />}
-        />
         <Route path="/boarddetail/:id" element={<BoardDetail />} />
 
         {/* 로그인한 사용자만 접근 가능 라우트 */}
@@ -67,7 +66,7 @@ function AppContent() {
           }
         />
         <Route
-          path="/boardwrite/"
+          path="/boardwrite"
           element={
             <ProtectedRoute>
               <BoardWrite />
