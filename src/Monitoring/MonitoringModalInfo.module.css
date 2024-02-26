@@ -1,0 +1,18 @@
+.cctv_info {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+}
+
+.cctv_info_text1 {
+    font-size: 2.5vh;
+    margin: 1vh 0 1vh 0;
+    text-align: center;
+}
+
+.cctv_info_text {
+    font-size: 2vh;
+    margin: 0;
+}

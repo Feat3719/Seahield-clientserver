@@ -24,6 +24,7 @@ import ProtectedRoute from "./reducers/ProtectedRoute";
 import PublicOnlyRoute from "./reducers/PublicOnlyRoute";
 import AdminOnlyRoute from "./reducers/AdminOnlyRoute";
 import BusinessOnlyRoute from "./reducers/BusinessOnlyRoute";
+import Monitoring from "./Monitoring/Monitoring";
 
 axios.defaults.baseURL = "https://devfeat.com";
 
@@ -47,6 +48,7 @@ function AppContent() {
         {/* 공개 접근 가능 라우트 */}
         <Route path="/" element={<Intro />} />
         <Route path="/map" element={<Homepage />} />
+        <Route path="/monitoring" element={<Monitoring />} />
         <Route path="/boardtab" element={<BoardTab />} />
         <Route path="/announce" element={<Announcement />} />
         <Route path="/announcedetail/:id" element={<AnnounceDetail />} />
