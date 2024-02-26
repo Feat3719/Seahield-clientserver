@@ -114,10 +114,14 @@ function Monitoring() {
         };
 
         const cctvIds = [1, 2, 10, 4];
-        cctvIds.forEach(async (id) => {
-            const data = await fetchCctvData(id);
-            setCctvData(prev => ({ ...prev, [id]: data.map(item => item.objectCount) }));
-        });
+        const updateCctvData = async () => {
+            for (let id of cctvIds) {
+                const data = await fetchCctvData(id);
+                setCctvData(prev => ({ ...prev, [id]: data.map(item => item.objectCount) }));
+            }
+        };
+
+        updateCctvData(); // 최초 실행으로 초기 데이터를 로드합니다.
 
         const interval = setInterval(() => {
             cctvIds.forEach(async (id) => {

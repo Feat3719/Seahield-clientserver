@@ -47,17 +47,21 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
 
     const onRowClick = async (id) => {
         // 클릭된 로그에 따라 적절한 데이터 패칭 함수 호출
+        // 여기서는 상태 업데이트를 분리하여 진행합니다.
         if (id === '1') {
-            fetchDynamicData();
+            // fetchDynamicData 호출 제거, 직접 handleSelectLog 호출로 대체
+            handleSelectLog(id); // CCTV 실시간 기록의 행을 클릭했을 때만 호출
         } else {
-            fetchStaticData(id);
+            // fetchStaticData 호출 제거, 직접 handleSelectLog 호출로 대체
+            handleSelectLog(id); // CCTV 실시간 기록의 행을 클릭했을 때만 호출
         }
         setSelectedCctvId(id.toString());
     };
 
+
     // 초기 데이터 로딩만을 위한 useEffect 사용
     useEffect(() => {
-        if (isOpen && selectedCctvId) {
+        if (isOpen) {
             if (cctvId === '1') {
                 fetchDynamicData();
             } else {
@@ -94,14 +98,14 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
     useEffect(() => {
         if (selectedCctvId === '1') {
             const intervalId = setInterval(() => {
-                updateImage(); // 이미지만 업데이트
-                // 이제 fetchDataForCctvId 함수는 여기서 호출되지 않음
+                updateImage(); // 이미지 업데이트는 계속 진행
+                // fetchDataForCctvId 호출을 통한 실시간 로그 업데이트도 계속 진행
+                fetchDataForCctvId('1');
             }, 1000);
 
             return () => clearInterval(intervalId);
         }
     }, [selectedCctvId, accessToken]);
-
 
     // 로그 선택 처리 함수
     // MonitoringModal 컴포넌트 내부
@@ -110,11 +114,13 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
             const response = await axios.get(`/api/cctv/logs-dynamic-details/${cctvLogId}`, {
                 headers: { Authorization: `Bearer ${accessToken}` },
             });
-            setSelectedLog(response.data); // 사용자가 선택한 로그에 대한 상세 정보로만 상태를 업데이트합니다.
+            // 선택된 로그에 대한 상세 정보로만 상태를 업데이트합니다.
+            setSelectedLog(response.data);
         } catch (error) {
             console.error("Error fetching CCTV log details:", error);
         }
     };
+
 
 
     const renderMedia = () => {
@@ -254,14 +260,15 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
                         <MonitoringWeather cctvId={selectedCctvId} />
                     </div>
 
-                    <div className={style.cctv_real_time}>
-                        <MonitoringCctvRealTime
-                            cctvLogs={cctvLogs} // cctvLogs는 1번 카메라의 로그 데이터
-                            accessToken={accessToken}
-                            onSelectLog={handleSelectLog} // 로그 선택 처리 함수 전달
-                        />
-                    </div>
-
+                    {selectedCctvId === '1' && (
+                        <div className={style.cctv_real_time}>
+                            <MonitoringCctvRealTime
+                                cctvLogs={cctvLogs} // cctvLogs는 1번 카메라의 로그 데이터
+                                accessToken={accessToken}
+                                onSelectLog={handleSelectLog} // 로그 선택 처리 함수 전달
+                            />
+                        </div>
+                    )}
 
                 </div>
 
