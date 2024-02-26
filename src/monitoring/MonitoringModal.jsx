@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import style from './MonitoringModal.module.css';
 import { motion } from "framer-motion";
 import axios from "axios";
