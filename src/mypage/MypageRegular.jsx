@@ -9,6 +9,7 @@ import MyEditPrev from "./MyEditPrev";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import ModalMypageContract from "./ModalMypageContract";
+// import Pagination from "../board/Pagination";
 
 const MypageRegular = () => {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -38,8 +39,8 @@ const MypageRegular = () => {
     //     return currentPosts;
     // };
 
-    const [contracts, setContracts] = useState([]); // 계약 목록 상태
-    const [contractDetails, setContractDetails] = useState([]);
+    const [contracts] = useState([]); // 계약 목록 상태
+    const [contractDetails] = useState([]);
     const [reenteredPwd, setReenteredPwd] = useState("");
     const [pwdMatch, setPwdMatch] = useState(true);
 
@@ -179,8 +180,7 @@ const MypageRegular = () => {
             );
             if (response.status === 200) {
                 alert("사용자 정보가 업데이트되었습니다.");
-                setPwdMatch(true); // 성공 시 pwdMatch 상태를 true로 설정
-                // 필요하다면 업데이트된 정보를 다시 가져와서 상태를 업데이트합니다.
+                setPwdMatch(true);
             } else {
                 alert("사용자 정보 업데이트에 실패했습니다.");
             }
@@ -189,55 +189,49 @@ const MypageRegular = () => {
             alert("사용자 정보 업데이트에 실패했습니다.");
         }
     };
-    // _______________비번 확인 관련_____________________
 
-    //계약 아이디 조회
-    useEffect(() => {
-        const fetchContracts = async () => {
-            try {
-                const response = await axios.get("/api/contract/list", {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                });
-                if (response.status === 200) {
-                    setContracts(response.data); // 계약 목록 설정
-                    // setContractId(response.data.contractId)
-                }
-            } catch (error) {
-                console.error("계약 목록 불러오기 에러", error);
-            }
-        };
-        fetchContracts();
-    }, [accessToken]); // accessToken 변경 시 다시 실행
+    // useEffect(() => {
+    //     const fetchContracts = async () => {
+    //         try {
+    //             const response = await axios.get("/api/contract/list", {
+    //                 headers: { Authorization: `Bearer ${accessToken}` },
+    //             });
+    //             if (response.status === 200) {
+    //                 setContracts(response.data);
+    //             }
+    //         } catch (error) {
+    //             console.error("계약 목록 불러오기 에러", error);
+    //         }
+    //     };
+    //     fetchContracts();
+    // }, [accessToken]);
 
-    // 두 번째 useEffect: 선택된 계약의 세부 사항 불러오기
-    useEffect(() => {
-        contracts.forEach((contract) => {
-            const fetchContractDetails = async () => {
-                try {
-                    const response = await axios.get(
-                        `/api/contract/details/${contract.contractId}`,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${accessToken}`,
-                            },
-                        }
-                    );
-                    if (response.status === 200) {
-                        setContractDetails((prevDetails) => [
-                            ...prevDetails,
-                            response.data,
-                        ]); // 세부 사항 추가
-                    }
-                } catch (error) {
-                    console.error("계약 세부 사항 불러오기 에러", error);
-                }
-            };
+    // useEffect(() => {
+    //     contracts.forEach((contract) => {
+    //         const fetchContractDetails = async () => {
+    //             try {
+    //                 const response = await axios.get(
+    //                     `/api/contract/details/${contract.contractId}`,
+    //                     {
+    //                         headers: {
+    //                             Authorization: `Bearer ${accessToken}`,
+    //                         },
+    //                     }
+    //                 );
+    //                 if (response.status === 200) {
+    //                     setContractDetails((prevDetails) => [
+    //                         ...prevDetails,
+    //                         response.data,
+    //                     ]);
+    //                 }
+    //             } catch (error) {
+    //                 console.error("계약 세부 사항 불러오기 에러", error);
+    //             }
+    //         };
 
-            fetchContractDetails();
-        });
-    }, [contracts, accessToken]);
+    //         fetchContractDetails();
+    //     });
+    // }, [contracts, accessToken]);
 
     const renderContracts = () => {
         if (!contracts.length) {

@@ -3,12 +3,18 @@ import style from "./AnnounceList.module.css";
 import axios from "axios";
 import Posts from "./Posts";
 import Pagination from "../board/Pagination";
+import { Link } from "react-router-dom";
 
-function AnnounceList() {
+function AnnounceList({ category, tabName, userType }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(10);
+    const [postsPerPage] = useState(5);
+
+    let showWriteButton = false;
+    if (userType === "ADMIN") {
+        showWriteButton = true;
+    }
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -16,7 +22,18 @@ function AnnounceList() {
             const response = await axios.get("/api/announce/in-apply");
 
             if (response.status === 200) {
-                setPosts(response.data);
+                const sortedPosts = response.data.sort((a, b) =>
+                    // b.articleCreatedDate - a.articleCreatedDate
+                    {
+                        // 배열을 Date 객체로 변환합니다.
+                        const dateA = new Date(...a.announceCreatedDate);
+                        const dateB = new Date(...b.announceCreatedDate);
+
+                        // 유닉스 타임스탬프를 이용하여 비교합니다.
+                        return dateB.getTime() - dateA.getTime();
+                    }
+                );
+                setPosts(sortedPosts);
                 setLoading(false);
             } else if (response.status === 404) {
                 console.error("요청이 실패했습니다.");
@@ -54,6 +71,18 @@ function AnnounceList() {
                     </tbody>
                 </table>
             </div>
+            {showWriteButton && (
+                <div id={style.buttonBox}>
+                    <Link
+                        to={`/announcewrite?category=${category}&tabName=${tabName}`}
+                    >
+                        <button className={style.announcewrite_btn}>
+                            공고작성
+                        </button>
+                    </Link>
+                </div>
+            )}
+
             <div id={style.paginationBox}>
                 <Pagination
                     postsPerPage={postsPerPage}
