@@ -17,7 +17,10 @@
 }
 
 #buttonBox {
-    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* 버튼을 우측 정렬합니다. */
+    padding-right: 2em; /* 우측 여백을 줍니다. */
+    margin-top: 1em;
 }
 
 #pagination_box {
@@ -46,19 +49,51 @@
 }
 
 .boardlist_btn {
-    cursor: pointer;
-    background-color: #d7d7d7;
+    background: #041594;
+    color: #fff;
     border: none;
-    border-radius: 0.3vh;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    margin: 3vh 0 0 8.5vh;
-    font-size: 2vh;
+    position: relative;
+    height: 5vh;
+    font-size: 1em;
+    padding: 0 2em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+    right: 2vw;
+}
+.boardlist_btn:hover {
+    background: #fff;
+    color: #042285;
+}
+.boardlist_btn:before,
+.boardlist_btn:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #13357e;
+    transition: 400ms ease all;
+}
+.boardlist_btn:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+}
+.boardlist_btn:hover:before,
+.boardlist_btn:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
 }
 
-.boardlist_btn:hover {
-    background-color: #5164f5;
-    box-shadow: 0 1vh 3vh rgb(0, 0, 0);
-}
+/* @media (max-width: 310px) {
+    .boardlist_btn {
+        background-color: blue;
+        bottom: 0;
+    } 
+} */
 
 .article_no {
     width: 10%;
