@@ -39,8 +39,8 @@ const MypageRegular = () => {
     //     return currentPosts;
     // };
 
-    const [contracts, setContracts] = useState([]); // 계약 목록 상태
-    const [contractDetails, setContractDetails] = useState([]);
+    const [contracts] = useState([]); // 계약 목록 상태
+    const [contractDetails] = useState([]);
     const [reenteredPwd, setReenteredPwd] = useState("");
     const [pwdMatch, setPwdMatch] = useState(true);
 

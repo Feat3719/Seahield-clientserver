@@ -1,4 +1,4 @@
-#boardWriteContainer {
+#announceWriteContainer {
     height: 100vh;
     background: rgb(39, 38, 38);
     display: flex;
@@ -38,13 +38,48 @@
 
 #flex_box {
     width: 90%;
+    height: 10vh;
     display: flex;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
     justify-content: space-between;
     margin: 30px auto;
 }
 
-.title {
-    width: 50%;
+.announceId {
+    width: 20%;
+    color: white;
+    border-color: gray;
+    background-color: #121212a5;
+    /* margin: 10px auto 10px 40px; */
+}
+
+.announceName {
+    width: 70%;
+    color: white;
+    border-color: gray;
+    background-color: #121212a5;
+    /* margin: 10px auto 10px 40px; */
+}
+
+/* .announceContents {
+    width: 10%;
+    color: white;
+    border-color: gray;
+    background-color: #121212a5;
+
+} */
+
+.biddingStartDate {
+    width: 15%;
+    color: white;
+    border-color: gray;
+    background-color: #121212a5;
+    /* margin: 10px auto 10px 40px; */
+}
+
+.biddingEndDate {
+    width: 15%;
     color: white;
     border-color: gray;
     background-color: #121212a5;
@@ -58,10 +93,9 @@
 }
 
 .category {
-    width: 50%;
+    /* width: 50%; */
     color: white;
     border-color: gray;
-    /* margin: 10px 40px 10px auto; */
     text-align: right;
 }
 
@@ -113,25 +147,55 @@
     margin: 20px auto;
 }
 
-.complete_button {
+/* .complete_button {
     cursor: pointer;
     height: 35px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+} */
+
+/* .cancle_button {
+    cursor: pointer;
+    height: 35px;
+    border-radius: 5px;
+} */
+
+/* .complete_button:hover {
+    background-color: #659deb;
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+} */
+
+/* .cancle_button:hover {
+    background-color: rgb(239, 138, 138);
+    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+} */
+
+.complete_button {
+    cursor: pointer;
+    background-color: #d7d7d7;
+    border: none;
+    border-radius: 0.3vh;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    /* margin: 3vh 0 0 8.5vh; */
+    font-size: 2vh;
+}
+
+.complete_button:hover {
+    background-color: #5164f5;
+    box-shadow: 0 1vh 3vh rgb(0, 0, 0);
 }
 
 .cancle_button {
     cursor: pointer;
-    height: 35px;
-    border-radius: 5px;
-}
-
-.complete_button:hover {
-    background-color: #659deb;
-    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+    background-color: #d7d7d7;
+    border: none;
+    border-radius: 0.3vh;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin: 0 3vh;
+    font-size: 2vh;
 }
 
 .cancle_button:hover {
-    background-color: rgb(239, 138, 138);
-    box-shadow: 0vh 0vh 2vh 2vh rgb(0, 0, 0);
+    background-color: #5164f5;
+    box-shadow: 0 1vh 3vh rgb(0, 0, 0);
 }

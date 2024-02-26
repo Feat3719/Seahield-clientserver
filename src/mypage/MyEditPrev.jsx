@@ -3,7 +3,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import style from "./MypageRegular.module.css";
 
-
 function MyEditPrev() {
     const accessToken = useSelector((state) => state.auth.accessToken);
     const [scene, setScene] = useState(null); // 로딩 상태 제거
@@ -44,7 +43,6 @@ function MyEditPrev() {
         };
         fetchData();
     }, [accessToken]);
-
 
     // 정보 업데이트 부분___________________________________
     const updateUserInfo = async () => {
@@ -92,7 +90,8 @@ function MyEditPrev() {
         const newPassword = e.target.value;
         setUserPwd(newPassword);
         // 비밀번호 유효성 검사
-        const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        const regex =
+            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
         setIsPwdValid(regex.test(newPassword));
         // 비밀번호 일치 여부 검사
         setPwdMatch(newPassword === reenteredPwd);
@@ -106,10 +105,6 @@ function MyEditPrev() {
         setPwdMatch(newPassword === userPwd);
     };
 
-
-
-
-
     // 비밀번호 입력 핸들러
     const handleChange = (event) => {
         setPwd(event.target.value);
@@ -118,22 +113,26 @@ function MyEditPrev() {
     // 비밀번호 확인 핸들러
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (!pwd) { // 비밀번호 입력이 없는 경우 early return
+        if (!pwd) {
+            // 비밀번호 입력이 없는 경우 early return
             alert("비밀번호를 입력해주세요.");
             return;
         }
         try {
-            const response = await axios.get("/api/auth/check-availability-userpwd", {
-                params: {
-                    userPwd: pwd, // 보안상의 이유로, 실제로는 이 방법은 피해야 합니다.
-                },
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
+            const response = await axios.get(
+                "/api/auth/check-availability-userpwd",
+                {
+                    params: {
+                        userPwd: pwd, // 보안상의 이유로, 실제로는 이 방법은 피해야 합니다.
+                    },
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
                 }
-            });
+            );
             // 서버 응답 로깅
             console.log(response.data);
-            alert("@@@@@@@@@@@@")
+            // alert("@@@@@@@@@@@@")
             if (response.data.isValid !== null) {
                 setScene(2); // 인증 성공
             } else {
@@ -150,39 +149,81 @@ function MyEditPrev() {
         // switch(scene) {
         // case 1:
         if (scene === 1) {
-
             return <div>인증에 실패했습니다.</div>;
         }
         // case 2:
         else if (scene === 2) {
-
             return (
                 <div className={style.editTable}>
                     {/* <h2> 두 번째 장면 </h2> */}
-                    <div style={{ position: "relative" }}
+                    <div
+                        style={{ position: "relative" }}
                         className={style.my_info_input_edit}
                     >
-                        <div style={{ justifyContent: "space-between", position: "relative", display: "flex", alignItems: 'center', transform: '0, -50%' }}>
+                        <div
+                            style={{
+                                justifyContent: "space-between",
+                                position: "relative",
+                                display: "flex",
+                                alignItems: "center",
+                                transform: "0, -50%",
+                            }}
+                        >
                             <div>이름:</div>
                             <input
                                 type="text"
                                 value={userNickname}
-                                onChange={(e) => setUserNickname(e.target.value)}
+                                onChange={(e) =>
+                                    setUserNickname(e.target.value)
+                                }
                                 placeholder="새로운 이름"
                                 className={style.edit_input}
                             />
                         </div>
-                        <div style={{ justifyContent: "space-between", position: "relative", display: "flex", alignItems: 'center', transform: '0, -50%' }}>
-                            비밀번호: <input type="password" value={userPwd} onChange={handlePasswordChange} className={style.edit_input} />
+                        <div
+                            style={{
+                                justifyContent: "space-between",
+                                position: "relative",
+                                display: "flex",
+                                alignItems: "center",
+                                transform: "0, -50%",
+                            }}
+                        >
+                            비밀번호:{" "}
+                            <input
+                                type="password"
+                                value={userPwd}
+                                onChange={handlePasswordChange}
+                                className={style.edit_input}
+                            />
                         </div>
                         {!isPwdValid && userPwd && (
-                            <p style={{ color: 'red' }}>비밀번호는 8자 이상이며, 최소 하나의 문자, 숫자 및 특수 문자를 포함해야 합니다.</p>
+                            <p style={{ color: "red" }}>
+                                비밀번호는 8자 이상이며, 최소 하나의 문자, 숫자
+                                및 특수 문자를 포함해야 합니다.
+                            </p>
                         )}
-                        <div style={{ justifyContent: "space-between", position: "relative", display: "flex", alignItems: 'center', transform: '0, -50%' }}>
-                            비밀번호 확인: <input type="password" value={reenteredPwd} onChange={handleReenteredPasswordChange} className={style.edit_input} />
+                        <div
+                            style={{
+                                justifyContent: "space-between",
+                                position: "relative",
+                                display: "flex",
+                                alignItems: "center",
+                                transform: "0, -50%",
+                            }}
+                        >
+                            비밀번호 확인:{" "}
+                            <input
+                                type="password"
+                                value={reenteredPwd}
+                                onChange={handleReenteredPasswordChange}
+                                className={style.edit_input}
+                            />
                         </div>
                         {reenteredPwd && !pwdMatch && (
-                            <p style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</p>
+                            <p style={{ color: "red" }}>
+                                비밀번호가 일치하지 않습니다.
+                            </p>
                         )}
 
                         {/* <p>
@@ -193,7 +234,15 @@ function MyEditPrev() {
                         onChange={(e) => setUserEmail(e.target.value)}
                         />
                     </p> */}
-                        <div style={{ justifyContent: "space-between", position: "relative", display: "flex", alignItems: 'center', transform: '0, -50%' }}>
+                        <div
+                            style={{
+                                justifyContent: "space-between",
+                                position: "relative",
+                                display: "flex",
+                                alignItems: "center",
+                                transform: "0, -50%",
+                            }}
+                        >
                             <div>주소 :</div>
                             <input
                                 type="text"
@@ -202,11 +251,29 @@ function MyEditPrev() {
                                 className={style.edit_input}
                             />
                         </div>
-                        <div style={{ justifyContent: "space-between", position: "relative", display: "flex", alignItems: 'center', transform: '0, -50%' }}>
+                        <div
+                            style={{
+                                justifyContent: "space-between",
+                                position: "relative",
+                                display: "flex",
+                                alignItems: "center",
+                                transform: "0, -50%",
+                            }}
+                        >
                             <div>사업자 번호:</div>
-                            <input value={companyRegistNum} disabled="True" className={style.edit_input} />
+                            <input
+                                value={companyRegistNum}
+                                disabled="True"
+                                className={style.edit_input}
+                            />
                         </div>
-                        <button className={style.editBtn} onClick={updateUserInfo} disabled={!isPwdValid || !pwdMatch}>수정 완료</button>
+                        <button
+                            className={style.editBtn}
+                            onClick={updateUserInfo}
+                            disabled={!isPwdValid || !pwdMatch}
+                        >
+                            수정 완료
+                        </button>
                     </div>
                     {/* {!pwdMatch && <p style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</p>}
                     {!isPwdValid && userPwd && (
@@ -217,7 +284,11 @@ function MyEditPrev() {
         }
         // default:
         else {
-            return <div className={style.password_describe}>비밀번호를 입력하여 인증해주세요.</div>;
+            return (
+                <div className={style.password_describe}>
+                    비밀번호를 입력하여 인증해주세요.
+                </div>
+            );
         }
         // }
     };
@@ -228,8 +299,19 @@ function MyEditPrev() {
                 <form onSubmit={handleSubmit}>
                     <label>
                         비밀번호를 입력하세요:
-                        <input type="password" value={pwd} onChange={handleChange} placeholder="비밀번호" className={style.password_input} />
-                        <button type="submit" className={style.password_submitbtn}>확인</button>
+                        <input
+                            type="password"
+                            value={pwd}
+                            onChange={handleChange}
+                            placeholder="비밀번호"
+                            className={style.password_input}
+                        />
+                        <button
+                            type="submit"
+                            className={style.password_submitbtn}
+                        >
+                            확인
+                        </button>
                     </label>
                 </form>
             )}

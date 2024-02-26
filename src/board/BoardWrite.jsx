@@ -7,13 +7,23 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Sidenav from "../sidenav/Sidenav";
 import Swal from "sweetalert2";
+// import { useLocation } from "react-router-dom";
 
 function BoardWrite() {
     const accessToken = useSelector((state) => state.auth.accessToken);
+    // const location = useLocation();
+    // const queryParams = new URLSearchParams(location.search);
+
+    // const tabName = queryParams.get("tabName");
+    // const ctgr = queryParams.get("category");
+    // const { tabName, ctgr } = useParams();
     const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
+    // const [category, setCategory] = useState(queryParams.get("category"));
     const [content, setContent] = useState("");
+
+    // setCategory(ctgr);
 
     useEffect(() => {}, [content]);
 
@@ -87,6 +97,7 @@ function BoardWrite() {
                         ></input>
                     </div>
                     <div className={style.category}>
+                        {/* <div>분류 : {tabName}</div> */}
                         <select
                             className={style.select}
                             name="category"
