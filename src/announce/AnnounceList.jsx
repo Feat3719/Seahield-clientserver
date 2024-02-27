@@ -9,7 +9,7 @@ function AnnounceList({ category, tabName, userType }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(5);
+    const [postsPerPage] = useState(10);
 
     let showWriteButton = false;
     if (userType === "ADMIN") {

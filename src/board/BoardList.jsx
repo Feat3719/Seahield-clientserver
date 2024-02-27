@@ -9,7 +9,7 @@ function BoardList({ category, tabName, userType }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(3);
+    const [postsPerPage] = useState(10);
 
     let showWriteButton = false;
     if (tabName === "자유게시판" || tabName === "질문게시판") {
@@ -25,15 +25,15 @@ function BoardList({ category, tabName, userType }) {
                 `/api/board/articles?articleCtgr=${category}`
             );
             const sortedPosts = response.data.sort((a, b) =>
-                // b.articleCreatedDate - a.articleCreatedDate
-                {
-                    // 배열을 Date 객체로 변환합니다.
-                    const dateA = new Date(...a.articleCreatedDate);
-                    const dateB = new Date(...b.articleCreatedDate);
+            // b.articleCreatedDate - a.articleCreatedDate
+            {
+                // 배열을 Date 객체로 변환합니다.
+                const dateA = new Date(...a.articleCreatedDate);
+                const dateB = new Date(...b.articleCreatedDate);
 
-                    // 유닉스 타임스탬프를 이용하여 비교합니다.
-                    return dateB.getTime() - dateA.getTime();
-                }
+                // 유닉스 타임스탬프를 이용하여 비교합니다.
+                return dateB.getTime() - dateA.getTime();
+            }
             );
             setPosts(sortedPosts);
             setLoading(false);
