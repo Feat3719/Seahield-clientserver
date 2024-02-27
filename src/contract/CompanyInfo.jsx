@@ -133,7 +133,7 @@ function CompanyInfo() {
           if (result.isConfirmed) {
             navigate('/contract'); // '예'를 선택한 경우
           } else {
-            navigate('/map'); // '아니요'를 선택한 경우
+            navigate('/monitoring'); // '아니요'를 선택한 경우
           }
         });
       }

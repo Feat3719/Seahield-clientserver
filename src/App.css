@@ -29,3 +29,18 @@ button {
 select {
     font-family: "KoPubWorldDotum";
 }
+
+::-webkit-scrollbar-track {
+    background-color: #cececea4;
+    border-radius: 1vh;
+}
+
+::-webkit-scrollbar {
+    width: 1vh;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 1vh;
+    background-image: linear-gradient(to bottom, rgb(166, 166, 167), rgb(8, 8, 20));
+}
