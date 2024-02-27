@@ -39,8 +39,8 @@ const MypageRegular = () => {
     //     return currentPosts;
     // };
 
-    const [contracts] = useState([]); // 계약 목록 상태
-    const [contractDetails] = useState([]);
+    const [contracts, setContracts] = useState([]); // 계약 목록 상태
+    const [contractDetails, setContractDetails] = useState([]);
     const [reenteredPwd, setReenteredPwd] = useState("");
     const [pwdMatch, setPwdMatch] = useState(true);
 
@@ -190,21 +190,21 @@ const MypageRegular = () => {
         }
     };
 
-    // useEffect(() => {
-    //     const fetchContracts = async () => {
-    //         try {
-    //             const response = await axios.get("/api/contract/list", {
-    //                 headers: { Authorization: `Bearer ${accessToken}` },
-    //             });
-    //             if (response.status === 200) {
-    //                 setContracts(response.data);
-    //             }
-    //         } catch (error) {
-    //             console.error("계약 목록 불러오기 에러", error);
-    //         }
-    //     };
-    //     fetchContracts();
-    // }, [accessToken]);
+    useEffect(() => {
+        const fetchContracts = async () => {
+            try {
+                const response = await axios.get("/api/contract/list", {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                });
+                if (response.status === 200) {
+                    setContracts(response.data);
+                }
+            } catch (error) {
+                console.error("계약 목록 불러오기 에러", error);
+            }
+        };
+        fetchContracts();
+    }, [accessToken]);
 
     // useEffect(() => {
     //     contracts.forEach((contract) => {
@@ -287,6 +287,32 @@ const MypageRegular = () => {
             console.error("계약 정보를 가져오는 데 실패했습니다.", error);
         }
     };
+    // 두 번째 useEffect: 선택된 계약의 세부 사항 불러오기
+    useEffect(() => {
+        contracts.forEach((contract) => {
+            const fetchContractDetails = async () => {
+                try {
+                    const response = await axios.get(
+                        `/api/contract/details/${contract.contractId}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${accessToken}`,
+                            },
+                        }
+                    );
+                    if (response.status === 200) {
+                        setContractDetails((prevDetails) => [
+                            ...prevDetails,
+                            response.data,
+                        ]); // 세부 사항 추가
+                    }
+                } catch (error) {
+                    console.error("계약 세부 사항 불러오기 에러", error);
+                }
+            };
+            fetchContractDetails();
+        });
+    }, [contracts, accessToken]);
 
     // 모달 닫기 함수
     const handleCloseModal = () => {
