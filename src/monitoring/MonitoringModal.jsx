@@ -179,9 +179,12 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
 
 
     const renderMedia = () => {
+        // 1번 카메라의 경우 이미지를 표시합니다.
         if (selectedCctvId === '1') {
             return loading ? <p>Loading...</p> : <img src={imageUrl} alt="CCTV 1 View" className={style.modal_video} />;
-        } else {
+        }
+        // 2~10번 카메라의 경우 비디오를 표시합니다.
+        else if (selectedCctvId >= '2' && selectedCctvId <= '10') {
             const videoSrc = `${process.env.PUBLIC_URL}/videos/g${selectedCctvId}.mp4`;
             return (
                 <video className={style.modal_video} controls autoPlay muted loop key={selectedCctvId}>
@@ -190,6 +193,8 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
                 </video>
             );
         }
+        // 그 외의 경우(잘못된 cctvId 등)는 아무것도 표시하지 않습니다.
+        return null;
     };
 
     const pohangData = [["1", "포항시", "포항구룡포 대보해변"]];
