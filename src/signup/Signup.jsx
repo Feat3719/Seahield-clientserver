@@ -342,10 +342,10 @@ function Signup() {
         setIsUserIdUnique(response.data); // true는 사용 가능, false는 사용 불가능을 의미
       } else {
         // 예상치 못한 상태 코드 처리
-        console.error("예상치 못한 응답 상태:", response.status);
+        // console.error("예상치 못한 응답 상태:", response.status);
       }
     } catch (error) {
-      console.error("아이디 중복 검사 중 에러 발생:", error);
+      // console.error("아이디 중복 검사 중 에러 발생:", error);
       // 에러 발생 시 사용자에게 알리는 UI 로직을 추가할 수 있음
     }
 

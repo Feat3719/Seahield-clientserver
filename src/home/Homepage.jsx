@@ -400,7 +400,7 @@ function Homepage() {
                         data: response.data,
                     }))
                     .catch((error) =>
-                        console.error(`Error fetching logs for CCTV ID ${id}:`, error)
+                        // console.error(`Error fetching logs for CCTV ID ${id}:`, error)
                     )
             );
 
