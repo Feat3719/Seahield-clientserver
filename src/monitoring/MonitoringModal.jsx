@@ -156,7 +156,7 @@ const MonitoringModal = ({ isOpen, onClose, cctvId }) => {
         //기숙사
         // const newImageUrl = `https://172.16.1.252:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
         //강당
-        const newImageUrl = `https://192.168.0.3:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
+        const newImageUrl = `https://192.168.0.12:8000/static/webcamapp/detect/exp/temp.jpg?${Date.now()}`;
         setImageUrl(newImageUrl);
         setLoading(false);
     };
