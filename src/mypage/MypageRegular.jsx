@@ -234,7 +234,6 @@ const MypageRegular = () => {
                     console.error("계약 세부 사항 불러오기 에러", error);
                 }
             };
-
             fetchContractDetails();
         });
     }, [contracts, accessToken]);

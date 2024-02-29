@@ -37,7 +37,7 @@
 .page_li {
     display: inline-block;
     border: none;
-    width: 25px;
+    width: 70px;
 }
 
 .page_li:hover {
@@ -51,12 +51,18 @@
 
 .currentPage .page_span {
     color: white;
+    font-size: 1.4em;
+    justify-content: space-around;
+    position: relative;
+    font-family: "KoPubWorldDotum";
+    padding: 2vh 0 2vh 0;
     /* background-color: blue; */
 
 }
 
 .otherPage .page_span {
     color: gray;
+    font-size: 1.4em;
     transition: color 0.3s ease;
 }
 

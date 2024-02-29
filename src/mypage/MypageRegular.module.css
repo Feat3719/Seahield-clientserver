@@ -417,6 +417,10 @@
 
 
 @media (max-width: 412px) {
+    .my_info_name {
+        font-size: 2vh;
+        margin-top: 10vh;
+    }
 
     .edit_1 {
         width: 50vw;
@@ -434,7 +438,7 @@
 
     .my_title {
         position: absolute;
-        font-size: 7vw;
+        font-size: 6vw;
         margin: 0 auto;
         left: 30vw;
         padding: 2vh 0 2vh 0;
@@ -457,8 +461,10 @@
 
     .my_input_wrapper_1 button {
         display: block;
+        position: relative;
+        left: 7.6rem;
         width: 18vw;
-        left: 3vw;
+        /* left: 3vw; */
         font-size: 2vh;
         align-items: center;
     }
