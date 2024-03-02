@@ -28,7 +28,7 @@ function AdminPageBoard() {
         });
         setPosts(response.data);
       } catch (error) {
-        console.error("Error fetching articles:", error);
+        // console.error("Error fetching articles:", error);
       } finally {
         setIsLoading(false);
       }

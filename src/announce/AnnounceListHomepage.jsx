@@ -19,7 +19,7 @@ function AnnounceListHomepage() {
                 setPosts(response.data);
                 setLoading(false);
             } else if (response.status === 404) {
-                console.error("요청이 실패했습니다.");
+                // console.error("요청이 실패했습니다.");
             }
         };
         fetchPost();

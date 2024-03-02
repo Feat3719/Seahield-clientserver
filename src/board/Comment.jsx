@@ -49,7 +49,7 @@ const Comment = ({ comments, fetchPost }) => {
             setIsUpdating({ ...isUpdating, [commentId]: false }); // 수정 상태 해제
             setUpdatedContent({ ...updatedContent, [commentId]: "" }); // 업데이트 필드 초기화
         } catch (error) {
-            console.error("Error", error);
+            // console.error("Error", error);
         } finally {
             setLoading((prev) => ({ ...prev, [commentId]: false })); // 로딩 종료
         }
@@ -79,7 +79,7 @@ const Comment = ({ comments, fetchPost }) => {
                         "success"
                     );
                 } catch (error) {
-                    console.error("Error", error);
+                    // console.error("Error", error);
                     Swal.fire(
                         "삭제 실패!",
                         "댓글 삭제에 실패했습니다.",
@@ -113,7 +113,7 @@ const Comment = ({ comments, fetchPost }) => {
             );
             fetchPost();
         } catch (error) {
-            console.error("Error", error);
+            // console.error("Error", error);
         } finally {
             setLoading((prev) => ({ ...prev, [commentId]: false })); // 로딩 종료
         }

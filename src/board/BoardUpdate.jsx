@@ -26,7 +26,7 @@ function BoardUpdate() {
                 setCategory(post.articleCtgr);
                 setContent(post.articleContents);
             } catch (error) {
-                console.error("Error", error);
+                // console.error("Error", error);
             }
         };
         fetchPost();
@@ -58,7 +58,7 @@ function BoardUpdate() {
                     );
                     navigate(`/boarddetail/${id}`); // 수정 후 상세 페이지로 이동
                 } catch (error) {
-                    console.error("Error", error);
+                    // console.error("Error", error);
                     Swal.fire(
                         '수정 실패!',
                         '게시글 수정에 실패했습니다.',

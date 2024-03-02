@@ -18,7 +18,6 @@ import SelectedLogDetails from "./SelectedLogDetails";
 // import GoogleMap from './GoogleMap';
 // import Kakao from './kakao';
 // const {kakao} = window;
-import CameraCircle from "./CameraCircle";
 import AnnounceListHomepage from "../announce/AnnounceListHomepage";
 
 const images = [
@@ -1622,7 +1621,7 @@ function Homepage() {
                             /> */}
                             {images.map((image, index) => {
                                 const cctvId = index + 1;
-                                const counts = objectCounts[cctvId] || []; // 현재 CCTV의 로그 배열을 가져옵니다.
+
                                 // const circleSize = calculateCircleSize(counts); // 원의 크기를 결정합니다. (이 함수는 이미 존재해야 합니다.)
 
                                 return (

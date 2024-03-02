@@ -34,7 +34,7 @@ function BoardDetail() {
             const post = response.data;
             setPost(post);
         } catch (error) {
-            console.error("Error", error);
+            // console.error("Error", error);
         }
     }, [id]);
 
@@ -67,7 +67,7 @@ function BoardDetail() {
                     );
                     navigate("/boardtab");
                 } catch (error) {
-                    console.error("Error", error);
+                    // console.error("Error", error);
                     Swal.fire(
                         "Failed!",
                         "There was a problem deleting your post.",
@@ -90,7 +90,7 @@ function BoardDetail() {
             setIsLiked(!isLiked); // 좋아요 상태 토글
             fetchPost(); // 포스트를 다시 가져옵니다.
         } catch (error) {
-            console.error("Error", error);
+            // console.error("Error", error);
         } finally {
             setIsLiking(false); // 로딩 종료
         }
@@ -112,7 +112,7 @@ function BoardDetail() {
             fetchPost(); // 글을 다시 불러와서 댓글을 최신 상태로 갱신
             setComments(""); // 입력 필드 초기화
         } catch (error) {
-            console.error("Error", error);
+            // console.error("Error", error);
         } finally {
             setIsSubmitting(false); // 로딩 종료
         }

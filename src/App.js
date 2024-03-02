@@ -24,7 +24,8 @@ import ProtectedRoute from "./reducers/ProtectedRoute";
 import PublicOnlyRoute from "./reducers/PublicOnlyRoute";
 import AdminOnlyRoute from "./reducers/AdminOnlyRoute";
 import BusinessOnlyRoute from "./reducers/BusinessOnlyRoute";
-import Monitoring from "./Monitoring/Monitoring";
+import Monitoring from "./monitoring/Monitoring";
+import AnnounceWrite from "./announce/AnnounceWrite";
 
 axios.defaults.baseURL = "https://devfeat.com";
 
@@ -51,7 +52,8 @@ function AppContent() {
         <Route path="/monitoring" element={<Monitoring />} />
         <Route path="/boardtab" element={<BoardTab />} />
         <Route path="/announce" element={<Announcement />} />
-        <Route path="/announcedetail/:id" element={<AnnounceDetail />} />
+        <Route path="/announcedetail/:announceId" element={<AnnounceDetail />} />
+        <Route path="/announcewrite/" element={<AnnounceWrite />} />
         <Route path="/boarddetail/:id" element={<BoardDetail />} />
 
         {/* 로그인한 사용자만 접근 가능 라우트 */}

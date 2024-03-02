@@ -6,37 +6,43 @@ import Editor from "./Editor";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Sidenav from "../sidenav/Sidenav";
-import Swal from 'sweetalert2';
-
+import Swal from "sweetalert2";
+// import { useLocation } from "react-router-dom";
 
 function BoardWrite() {
     const accessToken = useSelector((state) => state.auth.accessToken);
+    // const location = useLocation();
+    // const queryParams = new URLSearchParams(location.search);
+
+    // const tabName = queryParams.get("tabName");
+    // const ctgr = queryParams.get("category");
+    // const { tabName, ctgr } = useParams();
     const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
+    // const [category, setCategory] = useState(queryParams.get("category"));
     const [content, setContent] = useState("");
 
-    useEffect(() => {
-        console.log(content);
-    }, [content]);
+    // setCategory(ctgr);
+
+    useEffect(() => { }, [content]);
 
     const handleWrite = async () => {
         if (category === "") {
             Swal.fire({
-                title: '분류를 선택해주세요.',
-                icon: 'warning',
-                confirmButtonText: '확인'
+                title: "분류를 선택해주세요.",
+                icon: "warning",
+                confirmButtonText: "확인",
             });
             return;
         }
 
-
         Swal.fire({
-            title: '등록하시겠습니까?',
+            title: "등록하시겠습니까?",
             showCancelButton: true,
-            confirmButtonText: '작성',
-            cancelButtonText: '취소',
-            icon: 'question'
+            confirmButtonText: "작성",
+            cancelButtonText: "취소",
+            icon: "question",
         }).then((result) => {
             if (result.isConfirmed) {
                 // User clicked '작성', proceed with the write operation
@@ -62,10 +68,10 @@ function BoardWrite() {
             if (response.status === 201) {
                 navigate("/boardtab");
             } else if (response.status === 404) {
-                console.error("요청이 실패했습니다.");
+                // console.error("요청이 실패했습니다.");
             }
         } catch (error) {
-            console.error("Error", error);
+            // console.error("Error", error);
         }
     };
 
@@ -91,6 +97,7 @@ function BoardWrite() {
                         ></input>
                     </div>
                     <div className={style.category}>
+                        {/* <div>분류 : {tabName}</div> */}
                         <select
                             className={style.select}
                             name="category"

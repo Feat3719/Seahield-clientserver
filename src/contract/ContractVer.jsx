@@ -48,7 +48,7 @@ function ContractVer() {
         });
         setIsCompanyInfoRegistered(response.data);
       } catch (error) {
-        console.error("회사 정보 검증 오류", error);
+        // console.error("회사 정보 검증 오류", error);
         Swal.fire("회사 정보 검증 중 오류가 발생했습니다.", "", "error");
       }
     };

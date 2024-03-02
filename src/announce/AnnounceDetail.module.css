@@ -138,8 +138,8 @@
 
 .content {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
 
     white-space: normal;
     width: 95%;
@@ -148,9 +148,16 @@
     background-color: black;
 }
 
-.link {
-    margin: 0 0 0 7vw;
+#buttons {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
 }
+
+/* .link {
+    margin: 0 0 0 7vw;
+} */
 
 .announce_list_btn {
     cursor: pointer;
@@ -163,6 +170,21 @@
 }
 
 .announce_list_btn:hover {
+    background-color: #5164f5;
+    box-shadow: 0 1vh 3vh rgb(0, 0, 0);
+}
+
+.announce_delete_btn {
+    cursor: pointer;
+    background-color: #d7d7d7;
+    border: none;
+    border-radius: 0.1vh;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin: 3vh 0;
+    font-size: 2vh;
+}
+
+.announce_delete_btn:hover {
     background-color: #5164f5;
     box-shadow: 0 1vh 3vh rgb(0, 0, 0);
 }

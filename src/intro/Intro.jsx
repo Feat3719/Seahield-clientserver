@@ -122,7 +122,7 @@ function Intro() {
 
                         <div className={style.mapButtonContainer}>
                             <motion.div variants={buttonVariants} whileHover="hover">
-                                <Link to="/map" className={style.mapButton}>해안 쓰레기 지도 확인하러 가기
+                                <Link to="/monitoring" className={style.mapButton}>해안 쓰레기 지도 확인하러 가기
                                     <img src={`${process.env.PUBLIC_URL}/images/arrow.svg`} alt="arrow" className={style.arrow} />
                                 </Link>
                             </motion.div>

@@ -1,0 +1,39 @@
+.cctv_log_contents {
+    overflow-x: auto;
+    /* 가로 스크롤바 활성화 */
+    white-space: nowrap;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cctv_log_title {
+    width: 100%;
+    font-size: 2.5vh;
+    margin: 0;
+    color: white;
+    text-align: center;
+}
+
+.cctv_log_detail {
+    font-size: 1.5vh;
+    margin: 0 0 1vh 0;
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+
+.modallog_table {
+    color: white;
+    font-size: 1.5vh;
+    border-top: none;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.modallog_table th,
+.modallog_table td {
+    border: 0.1vh solid white;
+    /* 테이블 헤더와 셀에 흰색 테두리 적용 */
+}

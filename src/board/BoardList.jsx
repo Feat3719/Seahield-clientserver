@@ -10,8 +10,6 @@ function BoardList({ category, tabName, userType }) {
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(10);
-    // const usertype = useSelector((state) => state.auth.usertype);
-    // console.log(usertype);
 
     let showWriteButton = false;
     if (tabName === "자유게시판" || tabName === "질문게시판") {
@@ -26,8 +24,16 @@ function BoardList({ category, tabName, userType }) {
             const response = await axios.get(
                 `/api/board/articles?articleCtgr=${category}`
             );
-            const sortedPosts = response.data.sort(
-                (a, b) => b.articleId - a.articleId
+            const sortedPosts = response.data.sort((a, b) =>
+            // b.articleCreatedDate - a.articleCreatedDate
+            {
+                // 배열을 Date 객체로 변환합니다.
+                const dateA = new Date(...a.articleCreatedDate);
+                const dateB = new Date(...b.articleCreatedDate);
+
+                // 유닉스 타임스탬프를 이용하여 비교합니다.
+                return dateB.getTime() - dateA.getTime();
+            }
             );
             setPosts(sortedPosts);
             setLoading(false);
@@ -67,7 +73,7 @@ function BoardList({ category, tabName, userType }) {
             </div>
             {showWriteButton && (
                 <div id={style.buttonBox}>
-                    <Link to="/boardwrite">
+                    <Link to={"/boardwrite"}>
                         <button className={style.boardlist_btn}>글쓰기</button>
                     </Link>
                 </div>

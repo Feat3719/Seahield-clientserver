@@ -27,7 +27,7 @@ function CCTVModal({ accessToken, onClose }) {
                     return updatedLogs;
                 });
             } catch (error) {
-                console.error("Error fetching CCTV details:", error);
+                // console.error("Error fetching CCTV details:", error);
             }
         };
 

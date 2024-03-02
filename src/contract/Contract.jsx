@@ -106,7 +106,7 @@ function Contract() {
           setCeoName(response.data.userNickname); // 'userNickname' 필드에 대표자 이름이 있다고 가정
         }
       } catch (error) {
-        console.error("회사 정보 가져오기 실패:", error);
+        // console.error("회사 정보 가져오기 실패:", error);
         alert(
           "회사 정보를 가져오는 중 오류가 발생했습니다. 나중에 다시 시도해주세요."
         );
@@ -142,7 +142,7 @@ function Contract() {
         });
       }
     } catch (error) {
-      console.error("입찰신청 실패:", error);
+      // console.error("입찰신청 실패:", error);
       Swal.fire({
         icon: 'error',
         title: '입찰신청 실패',
@@ -161,7 +161,7 @@ function Contract() {
           setAnnounceList(response.data);
         }
       } catch (error) {
-        console.error("공고 목록 불러오기 실패:", error);
+        // console.error("공고 목록 불러오기 실패:", error);
         Swal.fire("오류", "공고 목록을 불러오는 데 실패했습니다.", "error");
       }
     };
@@ -185,7 +185,7 @@ function Contract() {
       setAnnounceName(selectedAnnounce.announceName);
     } else {
       // 선택하지 않았을 때 로그
-      console.log("", "");
+      // console.log("", "");
       setAnnounceId("");
       setAnnounceName("");
     }

@@ -9,6 +9,7 @@ import MyEditPrev from "./MyEditPrev";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import ModalMypageContract from "./ModalMypageContract";
+// import Pagination from "../board/Pagination";
 
 const MypageRegular = () => {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -92,7 +93,7 @@ const MypageRegular = () => {
                     // setLoading(false);
                 }
             } catch (error) {
-                console.error("게시글을 불러오는 데 실패했습니다.", error);
+                // console.error("게시글을 불러오는 데 실패했습니다.", error);
             }
         };
 
@@ -152,7 +153,7 @@ const MypageRegular = () => {
     // 정보 업데이트 부분___________________________________
     const updateUserInfo = async () => {
         if (userPwd !== reenteredPwd) {
-            console.error("비밀번호가 일치하지 않습니다.");
+            // console.error("비밀번호가 일치하지 않습니다.");
             alert("비밀번호가 일치하지 않습니다.");
             setPwdMatch(false); // pwdMatch 상태 업데이트
             return; // 함수 실행 중단
@@ -179,37 +180,31 @@ const MypageRegular = () => {
             );
             if (response.status === 200) {
                 alert("사용자 정보가 업데이트되었습니다.");
-                setPwdMatch(true); // 성공 시 pwdMatch 상태를 true로 설정
-                // 필요하다면 업데이트된 정보를 다시 가져와서 상태를 업데이트합니다.
+                setPwdMatch(true);
             } else {
                 alert("사용자 정보 업데이트에 실패했습니다.");
             }
         } catch (error) {
-            console.error("Error updating user info:", error);
+            // console.error("Error updating user info:", error);
             alert("사용자 정보 업데이트에 실패했습니다.");
         }
     };
-    // _______________비번 확인 관련_____________________
 
-    //계약 아이디 조회
     useEffect(() => {
         const fetchContracts = async () => {
             try {
                 const response = await axios.get("/api/contract/list", {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
+                    headers: { Authorization: `Bearer ${accessToken}` },
                 });
                 if (response.status === 200) {
-                    setContracts(response.data); // 계약 목록 설정
-                    // setContractId(response.data.contractId)
+                    setContracts(response.data);
                 }
             } catch (error) {
                 console.error("계약 목록 불러오기 에러", error);
             }
         };
         fetchContracts();
-    }, [accessToken]); // accessToken 변경 시 다시 실행
+    }, [accessToken]);
 
     // 두 번째 useEffect: 선택된 계약의 세부 사항 불러오기
     useEffect(() => {
@@ -292,6 +287,32 @@ const MypageRegular = () => {
             console.error("계약 정보를 가져오는 데 실패했습니다.", error);
         }
     };
+    // 두 번째 useEffect: 선택된 계약의 세부 사항 불러오기
+    useEffect(() => {
+        contracts.forEach((contract) => {
+            const fetchContractDetails = async () => {
+                try {
+                    const response = await axios.get(
+                        `/api/contract/details/${contract.contractId}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${accessToken}`,
+                            },
+                        }
+                    );
+                    if (response.status === 200) {
+                        setContractDetails((prevDetails) => [
+                            ...prevDetails,
+                            response.data,
+                        ]); // 세부 사항 추가
+                    }
+                } catch (error) {
+                    console.error("계약 세부 사항 불러오기 에러", error);
+                }
+            };
+            fetchContractDetails();
+        });
+    }, [contracts, accessToken]);
 
     // 모달 닫기 함수
     const handleCloseModal = () => {

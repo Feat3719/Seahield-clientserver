@@ -63,7 +63,7 @@ function Signin() {
                     }
                     setIsLoading(false);
                     if (result.isConfirmed || result.isDismissed) {
-                        navigate("/map");
+                        navigate("/monitoring");
                     }
                 });
             } else if (response.status === 404) {

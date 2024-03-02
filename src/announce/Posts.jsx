@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./Posts.module.css";
-import FormatDate from "./FormatDatetime";
+import FormatDate from "./FormatDate";
 import Skeleton from "react-loading-skeleton"; // 스켈레톤 컴포넌트 import
 import "react-loading-skeleton/dist/skeleton.css"; // 스켈레톤 CSS import
 import { useNavigate } from "react-router-dom";
@@ -41,8 +41,11 @@ const Posts = ({ posts, loading }) => {
     }
 
     const handleRowClick = (announceId) => {
+        // console.log(announceId);
         navigate(`/announcedetail/${announceId}`);
     };
+
+    // console.log(posts[0].announceCreatedDate);
 
     return (
         <>
